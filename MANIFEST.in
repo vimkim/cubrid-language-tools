@@ -1,1 +1,5 @@
 recursive-include tests/fixtures *.json
+recursive-include native/parser-worker *.py *.cpp *.hpp *.md *.txt *.json *.strace
+prune native/parser-worker/build
+recursive-include tests/native_parser *.py
+include tests/test_validation_*.py
