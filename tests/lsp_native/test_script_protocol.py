@@ -76,8 +76,10 @@ class NativeScriptProtocolTests(unittest.TestCase):
                 'cubrid': {**self.settings['cubrid'], 'scriptMode': 'csql', 'profile': 'unknown-profile'}}})
             client.change(uri, ';autocommit off', 3)
             self.assertEqual([d['code'] for d in client.diagnostics(uri, 3)['diagnostics']], ['CUBRID-U1001'])
+            client.change(uri, "BEGIN\n'open", 4)
+            self.assertEqual([d['code'] for d in client.diagnostics(uri, 4)['diagnostics']], ['CUBRID-U1001'])
             client.send('workspace/didChangeConfiguration', {'settings': {
                 'cubrid': {'parserWorker': '/nonexistent/script-worker',
                            'runtimePrefix': str(self.config.runtime_prefix), 'scriptMode': 'csql'}}})
-            client.change(uri, ';help', 4)
-            self.assertEqual([d['code'] for d in client.diagnostics(uri, 4)['diagnostics']], ['CUBRID-T1001'])
+            client.change(uri, ';help', 5)
+            self.assertEqual([d['code'] for d in client.diagnostics(uri, 5)['diagnostics']], ['CUBRID-T1001'])

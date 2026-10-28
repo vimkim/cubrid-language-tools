@@ -72,7 +72,6 @@ class Validator:
         return ValidationResult(result.status, result.coverage, result.profile, diagnostics, result.statement_kinds)
 
     def _script(self, worker, text, profile):
-        parts = classify(text)
         diagnostics, kinds = [], []
         available = True
         try:
@@ -82,6 +81,9 @@ class Validator:
             category = 'unsupported' if error.code == 'CUBRID-U1001' else 'tool'
             diagnostics.append(Diagnostic(error.code, 'warning' if category == 'unsupported' else 'error',
                                           str(error), Span(0, len(text)), 'statement', category))
+            if error.code == 'CUBRID-U1001':
+                return ValidationResult('unsupported', 'none', profile, tuple(diagnostics))
+        parts = classify(text)
         checked = False
         incomplete = not available
         for part in parts:

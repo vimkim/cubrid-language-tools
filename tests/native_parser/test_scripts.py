@@ -135,3 +135,26 @@ class NativeScriptTests(unittest.TestCase):
             self.assertNotIn('/bin/sh', syscalls)
             self.assertNotIn('/usr/bin/touch', syscalls)
             self.assertFalse(marker.exists())
+
+    def test_unknown_profile_preserves_unsupported_status_before_opaque_syntax_classification(self):
+        text = "BEGIN\n'open"
+        with Validator(self.config) as validator:
+            for mode in ('sql', 'csql'):
+                with self.subTest(mode=mode):
+                    result = validator.validate(text, 'unknown-profile', mode)
+                    self.assertEqual((result.status, result.coverage), ('unsupported', 'none'))
+                    self.assertEqual([d.code for d in result.diagnostics], ['CUBRID-U1001'])
+            known = validator.validate(text, PROFILE, 'csql')
+            self.assertEqual((known.status, known.coverage), ('syntax-error', 'none'))
+            self.assertEqual([d.code for d in known.diagnostics], ['CUBRID-S1001', 'CUBRID-U1002'])
+        with tempfile.TemporaryDirectory() as directory:
+            result = self.run_cli('--profile', 'unknown-profile', '--script-mode', 'csql',
+                                  '--format', 'json', '-', data=text.encode(), cwd=directory)
+            self.assertEqual(result.returncode, 2, result.stderr)
+            document = json.loads(result.stdout)['documents'][0]
+            self.assertEqual((document['status'], document['coverage']), ('unsupported', 'none'))
+            self.assertEqual([d['code'] for d in document['diagnostics']], ['CUBRID-U1001'])
+            invalid = self.run_cli('--profile', 'unknown-profile', '--script-mode', 'csql',
+                                   '--format', 'json', '-', data=b'BEGIN\n\xff', cwd=directory)
+            self.assertEqual(invalid.returncode, 3, invalid.stderr)
+            self.assertEqual(json.loads(invalid.stdout)['documents'][0]['diagnostics'][0]['code'], 'CUBRID-T1003')

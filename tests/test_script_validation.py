@@ -75,6 +75,27 @@ class ScriptValidationTests(unittest.TestCase):
         self.assertEqual([d.code for d in result.diagnostics], ['CUBRID-S1001', 'CUBRID-U1002', 'CUBRID-T1002'])
         self.assertIn('truncated', result.diagnostics[-1].message)
 
+    def test_rejected_profile_cannot_classify_opaque_content_as_syntax(self):
+        with tempfile.TemporaryDirectory() as directory:
+            config = self.config(Path(directory))
+            with Validator(config) as validator:
+                for mode in ('sql', 'csql'):
+                    for text in ("BEGIN\n'open", "CREATE PROCEDURE p() AS BEGIN SELECT 'open",
+                                 ";read missing.sql\nBEGIN\n'open"):
+                        with self.subTest(mode=mode, text=text):
+                            result = validator.validate(text, 'unknown-profile', mode)
+                            self.assertEqual((result.status, result.coverage), ('unsupported', 'none'))
+                            self.assertEqual([d.code for d in result.diagnostics], ['CUBRID-U1001'])
+                known = validator.validate("BEGIN\n'open", PROFILE, 'csql')
+                self.assertEqual((known.status, known.coverage), ('syntax-error', 'none'))
+                self.assertEqual([d.code for d in known.diagnostics], ['CUBRID-S1001', 'CUBRID-U1002'])
+            limited = WorkerConfig(config.executable, config.runtime_prefix, max_document_bytes=8)
+            with Validator(limited) as validator:
+                for text in ('\ud800', '\0', "BEGIN\n'open"):
+                    with self.subTest(invalid=repr(text)):
+                        result = validator.validate(text, 'unknown-profile', 'csql')
+                        self.assertEqual((result.status, result.diagnostics[0].code), ('tool-error', 'CUBRID-T1003'))
+
     def test_csql_commands_cannot_bypass_input_limits_or_closed_ownership(self):
         missing = WorkerConfig(Path('/nonexistent/script-worker'), Path('/explicit/runtime'), max_document_bytes=8)
         with Validator(missing) as validator:
