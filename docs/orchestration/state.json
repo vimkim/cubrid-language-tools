@@ -56,10 +56,13 @@
       ]
     },
     "04": {
-      "status": "pending",
+      "status": "dispatched",
       "dependsOn": [
         "01"
-      ]
+      ],
+      "base": "8d61ec87cd3fe5d80427e36ccd241e550180649a",
+      "branch": "central/ticket-04",
+      "worktree": "/home/vimkim/gh/cubrid-language-tools-04"
     },
     "05": {
       "status": "pending",
