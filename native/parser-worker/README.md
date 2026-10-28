@@ -159,7 +159,7 @@ cancellation or active close uses kill/reap of the owned PID only. Abrupt native
 termination can leave its private temporary directory; the client never sweeps
 /tmp or signals descendants/unrelated processes.
 
-The retained strace covers network/process/openat calls for 25 listed fixtures:
+The retained strace covers network/process/openat calls for 179 listed fixtures:
 one worker execution, no descendants, no network calls and no external writable
 opens. Ordinary system library/locale files can be read. This observation is
 corpus-specific and is not an operating-system sandbox or a proof for other SQL.
