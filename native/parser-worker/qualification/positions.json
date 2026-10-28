@@ -1,0 +1,57 @@
+{
+  "utf8Bytes": 8000000,
+  "codepoints": 4000000,
+  "roundtrips": [
+    {
+      "codepoint": 0,
+      "utf8Byte": 0,
+      "utf16Position": [
+        0,
+        0
+      ]
+    },
+    {
+      "codepoint": 1,
+      "utf8Byte": 3,
+      "utf16Position": [
+        0,
+        1
+      ]
+    },
+    {
+      "codepoint": 2,
+      "utf8Byte": 7,
+      "utf16Position": [
+        0,
+        3
+      ]
+    },
+    {
+      "codepoint": 5,
+      "utf8Byte": 10,
+      "utf16Position": [
+        1,
+        0
+      ]
+    },
+    {
+      "codepoint": 3999997,
+      "utf8Byte": 7999997,
+      "utf16Position": [
+        799999,
+        3
+      ]
+    },
+    {
+      "codepoint": 4000000,
+      "utf8Byte": 8000000,
+      "utf16Position": [
+        800000,
+        0
+      ]
+    }
+  ],
+  "elapsedSeconds": 1.157,
+  "maxRssKiB": 80640,
+  "scope": "One 8,000,000-byte/4,000,000-code-point Korean/emoji/CRLF mapping experiment; native worker independently limits address space to 512 MiB."
+}

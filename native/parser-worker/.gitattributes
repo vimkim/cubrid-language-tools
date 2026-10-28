@@ -1,0 +1,2 @@
+# Preserve upstream license/credit texts byte-for-byte, including their whitespace.
+notices/*.txt -whitespace

@@ -1,0 +1,89 @@
+{
+  "noticeFiles": {
+    "CUBRID-COPYING.txt": {
+      "source": "/home/vimkim/gh/cubrid-rust/reference-cubrid-cc947788/COPYING",
+      "sha256": "c07109eaca65571127f893b38e71c477e91830170ed426ff5b0c8cb93e7dd61e"
+    },
+    "CUBRID-CREDITS.txt": {
+      "source": "/home/vimkim/gh/cubrid-rust/reference-cubrid-cc947788/CREDITS",
+      "sha256": "800aefc7c8e9762d0063bc5acf672590e394f2f684efe47cb8d59c3e4844518b"
+    },
+    "CCI-COPYING.txt": {
+      "source": "/home/vimkim/gh/cb/develop/cubrid-cci/COPYING",
+      "sha256": "c07109eaca65571127f893b38e71c477e91830170ed426ff5b0c8cb93e7dd61e"
+    },
+    "RapidJSON.txt": {
+      "source": "/home/vimkim/gh/cb/develop/build_preset_debug_gcc/3rdparty/Source/rapidjson/license.txt",
+      "sha256": "a140e5d46fe734a1c78f1a3c3ef207871dd75648be71fdda8e309b23ab8b1f32"
+    },
+    "OpenSSL-system.txt": {
+      "source": "/usr/share/licenses/openssl-libs/LICENSE.txt",
+      "sha256": "7d5450cb2d142651b8afa315b5f238efc805dad827d91ba367d8516bc9d49e7a"
+    },
+    "glibc-COPYING.txt": {
+      "source": "/usr/share/licenses/glibc/COPYING",
+      "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+    },
+    "glibc-COPYING-LIB.txt": {
+      "source": "/usr/share/licenses/glibc/COPYING.LIB",
+      "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551"
+    },
+    "glibc-LICENSES.txt": {
+      "source": "/usr/share/licenses/glibc/LICENSES",
+      "sha256": "b33d0bd9f685b46853548814893a6135e74430d12f6d94ab3eba42fc591f83bc"
+    },
+    "GCC-GPL3.txt": {
+      "source": "/usr/share/licenses/libgcc/COPYING3",
+      "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+    },
+    "GCC-LGPL3.txt": {
+      "source": "/usr/share/licenses/libgcc/COPYING3.LIB",
+      "sha256": "a853c2ffec17057872340eee242ae4d96cbf2b520ae27d903e1b2fef1a5f9d1c"
+    },
+    "GCC-runtime-exception.txt": {
+      "source": "/usr/share/licenses/libgcc/COPYING.RUNTIME",
+      "sha256": "9d6b43ce4d8de0c878bf16b54d8e7a10d9bd42b75178153e3af6a815bdc90f74"
+    },
+    "zlib.txt": {
+      "source": "/usr/share/licenses/zlib/README",
+      "sha256": "7960b6b1cc63e619abb77acaea5427159605afee8c8b362664f4effc7d7f7d15"
+    },
+    "libedit.txt": {
+      "source": "/home/vimkim/gh/cubrid-rust/reference-cubrid-cc947788/3rdparty/license/libedit_license.txt",
+      "sha256": "9da6c9c74987a36c84302982799d17d2f748ba1c1c0c471425716173c1d07649"
+    },
+    "libexpat.txt": {
+      "source": "/home/vimkim/gh/cubrid-rust/reference-cubrid-cc947788/3rdparty/license/libexpat_license.txt",
+      "sha256": "31b15de82aa19a845156169a17a5488bf597e561b2c318d159ed583139b25e87"
+    },
+    "libopenssl.txt": {
+      "source": "/home/vimkim/gh/cubrid-rust/reference-cubrid-cc947788/3rdparty/license/libopenssl_license.txt",
+      "sha256": "7d5450cb2d142651b8afa315b5f238efc805dad827d91ba367d8516bc9d49e7a"
+    },
+    "re2.txt": {
+      "source": "/home/vimkim/gh/cubrid-rust/reference-cubrid-cc947788/3rdparty/license/re2_license.txt",
+      "sha256": "6040cda75d90b1738292a631d89934c411ef7ffd543c4d6a1b7edfc8edf29449"
+    },
+    "lz4.txt": {
+      "source": "/home/vimkim/gh/cubrid-rust/reference-cubrid-cc947788/3rdparty/license/lz4_license.txt",
+      "sha256": "8b58c446121a109ccf32edc094bba3010a3d85e4ee3702950db55e4d3e87736c"
+    }
+  },
+  "nativeLibrary": {
+    "path": "/home/vimkim/gh/cb/develop/build_preset_debug_gcc/cs/libcubridcs.so.11.5",
+    "sha256": "56eb36e9a46e3b6f5258974b25085b81d1679430618041343e4d979704822b33"
+  },
+  "libraryLinkEvidence": {
+    "path": "/home/vimkim/gh/cb/develop/build_preset_debug_gcc/build.ninja",
+    "sha256": "09f22c24313b82ce714a8c9cc2bbc0d330b4cb0ec98434d3e3e4139fab00e698",
+    "cubridcsLinkLibraries": "LINK_LIBRARIES = -Wl,-rpath,/home/vimkim/gh/cb/develop/build_preset_debug_gcc/cubrid-cci/cci:  -Wl,-whole-archive  3rdparty/lib/libexpat.a  3rdparty/lib/libedit.a  3rdparty/Source/lz4/lib/liblz4.a  3rdparty/lib/libssl.a  3rdparty/lib/libcrypto.a  3rdparty/Source/re2/obj/libre2.a  -Wl,-no-whole-archive  -lstdc++fs  -ldl  -lrt  cubrid-cci/cci/libcascci.so.11.2"
+  },
+  "hostPackages": [
+    "glibc-2.34-168.el9_6.20.x86_64",
+    "libgcc-11.5.0-5.el9_5.x86_64",
+    "libstdc++-11.5.0-5.el9_5.x86_64",
+    "openssl-libs-3.5.1-7.el9_7.x86_64",
+    "zlib-1.2.11-40.el9.x86_64"
+  ],
+  "limits": "The Python wheel contains no CUBRID, OpenSSL, CCI, GCC, glibc or zlib binaries. These are separate host runtime inputs; portable runtime redistribution is outside this qualification."
+}

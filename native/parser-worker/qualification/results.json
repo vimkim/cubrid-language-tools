@@ -1,0 +1,1084 @@
+{
+  "command": [
+    "strace",
+    "-f",
+    "-e",
+    "trace=network,process,openat",
+    "-o",
+    "/home/vimkim/gh/cubrid-language-tools-02/native/parser-worker/qualification/syscalls.strace",
+    "/home/vimkim/gh/cubrid-language-tools-02/native/parser-worker/build/parser-worker",
+    "--manifest",
+    "/home/vimkim/gh/cubrid-language-tools-02/native/parser-worker/build/manifest.json"
+  ],
+  "initialize": {
+    "protocolVersion": 1,
+    "id": 1,
+    "status": "ready",
+    "profile": "cubrid-11.5.0.2704-cc94778",
+    "sourceCommit": "cc947788d3b7dc402f46192d0f3299ddcc8563ba",
+    "nativeVersion": "11.5.0.2704-cc94778",
+    "settings": {
+      "ansi_quotes": true,
+      "charset": "en_US.utf8",
+      "compat_mode": 0,
+      "intl_check_input_string": true,
+      "intl_collation": "utf8_bin",
+      "no_backslash_escapes": false,
+      "oracle_style_empty_string": false,
+      "parser_use_client_charset": true,
+      "pipes_as_concat": true,
+      "query_trace": false,
+      "strings_have_no_escapes": false,
+      "unicode_input_normalization": false,
+      "unicode_output_normalization": false
+    },
+    "platform": "linux-x86_64",
+    "supportedStatementKinds": [
+      "PT_SELECT",
+      "PT_CREATE_SERIAL"
+    ],
+    "coverageRevision": "literal-select-create-serial-v1",
+    "runtimePrefix": "/home/vimkim/.cub/install/develop/debug",
+    "testOnly": false,
+    "manifestDigest": "ccd692fa5b39b3b36c3f76679167045bcb5bcf3e6f982b741da4e855e6e488d3"
+  },
+  "cases": [
+    {
+      "id": "serial-valid",
+      "text": "CREATE SERIAL order_no START WITH 10 INCREMENT BY 2;",
+      "expected": "valid",
+      "response": {
+        "protocolVersion": 1,
+        "id": 2,
+        "status": "valid",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "ccd692fa5b39b3b36c3f76679167045bcb5bcf3e6f982b741da4e855e6e488d3",
+        "coverage": "complete",
+        "diagnostics": [],
+        "statementKinds": [
+          "PT_CREATE_SERIAL"
+        ],
+        "coverageDecisions": [
+          {
+            "start": 0,
+            "end": 52,
+            "admitted": true
+          }
+        ],
+        "nativeObservations": [
+          {
+            "hasTree": true,
+            "treeCount": 1,
+            "hasInternalError": false,
+            "hasError": false,
+            "errorCount": 0,
+            "partialStackCount": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "serial-invalid",
+      "text": "CREATE SERIAL order_no START WITH ;",
+      "expected": "syntax-error",
+      "response": {
+        "protocolVersion": 1,
+        "id": 3,
+        "status": "syntax-error",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "ccd692fa5b39b3b36c3f76679167045bcb5bcf3e6f982b741da4e855e6e488d3",
+        "coverage": "complete",
+        "diagnostics": [
+          {
+            "code": "CUBRID-S1001",
+            "category": "syntax",
+            "severity": "error",
+            "message": "In line 1, column 35 before END OF STATEMENT\nSyntax error: unexpected ';', expecting UNSIGNED_INTEGER",
+            "span": {
+              "start": 0,
+              "end": 35
+            },
+            "rangePrecision": "statement",
+            "nativeCoordinates": {
+              "statement": 0,
+              "line": 1,
+              "column": 35
+            }
+          }
+        ],
+        "statementKinds": [],
+        "coverageDecisions": [
+          {
+            "start": 0,
+            "end": 35,
+            "admitted": true
+          }
+        ],
+        "nativeObservations": [
+          {
+            "hasTree": false,
+            "treeCount": 0,
+            "hasInternalError": false,
+            "hasError": true,
+            "errorCount": 1,
+            "partialStackCount": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "serial-unicode-invalid",
+      "text": "-- 한글 😀\r\nCREATE SERIAL 주문 START WITH ;",
+      "expected": "syntax-error",
+      "response": {
+        "protocolVersion": 1,
+        "id": 4,
+        "status": "syntax-error",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "ccd692fa5b39b3b36c3f76679167045bcb5bcf3e6f982b741da4e855e6e488d3",
+        "coverage": "complete",
+        "diagnostics": [
+          {
+            "code": "CUBRID-S1001",
+            "category": "syntax",
+            "severity": "error",
+            "message": "In line 2, column 33 before END OF STATEMENT\nSyntax error: unexpected ';', expecting UNSIGNED_INTEGER",
+            "span": {
+              "start": 0,
+              "end": 38
+            },
+            "rangePrecision": "statement",
+            "nativeCoordinates": {
+              "statement": 0,
+              "line": 2,
+              "column": 33
+            }
+          }
+        ],
+        "statementKinds": [],
+        "coverageDecisions": [
+          {
+            "start": 0,
+            "end": 38,
+            "admitted": true
+          }
+        ],
+        "nativeObservations": [
+          {
+            "hasTree": false,
+            "treeCount": 0,
+            "hasInternalError": false,
+            "hasError": true,
+            "errorCount": 1,
+            "partialStackCount": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "serial-partial-stack",
+      "text": "CREATE SERIAL s START WITH 1 START WITH 2;",
+      "expected": "syntax-error",
+      "response": {
+        "protocolVersion": 1,
+        "id": 5,
+        "status": "syntax-error",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "ccd692fa5b39b3b36c3f76679167045bcb5bcf3e6f982b741da4e855e6e488d3",
+        "coverage": "complete",
+        "diagnostics": [
+          {
+            "code": "CUBRID-S1001",
+            "category": "syntax",
+            "severity": "error",
+            "message": "Duplicate 'serial start' option.",
+            "span": {
+              "start": 0,
+              "end": 42
+            },
+            "rangePrecision": "statement",
+            "nativeCoordinates": {
+              "statement": 0,
+              "line": -1,
+              "column": -1
+            }
+          }
+        ],
+        "statementKinds": [],
+        "coverageDecisions": [
+          {
+            "start": 0,
+            "end": 42,
+            "admitted": true
+          }
+        ],
+        "nativeObservations": [
+          {
+            "hasTree": false,
+            "treeCount": 0,
+            "hasInternalError": false,
+            "hasError": true,
+            "errorCount": 1,
+            "partialStackCount": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "serial-options",
+      "text": "CREATE SERIAL s START WITH -10 INCREMENT BY +2 MINVALUE -20 MAXVALUE 100 CYCLE CACHE 8 COMMENT '가😀';",
+      "expected": "valid",
+      "response": {
+        "protocolVersion": 1,
+        "id": 6,
+        "status": "valid",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "ccd692fa5b39b3b36c3f76679167045bcb5bcf3e6f982b741da4e855e6e488d3",
+        "coverage": "complete",
+        "diagnostics": [],
+        "statementKinds": [
+          "PT_CREATE_SERIAL"
+        ],
+        "coverageDecisions": [
+          {
+            "start": 0,
+            "end": 100,
+            "admitted": true
+          }
+        ],
+        "nativeObservations": [
+          {
+            "hasTree": true,
+            "treeCount": 1,
+            "hasInternalError": false,
+            "hasError": false,
+            "errorCount": 0,
+            "partialStackCount": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "serial-disabled-options",
+      "text": "CREATE SERIAL s NOMINVALUE NOMAXVALUE NOCYCLE NOCACHE;",
+      "expected": "valid",
+      "response": {
+        "protocolVersion": 1,
+        "id": 7,
+        "status": "valid",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "ccd692fa5b39b3b36c3f76679167045bcb5bcf3e6f982b741da4e855e6e488d3",
+        "coverage": "complete",
+        "diagnostics": [],
+        "statementKinds": [
+          "PT_CREATE_SERIAL"
+        ],
+        "coverageDecisions": [
+          {
+            "start": 0,
+            "end": 54,
+            "admitted": true
+          }
+        ],
+        "nativeObservations": [
+          {
+            "hasTree": true,
+            "treeCount": 1,
+            "hasInternalError": false,
+            "hasError": false,
+            "errorCount": 0,
+            "partialStackCount": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "serial-cache-overflow",
+      "text": "CREATE SERIAL s CACHE 2147483648;",
+      "expected": "syntax-error",
+      "response": {
+        "protocolVersion": 1,
+        "id": 8,
+        "status": "syntax-error",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "ccd692fa5b39b3b36c3f76679167045bcb5bcf3e6f982b741da4e855e6e488d3",
+        "coverage": "complete",
+        "diagnostics": [
+          {
+            "code": "CUBRID-S1001",
+            "category": "syntax",
+            "severity": "error",
+            "message": "Invalid unsigned integer 2147483648.",
+            "span": {
+              "start": 0,
+              "end": 33
+            },
+            "rangePrecision": "statement",
+            "nativeCoordinates": {
+              "statement": 0,
+              "line": 1,
+              "column": 23
+            }
+          }
+        ],
+        "statementKinds": [],
+        "coverageDecisions": [
+          {
+            "start": 0,
+            "end": 33,
+            "admitted": true
+          }
+        ],
+        "nativeObservations": [
+          {
+            "hasTree": false,
+            "treeCount": 0,
+            "hasInternalError": false,
+            "hasError": true,
+            "errorCount": 1,
+            "partialStackCount": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "serial-comment-concatenation",
+      "text": "CREATE SERIAL s COMMENT 'a' 'b';",
+      "expected": "valid",
+      "response": {
+        "protocolVersion": 1,
+        "id": 9,
+        "status": "valid",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "ccd692fa5b39b3b36c3f76679167045bcb5bcf3e6f982b741da4e855e6e488d3",
+        "coverage": "complete",
+        "diagnostics": [],
+        "statementKinds": [
+          "PT_CREATE_SERIAL"
+        ],
+        "coverageDecisions": [
+          {
+            "start": 0,
+            "end": 32,
+            "admitted": true
+          }
+        ],
+        "nativeObservations": [
+          {
+            "hasTree": true,
+            "treeCount": 1,
+            "hasInternalError": false,
+            "hasError": false,
+            "errorCount": 0,
+            "partialStackCount": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "literal-valid",
+      "text": "SELECT '한글 😀', -10, NULL;",
+      "expected": "valid",
+      "response": {
+        "protocolVersion": 1,
+        "id": 10,
+        "status": "valid",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "ccd692fa5b39b3b36c3f76679167045bcb5bcf3e6f982b741da4e855e6e488d3",
+        "coverage": "complete",
+        "diagnostics": [],
+        "statementKinds": [
+          "PT_SELECT"
+        ],
+        "coverageDecisions": [
+          {
+            "start": 0,
+            "end": 25,
+            "admitted": true
+          }
+        ],
+        "nativeObservations": [
+          {
+            "hasTree": true,
+            "treeCount": 1,
+            "hasInternalError": false,
+            "hasError": false,
+            "errorCount": 0,
+            "partialStackCount": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "literal-boundaries",
+      "text": "SELECT 99999999999999999999999999999999999999, +2, -9223372036854775808, NULL, 'a''b', 'a\\n';",
+      "expected": "valid",
+      "response": {
+        "protocolVersion": 1,
+        "id": 11,
+        "status": "valid",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "ccd692fa5b39b3b36c3f76679167045bcb5bcf3e6f982b741da4e855e6e488d3",
+        "coverage": "complete",
+        "diagnostics": [],
+        "statementKinds": [
+          "PT_SELECT"
+        ],
+        "coverageDecisions": [
+          {
+            "start": 0,
+            "end": 93,
+            "admitted": true
+          }
+        ],
+        "nativeObservations": [
+          {
+            "hasTree": true,
+            "treeCount": 1,
+            "hasInternalError": false,
+            "hasError": false,
+            "errorCount": 0,
+            "partialStackCount": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "semicolon-optional",
+      "text": "SELECT 1",
+      "expected": "valid",
+      "response": {
+        "protocolVersion": 1,
+        "id": 12,
+        "status": "valid",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "ccd692fa5b39b3b36c3f76679167045bcb5bcf3e6f982b741da4e855e6e488d3",
+        "coverage": "complete",
+        "diagnostics": [],
+        "statementKinds": [
+          "PT_SELECT"
+        ],
+        "coverageDecisions": [
+          {
+            "start": 0,
+            "end": 8,
+            "admitted": true
+          }
+        ],
+        "nativeObservations": [
+          {
+            "hasTree": true,
+            "treeCount": 1,
+            "hasInternalError": false,
+            "hasError": false,
+            "errorCount": 0,
+            "partialStackCount": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "unterminated-string",
+      "text": "SELECT '가😀",
+      "expected": "syntax-error",
+      "response": {
+        "protocolVersion": 1,
+        "id": 13,
+        "status": "syntax-error",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "ccd692fa5b39b3b36c3f76679167045bcb5bcf3e6f982b741da4e855e6e488d3",
+        "coverage": "complete",
+        "diagnostics": [
+          {
+            "code": "CUBRID-S1001",
+            "category": "syntax",
+            "severity": "error",
+            "message": "Unterminated quoted token or comment",
+            "span": {
+              "start": 0,
+              "end": 10
+            },
+            "rangePrecision": "statement"
+          }
+        ],
+        "statementKinds": [],
+        "coverageDecisions": [
+          {
+            "start": 0,
+            "end": 10,
+            "admitted": false
+          }
+        ],
+        "nativeObservations": []
+      }
+    },
+    {
+      "id": "unterminated-comment",
+      "text": "SELECT 1 /* unfinished",
+      "expected": "syntax-error",
+      "response": {
+        "protocolVersion": 1,
+        "id": 14,
+        "status": "syntax-error",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "ccd692fa5b39b3b36c3f76679167045bcb5bcf3e6f982b741da4e855e6e488d3",
+        "coverage": "complete",
+        "diagnostics": [
+          {
+            "code": "CUBRID-S1001",
+            "category": "syntax",
+            "severity": "error",
+            "message": "Unterminated quoted token or comment",
+            "span": {
+              "start": 0,
+              "end": 22
+            },
+            "rangePrecision": "statement"
+          }
+        ],
+        "statementKinds": [],
+        "coverageDecisions": [
+          {
+            "start": 0,
+            "end": 22,
+            "admitted": false
+          }
+        ],
+        "nativeObservations": []
+      }
+    },
+    {
+      "id": "syntax-and-unsupported",
+      "text": "SELECT 1,; DROP TABLE never_execute;",
+      "expected": "syntax-error",
+      "response": {
+        "protocolVersion": 1,
+        "id": 15,
+        "status": "syntax-error",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "ccd692fa5b39b3b36c3f76679167045bcb5bcf3e6f982b741da4e855e6e488d3",
+        "coverage": "partial",
+        "diagnostics": [
+          {
+            "code": "CUBRID-S1001",
+            "category": "syntax",
+            "severity": "error",
+            "message": "In line 1, column 10 before END OF STATEMENT\nSyntax error: unexpected ';'",
+            "span": {
+              "start": 0,
+              "end": 10
+            },
+            "rangePrecision": "statement",
+            "nativeCoordinates": {
+              "statement": 0,
+              "line": 1,
+              "column": 10
+            }
+          },
+          {
+            "code": "CUBRID-U1002",
+            "category": "unsupported",
+            "severity": "warning",
+            "message": "Statement is outside qualified native coverage",
+            "span": {
+              "start": 10,
+              "end": 36
+            },
+            "rangePrecision": "statement"
+          }
+        ],
+        "statementKinds": [],
+        "coverageDecisions": [
+          {
+            "start": 0,
+            "end": 10,
+            "admitted": true
+          },
+          {
+            "start": 10,
+            "end": 36,
+            "admitted": false
+          }
+        ],
+        "nativeObservations": [
+          {
+            "hasTree": false,
+            "treeCount": 0,
+            "hasInternalError": false,
+            "hasError": true,
+            "errorCount": 1,
+            "partialStackCount": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "literal-invalid",
+      "text": "SELECT 1 2;",
+      "expected": "syntax-error",
+      "response": {
+        "protocolVersion": 1,
+        "id": 16,
+        "status": "syntax-error",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "ccd692fa5b39b3b36c3f76679167045bcb5bcf3e6f982b741da4e855e6e488d3",
+        "coverage": "complete",
+        "diagnostics": [
+          {
+            "code": "CUBRID-S1001",
+            "category": "syntax",
+            "severity": "error",
+            "message": "In line 1, column 10 before END OF STATEMENT\nSyntax error: unexpected '2', expecting ';'",
+            "span": {
+              "start": 0,
+              "end": 11
+            },
+            "rangePrecision": "statement",
+            "nativeCoordinates": {
+              "statement": 1,
+              "line": 1,
+              "column": 10
+            }
+          }
+        ],
+        "statementKinds": [],
+        "coverageDecisions": [
+          {
+            "start": 0,
+            "end": 11,
+            "admitted": true
+          }
+        ],
+        "nativeObservations": [
+          {
+            "hasTree": false,
+            "treeCount": 0,
+            "hasInternalError": false,
+            "hasError": true,
+            "errorCount": 1,
+            "partialStackCount": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "incomplete",
+      "text": "SELECT 1,",
+      "expected": "syntax-error",
+      "response": {
+        "protocolVersion": 1,
+        "id": 17,
+        "status": "syntax-error",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "ccd692fa5b39b3b36c3f76679167045bcb5bcf3e6f982b741da4e855e6e488d3",
+        "coverage": "complete",
+        "diagnostics": [
+          {
+            "code": "CUBRID-S1001",
+            "category": "syntax",
+            "severity": "error",
+            "message": "Syntax error: unexpected END OF STATEMENT",
+            "span": {
+              "start": 0,
+              "end": 9
+            },
+            "rangePrecision": "statement",
+            "nativeCoordinates": {
+              "statement": 0,
+              "line": 1,
+              "column": 9
+            }
+          }
+        ],
+        "statementKinds": [],
+        "coverageDecisions": [
+          {
+            "start": 0,
+            "end": 9,
+            "admitted": true
+          }
+        ],
+        "nativeObservations": [
+          {
+            "hasTree": false,
+            "treeCount": 0,
+            "hasInternalError": false,
+            "hasError": true,
+            "errorCount": 1,
+            "partialStackCount": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "empty",
+      "text": "",
+      "expected": "valid",
+      "response": {
+        "protocolVersion": 1,
+        "id": 18,
+        "status": "valid",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "ccd692fa5b39b3b36c3f76679167045bcb5bcf3e6f982b741da4e855e6e488d3",
+        "coverage": "complete",
+        "diagnostics": [],
+        "statementKinds": [],
+        "coverageDecisions": [],
+        "nativeObservations": []
+      }
+    },
+    {
+      "id": "multiple",
+      "text": "SELECT 1; CREATE SERIAL order_no START WITH 10;",
+      "expected": "valid",
+      "response": {
+        "protocolVersion": 1,
+        "id": 19,
+        "status": "valid",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "ccd692fa5b39b3b36c3f76679167045bcb5bcf3e6f982b741da4e855e6e488d3",
+        "coverage": "complete",
+        "diagnostics": [],
+        "statementKinds": [
+          "PT_SELECT",
+          "PT_CREATE_SERIAL"
+        ],
+        "coverageDecisions": [
+          {
+            "start": 0,
+            "end": 9,
+            "admitted": true
+          },
+          {
+            "start": 9,
+            "end": 47,
+            "admitted": true
+          }
+        ],
+        "nativeObservations": [
+          {
+            "hasTree": true,
+            "treeCount": 1,
+            "hasInternalError": false,
+            "hasError": false,
+            "errorCount": 0,
+            "partialStackCount": 1
+          },
+          {
+            "hasTree": true,
+            "treeCount": 1,
+            "hasInternalError": false,
+            "hasError": false,
+            "errorCount": 0,
+            "partialStackCount": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "korean-coordinate",
+      "text": "SELECT '가', ;",
+      "expected": "syntax-error",
+      "response": {
+        "protocolVersion": 1,
+        "id": 20,
+        "status": "syntax-error",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "ccd692fa5b39b3b36c3f76679167045bcb5bcf3e6f982b741da4e855e6e488d3",
+        "coverage": "complete",
+        "diagnostics": [
+          {
+            "code": "CUBRID-S1001",
+            "category": "syntax",
+            "severity": "error",
+            "message": "In line 1, column 15 before END OF STATEMENT\nSyntax error: unexpected ';'",
+            "span": {
+              "start": 0,
+              "end": 13
+            },
+            "rangePrecision": "statement",
+            "nativeCoordinates": {
+              "statement": 0,
+              "line": 1,
+              "column": 15
+            }
+          }
+        ],
+        "statementKinds": [],
+        "coverageDecisions": [
+          {
+            "start": 0,
+            "end": 13,
+            "admitted": true
+          }
+        ],
+        "nativeObservations": [
+          {
+            "hasTree": false,
+            "treeCount": 0,
+            "hasInternalError": false,
+            "hasError": true,
+            "errorCount": 1,
+            "partialStackCount": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "emoji-coordinate",
+      "text": "SELECT '😀', ;",
+      "expected": "syntax-error",
+      "response": {
+        "protocolVersion": 1,
+        "id": 21,
+        "status": "syntax-error",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "ccd692fa5b39b3b36c3f76679167045bcb5bcf3e6f982b741da4e855e6e488d3",
+        "coverage": "complete",
+        "diagnostics": [
+          {
+            "code": "CUBRID-S1001",
+            "category": "syntax",
+            "severity": "error",
+            "message": "In line 1, column 16 before END OF STATEMENT\nSyntax error: unexpected ';'",
+            "span": {
+              "start": 0,
+              "end": 13
+            },
+            "rangePrecision": "statement",
+            "nativeCoordinates": {
+              "statement": 0,
+              "line": 1,
+              "column": 16
+            }
+          }
+        ],
+        "statementKinds": [],
+        "coverageDecisions": [
+          {
+            "start": 0,
+            "end": 13,
+            "admitted": true
+          }
+        ],
+        "nativeObservations": [
+          {
+            "hasTree": false,
+            "treeCount": 0,
+            "hasInternalError": false,
+            "hasError": true,
+            "errorCount": 1,
+            "partialStackCount": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "crlf-coordinate",
+      "text": "SELECT '가😀'\r\n, ;",
+      "expected": "syntax-error",
+      "response": {
+        "protocolVersion": 1,
+        "id": 22,
+        "status": "syntax-error",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "ccd692fa5b39b3b36c3f76679167045bcb5bcf3e6f982b741da4e855e6e488d3",
+        "coverage": "complete",
+        "diagnostics": [
+          {
+            "code": "CUBRID-S1001",
+            "category": "syntax",
+            "severity": "error",
+            "message": "In line 2, column 3 before END OF STATEMENT\nSyntax error: unexpected ';'",
+            "span": {
+              "start": 0,
+              "end": 16
+            },
+            "rangePrecision": "statement",
+            "nativeCoordinates": {
+              "statement": 0,
+              "line": 2,
+              "column": 3
+            }
+          }
+        ],
+        "statementKinds": [],
+        "coverageDecisions": [
+          {
+            "start": 0,
+            "end": 16,
+            "admitted": true
+          }
+        ],
+        "nativeObservations": [
+          {
+            "hasTree": false,
+            "treeCount": 0,
+            "hasInternalError": false,
+            "hasError": true,
+            "errorCount": 1,
+            "partialStackCount": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "catalog-query-blocked",
+      "text": "SELECT * FROM missing_table;",
+      "expected": "unsupported",
+      "response": {
+        "protocolVersion": 1,
+        "id": 23,
+        "status": "unsupported",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "ccd692fa5b39b3b36c3f76679167045bcb5bcf3e6f982b741da4e855e6e488d3",
+        "coverage": "none",
+        "diagnostics": [
+          {
+            "code": "CUBRID-U1002",
+            "category": "unsupported",
+            "severity": "warning",
+            "message": "Statement is outside qualified native coverage",
+            "span": {
+              "start": 0,
+              "end": 28
+            },
+            "rangePrecision": "statement"
+          }
+        ],
+        "statementKinds": [],
+        "coverageDecisions": [
+          {
+            "start": 0,
+            "end": 28,
+            "admitted": false
+          }
+        ],
+        "nativeObservations": []
+      }
+    },
+    {
+      "id": "cte-blocked",
+      "text": "WITH x AS (SELECT 1) SELECT 1;",
+      "expected": "unsupported",
+      "response": {
+        "protocolVersion": 1,
+        "id": 24,
+        "status": "unsupported",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "ccd692fa5b39b3b36c3f76679167045bcb5bcf3e6f982b741da4e855e6e488d3",
+        "coverage": "none",
+        "diagnostics": [
+          {
+            "code": "CUBRID-U1002",
+            "category": "unsupported",
+            "severity": "warning",
+            "message": "Statement is outside qualified native coverage",
+            "span": {
+              "start": 0,
+              "end": 30
+            },
+            "rangePrecision": "statement"
+          }
+        ],
+        "statementKinds": [],
+        "coverageDecisions": [
+          {
+            "start": 0,
+            "end": 30,
+            "admitted": false
+          }
+        ],
+        "nativeObservations": []
+      }
+    },
+    {
+      "id": "subquery-blocked",
+      "text": "SELECT (SELECT 1);",
+      "expected": "unsupported",
+      "response": {
+        "protocolVersion": 1,
+        "id": 25,
+        "status": "unsupported",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "ccd692fa5b39b3b36c3f76679167045bcb5bcf3e6f982b741da4e855e6e488d3",
+        "coverage": "none",
+        "diagnostics": [
+          {
+            "code": "CUBRID-U1002",
+            "category": "unsupported",
+            "severity": "warning",
+            "message": "Statement is outside qualified native coverage",
+            "span": {
+              "start": 0,
+              "end": 18
+            },
+            "rangePrecision": "statement"
+          }
+        ],
+        "statementKinds": [],
+        "coverageDecisions": [
+          {
+            "start": 0,
+            "end": 18,
+            "admitted": false
+          }
+        ],
+        "nativeObservations": []
+      }
+    },
+    {
+      "id": "destructive-text-blocked",
+      "text": "DROP TABLE must_never_be_executed;",
+      "expected": "unsupported",
+      "response": {
+        "protocolVersion": 1,
+        "id": 26,
+        "status": "unsupported",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "ccd692fa5b39b3b36c3f76679167045bcb5bcf3e6f982b741da4e855e6e488d3",
+        "coverage": "none",
+        "diagnostics": [
+          {
+            "code": "CUBRID-U1002",
+            "category": "unsupported",
+            "severity": "warning",
+            "message": "Statement is outside qualified native coverage",
+            "span": {
+              "start": 0,
+              "end": 34
+            },
+            "rangePrecision": "statement"
+          }
+        ],
+        "statementKinds": [],
+        "coverageDecisions": [
+          {
+            "start": 0,
+            "end": 34,
+            "admitted": false
+          }
+        ],
+        "nativeObservations": []
+      }
+    }
+  ],
+  "trace": {
+    "sha256": "b3363255af4517f1db015b1e24bcf2aadf0f95e0dceafa74536aa709e11026ed",
+    "networkCalls": [],
+    "executions": [
+      "4084216 execve(\"/home/vimkim/gh/cubrid-language-tools-02/native/parser-worker/build/parser-worker\", [\"/home/vimkim/gh/cubrid-language-\"..., \"--manifest\", \"/home/vimkim/gh/cubrid-language-\"...], 0x7ffedc1df498 /* 5 vars */) = 0"
+    ],
+    "descendants": [],
+    "writableOpens": [
+      "4084216 openat(AT_FDCWD, \"/tmp/cubrid-parser-worker-FFaXgw/conf/cubrid_locales.txt\", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 3",
+      "4084216 openat(AT_FDCWD, \"/tmp/cubrid-parser-worker-FFaXgw/cubrid.conf\", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 3",
+      "4084216 openat(AT_FDCWD, \"/tmp/cubrid-parser-worker-FFaXgw/databases.txt\", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 3",
+      "4084216 openat(AT_FDCWD, \"/tmp/cubrid-parser-worker-FFaXgw/parser.err\", O_RDWR) = -1 ENOENT (No such file or directory)",
+      "4084216 openat(AT_FDCWD, \"/tmp/cubrid-parser-worker-FFaXgw/parser.err\", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 3"
+    ],
+    "externalWritableOpens": []
+  },
+  "limits": "This trace qualifies the listed corpus only; process separation is not a syscall sandbox.",
+  "coordinatePolicy": "Observed columns count UTF-8 bytes (1-based); missing/negative coordinates occur. All diagnostics use original statement spans."
+}

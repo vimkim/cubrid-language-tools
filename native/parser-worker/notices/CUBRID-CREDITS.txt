@@ -1,0 +1,27 @@
+CUBRID - Credits
+====================
+We appreciate those who have made contributions to the CUBRID projects.
+Contributors are listed here:
+
+* ysnglee2000
+* cwryu
+* redef
+* pcraft
+* xein
+* 1day1_org
+* shriekout
+* quartex
+* nori
+* evelon
+* Greenminalee
+* jinbekim
+* bigpel66
+* 212bypark
+* BaekChan1024
+* Yechan0815
+* minjune8506
+* keonwoo98
+* 42-saoh
+* memnoth
+
+You can also visit https://github.com/CUBRID/cubrid/graphs/contributors.
