@@ -42,11 +42,25 @@
       "cleanup": "Merged task worktree removed and central/ticket-01 deleted without force; original and rebuilt dist archives preserved and SHA-256 verified"
     },
     "02": {
-      "status": "dispatched",
+      "status": "verified-awaiting-integration-approval",
       "dependsOn": [],
       "base": "f2fb5c72b687b133627dcccc7ced398d5a0dbbf6",
       "worktree": "/home/vimkim/gh/cubrid-language-tools-02",
-      "branch": "central/ticket-02"
+      "branch": "central/ticket-02",
+      "commit": "e4745000a7165597b349097964ad24f36f538d11",
+      "checks": [
+        "Coordinator reran mandatory recipe:17 native and16 independent checks passed",
+        "Agent available suite51 passed; completion35 passed",
+        "25-fixture trace:one exec, no descendants/network/external writable opens",
+        "Sdist/wheel contents and isolated installed wheel/native checks passed",
+        "Reachable-action audit, dependency notices and test-only internal-error injection complete"
+      ],
+      "limitations": [
+        "Exact pinned Linuxx86_64 profile and literal SELECT/CREATE SERIAL predicates only",
+        "Abrupt native termination can leave a private0700 scratch directory",
+        "Existing setuptools license-table deprecation warning"
+      ],
+      "report": "/home/vimkim/gh/cubrid-language-tools-02/docs/tickets/reports/02.md"
     },
     "03": {
       "status": "pending",
@@ -56,13 +70,21 @@
       ]
     },
     "04": {
-      "status": "dispatched",
+      "status": "verified-awaiting-integration-approval",
       "dependsOn": [
         "01"
       ],
       "base": "8d61ec87cd3fe5d80427e36ccd241e550180649a",
       "branch": "central/ticket-04",
-      "worktree": "/home/vimkim/gh/cubrid-language-tools-04"
+      "worktree": "/home/vimkim/gh/cubrid-language-tools-04",
+      "commit": "553c414e3e2d3610fc7203e8742329d0735061d4",
+      "checks": [
+        "Coordinator reran16 public snapshot tests:passed",
+        "Agent Python3.10/3.14:16 focused and51 full tests passed",
+        "Wheel install16tests and extracted-sdist51tests passed",
+        "Unicode surrogate handling, strict metadata, stale retention and no external access verified"
+      ],
+      "report": "/home/vimkim/gh/cubrid-language-tools-04/docs/tickets/reports/04.md"
     },
     "05": {
       "status": "pending",
