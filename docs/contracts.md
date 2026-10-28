@@ -61,7 +61,10 @@ All completion and validation spans use the same `cubrid_language.models.Span` v
 
 ## Validation interface
 
-`validate(text, profile, script_mode)` returns status, coverage, profile identity, and diagnostics.
+A configured `Validator` owns the worker adapter and exposes `validate(text, profile, script_mode)`.
+Construct it with explicit trusted worker configuration. Close its owned worker through a context manager or explicit close.
+The method returns status, coverage, profile identity, and diagnostics.
+The configuration is an injected dependency, not a hidden global or project-selected executable.
 The validator accepts document text only.
 It never accepts a database connection or executes submitted text.
 Profile selection is explicit and does not depend on a database server version probe.

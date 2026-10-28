@@ -9,12 +9,18 @@
   "scope": "Nine central tickets; separate consumers later",
   "tickets": {
     "01": {
-      "status": "ready",
-      "dependsOn": []
+      "status": "dispatched",
+      "dependsOn": [],
+      "base": "f2fb5c72b687b133627dcccc7ced398d5a0dbbf6",
+      "worktree": "/home/vimkim/gh/cubrid-language-tools-01",
+      "branch": "central/ticket-01"
     },
     "02": {
-      "status": "ready",
-      "dependsOn": []
+      "status": "dispatched",
+      "dependsOn": [],
+      "base": "f2fb5c72b687b133627dcccc7ced398d5a0dbbf6",
+      "worktree": "/home/vimkim/gh/cubrid-language-tools-02",
+      "branch": "central/ticket-02"
     },
     "03": {
       "status": "pending",

@@ -1,0 +1,61 @@
+{
+  "states": [
+    {
+      "mode": "library",
+      "visible": true,
+      "active": true,
+      "zoomed": true,
+      "expanded": true,
+      "reset": true,
+      "visiblePanels": 1
+    },
+    {
+      "mode": "server",
+      "visible": true,
+      "active": true,
+      "zoomed": true,
+      "expanded": true,
+      "reset": true,
+      "visiblePanels": 1
+    },
+    {
+      "mode": "hosted",
+      "visible": true,
+      "active": true,
+      "zoomed": true,
+      "expanded": true,
+      "reset": true,
+      "visiblePanels": 1
+    }
+  ],
+  "keyboardNavigation": true,
+  "layouts": [
+    {
+      "name": "desktop-light",
+      "width": 1440,
+      "pageWidth": 1425,
+      "scheme": "light",
+      "diagramCount": 3
+    },
+    {
+      "name": "desktop-dark",
+      "width": 1440,
+      "pageWidth": 1425,
+      "scheme": "dark",
+      "diagramCount": 3
+    },
+    {
+      "name": "mobile-light",
+      "width": 390,
+      "pageWidth": 390,
+      "scheme": "light",
+      "diagramCount": 3
+    }
+  ],
+  "runtimeErrors": [],
+  "externalRuntimeAssets": false,
+  "documentSha256": "e008762498160bdac7eb9d65be5a449d81d5c0ae0d781e3c42f866dc98de4bce",
+  "svgXml": "3 passed",
+  "markdownSourceFilesPassed": 19,
+  "graph": "9 nodes, dependencies exist, no cycles"
+}

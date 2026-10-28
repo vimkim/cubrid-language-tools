@@ -1,4 +1,5 @@
 > Historical feasibility evidence from the csql-future planning phase. This is not central-project qualification.
+> Recorded experiment commands refer to that historical repository layout. Use the central native-worker instructions for current builds.
 
 # Native parser feasibility experiment
 
