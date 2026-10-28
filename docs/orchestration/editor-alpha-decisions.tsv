@@ -1,0 +1,3 @@
+ts	phase	decision	why	evidence	result
+2026-10-28T18:07:22Z	frame	Build a VS Code and Neovim editor alpha in separate local consumers	The user chose editor workflows as the next milestone; separate consumers preserve central language ownership	docs/orchestration/editor-alpha-plan.md	scope selected
+2026-10-28T18:07:22Z	baseline	Use the existing qualified native worker as read-only test input	Valid, malformed and unsupported SQL need real parser evidence before editor work	/home/vimkim/temp/cubrid-editor-alpha-aiYISe/native-baseline.json	three expected statuses passed
