@@ -85,7 +85,7 @@
       "cleanup": "Merged task worktree removed and central/ticket-02 deleted without force; original native build, dist, qualification evidence, rebased review logs, and final combined native/dist outputs preserved and SHA-256 verified"
     },
     "03": {
-      "status": "dispatched",
+      "status": "verified-awaiting-integration-approval",
       "dependsOn": [
         "01",
         "02"
@@ -94,7 +94,18 @@
       "readiness": "All ticket dependencies integrated; dispatch a fresh-context agent in an isolated worktree from an exact coordinator baseline",
       "base": "504541aaa08508f1fc096c2a44c661376e32136c",
       "branch": "central/ticket-03",
-      "worktree": "/home/vimkim/gh/cubrid-language-tools-03"
+      "worktree": "/home/vimkim/gh/cubrid-language-tools-03",
+      "commit": "2e01a9e3c3e672d59ff65e890d350c98b3729fa3",
+      "implementationCommit": "f842f2f503c3c7f4b445b048161994618d30dd6c",
+      "checks": [
+        "Coordinator:20 focused config/validator/CLI tests passed",
+        "Coordinator:7 actual native/CLI tests passed",
+        "Agent:87 default tests pass on Python3.10/3.14 and with ignored native build absent",
+        "Agent:24 mandatory native plus16 independent tests passed",
+        "Isolated wheel87 plus7 native console tests and extracted-sdist87 passed",
+        "CLI metadata retains zero mandatory dependencies; Korean/English guides included"
+      ],
+      "report": "/home/vimkim/gh/cubrid-language-tools-03/docs/tickets/reports/03.md"
     },
     "04": {
       "status": "integrated",
