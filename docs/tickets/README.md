@@ -11,9 +11,11 @@ Separate editor, AI, and terminal work remains in the [long-term roadmap](../roa
 - [05: Shared LSP adapter](05-lsp.md) — dependencies: 03, 04.
 - [06: Query and DML coverage](06-query-dml.md) — dependencies: 02.
 - [07: Schema and engineer coverage](07-schema-engineer.md) — dependencies: 06.
-- [08: CSQL script classification](08-script-boundaries.md) — dependencies: 03, 07.
-- [09: Distribution and final qualification](09-delivery.md) — dependencies: 05, 08.
+- [08: CSQL script classification](08-script-boundaries.md) — dependencies: 03, 05.
+- [09: Distribution and final qualification](09-delivery.md) — dependencies: 05, 07, 08.
 
 Initial frontier: 01 and 02.
 Ticket 04 can proceed after 01. Ticket 06 can proceed after 02.
 Exact dispatch commits and acceptance evidence live in [execution state](../orchestration/state.json).
+
+Dependency refinement after ticket05: script classification uses the stable Validator seam and can proceed while ticket07 coverage is decided. Ticket09 retains a direct ticket07 gate.

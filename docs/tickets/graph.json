@@ -61,7 +61,7 @@
       "file": "08-script-boundaries.md",
       "dependsOn": [
         "03",
-        "07"
+        "05"
       ],
       "title": "CSQL script classification"
     },
@@ -70,6 +70,7 @@
       "file": "09-delivery.md",
       "dependsOn": [
         "05",
+        "07",
         "08"
       ],
       "title": "Distribution and final qualification"

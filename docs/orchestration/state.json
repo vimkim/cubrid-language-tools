@@ -303,10 +303,10 @@
       "report": "/home/vimkim/gh/cubrid-language-tools-07/docs/tickets/reports/07.md"
     },
     "08": {
-      "status": "blocked",
+      "status": "ready",
       "dependsOn": [
         "03",
-        "07"
+        "05"
       ],
       "blocker": "Ticket 07 remains qualified-partial-awaiting-scope-choice. User decision is pending between deferring SHOW COLUMNS/DESCRIBE/DESC/EXPLAIN class forms and expanding the parser-only backend scope; no ticket 07 integration or criterion change is authorized by ticket 05 integration."
     },
@@ -314,6 +314,7 @@
       "status": "pending",
       "dependsOn": [
         "05",
+        "07",
         "08"
       ]
     }
@@ -370,5 +371,6 @@
     "ticketIntegration": "Standing user approval for all planned tickets, granted 2026-10-28. No further ticket-merge prompts. Committed results/checks/review remain mandatory.",
     "finalMain": "Separate final review and approval; configured main push follows user Git policy after that approval.",
     "deployment": "Requires separate explicit request."
-  }
+  },
+  "dependencyRefinement": "08 consumes03stable Validator and05LSP, independent of07describe backend scope.09still directly gated by07."
 }

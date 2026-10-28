@@ -1,6 +1,6 @@
 # 09: Distribution and final qualification
 
-Status: specified. Dependencies: 05, 08.
+Status: specified. Dependencies: 05, 07, 08.
 
 Read [spec](../spec.md), [contracts](../contracts.md), and [execution](../execution.md).
 The exact dispatch record supplies the immutable baseline and checkout.

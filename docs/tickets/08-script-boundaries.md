@@ -1,6 +1,11 @@
 # 08: CSQL script classification
 
-Status: specified. Dependencies: 03, 07.
+Status: specified. Dependencies: 03, 05.
+
+The script classifier consumes the stable Validator interface already delivered by ticket03.
+Ticket05 supplies the LSP path needed for script parity tests.
+The unresolved ticket07 describe-helper coverage does not change this interface.
+Final delivery still depends directly on ticket07.
 
 Read [spec](../spec.md), [contracts](../contracts.md), and [execution](../execution.md).
 The exact dispatch record supplies the immutable baseline and checkout.
