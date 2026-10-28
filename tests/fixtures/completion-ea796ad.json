@@ -1,0 +1,6159 @@
+{
+  "sourceCommit": "ea796ad6611fa0090003f9698e6d635b8978591a",
+  "sourceInterface": "csql_future.completion.suggest",
+  "sourceTests": [
+    "tests/test_completion.py",
+    "tests/test_command_completion.py"
+  ],
+  "sourceTestCount": 20,
+  "schemas": [
+    {
+      "user": "DBA",
+      "relations": [
+        {
+          "owner": "DBA",
+          "name": "code",
+          "kind": "CLASS",
+          "columns": [
+            "id",
+            "name"
+          ],
+          "system": false,
+          "indexes": []
+        },
+        {
+          "owner": "DBA",
+          "name": "coding",
+          "kind": "VCLASS",
+          "columns": [
+            "id",
+            "language"
+          ],
+          "system": false,
+          "indexes": []
+        },
+        {
+          "owner": "DBA",
+          "name": "coding odd",
+          "kind": "CLASS",
+          "columns": [
+            "odd name"
+          ],
+          "system": false,
+          "indexes": []
+        },
+        {
+          "owner": "OTHER",
+          "name": "code",
+          "kind": "CLASS",
+          "columns": [
+            "other_id"
+          ],
+          "system": false,
+          "indexes": []
+        }
+      ],
+      "users": [],
+      "database": ""
+    },
+    {
+      "user": "DBA",
+      "relations": [
+        {
+          "owner": "DBA",
+          "name": "code",
+          "kind": "CLASS",
+          "columns": [
+            "id",
+            "name"
+          ],
+          "system": false,
+          "indexes": []
+        },
+        {
+          "owner": "DBA",
+          "name": "coding",
+          "kind": "VCLASS",
+          "columns": [
+            "id",
+            "language"
+          ],
+          "system": false,
+          "indexes": []
+        },
+        {
+          "owner": "DBA",
+          "name": "coding odd",
+          "kind": "CLASS",
+          "columns": [
+            "odd name"
+          ],
+          "system": false,
+          "indexes": []
+        },
+        {
+          "owner": "OTHER",
+          "name": "code",
+          "kind": "CLASS",
+          "columns": [
+            "other_id"
+          ],
+          "system": false,
+          "indexes": []
+        },
+        {
+          "owner": "DBA",
+          "name": "int",
+          "kind": "CLASS",
+          "columns": [],
+          "system": false,
+          "indexes": []
+        },
+        {
+          "owner": "PUBLIC",
+          "name": "code",
+          "kind": "CLASS",
+          "columns": [],
+          "system": false,
+          "indexes": []
+        }
+      ],
+      "users": [],
+      "database": ""
+    },
+    {
+      "user": "",
+      "relations": [],
+      "users": [],
+      "database": ""
+    },
+    {
+      "user": "DBA",
+      "relations": [
+        {
+          "owner": "DBA",
+          "name": "athlete",
+          "kind": "CLASS",
+          "columns": [
+            "code",
+            "name"
+          ],
+          "system": false,
+          "indexes": [
+            "idx_name",
+            "idx_code"
+          ]
+        },
+        {
+          "owner": "OTHER",
+          "name": "athlete",
+          "kind": "CLASS",
+          "columns": [
+            "other_id"
+          ],
+          "system": false,
+          "indexes": [
+            "idx_other"
+          ]
+        },
+        {
+          "owner": "DBA",
+          "name": "athlete_view",
+          "kind": "VCLASS",
+          "columns": [
+            "name"
+          ],
+          "system": false,
+          "indexes": []
+        },
+        {
+          "owner": "DBA",
+          "name": "db_class",
+          "kind": "VCLASS",
+          "columns": [
+            "class_name",
+            "owner_name"
+          ],
+          "system": true,
+          "indexes": []
+        },
+        {
+          "owner": "DBA",
+          "name": "db_index",
+          "kind": "VCLASS",
+          "columns": [
+            "index_name"
+          ],
+          "system": true,
+          "indexes": []
+        },
+        {
+          "owner": "DBA",
+          "name": "db_index_key",
+          "kind": "VCLASS",
+          "columns": [
+            "key_attr_name"
+          ],
+          "system": true,
+          "indexes": []
+        },
+        {
+          "owner": "DBA",
+          "name": "_db_class",
+          "kind": "CLASS",
+          "columns": [
+            "class_name"
+          ],
+          "system": true,
+          "indexes": []
+        }
+      ],
+      "users": [
+        "DBA",
+        "PUBLIC",
+        "reader"
+      ],
+      "database": "demo"
+    },
+    {
+      "user": "reader",
+      "relations": [
+        {
+          "owner": "DBA",
+          "name": "athlete",
+          "kind": "CLASS",
+          "columns": [
+            "code",
+            "name"
+          ],
+          "system": false,
+          "indexes": [
+            "idx_name",
+            "idx_code"
+          ]
+        },
+        {
+          "owner": "OTHER",
+          "name": "athlete",
+          "kind": "CLASS",
+          "columns": [
+            "other_id"
+          ],
+          "system": false,
+          "indexes": [
+            "idx_other"
+          ]
+        },
+        {
+          "owner": "DBA",
+          "name": "athlete_view",
+          "kind": "VCLASS",
+          "columns": [
+            "name"
+          ],
+          "system": false,
+          "indexes": []
+        },
+        {
+          "owner": "DBA",
+          "name": "db_class",
+          "kind": "VCLASS",
+          "columns": [
+            "class_name",
+            "owner_name"
+          ],
+          "system": true,
+          "indexes": []
+        },
+        {
+          "owner": "DBA",
+          "name": "db_index",
+          "kind": "VCLASS",
+          "columns": [
+            "index_name"
+          ],
+          "system": true,
+          "indexes": []
+        },
+        {
+          "owner": "DBA",
+          "name": "db_index_key",
+          "kind": "VCLASS",
+          "columns": [
+            "key_attr_name"
+          ],
+          "system": true,
+          "indexes": []
+        },
+        {
+          "owner": "DBA",
+          "name": "_db_class",
+          "kind": "CLASS",
+          "columns": [
+            "class_name"
+          ],
+          "system": true,
+          "indexes": []
+        }
+      ],
+      "users": [],
+      "database": ""
+    },
+    {
+      "user": "reader",
+      "relations": [
+        {
+          "owner": "DBA",
+          "name": "athlete",
+          "kind": "CLASS",
+          "columns": [
+            "code",
+            "name"
+          ],
+          "system": false,
+          "indexes": [
+            "idx_name",
+            "idx_code"
+          ]
+        },
+        {
+          "owner": "OTHER",
+          "name": "athlete",
+          "kind": "CLASS",
+          "columns": [
+            "other_id"
+          ],
+          "system": false,
+          "indexes": [
+            "idx_other"
+          ]
+        },
+        {
+          "owner": "DBA",
+          "name": "athlete_view",
+          "kind": "VCLASS",
+          "columns": [
+            "name"
+          ],
+          "system": false,
+          "indexes": []
+        },
+        {
+          "owner": "DBA",
+          "name": "db_class",
+          "kind": "VCLASS",
+          "columns": [
+            "class_name",
+            "owner_name"
+          ],
+          "system": true,
+          "indexes": []
+        },
+        {
+          "owner": "DBA",
+          "name": "db_index",
+          "kind": "VCLASS",
+          "columns": [
+            "index_name"
+          ],
+          "system": true,
+          "indexes": []
+        },
+        {
+          "owner": "DBA",
+          "name": "db_index_key",
+          "kind": "VCLASS",
+          "columns": [
+            "key_attr_name"
+          ],
+          "system": true,
+          "indexes": []
+        },
+        {
+          "owner": "DBA",
+          "name": "_db_class",
+          "kind": "CLASS",
+          "columns": [
+            "class_name"
+          ],
+          "system": true,
+          "indexes": []
+        },
+        {
+          "owner": "INFORMATION_SCHEMA",
+          "name": "views",
+          "kind": "VCLASS",
+          "columns": [
+            "table_name"
+          ],
+          "system": true,
+          "indexes": []
+        }
+      ],
+      "users": [],
+      "database": ""
+    }
+  ],
+  "cases": [
+    {
+      "text": "select c.na from code as c",
+      "cursor": 11,
+      "schema": 0,
+      "replacement": [
+        9,
+        11
+      ],
+      "items": [
+        [
+          "name",
+          "name",
+          "column",
+          "column c"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select na from code",
+      "cursor": 9,
+      "schema": 0,
+      "replacement": [
+        7,
+        9
+      ],
+      "items": [
+        [
+          "name",
+          "name",
+          "column",
+          "column code"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select * from coding c where c.la",
+      "cursor": 33,
+      "schema": 0,
+      "replacement": [
+        31,
+        33
+      ],
+      "items": [
+        [
+          "[language]",
+          "[language]",
+          "column",
+          "column c"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select id from code c join coding d on c.id=d.id",
+      "cursor": 9,
+      "schema": 0,
+      "replacement": [
+        7,
+        9
+      ],
+      "items": [
+        [
+          "c.id",
+          "c.id",
+          "column",
+          "column c"
+        ],
+        [
+          "d.id",
+          "d.id",
+          "column",
+          "column d"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select x.ot from other.code x",
+      "cursor": 11,
+      "schema": 0,
+      "replacement": [
+        9,
+        11
+      ],
+      "items": [
+        [
+          "other_id",
+          "other_id",
+          "column",
+          "column x"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select lower(c.na) from code c",
+      "cursor": 17,
+      "schema": 0,
+      "replacement": [
+        15,
+        17
+      ],
+      "items": [
+        [
+          "name",
+          "name",
+          "column",
+          "column c"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select * from code c where (c.na)",
+      "cursor": 32,
+      "schema": 0,
+      "replacement": [
+        30,
+        32
+      ],
+      "items": [
+        [
+          "name",
+          "name",
+          "column",
+          "column c"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "insert into code (na",
+      "cursor": 20,
+      "schema": 0,
+      "replacement": [
+        18,
+        20
+      ],
+      "items": [
+        [
+          "name",
+          "name",
+          "column",
+          "column code"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select 'co",
+      "cursor": 10,
+      "schema": 0,
+      "replacement": [
+        10,
+        10
+      ],
+      "items": [],
+      "allowed": false
+    },
+    {
+      "text": "select 'coding' from code",
+      "cursor": 10,
+      "schema": 0,
+      "replacement": [
+        10,
+        10
+      ],
+      "items": [],
+      "allowed": false
+    },
+    {
+      "text": "-- co",
+      "cursor": 5,
+      "schema": 0,
+      "replacement": [
+        5,
+        5
+      ],
+      "items": [],
+      "allowed": false
+    },
+    {
+      "text": "select /* co",
+      "cursor": 12,
+      "schema": 0,
+      "replacement": [
+        12,
+        12
+      ],
+      "items": [],
+      "allowed": false
+    },
+    {
+      "text": "select -- co\n",
+      "cursor": 13,
+      "schema": 0,
+      "replacement": [
+        13,
+        13
+      ],
+      "items": [
+        [
+          "ALTER",
+          "ALTER",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "AND",
+          "AND",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "AS",
+          "AS",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "ASC",
+          "ASC",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "BY",
+          "BY",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "CALL",
+          "CALL",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "CASE",
+          "CASE",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "COMMIT",
+          "COMMIT",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "CREATE",
+          "CREATE",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "DELETE",
+          "DELETE",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "DESC",
+          "DESC",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "DESCRIBE",
+          "DESCRIBE",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "DISTINCT",
+          "DISTINCT",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "DROP",
+          "DROP",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "ELSE",
+          "ELSE",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "END",
+          "END",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "EXISTS",
+          "EXISTS",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "EXPLAIN",
+          "EXPLAIN",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "FROM",
+          "FROM",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "GET",
+          "GET",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "GROUP",
+          "GROUP",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "HAVING",
+          "HAVING",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "IN",
+          "IN",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "INSERT",
+          "INSERT",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "INTO",
+          "INTO",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "IS",
+          "IS",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "JOIN",
+          "JOIN",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "LEFT",
+          "LEFT",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "LIMIT",
+          "LIMIT",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "NOT",
+          "NOT",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "NULL",
+          "NULL",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "ON",
+          "ON",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "OR",
+          "OR",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "ORDER",
+          "ORDER",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "RIGHT",
+          "RIGHT",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "ROLLBACK",
+          "ROLLBACK",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "SELECT",
+          "SELECT",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "SET",
+          "SET",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "SHOW",
+          "SHOW",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "STATISTICS",
+          "STATISTICS",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "TABLE",
+          "TABLE",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "THEN",
+          "THEN",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "UNION",
+          "UNION",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "UPDATE",
+          "UPDATE",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "VALUES",
+          "VALUES",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "VIEW",
+          "VIEW",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "WHEN",
+          "WHEN",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "WHERE",
+          "WHERE",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show /* ta",
+      "cursor": 10,
+      "schema": 0,
+      "replacement": [
+        10,
+        10
+      ],
+      "items": [],
+      "allowed": false
+    },
+    {
+      "text": "show -- ta",
+      "cursor": 10,
+      "schema": 0,
+      "replacement": [
+        10,
+        10
+      ],
+      "items": [],
+      "allowed": false
+    },
+    {
+      "text": "show tables like 'co",
+      "cursor": 20,
+      "schema": 0,
+      "replacement": [
+        20,
+        20
+      ],
+      "items": [],
+      "allowed": false
+    },
+    {
+      "text": "select (select c.la from coding c) from code c",
+      "cursor": 19,
+      "schema": 0,
+      "replacement": [
+        17,
+        19
+      ],
+      "items": [
+        [
+          "[language]",
+          "[language]",
+          "column",
+          "column c"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select * from code c; select c.la from coding c",
+      "cursor": 33,
+      "schema": 0,
+      "replacement": [
+        31,
+        33
+      ],
+      "items": [
+        [
+          "[language]",
+          "[language]",
+          "column",
+          "column c"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select * from /* ignored */ other.co",
+      "cursor": 36,
+      "schema": 0,
+      "replacement": [
+        34,
+        36
+      ],
+      "items": [
+        [
+          "code",
+          "code",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select * from other.co",
+      "cursor": 22,
+      "schema": 0,
+      "replacement": [
+        20,
+        22
+      ],
+      "items": [
+        [
+          "code",
+          "code",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select * from [co",
+      "cursor": 17,
+      "schema": 0,
+      "replacement": [
+        14,
+        17
+      ],
+      "items": [
+        [
+          "[code]",
+          "[code]",
+          "table",
+          "table DBA"
+        ],
+        [
+          "[coding odd]",
+          "[coding odd]",
+          "table",
+          "table DBA"
+        ],
+        [
+          "[coding]",
+          "[coding]",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.[code]",
+          "OTHER.[code]",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select * from \"co",
+      "cursor": 17,
+      "schema": 0,
+      "replacement": [
+        14,
+        17
+      ],
+      "items": [
+        [
+          "\"code\"",
+          "\"code\"",
+          "table",
+          "table DBA"
+        ],
+        [
+          "\"coding odd\"",
+          "\"coding odd\"",
+          "table",
+          "table DBA"
+        ],
+        [
+          "\"coding\"",
+          "\"coding\"",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.\"code\"",
+          "OTHER.\"code\"",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select * from co",
+      "cursor": 16,
+      "schema": 0,
+      "replacement": [
+        14,
+        16
+      ],
+      "items": [
+        [
+          "[coding odd]",
+          "[coding odd]",
+          "table",
+          "table DBA"
+        ],
+        [
+          "code",
+          "code",
+          "table",
+          "table DBA"
+        ],
+        [
+          "coding",
+          "coding",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.code",
+          "OTHER.code",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select * from code join co",
+      "cursor": 26,
+      "schema": 0,
+      "replacement": [
+        24,
+        26
+      ],
+      "items": [
+        [
+          "[coding odd]",
+          "[coding odd]",
+          "table",
+          "table DBA"
+        ],
+        [
+          "code",
+          "code",
+          "table",
+          "table DBA"
+        ],
+        [
+          "coding",
+          "coding",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.code",
+          "OTHER.code",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "update co",
+      "cursor": 9,
+      "schema": 0,
+      "replacement": [
+        7,
+        9
+      ],
+      "items": [
+        [
+          "[coding odd]",
+          "[coding odd]",
+          "table",
+          "table DBA"
+        ],
+        [
+          "code",
+          "code",
+          "table",
+          "table DBA"
+        ],
+        [
+          "coding",
+          "coding",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.code",
+          "OTHER.code",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "insert into co",
+      "cursor": 14,
+      "schema": 0,
+      "replacement": [
+        12,
+        14
+      ],
+      "items": [
+        [
+          "[coding odd]",
+          "[coding odd]",
+          "table",
+          "table DBA"
+        ],
+        [
+          "code",
+          "code",
+          "table",
+          "table DBA"
+        ],
+        [
+          "coding",
+          "coding",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.code",
+          "OTHER.code",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select * from code, co",
+      "cursor": 22,
+      "schema": 0,
+      "replacement": [
+        20,
+        22
+      ],
+      "items": [
+        [
+          "[coding odd]",
+          "[coding odd]",
+          "table",
+          "table DBA"
+        ],
+        [
+          "code",
+          "code",
+          "table",
+          "table DBA"
+        ],
+        [
+          "coding",
+          "coding",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.code",
+          "OTHER.code",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select *\nfrom co",
+      "cursor": 16,
+      "schema": 0,
+      "replacement": [
+        14,
+        16
+      ],
+      "items": [
+        [
+          "[coding odd]",
+          "[coding odd]",
+          "table",
+          "table DBA"
+        ],
+        [
+          "code",
+          "code",
+          "table",
+          "table DBA"
+        ],
+        [
+          "coding",
+          "coding",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.code",
+          "OTHER.code",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select * from cowrong where id=1;",
+      "cursor": 16,
+      "schema": 0,
+      "replacement": [
+        14,
+        21
+      ],
+      "items": [
+        [
+          "[coding odd]",
+          "[coding odd]",
+          "table",
+          "table DBA"
+        ],
+        [
+          "code",
+          "code",
+          "table",
+          "table DBA"
+        ],
+        [
+          "coding",
+          "coding",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.code",
+          "OTHER.code",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select * from in",
+      "cursor": 16,
+      "schema": 1,
+      "replacement": [
+        14,
+        16
+      ],
+      "items": [
+        [
+          "[int]",
+          "[int]",
+          "table",
+          "table DBA"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select * from co",
+      "cursor": 16,
+      "schema": 1,
+      "replacement": [
+        14,
+        16
+      ],
+      "items": [
+        [
+          "[coding odd]",
+          "[coding odd]",
+          "table",
+          "table DBA"
+        ],
+        [
+          "code",
+          "code",
+          "table",
+          "table DBA"
+        ],
+        [
+          "coding",
+          "coding",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.code",
+          "OTHER.code",
+          "table",
+          "table OTHER"
+        ],
+        [
+          "PUBLIC.code",
+          "PUBLIC.code",
+          "table",
+          "table PUBLIC"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show tawrong;",
+      "cursor": 7,
+      "schema": 0,
+      "replacement": [
+        5,
+        12
+      ],
+      "items": [
+        [
+          "TABLES",
+          "TABLES",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show full cowrong from code;",
+      "cursor": 12,
+      "schema": 0,
+      "replacement": [
+        10,
+        17
+      ],
+      "items": [
+        [
+          "COLUMNS",
+          "COLUMNS",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show columns iwrong code;",
+      "cursor": 14,
+      "schema": 0,
+      "replacement": [
+        13,
+        19
+      ],
+      "items": [
+        [
+          "IN",
+          "IN",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show columns in other.cowrong;",
+      "cursor": 24,
+      "schema": 0,
+      "replacement": [
+        22,
+        29
+      ],
+      "items": [
+        [
+          "code",
+          "code",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show columns from [cowrong];",
+      "cursor": 21,
+      "schema": 0,
+      "replacement": [
+        18,
+        27
+      ],
+      "items": [
+        [
+          "[code]",
+          "[code]",
+          "table",
+          "table DBA"
+        ],
+        [
+          "[coding odd]",
+          "[coding odd]",
+          "table",
+          "table DBA"
+        ],
+        [
+          "[coding]",
+          "[coding]",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.[code]",
+          "OTHER.[code]",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "sho",
+      "cursor": 3,
+      "schema": 2,
+      "replacement": [
+        0,
+        3
+      ],
+      "items": [
+        [
+          "SHOW",
+          "SHOW",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW ",
+      "cursor": 5,
+      "schema": 2,
+      "replacement": [
+        5,
+        5
+      ],
+      "items": [
+        [
+          "ACCESS",
+          "ACCESS",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "ALL",
+          "ALL",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "ARCHIVE",
+          "ARCHIVE",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "COLLATION",
+          "COLLATION",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "COLUMNS",
+          "COLUMNS",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "CREATE",
+          "CREATE",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "CRITICAL",
+          "CRITICAL",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "EXEC",
+          "EXEC",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "FULL",
+          "FULL",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "GRANTS",
+          "GRANTS",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "HEAP",
+          "HEAP",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "INDEX",
+          "INDEX",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "INDEXES",
+          "INDEXES",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "JOB",
+          "JOB",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "KEYS",
+          "KEYS",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "LOG",
+          "LOG",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "PAGE",
+          "PAGE",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "SLOTTED",
+          "SLOTTED",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "TABLES",
+          "TABLES",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "THREADS",
+          "THREADS",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "TIMEZONES",
+          "TIMEZONES",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "TRACE",
+          "TRACE",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "TRAN",
+          "TRAN",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "TRANSACTION",
+          "TRANSACTION",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "VOLUME",
+          "VOLUME",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "sHoW tA",
+      "cursor": 7,
+      "schema": 2,
+      "replacement": [
+        5,
+        7
+      ],
+      "items": [
+        [
+          "TABLES",
+          "TABLES",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show c",
+      "cursor": 6,
+      "schema": 2,
+      "replacement": [
+        5,
+        6
+      ],
+      "items": [
+        [
+          "COLLATION",
+          "COLLATION",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "COLUMNS",
+          "COLUMNS",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "CREATE",
+          "CREATE",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "CRITICAL",
+          "CRITICAL",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show f",
+      "cursor": 6,
+      "schema": 2,
+      "replacement": [
+        5,
+        6
+      ],
+      "items": [
+        [
+          "FULL",
+          "FULL",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show FULL ",
+      "cursor": 10,
+      "schema": 2,
+      "replacement": [
+        10,
+        10
+      ],
+      "items": [
+        [
+          "COLUMNS",
+          "COLUMNS",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "TABLES",
+          "TABLES",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "TIMEZONES",
+          "TIMEZONES",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show full c",
+      "cursor": 11,
+      "schema": 2,
+      "replacement": [
+        10,
+        11
+      ],
+      "items": [
+        [
+          "COLUMNS",
+          "COLUMNS",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show columns ",
+      "cursor": 13,
+      "schema": 2,
+      "replacement": [
+        13,
+        13
+      ],
+      "items": [
+        [
+          "FROM",
+          "FROM",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "IN",
+          "IN",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show full columns f",
+      "cursor": 19,
+      "schema": 2,
+      "replacement": [
+        18,
+        19
+      ],
+      "items": [
+        [
+          "FROM",
+          "FROM",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show columns i",
+      "cursor": 14,
+      "schema": 2,
+      "replacement": [
+        13,
+        14
+      ],
+      "items": [
+        [
+          "IN",
+          "IN",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "/* lead */ show /* gap */ full\ncolumns ",
+      "cursor": 39,
+      "schema": 2,
+      "replacement": [
+        39,
+        39
+      ],
+      "items": [
+        [
+          "FROM",
+          "FROM",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "IN",
+          "IN",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select * from code; show ta",
+      "cursor": 27,
+      "schema": 2,
+      "replacement": [
+        25,
+        27
+      ],
+      "items": [
+        [
+          "TABLES",
+          "TABLES",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show ta; select * from code",
+      "cursor": 7,
+      "schema": 2,
+      "replacement": [
+        5,
+        7
+      ],
+      "items": [
+        [
+          "TABLES",
+          "TABLES",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "sho",
+      "cursor": 3,
+      "schema": 0,
+      "replacement": [
+        0,
+        3
+      ],
+      "items": [
+        [
+          "SHOW",
+          "SHOW",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW ",
+      "cursor": 5,
+      "schema": 0,
+      "replacement": [
+        5,
+        5
+      ],
+      "items": [
+        [
+          "ACCESS",
+          "ACCESS",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "ALL",
+          "ALL",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "ARCHIVE",
+          "ARCHIVE",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "COLLATION",
+          "COLLATION",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "COLUMNS",
+          "COLUMNS",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "CREATE",
+          "CREATE",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "CRITICAL",
+          "CRITICAL",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "EXEC",
+          "EXEC",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "FULL",
+          "FULL",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "GRANTS",
+          "GRANTS",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "HEAP",
+          "HEAP",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "INDEX",
+          "INDEX",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "INDEXES",
+          "INDEXES",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "JOB",
+          "JOB",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "KEYS",
+          "KEYS",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "LOG",
+          "LOG",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "PAGE",
+          "PAGE",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "SLOTTED",
+          "SLOTTED",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "TABLES",
+          "TABLES",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "THREADS",
+          "THREADS",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "TIMEZONES",
+          "TIMEZONES",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "TRACE",
+          "TRACE",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "TRAN",
+          "TRAN",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "TRANSACTION",
+          "TRANSACTION",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "VOLUME",
+          "VOLUME",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "sHoW tA",
+      "cursor": 7,
+      "schema": 0,
+      "replacement": [
+        5,
+        7
+      ],
+      "items": [
+        [
+          "TABLES",
+          "TABLES",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show c",
+      "cursor": 6,
+      "schema": 0,
+      "replacement": [
+        5,
+        6
+      ],
+      "items": [
+        [
+          "COLLATION",
+          "COLLATION",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "COLUMNS",
+          "COLUMNS",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "CREATE",
+          "CREATE",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "CRITICAL",
+          "CRITICAL",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show f",
+      "cursor": 6,
+      "schema": 0,
+      "replacement": [
+        5,
+        6
+      ],
+      "items": [
+        [
+          "FULL",
+          "FULL",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show FULL ",
+      "cursor": 10,
+      "schema": 0,
+      "replacement": [
+        10,
+        10
+      ],
+      "items": [
+        [
+          "COLUMNS",
+          "COLUMNS",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "TABLES",
+          "TABLES",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "TIMEZONES",
+          "TIMEZONES",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show full c",
+      "cursor": 11,
+      "schema": 0,
+      "replacement": [
+        10,
+        11
+      ],
+      "items": [
+        [
+          "COLUMNS",
+          "COLUMNS",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show columns ",
+      "cursor": 13,
+      "schema": 0,
+      "replacement": [
+        13,
+        13
+      ],
+      "items": [
+        [
+          "FROM",
+          "FROM",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "IN",
+          "IN",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show full columns f",
+      "cursor": 19,
+      "schema": 0,
+      "replacement": [
+        18,
+        19
+      ],
+      "items": [
+        [
+          "FROM",
+          "FROM",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show columns i",
+      "cursor": 14,
+      "schema": 0,
+      "replacement": [
+        13,
+        14
+      ],
+      "items": [
+        [
+          "IN",
+          "IN",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "/* lead */ show /* gap */ full\ncolumns ",
+      "cursor": 39,
+      "schema": 0,
+      "replacement": [
+        39,
+        39
+      ],
+      "items": [
+        [
+          "FROM",
+          "FROM",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "IN",
+          "IN",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select * from code; show ta",
+      "cursor": 27,
+      "schema": 0,
+      "replacement": [
+        25,
+        27
+      ],
+      "items": [
+        [
+          "TABLES",
+          "TABLES",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show ta; select * from code",
+      "cursor": 7,
+      "schema": 0,
+      "replacement": [
+        5,
+        7
+      ],
+      "items": [
+        [
+          "TABLES",
+          "TABLES",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show columns from co",
+      "cursor": 20,
+      "schema": 0,
+      "replacement": [
+        18,
+        20
+      ],
+      "items": [
+        [
+          "[coding odd]",
+          "[coding odd]",
+          "table",
+          "table DBA"
+        ],
+        [
+          "code",
+          "code",
+          "table",
+          "table DBA"
+        ],
+        [
+          "coding",
+          "coding",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.code",
+          "OTHER.code",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show columns from co",
+      "cursor": 20,
+      "schema": 2,
+      "replacement": [
+        18,
+        20
+      ],
+      "items": [],
+      "allowed": true
+    },
+    {
+      "text": "show columns from other.co",
+      "cursor": 26,
+      "schema": 0,
+      "replacement": [
+        24,
+        26
+      ],
+      "items": [
+        [
+          "code",
+          "code",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show columns from [OTHER].co",
+      "cursor": 28,
+      "schema": 0,
+      "replacement": [
+        26,
+        28
+      ],
+      "items": [
+        [
+          "code",
+          "code",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show columns from [co",
+      "cursor": 21,
+      "schema": 0,
+      "replacement": [
+        18,
+        21
+      ],
+      "items": [
+        [
+          "[code]",
+          "[code]",
+          "table",
+          "table DBA"
+        ],
+        [
+          "[coding odd]",
+          "[coding odd]",
+          "table",
+          "table DBA"
+        ],
+        [
+          "[coding]",
+          "[coding]",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.[code]",
+          "OTHER.[code]",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show columns from \"co",
+      "cursor": 21,
+      "schema": 0,
+      "replacement": [
+        18,
+        21
+      ],
+      "items": [
+        [
+          "\"code\"",
+          "\"code\"",
+          "table",
+          "table DBA"
+        ],
+        [
+          "\"coding odd\"",
+          "\"coding odd\"",
+          "table",
+          "table DBA"
+        ],
+        [
+          "\"coding\"",
+          "\"coding\"",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.\"code\"",
+          "OTHER.\"code\"",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select * from `co",
+      "cursor": 17,
+      "schema": 0,
+      "replacement": [
+        14,
+        17
+      ],
+      "items": [
+        [
+          "`code`",
+          "`code`",
+          "table",
+          "table DBA"
+        ],
+        [
+          "`coding odd`",
+          "`coding odd`",
+          "table",
+          "table DBA"
+        ],
+        [
+          "`coding`",
+          "`coding`",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.`code`",
+          "OTHER.`code`",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show columns from `co",
+      "cursor": 21,
+      "schema": 0,
+      "replacement": [
+        18,
+        21
+      ],
+      "items": [
+        [
+          "`code`",
+          "`code`",
+          "table",
+          "table DBA"
+        ],
+        [
+          "`coding odd`",
+          "`coding odd`",
+          "table",
+          "table DBA"
+        ],
+        [
+          "`coding`",
+          "`coding`",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.`code`",
+          "OTHER.`code`",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show columns in co",
+      "cursor": 18,
+      "schema": 0,
+      "replacement": [
+        16,
+        18
+      ],
+      "items": [
+        [
+          "[coding odd]",
+          "[coding odd]",
+          "table",
+          "table DBA"
+        ],
+        [
+          "code",
+          "code",
+          "table",
+          "table DBA"
+        ],
+        [
+          "coding",
+          "coding",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.code",
+          "OTHER.code",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show columns in co",
+      "cursor": 18,
+      "schema": 2,
+      "replacement": [
+        16,
+        18
+      ],
+      "items": [],
+      "allowed": true
+    },
+    {
+      "text": "show columns in other.co",
+      "cursor": 24,
+      "schema": 0,
+      "replacement": [
+        22,
+        24
+      ],
+      "items": [
+        [
+          "code",
+          "code",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show columns in [OTHER].co",
+      "cursor": 26,
+      "schema": 0,
+      "replacement": [
+        24,
+        26
+      ],
+      "items": [
+        [
+          "code",
+          "code",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show columns in [co",
+      "cursor": 19,
+      "schema": 0,
+      "replacement": [
+        16,
+        19
+      ],
+      "items": [
+        [
+          "[code]",
+          "[code]",
+          "table",
+          "table DBA"
+        ],
+        [
+          "[coding odd]",
+          "[coding odd]",
+          "table",
+          "table DBA"
+        ],
+        [
+          "[coding]",
+          "[coding]",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.[code]",
+          "OTHER.[code]",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show columns in \"co",
+      "cursor": 19,
+      "schema": 0,
+      "replacement": [
+        16,
+        19
+      ],
+      "items": [
+        [
+          "\"code\"",
+          "\"code\"",
+          "table",
+          "table DBA"
+        ],
+        [
+          "\"coding odd\"",
+          "\"coding odd\"",
+          "table",
+          "table DBA"
+        ],
+        [
+          "\"coding\"",
+          "\"coding\"",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.\"code\"",
+          "OTHER.\"code\"",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show columns in `co",
+      "cursor": 19,
+      "schema": 0,
+      "replacement": [
+        16,
+        19
+      ],
+      "items": [
+        [
+          "`code`",
+          "`code`",
+          "table",
+          "table DBA"
+        ],
+        [
+          "`coding odd`",
+          "`coding odd`",
+          "table",
+          "table DBA"
+        ],
+        [
+          "`coding`",
+          "`coding`",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.`code`",
+          "OTHER.`code`",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show full columns from co",
+      "cursor": 25,
+      "schema": 0,
+      "replacement": [
+        23,
+        25
+      ],
+      "items": [
+        [
+          "[coding odd]",
+          "[coding odd]",
+          "table",
+          "table DBA"
+        ],
+        [
+          "code",
+          "code",
+          "table",
+          "table DBA"
+        ],
+        [
+          "coding",
+          "coding",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.code",
+          "OTHER.code",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show full columns from co",
+      "cursor": 25,
+      "schema": 2,
+      "replacement": [
+        23,
+        25
+      ],
+      "items": [],
+      "allowed": true
+    },
+    {
+      "text": "show full columns from other.co",
+      "cursor": 31,
+      "schema": 0,
+      "replacement": [
+        29,
+        31
+      ],
+      "items": [
+        [
+          "code",
+          "code",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show full columns from [OTHER].co",
+      "cursor": 33,
+      "schema": 0,
+      "replacement": [
+        31,
+        33
+      ],
+      "items": [
+        [
+          "code",
+          "code",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show full columns from [co",
+      "cursor": 26,
+      "schema": 0,
+      "replacement": [
+        23,
+        26
+      ],
+      "items": [
+        [
+          "[code]",
+          "[code]",
+          "table",
+          "table DBA"
+        ],
+        [
+          "[coding odd]",
+          "[coding odd]",
+          "table",
+          "table DBA"
+        ],
+        [
+          "[coding]",
+          "[coding]",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.[code]",
+          "OTHER.[code]",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show full columns from \"co",
+      "cursor": 26,
+      "schema": 0,
+      "replacement": [
+        23,
+        26
+      ],
+      "items": [
+        [
+          "\"code\"",
+          "\"code\"",
+          "table",
+          "table DBA"
+        ],
+        [
+          "\"coding odd\"",
+          "\"coding odd\"",
+          "table",
+          "table DBA"
+        ],
+        [
+          "\"coding\"",
+          "\"coding\"",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.\"code\"",
+          "OTHER.\"code\"",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show full columns from `co",
+      "cursor": 26,
+      "schema": 0,
+      "replacement": [
+        23,
+        26
+      ],
+      "items": [
+        [
+          "`code`",
+          "`code`",
+          "table",
+          "table DBA"
+        ],
+        [
+          "`coding odd`",
+          "`coding odd`",
+          "table",
+          "table DBA"
+        ],
+        [
+          "`coding`",
+          "`coding`",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.`code`",
+          "OTHER.`code`",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "sHoW FuLl CoLuMnS iN co",
+      "cursor": 23,
+      "schema": 0,
+      "replacement": [
+        21,
+        23
+      ],
+      "items": [
+        [
+          "[coding odd]",
+          "[coding odd]",
+          "table",
+          "table DBA"
+        ],
+        [
+          "code",
+          "code",
+          "table",
+          "table DBA"
+        ],
+        [
+          "coding",
+          "coding",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.code",
+          "OTHER.code",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "sHoW FuLl CoLuMnS iN co",
+      "cursor": 23,
+      "schema": 2,
+      "replacement": [
+        21,
+        23
+      ],
+      "items": [],
+      "allowed": true
+    },
+    {
+      "text": "sHoW FuLl CoLuMnS iN other.co",
+      "cursor": 29,
+      "schema": 0,
+      "replacement": [
+        27,
+        29
+      ],
+      "items": [
+        [
+          "code",
+          "code",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "sHoW FuLl CoLuMnS iN [OTHER].co",
+      "cursor": 31,
+      "schema": 0,
+      "replacement": [
+        29,
+        31
+      ],
+      "items": [
+        [
+          "code",
+          "code",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "sHoW FuLl CoLuMnS iN [co",
+      "cursor": 24,
+      "schema": 0,
+      "replacement": [
+        21,
+        24
+      ],
+      "items": [
+        [
+          "[code]",
+          "[code]",
+          "table",
+          "table DBA"
+        ],
+        [
+          "[coding odd]",
+          "[coding odd]",
+          "table",
+          "table DBA"
+        ],
+        [
+          "[coding]",
+          "[coding]",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.[code]",
+          "OTHER.[code]",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "sHoW FuLl CoLuMnS iN \"co",
+      "cursor": 24,
+      "schema": 0,
+      "replacement": [
+        21,
+        24
+      ],
+      "items": [
+        [
+          "\"code\"",
+          "\"code\"",
+          "table",
+          "table DBA"
+        ],
+        [
+          "\"coding odd\"",
+          "\"coding odd\"",
+          "table",
+          "table DBA"
+        ],
+        [
+          "\"coding\"",
+          "\"coding\"",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.\"code\"",
+          "OTHER.\"code\"",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "sHoW FuLl CoLuMnS iN `co",
+      "cursor": 24,
+      "schema": 0,
+      "replacement": [
+        21,
+        24
+      ],
+      "items": [
+        [
+          "`code`",
+          "`code`",
+          "table",
+          "table DBA"
+        ],
+        [
+          "`coding odd`",
+          "`coding odd`",
+          "table",
+          "table DBA"
+        ],
+        [
+          "`coding`",
+          "`coding`",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.`code`",
+          "OTHER.`code`",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show columns /* gap */ in -- owner\nco",
+      "cursor": 37,
+      "schema": 0,
+      "replacement": [
+        35,
+        37
+      ],
+      "items": [
+        [
+          "[coding odd]",
+          "[coding odd]",
+          "table",
+          "table DBA"
+        ],
+        [
+          "code",
+          "code",
+          "table",
+          "table DBA"
+        ],
+        [
+          "coding",
+          "coding",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.code",
+          "OTHER.code",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show tables where na",
+      "cursor": 20,
+      "schema": 0,
+      "replacement": [
+        18,
+        20
+      ],
+      "items": [],
+      "allowed": true
+    },
+    {
+      "text": "show columns in code where na",
+      "cursor": 29,
+      "schema": 0,
+      "replacement": [
+        27,
+        29
+      ],
+      "items": [],
+      "allowed": true
+    },
+    {
+      "text": "show full columns from code where code.na",
+      "cursor": 41,
+      "schema": 0,
+      "replacement": [
+        39,
+        41
+      ],
+      "items": [],
+      "allowed": true
+    },
+    {
+      "text": "show columns from code where x in co",
+      "cursor": 36,
+      "schema": 0,
+      "replacement": [
+        34,
+        36
+      ],
+      "items": [],
+      "allowed": true
+    },
+    {
+      "text": "show columns bogus co",
+      "cursor": 21,
+      "schema": 0,
+      "replacement": [
+        19,
+        21
+      ],
+      "items": [],
+      "allowed": true
+    },
+    {
+      "text": "show columns from code, co",
+      "cursor": 26,
+      "schema": 0,
+      "replacement": [
+        24,
+        26
+      ],
+      "items": [],
+      "allowed": true
+    },
+    {
+      "text": "show \"ta",
+      "cursor": 8,
+      "schema": 0,
+      "replacement": [
+        5,
+        8
+      ],
+      "items": [],
+      "allowed": true
+    },
+    {
+      "text": "show other.ta",
+      "cursor": 13,
+      "schema": 0,
+      "replacement": [
+        11,
+        13
+      ],
+      "items": [],
+      "allowed": true
+    },
+    {
+      "text": "show tables ",
+      "cursor": 12,
+      "schema": 0,
+      "replacement": [
+        12,
+        12
+      ],
+      "items": [
+        [
+          "LIKE",
+          "LIKE",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "WHERE",
+          "WHERE",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show full tables ",
+      "cursor": 17,
+      "schema": 0,
+      "replacement": [
+        17,
+        17
+      ],
+      "items": [
+        [
+          "LIKE",
+          "LIKE",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "WHERE",
+          "WHERE",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show columns from code ",
+      "cursor": 23,
+      "schema": 0,
+      "replacement": [
+        23,
+        23
+      ],
+      "items": [
+        [
+          "LIKE",
+          "LIKE",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "WHERE",
+          "WHERE",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select * from code where id in co",
+      "cursor": 33,
+      "schema": 0,
+      "replacement": [
+        31,
+        33
+      ],
+      "items": [
+        [
+          "COMMIT",
+          "COMMIT",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show tables; select na from code",
+      "cursor": 22,
+      "schema": 0,
+      "replacement": [
+        20,
+        22
+      ],
+      "items": [
+        [
+          "name",
+          "name",
+          "column",
+          "column code"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "show index from co",
+      "cursor": 18,
+      "schema": 0,
+      "replacement": [
+        16,
+        18
+      ],
+      "items": [
+        [
+          "[coding odd]",
+          "[coding odd]",
+          "table",
+          "table DBA"
+        ],
+        [
+          "code",
+          "code",
+          "table",
+          "table DBA"
+        ],
+        [
+          "coding",
+          "coding",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.code",
+          "OTHER.code",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": ";sc",
+      "cursor": 3,
+      "schema": 3,
+      "replacement": [
+        0,
+        3
+      ],
+      "items": [
+        [
+          ";schema",
+          ";schema",
+          "command",
+          "display a table schema"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "  ;PL",
+      "cursor": 5,
+      "schema": 3,
+      "replacement": [
+        2,
+        5
+      ],
+      "items": [
+        [
+          ";plan",
+          ";plan",
+          "command",
+          "query plan: simple/detail/off"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": ";.h",
+      "cursor": 3,
+      "schema": 3,
+      "replacement": [
+        0,
+        3
+      ],
+      "items": [
+        [
+          ";.hist",
+          ";.hist",
+          "command",
+          "collect execution statistics: on/off (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": ";",
+      "cursor": 1,
+      "schema": 3,
+      "replacement": [
+        0,
+        1
+      ],
+      "items": [
+        [
+          ";.clear_hist",
+          ";.clear_hist",
+          "command",
+          "clear execution statistics"
+        ],
+        [
+          ";.dump_hist",
+          ";.dump_hist",
+          "command",
+          "display execution statistics"
+        ],
+        [
+          ";.hist",
+          ";.hist",
+          "command",
+          "collect execution statistics: on/off (DBA)"
+        ],
+        [
+          ";.x_hist",
+          ";.x_hist",
+          "command",
+          "display and clear execution statistics"
+        ],
+        [
+          ";append",
+          ";append",
+          "command",
+          "append the query buffer to a file"
+        ],
+        [
+          ";autocommit",
+          ";autocommit",
+          "command",
+          "set automatic commit: on/off"
+        ],
+        [
+          ";cd",
+          ";cd",
+          "command",
+          "change the client working directory"
+        ],
+        [
+          ";checkpoint",
+          ";checkpoint",
+          "command",
+          "issue a checkpoint (DBA, --sysadm)"
+        ],
+        [
+          ";clear",
+          ";clear",
+          "command",
+          "clear the query buffer"
+        ],
+        [
+          ";column-width",
+          ";column-width",
+          "command",
+          "set column output width"
+        ],
+        [
+          ";commit",
+          ";commit",
+          "command",
+          "commit the transaction"
+        ],
+        [
+          ";connect",
+          ";connect",
+          "command",
+          "connect as another user"
+        ],
+        [
+          ";database",
+          ";database",
+          "command",
+          "display the database and host"
+        ],
+        [
+          ";date",
+          ";date",
+          "command",
+          "display the date and time"
+        ],
+        [
+          ";edit",
+          ";edit",
+          "command",
+          "edit the query buffer"
+        ],
+        [
+          ";editor_cmd",
+          ";editor_cmd",
+          "command",
+          "configure the editor"
+        ],
+        [
+          ";exit",
+          ";exit",
+          "command",
+          "exit CSQL"
+        ],
+        [
+          ";formatter_cmd",
+          ";formatter_cmd",
+          "command",
+          "configure the formatter"
+        ],
+        [
+          ";get",
+          ";get",
+          "command",
+          "read a system parameter"
+        ],
+        [
+          ";help",
+          ";help",
+          "command",
+          "display native CSQL help"
+        ],
+        [
+          ";historylist",
+          ";historylist",
+          "command",
+          "display native CSQL history"
+        ],
+        [
+          ";historyread",
+          ";historyread",
+          "command",
+          "read a native history entry"
+        ],
+        [
+          ";info",
+          ";info",
+          "command",
+          "display internal information"
+        ],
+        [
+          ";killtran",
+          ";killtran",
+          "command",
+          "list or terminate transactions (DBA, --sysadm)"
+        ],
+        [
+          ";line-output",
+          ";line-output",
+          "command",
+          "display values on separate lines: on/off"
+        ],
+        [
+          ";list",
+          ";list",
+          "command",
+          "display the query buffer"
+        ],
+        [
+          ";pager_cmd",
+          ";pager_cmd",
+          "command",
+          "configure the pager"
+        ],
+        [
+          ";plan",
+          ";plan",
+          "command",
+          "query plan: simple/detail/off"
+        ],
+        [
+          ";print",
+          ";print",
+          "command",
+          "print the query buffer"
+        ],
+        [
+          ";print_cmd",
+          ";print_cmd",
+          "command",
+          "configure the print command"
+        ],
+        [
+          ";read",
+          ";read",
+          "command",
+          "read a file into the query buffer"
+        ],
+        [
+          ";refresh-completions",
+          ";refresh-completions",
+          "command",
+          "refresh wrapper metadata (client/server)"
+        ],
+        [
+          ";restart",
+          ";restart",
+          "command",
+          "reconnect to the database"
+        ],
+        [
+          ";rollback",
+          ";rollback",
+          "command",
+          "roll back the transaction"
+        ],
+        [
+          ";run",
+          ";run",
+          "command",
+          "execute the query buffer"
+        ],
+        [
+          ";schema",
+          ";schema",
+          "command",
+          "display a table schema"
+        ],
+        [
+          ";server-output",
+          ";server-output",
+          "command",
+          "display DBMS_OUTPUT messages: on/off"
+        ],
+        [
+          ";set",
+          ";set",
+          "command",
+          "change a dynamic system parameter"
+        ],
+        [
+          ";shell",
+          ";shell",
+          "command",
+          "open the configured shell"
+        ],
+        [
+          ";shell_cmd",
+          ";shell_cmd",
+          "command",
+          "configure the shell"
+        ],
+        [
+          ";singleline",
+          ";singleline",
+          "command",
+          "single-line execution: on/off"
+        ],
+        [
+          ";string-width",
+          ";string-width",
+          "command",
+          "set string output width"
+        ],
+        [
+          ";time",
+          ";time",
+          "command",
+          "display query execution time: on/off"
+        ],
+        [
+          ";trace",
+          ";trace",
+          "command",
+          "SQL trace: on/off text/json (client/server)"
+        ],
+        [
+          ";trigger",
+          ";trigger",
+          "command",
+          "display trigger definitions"
+        ],
+        [
+          ";write",
+          ";write",
+          "command",
+          "write the query buffer to a file"
+        ],
+        [
+          ";xrun",
+          ";xrun",
+          "command",
+          "execute and clear the query buffer"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": ";autocommit ",
+      "cursor": 12,
+      "schema": 3,
+      "replacement": [
+        12,
+        12
+      ],
+      "items": [
+        [
+          "off",
+          "off",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "on",
+          "on",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": ";time ",
+      "cursor": 6,
+      "schema": 3,
+      "replacement": [
+        6,
+        6
+      ],
+      "items": [
+        [
+          "off",
+          "off",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "on",
+          "on",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": ";line-output ",
+      "cursor": 13,
+      "schema": 3,
+      "replacement": [
+        13,
+        13
+      ],
+      "items": [
+        [
+          "off",
+          "off",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "on",
+          "on",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": ";server-output ",
+      "cursor": 15,
+      "schema": 3,
+      "replacement": [
+        15,
+        15
+      ],
+      "items": [
+        [
+          "off",
+          "off",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "on",
+          "on",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": ";singleline ",
+      "cursor": 12,
+      "schema": 3,
+      "replacement": [
+        12,
+        12
+      ],
+      "items": [
+        [
+          "off",
+          "off",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "on",
+          "on",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": ";.hist ",
+      "cursor": 7,
+      "schema": 3,
+      "replacement": [
+        7,
+        7
+      ],
+      "items": [
+        [
+          "off",
+          "off",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "on",
+          "on",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": ";plan ",
+      "cursor": 6,
+      "schema": 3,
+      "replacement": [
+        6,
+        6
+      ],
+      "items": [
+        [
+          "detail",
+          "detail",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "off",
+          "off",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "simple",
+          "simple",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": ";trace on ",
+      "cursor": 10,
+      "schema": 3,
+      "replacement": [
+        10,
+        10
+      ],
+      "items": [
+        [
+          "json",
+          "json",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "text",
+          "text",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": ";pl de",
+      "cursor": 6,
+      "schema": 3,
+      "replacement": [
+        4,
+        6
+      ],
+      "items": [
+        [
+          "detail",
+          "detail",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": ";schema at",
+      "cursor": 10,
+      "schema": 3,
+      "replacement": [
+        8,
+        10
+      ],
+      "items": [
+        [
+          "athlete",
+          "athlete",
+          "table",
+          "table DBA"
+        ],
+        [
+          "athlete_view",
+          "athlete_view",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.athlete",
+          "OTHER.athlete",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": ";info stats at",
+      "cursor": 14,
+      "schema": 3,
+      "replacement": [
+        12,
+        14
+      ],
+      "items": [
+        [
+          "athlete",
+          "athlete",
+          "table",
+          "table DBA"
+        ],
+        [
+          "athlete_view",
+          "athlete_view",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.athlete",
+          "OTHER.athlete",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": ";connect re",
+      "cursor": 11,
+      "schema": 3,
+      "replacement": [
+        9,
+        11
+      ],
+      "items": [
+        [
+          "reader",
+          "reader",
+          "user",
+          "user"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "  ;scwrong athlete;",
+      "cursor": 5,
+      "schema": 3,
+      "replacement": [
+        2,
+        10
+      ],
+      "items": [
+        [
+          ";schema",
+          ";schema",
+          "command",
+          "display a table schema"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": ";schema other.atwrong",
+      "cursor": 16,
+      "schema": 3,
+      "replacement": [
+        14,
+        21
+      ],
+      "items": [
+        [
+          "athlete",
+          "athlete",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": ";unknown at",
+      "cursor": 11,
+      "schema": 3,
+      "replacement": [
+        11,
+        11
+      ],
+      "items": [],
+      "allowed": true
+    },
+    {
+      "text": "select * from db_in",
+      "cursor": 19,
+      "schema": 3,
+      "replacement": [
+        14,
+        19
+      ],
+      "items": [
+        [
+          "db_index",
+          "db_index",
+          "view",
+          "catalog view DBA"
+        ],
+        [
+          "db_index_key",
+          "db_index_key",
+          "view",
+          "catalog view DBA"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select * from _db",
+      "cursor": 17,
+      "schema": 3,
+      "replacement": [
+        14,
+        17
+      ],
+      "items": [
+        [
+          "_db_class",
+          "_db_class",
+          "table",
+          "catalog table DBA"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select * from dba.db_cl",
+      "cursor": 23,
+      "schema": 3,
+      "replacement": [
+        18,
+        23
+      ],
+      "items": [
+        [
+          "db_class",
+          "db_class",
+          "view",
+          "catalog view DBA"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "db_cl",
+      "cursor": 5,
+      "schema": 3,
+      "replacement": [
+        0,
+        5
+      ],
+      "items": [
+        [
+          "db_class",
+          "db_class",
+          "view",
+          "catalog view DBA"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select * from ",
+      "cursor": 14,
+      "schema": 3,
+      "replacement": [
+        14,
+        14
+      ],
+      "items": [
+        [
+          "athlete",
+          "athlete",
+          "table",
+          "table DBA"
+        ],
+        [
+          "athlete_view",
+          "athlete_view",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.athlete",
+          "OTHER.athlete",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select d.cl from db_class d",
+      "cursor": 11,
+      "schema": 3,
+      "replacement": [
+        9,
+        11
+      ],
+      "items": [
+        [
+          "class_name",
+          "class_name",
+          "column",
+          "column d"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select * from db_cl",
+      "cursor": 19,
+      "schema": 4,
+      "replacement": [
+        14,
+        19
+      ],
+      "items": [
+        [
+          "db_class",
+          "db_class",
+          "view",
+          "catalog view DBA"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select d.ow from db_class d",
+      "cursor": 11,
+      "schema": 4,
+      "replacement": [
+        9,
+        11
+      ],
+      "items": [
+        [
+          "owner_name",
+          "owner_name",
+          "column",
+          "column d"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select * from information_schema.vi",
+      "cursor": 35,
+      "schema": 5,
+      "replacement": [
+        33,
+        35
+      ],
+      "items": [
+        [
+          "views",
+          "views",
+          "view",
+          "catalog view INFORMATION_SCHEMA"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select v.tab from views v",
+      "cursor": 12,
+      "schema": 5,
+      "replacement": [
+        9,
+        12
+      ],
+      "items": [],
+      "allowed": true
+    },
+    {
+      "text": "select v.tab from information_schema.views v",
+      "cursor": 12,
+      "schema": 5,
+      "replacement": [
+        9,
+        12
+      ],
+      "items": [
+        [
+          "table_name",
+          "table_name",
+          "column",
+          "column v"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "/* lead */ SHOW INDEX /* gap */ he",
+      "cursor": 34,
+      "schema": 3,
+      "replacement": [
+        32,
+        34
+      ],
+      "items": [
+        [
+          "HEADER",
+          "HEADER",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "select 1; SHOW CREATE t",
+      "cursor": 23,
+      "schema": 3,
+      "replacement": [
+        22,
+        23
+      ],
+      "items": [
+        [
+          "TABLE",
+          "TABLE",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW TABLES; select a.na from athlete a",
+      "cursor": 24,
+      "schema": 3,
+      "replacement": [
+        22,
+        24
+      ],
+      "items": [
+        [
+          "name",
+          "name",
+          "column",
+          "column a"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW \"he",
+      "cursor": 8,
+      "schema": 3,
+      "replacement": [
+        5,
+        8
+      ],
+      "items": [],
+      "allowed": true
+    },
+    {
+      "text": "SHOW broken FROM at",
+      "cursor": 19,
+      "schema": 3,
+      "replacement": [
+        17,
+        19
+      ],
+      "items": [],
+      "allowed": true
+    },
+    {
+      "text": "SHOW THREADS WHERE Status='fr",
+      "cursor": 29,
+      "schema": 3,
+      "replacement": [
+        29,
+        29
+      ],
+      "items": [],
+      "allowed": false
+    },
+    {
+      "text": ";schema 'at",
+      "cursor": 11,
+      "schema": 3,
+      "replacement": [
+        11,
+        11
+      ],
+      "items": [],
+      "allowed": false
+    },
+    {
+      "text": "SHOW /* he",
+      "cursor": 10,
+      "schema": 3,
+      "replacement": [
+        10,
+        10
+      ],
+      "items": [],
+      "allowed": false
+    },
+    {
+      "text": "SHOW COLUMNS FROM athlete WHERE fi",
+      "cursor": 34,
+      "schema": 3,
+      "replacement": [
+        32,
+        34
+      ],
+      "items": [
+        [
+          "Field",
+          "Field",
+          "column",
+          "result column"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW FULL COLUMNS FROM athlete WHERE co",
+      "cursor": 39,
+      "schema": 3,
+      "replacement": [
+        37,
+        39
+      ],
+      "items": [
+        [
+          "[Collation]",
+          "[Collation]",
+          "column",
+          "result column"
+        ],
+        [
+          "Comment",
+          "Comment",
+          "column",
+          "result column"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW COLUMNS FROM athlete WHERE na",
+      "cursor": 34,
+      "schema": 3,
+      "replacement": [
+        32,
+        34
+      ],
+      "items": [],
+      "allowed": true
+    },
+    {
+      "text": "SHOW FULL TABLES WHERE tab",
+      "cursor": 26,
+      "schema": 3,
+      "replacement": [
+        23,
+        26
+      ],
+      "items": [
+        [
+          "Table_type",
+          "Table_type",
+          "column",
+          "result column"
+        ],
+        [
+          "tables_in_demo",
+          "tables_in_demo",
+          "column",
+          "result column"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW TABLES WHERE tab",
+      "cursor": 21,
+      "schema": 3,
+      "replacement": [
+        18,
+        21
+      ],
+      "items": [
+        [
+          "tables_in_demo",
+          "tables_in_demo",
+          "column",
+          "result column"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW THREADS WHERE st",
+      "cursor": 21,
+      "schema": 3,
+      "replacement": [
+        19,
+        21
+      ],
+      "items": [
+        [
+          "Status",
+          "Status",
+          "column",
+          "result column"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW TRANSACTION TABLES WHERE client_t",
+      "cursor": 38,
+      "schema": 3,
+      "replacement": [
+        30,
+        38
+      ],
+      "items": [
+        [
+          "Client_type",
+          "Client_type",
+          "column",
+          "result column"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW ACCESS STATUS WHERE last_a",
+      "cursor": 31,
+      "schema": 3,
+      "replacement": [
+        25,
+        31
+      ],
+      "items": [
+        [
+          "last_access_host",
+          "last_access_host",
+          "column",
+          "result column"
+        ],
+        [
+          "last_access_time",
+          "last_access_time",
+          "column",
+          "result column"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW THREADS WHERE Status = 'FREE' AND tran_i",
+      "cursor": 45,
+      "schema": 3,
+      "replacement": [
+        39,
+        45
+      ],
+      "items": [
+        [
+          "Tran_index",
+          "Tran_index",
+          "column",
+          "result column"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW COLUMNS FROM athlete WHERE fiwrong;",
+      "cursor": 34,
+      "schema": 3,
+      "replacement": [
+        32,
+        39
+      ],
+      "items": [
+        [
+          "Field",
+          "Field",
+          "column",
+          "result column"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW INDEX HEADER OF at",
+      "cursor": 23,
+      "schema": 3,
+      "replacement": [
+        21,
+        23
+      ],
+      "items": [
+        [
+          "athlete.",
+          "athlete.",
+          "table",
+          "table DBA"
+        ],
+        [
+          "OTHER.athlete.",
+          "OTHER.athlete.",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW INDEX HEADER OF athlete.idx",
+      "cursor": 32,
+      "schema": 3,
+      "replacement": [
+        29,
+        32
+      ],
+      "items": [
+        [
+          "idx_code",
+          "idx_code",
+          "index",
+          "index athlete"
+        ],
+        [
+          "idx_name",
+          "idx_name",
+          "index",
+          "index athlete"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW INDEX CAPACITY OF other.athlete.idx",
+      "cursor": 40,
+      "schema": 3,
+      "replacement": [
+        37,
+        40
+      ],
+      "items": [
+        [
+          "idx_other",
+          "idx_other",
+          "index",
+          "index athlete"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW INDEX CAPACITY OF [OTHER].[athlete].idx",
+      "cursor": 44,
+      "schema": 3,
+      "replacement": [
+        41,
+        44
+      ],
+      "items": [
+        [
+          "idx_other",
+          "idx_other",
+          "index",
+          "index athlete"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW INDEX HEADER OF missing.idx",
+      "cursor": 32,
+      "schema": 3,
+      "replacement": [
+        29,
+        32
+      ],
+      "items": [],
+      "allowed": true
+    },
+    {
+      "text": "SHOW INDEX HEADER OF other.athlete.idxwrong;",
+      "cursor": 38,
+      "schema": 3,
+      "replacement": [
+        35,
+        43
+      ],
+      "items": [
+        [
+          "idx_other",
+          "idx_other",
+          "index",
+          "index athlete"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW CREATE ",
+      "cursor": 12,
+      "schema": 2,
+      "replacement": [
+        12,
+        12
+      ],
+      "items": [
+        [
+          "TABLE",
+          "TABLE",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "VIEW",
+          "VIEW",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW INDEX ",
+      "cursor": 11,
+      "schema": 2,
+      "replacement": [
+        11,
+        11
+      ],
+      "items": [
+        [
+          "CAPACITY",
+          "CAPACITY",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "FROM",
+          "FROM",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "HEADER",
+          "HEADER",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "IN",
+          "IN",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW INDEXES ",
+      "cursor": 13,
+      "schema": 2,
+      "replacement": [
+        13,
+        13
+      ],
+      "items": [
+        [
+          "FROM",
+          "FROM",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "IN",
+          "IN",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW KEYS ",
+      "cursor": 10,
+      "schema": 2,
+      "replacement": [
+        10,
+        10
+      ],
+      "items": [
+        [
+          "FROM",
+          "FROM",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "IN",
+          "IN",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW COLLATION ",
+      "cursor": 15,
+      "schema": 2,
+      "replacement": [
+        15,
+        15
+      ],
+      "items": [
+        [
+          "LIKE",
+          "LIKE",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW TIMEZONES ",
+      "cursor": 15,
+      "schema": 2,
+      "replacement": [
+        15,
+        15
+      ],
+      "items": [
+        [
+          "LIKE",
+          "LIKE",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW FULL TIMEZONES ",
+      "cursor": 20,
+      "schema": 2,
+      "replacement": [
+        20,
+        20
+      ],
+      "items": [
+        [
+          "LIKE",
+          "LIKE",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW GRANTS ",
+      "cursor": 12,
+      "schema": 2,
+      "replacement": [
+        12,
+        12
+      ],
+      "items": [
+        [
+          "FOR",
+          "FOR",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW ACCESS ",
+      "cursor": 12,
+      "schema": 2,
+      "replacement": [
+        12,
+        12
+      ],
+      "items": [
+        [
+          "STATUS",
+          "STATUS",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW ACCESS STATUS ",
+      "cursor": 19,
+      "schema": 2,
+      "replacement": [
+        19,
+        19
+      ],
+      "items": [
+        [
+          "LIKE",
+          "LIKE",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "WHERE",
+          "WHERE",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW EXEC STATISTICS ",
+      "cursor": 21,
+      "schema": 2,
+      "replacement": [
+        21,
+        21
+      ],
+      "items": [
+        [
+          "ALL",
+          "ALL",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW ARCHIVE LOG HEADER ",
+      "cursor": 24,
+      "schema": 2,
+      "replacement": [
+        24,
+        24
+      ],
+      "items": [
+        [
+          "OF",
+          "OF",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW LOG HEADER ",
+      "cursor": 16,
+      "schema": 2,
+      "replacement": [
+        16,
+        16
+      ],
+      "items": [
+        [
+          "OF",
+          "OF",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW VOLUME HEADER ",
+      "cursor": 19,
+      "schema": 2,
+      "replacement": [
+        19,
+        19
+      ],
+      "items": [
+        [
+          "OF",
+          "OF",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW HEAP HEADER ",
+      "cursor": 17,
+      "schema": 2,
+      "replacement": [
+        17,
+        17
+      ],
+      "items": [
+        [
+          "OF",
+          "OF",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW HEAP CAPACITY ",
+      "cursor": 19,
+      "schema": 2,
+      "replacement": [
+        19,
+        19
+      ],
+      "items": [
+        [
+          "OF",
+          "OF",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW ALL ",
+      "cursor": 9,
+      "schema": 2,
+      "replacement": [
+        9,
+        9
+      ],
+      "items": [
+        [
+          "HEAP",
+          "HEAP",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "INDEXES",
+          "INDEXES",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW ALL HEAP ",
+      "cursor": 14,
+      "schema": 2,
+      "replacement": [
+        14,
+        14
+      ],
+      "items": [
+        [
+          "CAPACITY",
+          "CAPACITY",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "HEADER",
+          "HEADER",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW ALL INDEXES ",
+      "cursor": 17,
+      "schema": 2,
+      "replacement": [
+        17,
+        17
+      ],
+      "items": [
+        [
+          "CAPACITY",
+          "CAPACITY",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "HEADER",
+          "HEADER",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW INDEX HEADER ",
+      "cursor": 18,
+      "schema": 2,
+      "replacement": [
+        18,
+        18
+      ],
+      "items": [
+        [
+          "OF",
+          "OF",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW INDEX CAPACITY ",
+      "cursor": 20,
+      "schema": 2,
+      "replacement": [
+        20,
+        20
+      ],
+      "items": [
+        [
+          "OF",
+          "OF",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW SLOTTED PAGE ",
+      "cursor": 18,
+      "schema": 2,
+      "replacement": [
+        18,
+        18
+      ],
+      "items": [
+        [
+          "HEADER",
+          "HEADER",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "SLOTS",
+          "SLOTS",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW SLOTTED PAGE HEADER ",
+      "cursor": 25,
+      "schema": 2,
+      "replacement": [
+        25,
+        25
+      ],
+      "items": [
+        [
+          "OF",
+          "OF",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "WHERE",
+          "WHERE",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW SLOTTED PAGE SLOTS OF ",
+      "cursor": 27,
+      "schema": 2,
+      "replacement": [
+        27,
+        27
+      ],
+      "items": [
+        [
+          "VOLUME",
+          "VOLUME",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW SLOTTED PAGE SLOTS OF VOLUME ",
+      "cursor": 34,
+      "schema": 2,
+      "replacement": [
+        34,
+        34
+      ],
+      "items": [
+        [
+          "=",
+          "=",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW SLOTTED PAGE SLOTS OF VOLUME = 0 ",
+      "cursor": 38,
+      "schema": 2,
+      "replacement": [
+        38,
+        38
+      ],
+      "items": [
+        [
+          "AND",
+          "AND",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW SLOTTED PAGE SLOTS OF VOLUME = 0 AND ",
+      "cursor": 42,
+      "schema": 2,
+      "replacement": [
+        42,
+        42
+      ],
+      "items": [
+        [
+          "PAGE",
+          "PAGE",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW SLOTTED PAGE SLOTS OF VOLUME = 0 AND PAGE ",
+      "cursor": 47,
+      "schema": 2,
+      "replacement": [
+        47,
+        47
+      ],
+      "items": [
+        [
+          "=",
+          "=",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW CRITICAL ",
+      "cursor": 14,
+      "schema": 2,
+      "replacement": [
+        14,
+        14
+      ],
+      "items": [
+        [
+          "SECTIONS",
+          "SECTIONS",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW TRANSACTION ",
+      "cursor": 17,
+      "schema": 2,
+      "replacement": [
+        17,
+        17
+      ],
+      "items": [
+        [
+          "TABLES",
+          "TABLES",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW TRAN TABLES ",
+      "cursor": 17,
+      "schema": 2,
+      "replacement": [
+        17,
+        17
+      ],
+      "items": [
+        [
+          "WHERE",
+          "WHERE",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW THREADS ",
+      "cursor": 13,
+      "schema": 2,
+      "replacement": [
+        13,
+        13
+      ],
+      "items": [
+        [
+          "WHERE",
+          "WHERE",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW JOB ",
+      "cursor": 9,
+      "schema": 2,
+      "replacement": [
+        9,
+        9
+      ],
+      "items": [
+        [
+          "QUEUES",
+          "QUEUES",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW PAGE BUFFER ",
+      "cursor": 17,
+      "schema": 2,
+      "replacement": [
+        17,
+        17
+      ],
+      "items": [
+        [
+          "STATUS",
+          "STATUS",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "UPDATE sta",
+      "cursor": 10,
+      "schema": 3,
+      "replacement": [
+        7,
+        10
+      ],
+      "items": [
+        [
+          "STATISTICS",
+          "STATISTICS",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "UPDATE STATISTICS ",
+      "cursor": 18,
+      "schema": 3,
+      "replacement": [
+        18,
+        18
+      ],
+      "items": [
+        [
+          "ON",
+          "ON",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "UPDATE STATISTICS ON athlete, at",
+      "cursor": 32,
+      "schema": 3,
+      "replacement": [
+        30,
+        32
+      ],
+      "items": [
+        [
+          "athlete",
+          "athlete",
+          "table",
+          "table DBA"
+        ],
+        [
+          "OTHER.athlete",
+          "OTHER.athlete",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "UPDATE STATISTICS ON athlete WITH ",
+      "cursor": 34,
+      "schema": 3,
+      "replacement": [
+        34,
+        34
+      ],
+      "items": [
+        [
+          "FULLSCAN",
+          "FULLSCAN",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "UPDATE STATISTICS ON CATALOG ",
+      "cursor": 29,
+      "schema": 3,
+      "replacement": [
+        29,
+        29
+      ],
+      "items": [
+        [
+          "CLASSES",
+          "CLASSES",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SET TRACE ",
+      "cursor": 10,
+      "schema": 3,
+      "replacement": [
+        10,
+        10
+      ],
+      "items": [
+        [
+          "OFF",
+          "OFF",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "ON",
+          "ON",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SET TRACE ON ",
+      "cursor": 13,
+      "schema": 3,
+      "replacement": [
+        13,
+        13
+      ],
+      "items": [
+        [
+          "OUTPUT",
+          "OUTPUT",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SET TRACE ON OUTPUT ",
+      "cursor": 20,
+      "schema": 3,
+      "replacement": [
+        20,
+        20
+      ],
+      "items": [
+        [
+          "JSON",
+          "JSON",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "TEXT",
+          "TEXT",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW tr",
+      "cursor": 7,
+      "schema": 3,
+      "replacement": [
+        5,
+        7
+      ],
+      "items": [
+        [
+          "TRACE",
+          "TRACE",
+          "keyword",
+          "keyword"
+        ],
+        [
+          "TRAN",
+          "TRAN",
+          "keyword",
+          "keyword (DBA)"
+        ],
+        [
+          "TRANSACTION",
+          "TRANSACTION",
+          "keyword",
+          "keyword (DBA)"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SET OPTIMIZATION ",
+      "cursor": 17,
+      "schema": 3,
+      "replacement": [
+        17,
+        17
+      ],
+      "items": [
+        [
+          "LEVEL",
+          "LEVEL",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "GET TRANSACTION ISOLATION ",
+      "cursor": 26,
+      "schema": 3,
+      "replacement": [
+        26,
+        26
+      ],
+      "items": [
+        [
+          "LEVEL",
+          "LEVEL",
+          "keyword",
+          "keyword"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "DESC at",
+      "cursor": 7,
+      "schema": 3,
+      "replacement": [
+        5,
+        7
+      ],
+      "items": [
+        [
+          "athlete",
+          "athlete",
+          "table",
+          "table DBA"
+        ],
+        [
+          "athlete_view",
+          "athlete_view",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.athlete",
+          "OTHER.athlete",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "DESCRIBE at",
+      "cursor": 11,
+      "schema": 3,
+      "replacement": [
+        9,
+        11
+      ],
+      "items": [
+        [
+          "athlete",
+          "athlete",
+          "table",
+          "table DBA"
+        ],
+        [
+          "athlete_view",
+          "athlete_view",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.athlete",
+          "OTHER.athlete",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "EXPLAIN at",
+      "cursor": 10,
+      "schema": 3,
+      "replacement": [
+        8,
+        10
+      ],
+      "items": [
+        [
+          "athlete",
+          "athlete",
+          "table",
+          "table DBA"
+        ],
+        [
+          "athlete_view",
+          "athlete_view",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.athlete",
+          "OTHER.athlete",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW COLUMNS FROM at",
+      "cursor": 20,
+      "schema": 3,
+      "replacement": [
+        18,
+        20
+      ],
+      "items": [
+        [
+          "athlete",
+          "athlete",
+          "table",
+          "table DBA"
+        ],
+        [
+          "athlete_view",
+          "athlete_view",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.athlete",
+          "OTHER.athlete",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW INDEX FROM at",
+      "cursor": 18,
+      "schema": 3,
+      "replacement": [
+        16,
+        18
+      ],
+      "items": [
+        [
+          "athlete",
+          "athlete",
+          "table",
+          "table DBA"
+        ],
+        [
+          "athlete_view",
+          "athlete_view",
+          "view",
+          "view DBA"
+        ],
+        [
+          "OTHER.athlete",
+          "OTHER.athlete",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW CREATE TABLE at",
+      "cursor": 20,
+      "schema": 3,
+      "replacement": [
+        18,
+        20
+      ],
+      "items": [
+        [
+          "athlete",
+          "athlete",
+          "table",
+          "table DBA"
+        ],
+        [
+          "OTHER.athlete",
+          "OTHER.athlete",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW HEAP HEADER OF at",
+      "cursor": 22,
+      "schema": 3,
+      "replacement": [
+        20,
+        22
+      ],
+      "items": [
+        [
+          "athlete",
+          "athlete",
+          "table",
+          "table DBA"
+        ],
+        [
+          "OTHER.athlete",
+          "OTHER.athlete",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW ALL HEAP CAPACITY OF at",
+      "cursor": 28,
+      "schema": 3,
+      "replacement": [
+        26,
+        28
+      ],
+      "items": [
+        [
+          "athlete",
+          "athlete",
+          "table",
+          "table DBA"
+        ],
+        [
+          "OTHER.athlete",
+          "OTHER.athlete",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW ALL INDEXES HEADER OF at",
+      "cursor": 29,
+      "schema": 3,
+      "replacement": [
+        27,
+        29
+      ],
+      "items": [
+        [
+          "athlete",
+          "athlete",
+          "table",
+          "table DBA"
+        ],
+        [
+          "OTHER.athlete",
+          "OTHER.athlete",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW ALL INDEXES CAPACITY OF at",
+      "cursor": 31,
+      "schema": 3,
+      "replacement": [
+        29,
+        31
+      ],
+      "items": [
+        [
+          "athlete",
+          "athlete",
+          "table",
+          "table DBA"
+        ],
+        [
+          "OTHER.athlete",
+          "OTHER.athlete",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW CREATE VIEW at",
+      "cursor": 19,
+      "schema": 3,
+      "replacement": [
+        17,
+        19
+      ],
+      "items": [
+        [
+          "athlete_view",
+          "athlete_view",
+          "view",
+          "view DBA"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW GRANTS FOR re",
+      "cursor": 18,
+      "schema": 3,
+      "replacement": [
+        16,
+        18
+      ],
+      "items": [
+        [
+          "reader",
+          "reader",
+          "user",
+          "user"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SHOW CREATE TABLE [OTHER].at",
+      "cursor": 28,
+      "schema": 3,
+      "replacement": [
+        26,
+        28
+      ],
+      "items": [
+        [
+          "athlete",
+          "athlete",
+          "table",
+          "table OTHER"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": ";get lock_",
+      "cursor": 10,
+      "schema": 3,
+      "replacement": [
+        5,
+        10
+      ],
+      "items": [
+        [
+          "lock_escalation",
+          "lock_escalation",
+          "parameter",
+          "parameter int"
+        ],
+        [
+          "lock_timeout",
+          "lock_timeout",
+          "parameter",
+          "parameter msec"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": ";set lock_",
+      "cursor": 10,
+      "schema": 3,
+      "replacement": [
+        5,
+        10
+      ],
+      "items": [
+        [
+          "lock_timeout=",
+          "lock_timeout=",
+          "parameter",
+          "parameter msec"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": ";set block_ddl_statement=",
+      "cursor": 25,
+      "schema": 3,
+      "replacement": [
+        25,
+        25
+      ],
+      "items": [
+        [
+          "yes",
+          "yes",
+          "value",
+          "parameter value"
+        ],
+        [
+          "no",
+          "no",
+          "value",
+          "parameter value"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": ";set block_ddl_statement=n",
+      "cursor": 26,
+      "schema": 3,
+      "replacement": [
+        25,
+        26
+      ],
+      "items": [
+        [
+          "no",
+          "no",
+          "value",
+          "parameter value"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": ";set max_clients",
+      "cursor": 16,
+      "schema": 3,
+      "replacement": [
+        5,
+        16
+      ],
+      "items": [],
+      "allowed": true
+    },
+    {
+      "text": ";get block_ddl_statement=y",
+      "cursor": 26,
+      "schema": 3,
+      "replacement": [
+        26,
+        26
+      ],
+      "items": [],
+      "allowed": true
+    },
+    {
+      "text": ";set lock_twrong=12",
+      "cursor": 11,
+      "schema": 3,
+      "replacement": [
+        5,
+        16
+      ],
+      "items": [
+        [
+          "lock_timeout",
+          "lock_timeout",
+          "parameter",
+          "parameter msec"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": ";get lock_twrong",
+      "cursor": 11,
+      "schema": 3,
+      "replacement": [
+        5,
+        16
+      ],
+      "items": [
+        [
+          "lock_timeout",
+          "lock_timeout",
+          "parameter",
+          "parameter msec"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SET SYSTEM PARAMETERS 'lock_twrong';",
+      "cursor": 29,
+      "schema": 3,
+      "replacement": [
+        23,
+        34
+      ],
+      "items": [
+        [
+          "lock_timeout=",
+          "lock_timeout=",
+          "parameter",
+          "parameter msec"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SET SYSTEM PARAMETERS 'lock_timeout=D",
+      "cursor": 37,
+      "schema": 3,
+      "replacement": [
+        36,
+        37
+      ],
+      "items": [
+        [
+          "DEFAULT",
+          "DEFAULT",
+          "value",
+          "parameter value"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SET SYSTEM PARAMETERS 'lock_timeout=1;block_dd",
+      "cursor": 46,
+      "schema": 3,
+      "replacement": [
+        38,
+        46
+      ],
+      "items": [
+        [
+          "block_ddl_statement=",
+          "block_ddl_statement=",
+          "parameter",
+          "parameter bool"
+        ]
+      ],
+      "allowed": true
+    },
+    {
+      "text": "SET SYSTEM PARAMETERS 'block_ddl_statement=nwrong';",
+      "cursor": 44,
+      "schema": 3,
+      "replacement": [
+        43,
+        49
+      ],
+      "items": [
+        [
+          "no",
+          "no",
+          "value",
+          "parameter value"
+        ]
+      ],
+      "allowed": true
+    }
+  ]
+}
