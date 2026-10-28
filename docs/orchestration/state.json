@@ -178,13 +178,16 @@
       ]
     },
     "05": {
-      "status": "ready",
+      "status": "dispatched",
       "dependsOn": [
         "03",
         "04"
       ],
       "readyAt": "2026-10-28T13:21:29.415550+00:00",
-      "readiness": "All ticket dependencies integrated; dispatch a fresh-context agent in an isolated worktree from an exact coordinator baseline"
+      "readiness": "All ticket dependencies integrated; dispatch a fresh-context agent in an isolated worktree from an exact coordinator baseline",
+      "base": "75d550026bddb9b3022263cc99820c4c015e3e65",
+      "branch": "central/ticket-05",
+      "worktree": "/home/vimkim/gh/cubrid-language-tools-05"
     },
     "06": {
       "status": "dispatched",
