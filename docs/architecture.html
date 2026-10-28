@@ -23,7 +23,7 @@
 <p>Maintain CUBRID completion, syntax checking, and lint diagnostics in a central project. Let editor, agent, and terminal projects consume a versioned interface.</p>
 <div class="note"><strong>Selected:</strong> an independent <code>cubrid-language-tools</code> project containing the core, LSP adapter, and lint CLI. Its Python library gives <code>csql-future</code> a small migration path.</div>
 <p><strong>Local processes, no network required.</strong> Editors spawn the language server and use stdin/stdout. The server or CLI spawns the parser worker and uses pipes. The TUI imports the completion library. No localhost socket or shared daemon is required. Central means one maintained codebase.</p>
-<p class="muted" style="font-size:.875rem">Accepted 2026-10-28: Option A, shared library plus LSP and CLI adapters. The Python development release implements the library, CLI, optional stdio LSP, and bounded V3 offline syntax checks. Source review passed. Final main integration requires approval. Consumer projects remain separate future work.</p>
+<p class="muted" style="font-size:.875rem">Accepted 2026-10-28: Option A, shared library plus LSP and CLI adapters. The Python development release implements the library, CLI, optional stdio LSP, and bounded V3 offline syntax checks. Consumer projects remain separate future work.</p>
 </header>
 <section id="design">
 <div class="section-intro"><div><h2>Compare the request paths</h2><p>Each diagram shows where language decisions live and which interface each consumer uses. The shaded area is the central project.</p></div><span class="pill">A is selected</span></div>
@@ -232,7 +232,7 @@
 <tr><td>AI checker / CI</td><td>Invoke the central CLI, interpret stable diagnostic codes and exits, and present results in the agent workflow.</td><td>Pin or constrain a tested engine version.</td></tr>
 <tr><td>csql-future</td><td>History, terminal editing, menu rendering, CSQL process ownership, and live catalog acquisition. Supply schema snapshots to the shared core after migration.</td><td>Migrate after the central engine is usable and qualified.</td></tr>
 </tbody></table></div>
-<div class="note"><strong>Repository shape:</strong> one central repository for the core and its standard adapters; independent repositories for consumer products when they are created. Shared diagnostic/schema types belong to the central project. The project has a configured Git origin. This implementation is being reviewed on a local integration branch.</div>
+<div class="note"><strong>Repository shape:</strong> one central repository for the core and its standard adapters; independent repositories for consumer products when they are created. Shared diagnostic/schema types belong to the central project. The project has a configured Git origin.</div>
 </section>
 <section id="contracts">
 <h2>A small maintained interface</h2>
