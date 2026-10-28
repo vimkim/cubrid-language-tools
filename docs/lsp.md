@@ -11,11 +11,12 @@
 Python 3.10 이상에서 선택 의존성을 설치합니다.
 
 ```sh
-pip install 'cubrid-language-tools[lsp]'
-cubrid-language-server
+uv venv --python 3.10 .venv
+uv pip install --python .venv/bin/python '.[lsp]'
 ```
 
-로컬 wheel을 설치할 때는 패키지 이름 대신 wheel 경로 뒤에 `[lsp]`를 붙입니다.
+로컬 checkout에서 실행합니다. wheel 설치는 `.[lsp]` 대신 wheel 경로 뒤에 `[lsp]`를 붙입니다.
+[설치·릴리스 검증](install.md)과 [V3 지원 범위](coverage.md)를 확인합니다.
 편집기에 실행 명령 `cubrid-language-server`, 빈 인자 목록, stdio 전송을 지정합니다.
 문서를 열 때 정확한 언어 ID `cubrid`를 사용합니다.
 일반 `sql` 문서에는 완성·진단을 제공하지 않습니다. VS Code·Neovim 확장은 별도 제품입니다.

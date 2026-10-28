@@ -11,11 +11,12 @@ The command accepts no arguments. The server opens no TCP or WebSocket listener.
 Install Python 3.10 or later. Install the optional dependency set:
 
 ```sh
-pip install 'cubrid-language-tools[lsp]'
-cubrid-language-server
+uv venv --python 3.10 .venv
+uv pip install --python .venv/bin/python '.[lsp]'
 ```
 
-For a local wheel, replace the package name with its wheel path and append `[lsp]`.
+Run these commands from the local checkout. For a wheel, replace `.[lsp]` with its wheel path and append `[lsp]`.
+See [installation and release qualification](install.en.md) and [V3 coverage](coverage.en.md).
 Configure the editor to execute `cubrid-language-server` with an empty argument list and stdio transport.
 Use the exact language ID `cubrid` when the editor opens a document.
 Generic `sql` documents do not activate completion or diagnostics.
@@ -135,4 +136,4 @@ just build
 `test-lsp-native` requires this checkout's matching built worker and manifest.
 Missing prerequisites fail these mandatory checks. Default tests require neither pygls nor native artifacts.
 Both optional and native LSP suites pass on Python 3.10 and 3.14.
-Native grammar limits remain those of the [qualified coverage](../native/parser-worker/QUERY_DML_AUDIT.md).
+Native grammar limits remain those of the [V3 coverage matrix](coverage.en.md).

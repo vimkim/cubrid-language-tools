@@ -13,10 +13,11 @@ diagnostics. Keep unfinished SQL eligible for completion. Use a separate native
 CUBRID worker for strict parsing. Expose the same results through a file/stdin CLI and a stdio LSP adapter.
 
 The first parser profile is `cubrid-11.5.0.2704-cc94778` on Linux x86-64.
-Start with literal SELECT and CREATE SERIAL. Expand audited coverage for queries,
-DML, schema, engineer statements, and mixed CSQL scripts. Missing parsers and unsupported forms cannot become syntax passes.
+V3 implements qualified bounded queries, DML, schema, engineer statements, and mixed CSQL scripts.
+Missing parsers and unsupported forms cannot become syntax passes. See [installation](install.en.md) and [coverage](coverage.en.md).
+Final review, integration, and remote publication remain separate steps.
 
-Core and CLI target Python 3.10+ with zero mandatory Python runtime dependencies.
+Core and CLI require Python 3.10+ with zero mandatory Python runtime dependencies.
 LSP dependencies are optional. Native runtimes require separate qualification.
 PoC completion and production release qualification are distinct milestones.
 
@@ -69,6 +70,7 @@ Automatic live editor connections are later work.
 - **Highlighting:** evaluate Tree-sitter after initial editor lexical rules.
 - **Semantic/style lint:** define separate rules, codes, and fix contracts after initial syntax diagnostics.
 - **Completion:** extend result inference for CTEs, derived tables, correlated queries, and synonyms.
+- **Class descriptions:** retain the accepted 2026-10-29 exclusions for SHOW COLUMNS, DESCRIBE, DESC, and class-description EXPLAIN. Qualify a separate parser-only backend. The original description criterion did not pass.
 - **Syntax/platforms:** qualify PL/CSQL, other 11.5 builds, 11.4, and additional operating systems separately.
 
 Formatting, semantic/style lint, and editor packages are not current delivered

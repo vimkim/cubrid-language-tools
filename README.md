@@ -9,9 +9,10 @@
 별도 제품인 `csql-future`·VS Code·Neovim·AI 도구가 이를 사용하도록 만듭니다.
 
 **Python으로 PoC를 검증한 뒤, 모듈별로 Rust로 전환합니다.**
-현재 구현·검증 중입니다. 아래 그림은 목표 구조이며 소비 제품 연동·편집기 패키지는 예정 기능입니다.
+개발 버전은 완성 라이브러리·CLI·선택적 LSP와 제한된 V3 오프라인 문법 검사를 제공합니다.
+최종 검토·통합은 진행 중이며 소비 제품 연동·편집기 패키지는 후속 기능입니다.
 
-[아키텍처](docs/architecture.md) · [개발·제품 로드맵](docs/product-roadmap.md) ·
+[설치·릴리스 검증](docs/install.md) · [지원 범위](docs/coverage.md) · [아키텍처](docs/architecture.md) · [개발·제품 로드맵](docs/product-roadmap.md) ·
 [CLI·검증 API](docs/lint-cli.md) · [stdio LSP](docs/lsp.md) · [문서 목차](docs/README.md)
 
 ## 한 엔진, 세 가지 인터페이스
@@ -61,12 +62,14 @@ Python 소비자는 라이브러리를 직접 import합니다.
 
 ## 지원 목표와 로드맵
 
-Python PoC의 코어·CLI는 Python 3.10 이상과 필수 Python 런타임 의존성 0개를 목표로 합니다.
+Python PoC의 코어·CLI는 Python 3.10 이상에서 동작하며 필수 Python 런타임 의존성은 0개입니다.
 LSP는 선택 의존성, 엄격한 파싱은 별도로 검증한 네이티브 런타임을 사용합니다.
 첫 파서 대상은 Linux x86-64와 **CUBRID 11.5.0.2704-cc94778**입니다.
 다른 빌드·버전은 별도 검증합니다.
 
-다음 단계는 **LSP·오프라인 문법 린팅**, 별도 **VS Code·Neovim 연동과 구문 강조**입니다.
+현재 **stdio LSP·오프라인 문법 린팅**을 제공합니다. SHOW COLUMNS·DESCRIBE·DESC·클래스 설명용 EXPLAIN은 미지원입니다.
+완성 어휘의 11.4 출처와 엄격한 11.5 파서 검증은 구분합니다.
+다음 단계는 별도 **VS Code·Neovim 연동과 구문 강조**입니다.
 이후 **포매팅·편집기 포매팅 연동**, 의미·스타일 린트와 문법·완성 범위 확대를 검토합니다.
 초기 린팅은 문법 진단입니다. 상세 범위는 [로드맵](docs/product-roadmap.md)에 있습니다.
 
@@ -78,4 +81,4 @@ LSP는 선택 의존성, 엄격한 파싱은 별도로 검증한 네이티브 �
 
 ## 라이선스
 
-[Apache License 2.0](LICENSE).
+[Apache License 2.0](LICENSE). [네이티브 notice](native/parser-worker/notices/README.md)와 별도 런타임 조건도 보존합니다.

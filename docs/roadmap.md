@@ -5,12 +5,12 @@ The accepted [public product roadmap](product-roadmap.en.md) adds gradual Rust m
 The [ticket graph](tickets/README.md) tracks that work.
 Consumer products stay separate and use the same maintained language implementation.
 
-## Finish the central engine
+## Qualify the central development release
 
-- Completed foundation: pure completion, offline snapshots, and exact-profile literal SELECT/CREATE SERIAL qualification.
-- Deliver shared configuration, lint CLI, and LSP.
-- Expand audited query, DML, schema, and engineer-statement coverage.
-- Handle CSQL script boundaries and qualify installation, notices, and release artifacts.
+- Implemented: pure completion, offline snapshots, shared configuration, lint CLI, optional stdio LSP, and CSQL batch classification.
+- Qualified grammar: exact Linux x86-64 V3 profile with bounded query, DML, schema, and engineer subsets. See [coverage](coverage.en.md).
+- Delivery: [isolated installation, archive, notice, and parity checks](install.en.md) precede final standards/spec review and integration.
+- Final review and integration remain pending. Remote publication is a separate decision.
 
 ## Separate consumer projects
 
@@ -32,8 +32,7 @@ Each consumer owns packaging and releases independently.
 
 ## Language depth
 
-- Qualify a parser-only backend for SHOW COLUMNS, DESCRIBE, DESC, and class-description EXPLAIN without connection state.
-
+- Qualify a parser-only backend for SHOW COLUMNS, DESCRIBE, DESC, and class-description EXPLAIN without connection state. The original criterion did not pass. The user accepted these first-profile exclusions on 2026-10-29.
 - Add explicit semantic rules using optional metadata, with separate codes and clear limits.
 - Add configurable style rules and deterministic fixes after rule contracts exist.
 - Extend completion scope inference for CTEs, derived tables, correlated queries, and synonyms.

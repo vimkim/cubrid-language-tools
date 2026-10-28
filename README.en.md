@@ -5,13 +5,14 @@
 **One engine for CUBRID SQL completion and syntax checks across tools.**
 
 `cubrid-language-tools` is an independent engine for CUBRID syntax, command, and
-schema knowledge. It will expose a completion library, an offline lint CLI, and
+schema knowledge. It provides a completion library, an offline lint CLI, and
 an LSP adapter for separate csql-future, VS Code, Neovim, and AI products.
 
 **Validate a Python PoC first, then migrate gradually to Rust.**
-Implementation and qualification are in progress. The diagram shows the target architecture. Consumer integrations and editor packages are planned.
+The development release provides completion, CLI, optional LSP, and bounded V3 offline syntax checks.
+Final review and integration remain in progress. Consumer integrations and editor packages are later work.
 
-[Architecture](docs/architecture.en.md) · [Development and product roadmap](docs/product-roadmap.en.md) ·
+[Install and qualify](docs/install.en.md) · [Coverage](docs/coverage.en.md) · [Architecture](docs/architecture.en.md) · [Development and product roadmap](docs/product-roadmap.en.md) ·
 [CLI and validation API](docs/lint-cli.en.md) · [Stdio LSP](docs/lsp.en.md) · [Documentation](docs/README.en.md)
 
 ## One engine, three interfaces
@@ -61,13 +62,14 @@ the [csql-future repository](https://github.com/vimkim/csql-future). Engine arch
 
 ## Support targets and roadmap
 
-The Python PoC core/CLI target Python 3.10+ with zero mandatory Python runtime
+The Python PoC core and CLI run on Python 3.10+ with zero mandatory Python runtime
 dependencies. LSP uses optional dependencies. Strict checks require a separately
 qualified native runtime. The first parser target is Linux x86-64 and
 **CUBRID 11.5.0.2704-cc94778**. Other builds and versions require separate qualification.
 
-Next are **LSP and offline syntax linting**, plus separate **VS Code/Neovim
-integrations and highlighting**. Later goals include **formatting with editor
+**Stdio LSP and offline syntax linting** are implemented. SHOW COLUMNS, DESCRIBE, DESC, and class-description EXPLAIN remain unsupported.
+Completion retains 11.4 vocabulary provenance, distinct from strict 11.5 parser qualification.
+Next are separate **VS Code/Neovim integrations and highlighting**. Later goals include **formatting with editor
 integration**, semantic/style lint, and broader language coverage. Initial linting
 means syntax diagnostics. See the [roadmap](docs/product-roadmap.en.md) for details.
 
@@ -79,4 +81,4 @@ Concrete examples guide the corpus and supported coverage.
 
 ## License
 
-[Apache License 2.0](LICENSE).
+[Apache License 2.0](LICENSE). Preserve the [native notices](native/parser-worker/notices/README.md) and separately supplied runtime terms.

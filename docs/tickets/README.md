@@ -14,8 +14,9 @@ Separate editor, AI, and terminal work remains in the [long-term roadmap](../roa
 - [08: CSQL script classification](08-script-boundaries.md) — dependencies: 03, 05.
 - [09: Distribution and final qualification](09-delivery.md) — dependencies: 05, 07, 08.
 
-Initial frontier: 01 and 02.
-Ticket 04 can proceed after 01. Ticket 06 can proceed after 02.
+Tickets 01 through 08 are integrated. Ticket 07 passed its revised bounded scope with four accepted description exclusions.
+The original description-qualification criterion did not pass. Ticket 09 owns delivery qualification and remains pending final review.
 Exact dispatch commits and acceptance evidence live in [execution state](../orchestration/state.json).
 
-Dependency refinement after ticket05: script classification uses the stable Validator seam and can proceed while ticket07 coverage is decided. Ticket09 retains a direct ticket07 gate.
+Dependency refinement after ticket 05: script classification uses the stable Validator seam independently of ticket 07.
+Ticket 09 retains its direct ticket 07 qualification gate, confirmed passed by the coordinator on 2026-10-29.

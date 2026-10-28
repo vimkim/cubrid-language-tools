@@ -21,7 +21,7 @@ to Rust while preserving interfaces and observable behavior. The diagram shows t
 
 Keep language knowledge in the core and validator. Adapters do not implement a
 second SQL engine. The Python PoC package is `cubrid_language`. Core and CLI
-target Python 3.10+ with zero mandatory Python runtime dependencies. LSP uses
+require Python 3.10+ with zero mandatory Python runtime dependencies. LSP uses
 optional dependencies. Strict parsing also needs a separately qualified native runtime.
 
 ## Separate products own
@@ -64,8 +64,9 @@ and CRLF fixtures must retain the same edits and diagnostic locations.
 
 The first target profile is `cubrid-11.5.0.2704-cc94778`. Qualify matching libraries,
 headers, runtime assets, and settings against source
-`cc947788d3b7dc402f46192d0f3299ddcc8563ba`. Initial coverage is literal SELECT and
-CREATE SERIAL. Later families require their own audit and qualification.
+`cc947788d3b7dc402f46192d0f3299ddcc8563ba`. V3 supports bounded queries, DML, schema, engineer forms, and CSQL batches.
+SHOW COLUMNS, DESCRIBE, DESC, and class-description EXPLAIN remain excluded.
+See [qualified coverage](coverage.en.md) for examples, limits, and the separate 11.4 completion vocabulary provenance.
 
 Do not replace syntax checks with SQL execution or database connections. Unknown
 builds, unqualified forms, and unavailable workers cannot produce a successful

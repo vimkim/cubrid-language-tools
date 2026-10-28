@@ -22,3 +22,6 @@ test-lsp:
 
 test-lsp-native:
     uv run --extra lsp python -m unittest discover -s tests/lsp_native -v
+
+qualify-release build output:
+    python3 tools/qualify_release.py --build '{{build}}' --output '{{output}}'

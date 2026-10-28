@@ -132,7 +132,7 @@ with NativeWorker(config) as worker:
 Use await worker.parse_async(text) from an event loop. Blocking pipe I/O runs in
 an executor thread; one lock serializes requests. A cancelled request closes
 that client, so construct a new configured client for later work. The higher-level
-script validator/CLI/LSP are separate tickets.
+[Validator, CLI](../../docs/lint-cli.en.md), and [LSP](../../docs/lsp.en.md) are implemented adapters.
 
 The production process accepts UTF-8 JSON lines with protocolVersion=1 and an
 integer id. initialize selects the exact profile; parse accepts text; shutdown
