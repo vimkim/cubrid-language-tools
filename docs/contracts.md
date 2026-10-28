@@ -112,7 +112,8 @@ Use tool failure or unsupported coverage when appropriate.
 
 ## Native worker process interface
 
-The production worker is a compiled executable with a narrow JSON-lines protocol.
+The production worker is a compiled executable with a narrow JSON-lines protocol over standard input/output pipes.
+The caller spawns and owns the worker. The worker exposes no network listener.
 It is not the planning experiment's direct ctypes loader.
 Requests and responses use UTF-8 and include `protocolVersion: 1` and a request `id`.
 One worker processes requests serially.

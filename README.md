@@ -23,6 +23,15 @@ Strict checking also requires a separately qualified native runtime.
 The language server will use optional LSP dependencies.
 This repository currently exists locally and has no configured remote.
 
+## Local processes
+
+The engine runs locally. Editors spawn the language server and exchange LSP messages through stdin/stdout.
+The server or lint CLI spawns its native parser worker and exchanges JSON lines through pipes.
+csql-future will import the completion library directly after migration.
+No localhost socket, TCP listener, network access, or database connection is required for these language operations.
+“Central” means one maintained codebase and release, not a shared running daemon.
+Each consumer owns the processes it starts. The hosted design in the comparison page is an alternative, not the selected design.
+
 ## Ownership
 
 The core accepts document text, a cursor, an explicit parser profile, and optional schema metadata.

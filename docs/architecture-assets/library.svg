@@ -35,19 +35,19 @@
 <text class="art-muted" x="246" y="368" font-size="16" font-weight="400" text-anchor="middle" fill="#626a83">shared editor protocol</text>
 <path class="art-edge" d="M246 394 V500" fill="none" stroke="#1e66f5" stroke-width="2.3" marker-end="url(#library-arrow)"/>
 <rect class="art-edge-label" x="161.9" y="434" width="168.2" height="27" rx="4" fill="#eff1f5"/>
-<text class="art-blue" x="246" y="453" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">complete / diagnose</text>
+<text class="art-blue" x="246" y="453" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">complete / validate</text>
 <rect class="art-card" x="450" y="300" width="352" height="94" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
 <text class="art-text" x="626" y="339" font-size="20" font-weight="700" text-anchor="middle" fill="#34394b">Lint CLI adapter</text>
 <text class="art-muted" x="626" y="368" font-size="16" font-weight="400" text-anchor="middle" fill="#626a83">structured batch diagnostics</text>
 <path class="art-edge" d="M626 394 V500" fill="none" stroke="#1e66f5" stroke-width="2.3" marker-end="url(#library-arrow)"/>
 <rect class="art-edge-label" x="581.0" y="434" width="90" height="27" rx="4" fill="#eff1f5"/>
-<text class="art-blue" x="626" y="453" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">diagnose</text>
+<text class="art-blue" x="626" y="453" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">validate</text>
 <rect class="art-card" x="830" y="300" width="352" height="94" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
 <text class="art-text" x="1006" y="339" font-size="20" font-weight="700" text-anchor="middle" fill="#34394b">Library interface</text>
 <text class="art-muted" x="1006" y="368" font-size="16" font-weight="400" text-anchor="middle" fill="#626a83">direct Python use initially</text>
 <path class="art-edge" d="M1006 394 V500" fill="none" stroke="#1e66f5" stroke-width="2.3" marker-end="url(#library-arrow)"/>
 <rect class="art-edge-label" x="921.9" y="434" width="168.2" height="27" rx="4" fill="#eff1f5"/>
-<text class="art-blue" x="1006" y="453" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">complete / diagnose</text>
+<text class="art-blue" x="1006" y="453" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">complete / validate</text>
 <rect class="art-core" x="70" y="500" width="1112" height="140" rx="8" fill="#ffffff" stroke="#179299" stroke-width="2"/>
 <text class="art-teal" x="94" y="533" font-size="24" font-weight="700" text-anchor="start" fill="#179299">Language core</text>
 <text class="art-text" x="94" y="578" font-size="20" font-weight="700" text-anchor="start" fill="#34394b">Completion</text>

@@ -22,6 +22,7 @@
 <h1>One language engine.<br>Independent tools.</h1>
 <p>Maintain CUBRID completion, syntax checking, and lint diagnostics in a central project. Let editor, agent, and terminal projects consume a versioned interface.</p>
 <div class="note"><strong>Selected:</strong> an independent <code>cubrid-language-tools</code> project containing the core, LSP adapter, and lint CLI. Its Python library gives <code>csql-future</code> a small migration path.</div>
+<p><strong>Local processes, no network required.</strong> Editors spawn the language server and use stdin/stdout. The server or CLI spawns the parser worker and uses pipes. The TUI imports the completion library. No localhost socket or shared daemon is required. Central means one maintained codebase.</p>
 <p class="muted" style="font-size:.875rem">Accepted 2026-10-28: Option A, shared library plus LSP and CLI adapters. The independent local cubrid-language-tools repository is initialized. Consumer projects remain separate future work.</p>
 </header>
 <section id="design">
@@ -71,19 +72,19 @@
 <text class="art-muted" x="246" y="368" font-size="16" font-weight="400" text-anchor="middle" fill="#626a83">shared editor protocol</text>
 <path class="art-edge" d="M246 394 V500" fill="none" stroke="#1e66f5" stroke-width="2.3" marker-end="url(#library-arrow)"/>
 <rect class="art-edge-label" x="161.9" y="434" width="168.2" height="27" rx="4" fill="#eff1f5"/>
-<text class="art-blue" x="246" y="453" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">complete / diagnose</text>
+<text class="art-blue" x="246" y="453" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">complete / validate</text>
 <rect class="art-card" x="450" y="300" width="352" height="94" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
 <text class="art-text" x="626" y="339" font-size="20" font-weight="700" text-anchor="middle" fill="#34394b">Lint CLI adapter</text>
 <text class="art-muted" x="626" y="368" font-size="16" font-weight="400" text-anchor="middle" fill="#626a83">structured batch diagnostics</text>
 <path class="art-edge" d="M626 394 V500" fill="none" stroke="#1e66f5" stroke-width="2.3" marker-end="url(#library-arrow)"/>
 <rect class="art-edge-label" x="581.0" y="434" width="90" height="27" rx="4" fill="#eff1f5"/>
-<text class="art-blue" x="626" y="453" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">diagnose</text>
+<text class="art-blue" x="626" y="453" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">validate</text>
 <rect class="art-card" x="830" y="300" width="352" height="94" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
 <text class="art-text" x="1006" y="339" font-size="20" font-weight="700" text-anchor="middle" fill="#34394b">Library interface</text>
 <text class="art-muted" x="1006" y="368" font-size="16" font-weight="400" text-anchor="middle" fill="#626a83">direct Python use initially</text>
 <path class="art-edge" d="M1006 394 V500" fill="none" stroke="#1e66f5" stroke-width="2.3" marker-end="url(#library-arrow)"/>
 <rect class="art-edge-label" x="921.9" y="434" width="168.2" height="27" rx="4" fill="#eff1f5"/>
-<text class="art-blue" x="1006" y="453" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">complete / diagnose</text>
+<text class="art-blue" x="1006" y="453" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">complete / validate</text>
 <rect class="art-core" x="70" y="500" width="1112" height="140" rx="8" fill="#ffffff" stroke="#179299" stroke-width="2"/>
 <text class="art-teal" x="94" y="533" font-size="24" font-weight="700" text-anchor="start" fill="#179299">Language core</text>
 <text class="art-text" x="94" y="578" font-size="20" font-weight="700" text-anchor="start" fill="#34394b">Completion</text>
@@ -238,7 +239,7 @@
 <p>Keep parser details and native globals behind the core. Both operations use explicit, versioned input and immutable results.</p>
 <div class="contract-grid">
 <div class="contract"><h3>Completion</h3><code>complete(document, cursor, profile, schema?) → suggestions</code><p>Works on unfinished SQL. Returns candidate text, kind/detail, and an exact replacement span in the original document.</p></div>
-<div class="contract"><h3>Diagnostics</h3><code>diagnose(document, profile, scriptMode) → diagnosticResult</code><p>Runs qualified syntax checks and selected lint rules. Reports syntax errors, unsupported coverage, and tool failures distinctly.</p></div>
+<div class="contract"><h3>Diagnostics</h3><code>validator.validate(text, profile, script_mode) → result</code><p>The initial linter reports syntax errors, unsupported coverage, and tool failures. Semantic and style rules are future work.</p></div>
 <div class="contract"><h3>Shared data</h3><code>Document · Span · Profile · SchemaSnapshot · Diagnostic</code><p>One range convention, stable codes, and explicit conversions for parser bytes and editor positions. Snapshots contain metadata, with credentials owned by consumers.</p></div>
 <div class="contract"><h3>Parser implementation</h3><code>qualified backend behind the diagnostic interface</code><p>The current native-worker checkpoint can be reused. Each supported CUBRID build needs qualification. The first target remains the pinned 11.5 build.</p></div>
 </div>

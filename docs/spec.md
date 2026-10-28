@@ -23,6 +23,16 @@ Separate future projects own VS Code and Neovim integration, AI workflows, and t
 The central build does not modify these consumers.
 The [roadmap](roadmap.md) retains their work and the later migration gate.
 
+## Process transport
+
+All selected interfaces run locally.
+Editors start the LSP adapter as a child process and use standard input/output.
+The LSP adapter or CLI starts an owned native worker and uses JSON lines over pipes.
+Library consumers import completion directly. They can own a configured validator when they need syntax checking.
+No localhost socket, TCP listener, shared daemon, network access, or database connection is required for language operations.
+Central ownership means one maintained implementation and release.
+The hosted engine in the comparison diagram is an unselected alternative.
+
 ## First support target
 
 The user selected CUBRID 11.5 first.
