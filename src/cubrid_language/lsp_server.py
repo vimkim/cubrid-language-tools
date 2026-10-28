@@ -7,10 +7,11 @@ import threading
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
+from cattrs.errors import ClassValidationError
 from lsprotocol import types
 from pygls.exceptions import JsonRpcInvalidParams
 from pygls.lsp.server import LanguageServer
-from pygls.protocol import LanguageServerProtocol
+from pygls.protocol import LanguageServerProtocol, default_converter
 from pygls.protocol.language_server import lsp_method
 
 from . import complete
@@ -230,13 +231,26 @@ def tool_diagnostic(code, message):
 
 class Utf16Protocol(LanguageServerProtocol):
     def structure_message(self, data):
-        try:
+        if 'jsonrpc' not in data or 'method' not in data:
             return super().structure_message(data)
-        except JsonRpcInvalidParams as error:
-            # pygls logs deserialization failures but otherwise drops requests.
-            if 'jsonrpc' in data and 'method' in data and 'id' in data:
+        try:
+            message_type = self.get_message_type(data['method'])
+            if message_type is not None:
+                # Convert known LSP messages before pygls's traceback/log path.
+                return self._converter.structure(data, message_type)
+            return super().structure_message(data)
+        except (ClassValidationError, TypeError, ValueError, JsonRpcInvalidParams):
+            error = JsonRpcInvalidParams(f'Invalid parameters for {data["method"]}')
+            if 'id' in data:
                 self._send_response(data['id'], error=error.to_response_error())
-            raise
+            else:
+                self._server.window_log_message(types.LogMessageParams(
+                    type=types.MessageType.Error, message=error.message))
+            return None
+
+    def handle_message(self, message):
+        if message is not None:
+            super().handle_message(message)
 
     @lsp_method(types.INITIALIZE)
     def lsp_initialize(self, params):
@@ -255,10 +269,23 @@ class Utf16Protocol(LanguageServerProtocol):
         yield from super().lsp_text_document__did_change(params)
 
 
+def strict_converter():
+    converter = default_converter()
+
+    def primitive(value, expected):
+        if type(value) is not expected:
+            raise ValueError(f'expected {expected.__name__}, received {type(value).__name__}')
+        return value
+
+    converter.register_structure_hook(int, primitive)
+    converter.register_structure_hook(str, primitive)
+    return converter
+
+
 def create_server():
     server = CubridServer('cubrid-language-tools', '0.1.0.dev0',
                             text_document_sync_kind=types.TextDocumentSyncKind.Full,
-                            protocol_cls=Utf16Protocol)
+                            protocol_cls=Utf16Protocol, converter_factory=strict_converter)
     adapter = Adapter(server)
     server.adapter = adapter
     server.exit_status = 1

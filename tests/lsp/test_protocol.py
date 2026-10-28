@@ -9,6 +9,52 @@ from protocol_client import Client
 
 
 class ProtocolTests(unittest.TestCase):
+    def test_completion_rejects_noninteger_wire_positions_without_coercion_or_traceback(self):
+        with Client() as client:
+            client.initialize()
+            uri = client.open('SEL')
+            for line, character in ((False, 3), (0, True), (0, '3'), (0, 3.0)):
+                with self.subTest(line=line, character=character):
+                    self.assertEqual(client.completion(uri, line, character)['error']['code'], -32602)
+            self.assertIn('SELECT', [i['label'] for i in client.completion(uri, 0, 3)['result']['items']])
+            client.request('shutdown')
+            client.send('exit')
+            self.assertEqual(client.process.wait(timeout=3), 0)
+            self.assertNotIn(b'Traceback', client.process.stderr.read())
+
+    def test_open_and_change_reject_coerced_document_text_and_versions(self):
+        invalid = (('version', True), ('version', '2'), ('version', 2.0),
+                   ('text', 123), ('text', False), ('text', 3.0))
+        with Client() as client:
+            client.initialize()
+            for index, (field, value) in enumerate(invalid):
+                with self.subTest(operation='open', field=field, value=value):
+                    uri = f'untitled:invalid-open-{index}'
+                    document = {'uri': uri, 'languageId': 'cubrid', 'version': 1, 'text': 'SEL', field: value}
+                    client.send('textDocument/didOpen', {'textDocument': document})
+                    self.assertEqual(client.completion(uri, 0, 0)['result']['items'], [])
+                    client.receive(lambda m: m.get('method') == 'window/logMessage'
+                        and 'textDocument/didOpen' in m['params']['message'])
+            uri = client.open('SELtail')
+            for field, value in invalid:
+                with self.subTest(operation='change', field=field, value=value):
+                    document = {'uri': uri, 'version': 2}
+                    change = {'text': 'FROM '}
+                    if field == 'version':
+                        document[field] = value
+                    else:
+                        change[field] = value
+                    client.send('textDocument/didChange', {'textDocument': document, 'contentChanges': [change]})
+                    self.assertIn('SELECT', [i['label'] for i in client.completion(uri, 0, 3)['result']['items']])
+                    client.receive(lambda m: m.get('method') == 'window/logMessage'
+                        and 'textDocument/didChange' in m['params']['message'])
+            client.change(uri, 'FRtail', 2)
+            self.assertIn('FROM', [i['label'] for i in client.completion(uri, 0, 2)['result']['items']])
+            client.request('shutdown')
+            client.send('exit')
+            self.assertEqual(client.process.wait(timeout=3), 0)
+            self.assertNotIn(b'Traceback', client.process.stderr.read())
+
     def test_initialize_negotiates_only_utf16_and_full_sync(self):
         for encodings in (None, ['utf-8', 'utf-16'], ['utf-32', 'utf-16'], ['unknown']):
             with self.subTest(encodings=encodings), Client() as client:
