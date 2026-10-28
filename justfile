@@ -16,3 +16,9 @@ build-native-parser source generated library runtime_prefix:
 test-native-parser:
     PYTHONPATH=src python3 -m unittest discover -s tests/native_parser -v
     PYTHONPATH=src python3 -m unittest discover -s tests -p 'test_validation_*.py' -v
+
+test-lsp:
+    uv run --extra lsp python -m unittest discover -s tests/lsp -v
+
+test-lsp-native:
+    uv run --extra lsp python -m unittest discover -s tests/lsp_native -v

@@ -3,3 +3,5 @@ recursive-include native/parser-worker *.py *.cpp *.hpp *.md *.txt *.json *.stra
 prune native/parser-worker/build
 recursive-include tests/native_parser *.py
 include tests/test_validation_*.py
+recursive-include tests/lsp *.py
+recursive-include tests/lsp_native *.py
