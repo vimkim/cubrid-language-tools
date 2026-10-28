@@ -8,6 +8,7 @@
 | 문서 | 읽을 때 |
 | --- | --- |
 | [프로젝트 README](../README.md) | 공통 엔진과 인터페이스·소비 제품의 경계를 알고 싶을 때 |
+| [CLI·검증 API](lint-cli.md) | 설치·파일 검사·프로젝트 설정·검증 API를 사용할 때 |
 | [아키텍처](architecture.md) | 라이브러리·CLI·LSP·네이티브 파서와 별도 제품의 역할을 확인할 때 |
 | [개발·제품 로드맵](product-roadmap.md) | Python PoC에서 Rust로 전환하는 단계와 편집기 지원 계획을 볼 때 |
 

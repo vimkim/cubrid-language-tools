@@ -12,7 +12,8 @@ Explore the [interactive architecture](architecture.html), [specification](spec.
 ## Current state
 
 Pure completion, offline schema snapshots, and the initial qualified native worker are implemented and verified.
-The lint CLI, shared document validator, LSP, and expanded native grammar coverage remain in progress.
+The lint CLI and shared document validator are implemented. See the [CLI and validation API guide](lint-cli.en.md).
+LSP and expanded native grammar coverage remain in progress.
 Commands and interfaces in the specification become available when their tickets pass.
 The first parser target is the exact CUBRID 11.5 development build `11.5.0.2704-cc94778` on Linux x86-64.
 Other builds and platforms require separate qualification.

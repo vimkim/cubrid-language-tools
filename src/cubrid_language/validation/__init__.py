@@ -2,6 +2,7 @@
 
 from .models import PROFILE, Diagnostic, Span, ValidationResult
 from .positions import DocumentMap
+from .service import Validator
 from .worker import NativeWorker, WorkerConfig, WorkerFailure
 
-__all__ = ["PROFILE", "Diagnostic", "Span", "ValidationResult", "DocumentMap", "NativeWorker", "WorkerConfig", "WorkerFailure"]
+__all__ = ["PROFILE", "Diagnostic", "Span", "ValidationResult", "DocumentMap", "NativeWorker", "WorkerConfig", "WorkerFailure", "Validator"]

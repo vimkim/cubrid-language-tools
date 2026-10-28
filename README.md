@@ -12,7 +12,7 @@
 현재 구현·검증 중입니다. 아래 그림은 목표 구조이며 소비 제품 연동·편집기 패키지는 예정 기능입니다.
 
 [아키텍처](docs/architecture.md) · [개발·제품 로드맵](docs/product-roadmap.md) ·
-[문서 목차](docs/README.md)
+[CLI·검증 API](docs/lint-cli.md) · [문서 목차](docs/README.md)
 
 ## 한 엔진, 세 가지 인터페이스
 
