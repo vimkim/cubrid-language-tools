@@ -9,6 +9,42 @@ from protocol_client import Client
 
 
 class ProtocolTests(unittest.TestCase):
+    def test_initialize_accepts_editor_wire_enums(self):
+        editor_capabilities = (
+            {'workspace': {'workspaceEdit': {'resourceOperations': ['rename', 'create', 'delete']}},
+             'textDocument': {'completion': {'completionItemKind': {'valueSet': [1, 2, 25]},
+                                            'completionItem': {'documentationFormat': ['markdown', 'plaintext']}}},
+             'general': {'positionEncodings': ['utf-8', 'utf-16', 'utf-32']}},
+            {'workspace': {'workspaceEdit': {'resourceOperations': ['create', 'rename', 'delete'],
+                                             'failureHandling': 'textOnlyTransactional'}},
+             'textDocument': {'completion': {'insertTextMode': 2,
+                                            'completionItemKind': {'valueSet': [1, 2, 25]}}},
+             'general': {'positionEncodings': ['utf-16']}},
+        )
+        for capabilities in ({}, *editor_capabilities):
+            with self.subTest(capabilities=capabilities), Client() as client:
+                reply = client.request('initialize', {'processId': None, 'rootUri': None,
+                                                      'capabilities': capabilities, 'trace': 'off'})
+                self.assertIn('result', reply)
+                self.assertEqual(reply['result']['capabilities']['positionEncoding'], 'utf-16')
+                self.assertEqual(reply['result']['capabilities']['textDocumentSync']['change'], 1)
+                client.send('initialized', {})
+
+    def test_initialize_rejects_invalid_wire_enums_and_primitives(self):
+        invalid_params = (
+            {'trace': 'unknown'}, {'trace': 1},
+            {'capabilities': {'workspace': {'workspaceEdit': {'resourceOperations': ['unknown']}}}},
+            *({'capabilities': {'textDocument': {'completion': {'completionItemKind': {'valueSet': [value]}}}}}
+              for value in (99, True, 1.0, '1')),
+            {'processId': True}, {'processId': '1'}, {'processId': 1.0},
+            {'rootUri': 42}, {'capabilities': []},
+        )
+        for invalid in invalid_params:
+            with self.subTest(invalid=invalid), Client() as client:
+                params = {'processId': None, 'rootUri': None, 'capabilities': {}}
+                params.update(invalid)
+                self.assertEqual(client.request('initialize', params)['error']['code'], -32602)
+
     def test_cubrid_comments_and_backslash_strings_suppress_framed_completion(self):
         with Client() as client:
             client.initialize()
