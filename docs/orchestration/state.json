@@ -293,17 +293,18 @@
       "base": "3653199a6ddd5e91982c736d576be2b481d205c0",
       "branch": "central/ticket-07",
       "worktree": "/home/vimkim/gh/cubrid-language-tools-07",
-      "commit": "54327b9d1ec67dcd1095adecc5550067670bec79",
+      "commit": "fd5eecf870739e88f568131573eb9480e8e89f8f",
       "checks": [
         "Agent:325 corpus (99valid,80syntax,146unsupported),33native+18independent,89project passed",
         "Trace:no network/descendants/external writable opens; admitted error-manager observations0",
-        "Python3.10 isolated wheel and extracted-sdist rebuild/corpus checks passed"
+        "Python3.10 isolated wheel and extracted-sdist rebuild/corpus checks passed",
+        "Coordinator:both325-case public corpus tests passed; exact-true settings marker guard reviewed/refined"
       ],
       "blocker": "Describe-alias criterion incomplete:SHOW COLUMNS/DESCRIBE/DESC/EXPLAIN helpers return trees but er_errid=-224 due connection-checked db_value_clone. Forms pre-denied. User scope choice pending.",
       "report": "/home/vimkim/gh/cubrid-language-tools-07/docs/tickets/reports/07.md"
     },
     "08": {
-      "status": "dispatched",
+      "status": "verified-approved-for-integration",
       "dependsOn": [
         "03",
         "05"
@@ -311,7 +312,22 @@
       "blocker": "Ticket 07 remains qualified-partial-awaiting-scope-choice. User decision is pending between deferring SHOW COLUMNS/DESCRIBE/DESC/EXPLAIN class forms and expanding the parser-only backend scope; no ticket 07 integration or criterion change is authorized by ticket 05 integration.",
       "base": "925c90ac9dcf555dde2fee5b15357d1a4f7f088a",
       "branch": "central/ticket-08",
-      "worktree": "/home/vimkim/gh/cubrid-language-tools-08"
+      "worktree": "/home/vimkim/gh/cubrid-language-tools-08",
+      "commit": "e55a6e82500d25b4c9cd8e4f6b852dfadf05d1fd",
+      "implementationCommit": "9fb4f5a7625eddf981807df8710ccf4f26bc4bc9",
+      "checks": [
+        "Coordinator:8classifier+5scriptvalidation+7actualnativeCLI tests passed",
+        "Agent Python3.10/3.14:103default+26framed+6nativeLSP checks passed",
+        "Full36native baseline and affected7nativeCLI checks passed after refinements",
+        "Isolated core/optional wheel and extracted-sdist103 checks passed",
+        "Trace:no include-target operations,shell/touch execution or marker creation",
+        "Unknown profiles return U1001 before opaque lexical classification; input guards and known-profile S+U retained"
+      ],
+      "limitations": [
+        "Pending-SQL command interleaving and procedural constructs remain opaque/unsupported throughEOF",
+        "Only full audited command names with ASCII argument/suffix whitespace; indentation,abbreviations,extra arguments unsupported"
+      ],
+      "report": "/home/vimkim/gh/cubrid-language-tools-08/docs/tickets/reports/08.md"
     },
     "09": {
       "status": "pending",
@@ -375,5 +391,11 @@
     "finalMain": "Separate final review and approval; configured main push follows user Git policy after that approval.",
     "deployment": "Requires separate explicit request."
   },
-  "dependencyRefinement": "08 consumes03stable Validator and05LSP, independent of07describe backend scope.09still directly gated by07."
+  "dependencyRefinement": "08 consumes03stable Validator and05LSP, independent of07describe backend scope.09still directly gated by07.",
+  "qualifiedInputSnapshot": {
+    "path": "/mnt/nvme/data-5/tmp/central-language-572-qualified-inputs-7_iect3k",
+    "files": 101,
+    "bytes": 94617396,
+    "purpose": "Verified immutable copy of exact runtime/generated/compiler inputs for cross-session resumption. Live sources/runtime unchanged."
+  }
 }
