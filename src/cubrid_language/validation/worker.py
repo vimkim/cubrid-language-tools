@@ -276,8 +276,11 @@ class NativeWorker:
         if (response.get("profile") != self.profile or response.get("coverage") not in ("complete", "partial", "none")
                 or not isinstance(response["diagnostics"], list) or not isinstance(response.get("statementKinds"), list)):
             raise WorkerFailure("CUBRID-T1002", "native result has invalid profile or coverage")
-        if len(response["diagnostics"]) > self.config.max_diagnostics:
-            raise WorkerFailure("CUBRID-T1002", "diagnostic limit exceeded; result truncated")
+        if len(response["diagnostics"]) > 256:
+            raise WorkerFailure("CUBRID-T1002", "native diagnostic bound exceeded")
+        truncated = response.get("diagnosticsTruncated", False)
+        if type(truncated) is not bool:
+            raise WorkerFailure("CUBRID-T1002", "invalid native truncation marker")
         diagnostics = []
         try:
             for value in response["diagnostics"]:
@@ -313,7 +316,17 @@ class NativeWorker:
                     unsupported += "unsupported" in categories
             if not _trivia_only(text[last_end:]):
                 raise ValueError("coverage omitted nontrivial source text")
-            expected_coverage = "partial" if unsupported and admitted else "none" if unsupported else "complete"
+            if truncated:
+                marker = diagnostics[-1]
+                if (len(diagnostics) != 256 or status != "tool-error" or marker.code != "CUBRID-T1002"
+                        or marker.range_precision != "statement" or not decisions
+                        or marker.span != Span(decisions[-1]["start"], decisions[-1]["end"])
+                        or marker.span.start == marker.span.end or marker.span.end != len(text)
+                        or (not decisions[-1]["admitted"] and marker.span.start !=
+                            (decisions[-2]["end"] if len(decisions) > 1 else 0))):
+                    raise ValueError("contradictory native truncation marker")
+            expected_coverage = ("partial" if admitted else "none") if truncated else (
+                "partial" if unsupported and admitted else "none" if unsupported else "complete")
             if response["coverage"] != expected_coverage or len(observations) != admitted:
                 raise ValueError("coverage contradicts admitted statements")
             if bool(unsupported) != any(d.category == "unsupported" for d in diagnostics):
@@ -352,6 +365,13 @@ class NativeWorker:
                            "unsupported" if any(d.category == "unsupported" for d in diagnostics) else "valid")
         if status != expected_status or (status == "valid" and response["coverage"] != "complete"):
             raise WorkerFailure("CUBRID-T1002", "native status contradicts diagnostics/coverage")
+        if len(diagnostics) > self.config.max_diagnostics:
+            retained = diagnostics[:self.config.max_diagnostics - 1]
+            marker = Diagnostic("CUBRID-T1002", "error", "Configured diagnostic limit exceeded; result truncated",
+                                Span(diagnostics[self.config.max_diagnostics - 1].span.start, len(text)),
+                                "statement", "tool")
+            return ValidationResult("tool-error", "partial" if admitted else "none", self.profile,
+                                    (*retained, marker), tuple(response["statementKinds"]))
         return ValidationResult(status, response["coverage"], self.profile, diagnostics, tuple(response["statementKinds"]))
 
     def parse(self, text: str) -> ValidationResult:

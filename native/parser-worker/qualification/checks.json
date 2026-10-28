@@ -396,5 +396,25 @@
     "scope": "Complete for revised bounded scope. The original description qualification criterion did not pass. User accepted pre-native exclusions on 2026-10-29; parser-only backend remains later work.",
     "productionChangesAfterMerges": false,
     "artifactCheckScriptSha256": "725ea80b57f14223c060b0efd5f928fdfff6cdc1dae9cbaf5ee4a09aebceae26"
+  },
+  "ticket09ReviewCorrection": {
+    "status": "fresh native qualification passed; corrected distribution qualification and targeted re-review pending",
+    "coverageRevision": "bounded-query-dml-schema-engineer-v3",
+    "fixtureCount": 325,
+    "nativeTests": 44,
+    "independentTests": 20,
+    "framedTests": 28,
+    "manifestSha256": "1cf19abfc6b48eae19bff7179a013a6795c1c3aa72a498904ca96b7f0635d4b1",
+    "workerSha256": "005d867e67d626d220d71509baac30d15cbe08afb634f6322c0df89245bac967",
+    "traceSha256": "2ea0c64f072ab1365c02449a70a301d573385db4a25e2af83628c51ee53894d2",
+    "evidenceDirectory": "/mnt/nvme/data-5/tmp/central-ticket-09-release-20261029-b",
+    "qualificationCommand": [
+      "python3",
+      "native/parser-worker/qualify.py",
+      "--build",
+      "native/parser-worker/build",
+      "--output",
+      "native/parser-worker/qualification"
+    ]
   }
 }

@@ -15,6 +15,19 @@ BUILD = ROOT / 'native/parser-worker/build'
 
 
 class NativeLintTests(unittest.TestCase):
+    def test_actual_cli_retains_mixed_findings_when_native_diagnostics_truncate(self):
+        text = 'SELECT ,;CREATE PROCEDURE p;' * 140
+        result = self.run_cli('--format', 'json', '-', data=text.encode())
+        self.assertEqual(result.returncode, 3)
+        document = json.loads(result.stdout)['documents'][0]
+        self.assertEqual((document['status'], document['coverage']), ('tool-error', 'partial'))
+        self.assertEqual(len(document['diagnostics']), 256)
+        self.assertEqual([d['code'] for d in document['diagnostics'][:2]], ['CUBRID-S1001', 'CUBRID-U1002'])
+        self.assertEqual(document['diagnostics'][0]['span'], {'start': 0, 'end': 9})
+        self.assertEqual(document['diagnostics'][1]['span'], {'start': 9, 'end': 28})
+        self.assertEqual(document['diagnostics'][-1]['code'], 'CUBRID-T1002')
+        self.assertEqual(document['diagnostics'][-1]['span']['end'], len(text))
+
     @classmethod
     def setUpClass(cls):
         manifest = json.loads((BUILD / 'manifest.json').read_bytes())

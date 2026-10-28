@@ -18,6 +18,48 @@ PREFIX = Path("/unused/explicit-runtime")
 
 
 class WorkerAdapterTests(unittest.TestCase):
+    def test_truncated_tail_must_cover_the_contiguous_unprocessed_original_source(self):
+        text = 'SELECT ,; CREATE PROCEDURE p;'
+        syntax = {"code": "CUBRID-S1001", "category": "syntax", "severity": "error",
+                  "message": "rejected", "span": {"start": 0, "end": 9}, "rangePrecision": "statement"}
+        for tail_start, marker_start in ((9, 9), (10, 10), (9, 0)):
+            with self.subTest(tail_start=tail_start, marker_start=marker_start), tempfile.TemporaryDirectory() as directory:
+                marker = {**syntax, "code": "CUBRID-T1002", "category": "tool", "message": "result truncated",
+                          "span": {"start": marker_start, "end": len(text)}}
+                response = {"status": "tool-error", "coverage": "partial", "diagnosticsTruncated": True,
+                    "diagnostics": [{**syntax, "message": str(index)} for index in range(255)] + [marker],
+                    "statementKinds": [], "coverageDecisions": [{"start": 0, "end": 9, "admitted": True},
+                        {"start": tail_start, "end": len(text), "admitted": False}],
+                    "nativeObservations": [{"hasTree": False, "treeCount": 0, "hasError": True,
+                        "hasInternalError": False, "errorCount": 300, "nativeErrorId": 0, "partialStackCount": 0}]}
+                executable = self.reply_worker(directory, response)
+                with NativeWorker(WorkerConfig(executable, PREFIX)) as worker:
+                    result = worker.parse(text)
+                self.assertEqual(result.coverage, 'partial' if (tail_start, marker_start) == (9, 9) else 'none')
+                self.assertEqual(len(result.diagnostics), 256 if (tail_start, marker_start) == (9, 9) else 1)
+
+    def test_native_truncation_marker_requires_consistent_bounded_unsuccessful_result(self):
+        syntax = {"code": "CUBRID-S1001", "category": "syntax", "severity": "error",
+                  "message": "rejected", "span": {"start": 0, "end": 9}, "rangePrecision": "statement"}
+        marker = {**syntax, "code": "CUBRID-T1002", "category": "tool", "message": "result truncated"}
+        diagnostics = [{**syntax, "message": str(index)} for index in range(255)] + [marker]
+        base = {"status": "tool-error", "coverage": "partial", "diagnosticsTruncated": True,
+                "diagnostics": diagnostics, "statementKinds": [], "nativeObservations": [{
+                    "hasTree": False, "treeCount": 0, "hasError": True, "hasInternalError": False,
+                    "errorCount": 300, "nativeErrorId": 0, "partialStackCount": 0}]}
+        for changes in ({}, {"diagnosticsTruncated": 1}, {"diagnosticsTruncated": "true"},
+                        {"diagnosticsTruncated": None}, {"diagnosticsTruncated": False},
+                        {"coverage": "complete"}, {"status": "valid"},
+                        {"diagnostics": diagnostics[:-1]}, {"diagnostics": diagnostics + [marker]},
+                        {"diagnostics": diagnostics[:-1] + [{**marker, "span": {"start": 0, "end": 8}}]}):
+            with self.subTest(changes=list(changes)), tempfile.TemporaryDirectory() as directory:
+                executable = self.reply_worker(directory, {**base, **changes})
+                with NativeWorker(WorkerConfig(executable, PREFIX)) as worker:
+                    result = worker.parse('SELECT ,;')
+                self.assertEqual(result.status, 'tool-error')
+                self.assertEqual(result.coverage, 'partial' if not changes else 'none')
+                self.assertEqual(len(result.diagnostics), 256 if not changes else 1)
+
     def test_unreported_native_error_cannot_be_returned_as_a_pass(self):
         for native_error in (-224, True, "0", None):
             with self.subTest(native_error=native_error), tempfile.TemporaryDirectory() as directory:

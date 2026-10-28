@@ -138,9 +138,17 @@ static void parse(Runtime &runtime, const std::string &text, Json &response) {
   runtime.verify_settings();
   Value diagnostics(rapidjson::kArrayType), kinds(rapidjson::kArrayType), decisions(rapidjson::kArrayType), observations(rapidjson::kArrayType);
   int priority = 0; size_t admitted = 0, unsupported = 0;
+  bool truncated = false; size_t truncated_begin = 0, processed_end = 0;
+  auto append_diagnostic = [&](Value value) {
+    if (diagnostics.Size() < 255) diagnostics.PushBack(value, a);
+    else truncated = true;
+  };
   for (const auto &statement : coverage::scan(text)) {
-    if (diagnostics.Size() >= 256) throw std::runtime_error("256 diagnostic limit reached; result truncated");
+    if (diagnostics.Size() >= 255) {
+      truncated = true; truncated_begin = processed_end; break;
+    }
     size_t begin = coverage::codepoints(text, statement.begin), end = coverage::codepoints(text, statement.end);
+    processed_end = end;
     const auto *family = coverage::admit(statement);
     const char *kind = family ? family->kind : nullptr;
     Value decision(rapidjson::kObjectType);
@@ -148,12 +156,12 @@ static void parse(Runtime &runtime, const std::string &text, Json &response) {
     decision.AddMember("admitted", kind != nullptr && !statement.lexical_error, a);
     decisions.PushBack(decision, a);
     if (statement.lexical_error) {
-      diagnostics.PushBack(diagnostic("CUBRID-S1001", "syntax", "Unterminated quoted token or comment", begin, end, a), a);
+      append_diagnostic(diagnostic("CUBRID-S1001", "syntax", "Unterminated quoted token or comment", begin, end, a));
       priority = std::max(priority, 2); continue;
     }
     if (!kind) {
       ++unsupported; priority = std::max(priority, 1);
-      diagnostics.PushBack(diagnostic("CUBRID-U1002", "unsupported", "Statement is outside qualified native coverage", begin, end, a), a);
+      append_diagnostic(diagnostic("CUBRID-U1002", "unsupported", "Statement is outside qualified native coverage", begin, end, a));
       continue;
     }
     ++admitted;
@@ -181,8 +189,7 @@ static void parse(Runtime &runtime, const std::string &text, Json &response) {
                           message ? message : "Native parser rejected input", begin, end, a);
       Value coordinates(rapidjson::kObjectType);
       coordinates.AddMember("statement", number, a); coordinates.AddMember("line", line, a); coordinates.AddMember("column", column, a);
-      d.AddMember("nativeCoordinates", coordinates, a); diagnostics.PushBack(d, a);
-      if (diagnostics.Size() > 256) throw std::runtime_error("256 diagnostic limit exceeded; result truncated");
+      d.AddMember("nativeCoordinates", coordinates, a); append_diagnostic(std::move(d));
     }
     Value observation(rapidjson::kObjectType);
     observation.AddMember("hasTree", tree != nullptr, a); observation.AddMember("treeCount", uint64_t(trees), a);
@@ -192,19 +199,35 @@ static void parse(Runtime &runtime, const std::string &text, Json &response) {
     observation.AddMember("partialStackCount", parser->stack_top, a); observations.PushBack(observation, a);
     if (internal || (flagged && errors == 0) || native_error != NO_ERROR) {
       priority = 3;
-      if (!errors) diagnostics.PushBack(diagnostic("CUBRID-T1002", "tool", "Native internal or unreported error", begin, end, a), a);
+      if (!errors) append_diagnostic(diagnostic("CUBRID-T1002", "tool", "Native internal or unreported error", begin, end, a));
     } else if (errors) priority = std::max(priority, 2);
     else if (trees != 1 || !tree[0] || tree[0]->node_type != family->native_kind) {
-      priority = 3; diagnostics.PushBack(diagnostic("CUBRID-T1002", "tool", "Missing, partial or unexpected native statement tree", begin, end, a), a);
+      priority = 3; append_diagnostic(diagnostic("CUBRID-T1002", "tool", "Missing, partial or unexpected native statement tree", begin, end, a));
     } else kinds.PushBack(str(kind, a), a);
+    if (truncated) {
+      truncated_begin = statement.end < text.size() ? end : begin;
+      break;
+    }
   }
-  if (diagnostics.Size() > 256) throw std::runtime_error("256 diagnostic limit exceeded; result truncated");
+  if (truncated) {
+    const size_t end = coverage::codepoints(text, text.size());
+    if (processed_end < end) {
+      Value tail(rapidjson::kObjectType);
+      tail.AddMember("start", uint64_t(processed_end), a); tail.AddMember("end", uint64_t(end), a);
+      tail.AddMember("admitted", false, a); decisions.PushBack(tail, a);
+    }
+    diagnostics.PushBack(diagnostic("CUBRID-T1002", "tool", "256 diagnostic limit reached; result truncated",
+                                    truncated_begin, end, a), a);
+    response.AddMember("diagnosticsTruncated", true, a);
+    priority = 3;
+  }
   runtime.verify_settings();
   response.AddMember("syntaxSettingsUnchanged", true, a);
   response.AddMember("status", str(priority == 3 ? "tool-error" : priority == 2 ? "syntax-error" : priority == 1 ? "unsupported" : "valid", a), a);
   response.AddMember("profile", Value(runtime.manifest["profile"], a), a);
   response.AddMember("manifestDigest", str(manifest_sha, a), a);
-  response.AddMember("coverage", str(unsupported ? (admitted ? "partial" : "none") : "complete", a), a);
+  response.AddMember("coverage", str(truncated ? (admitted ? "partial" : "none") :
+                                   unsupported ? (admitted ? "partial" : "none") : "complete", a), a);
   response.AddMember("diagnostics", diagnostics, a); response.AddMember("statementKinds", kinds, a);
   response.AddMember("coverageDecisions", decisions, a); response.AddMember("nativeObservations", observations, a);
 }

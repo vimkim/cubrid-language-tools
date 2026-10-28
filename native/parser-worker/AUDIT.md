@@ -171,3 +171,16 @@ boundary, resource limits and the observed trace together support this exact
 qualification. They do not make arbitrary library code safe or turn the worker
 into a security sandbox. Any coverage expansion must review its newly reachable
 actions and parameters, update its revision/manifest and add qualification cases.
+
+## Diagnostic-bound delivery correction
+
+The worker retains up to 255 earlier findings and reserves one of its 256 slots for an explicit T1002 truncation diagnostic.
+At the next statement boundary, it stops parsing and represents the unprocessed original tail as one nonempty rejected coverage decision.
+The tool diagnostic covers that exact tail. When one statement exhausts the bound, error collection still drains and counts its entire native error list.
+Its admitted observation remains truthful. A final-statement truncation uses that original statement span and adds no empty tail decision.
+No new parser call, symbol, grammar path, parameter, or supported feature is introduced.
+
+Structured truncation replies include private boolean `diagnosticsTruncated: true`, tool-error status, and partial or none coverage.
+The adapter verifies the bounded diagnostics, source coverage, tail span, native observations, kinds, manifest, and unchanged settings before applying a lower caller limit.
+That lower limit retains its first limit-minus-one validated findings and a T1002 diagnostic. A limit of one necessarily retains only the tool error.
+Malformed or contradictory markers fail the existing tool-response boundary. Subsequent valid requests remain usable.

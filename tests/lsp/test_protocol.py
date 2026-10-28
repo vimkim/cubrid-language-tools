@@ -9,6 +9,31 @@ from protocol_client import Client
 
 
 class ProtocolTests(unittest.TestCase):
+    def test_cubrid_comments_and_backslash_strings_suppress_framed_completion(self):
+        with Client() as client:
+            client.initialize()
+            for index, text in enumerate(('// SEL', "SELECT 'x\\' SEL", "SELECT '가😀\\'\r\n;he")):
+                with self.subTest(text=text):
+                    uri = client.open(text, uri=f'untitled:suppressed-{index}')
+                    line = text.count('\n')
+                    character = len(text.rsplit('\n', 1)[-1].encode('utf-16-le')) // 2
+                    self.assertEqual(client.completion(uri, line, character)['result']['items'], [])
+
+    def test_mixed_document_completion_keeps_full_original_utf16_edits(self):
+        with Client() as client:
+            client.initialize()
+            for index, (text, line, character, label, start, end) in enumerate((
+                (';help\r\nSELtail', 1, 3, 'SELECT', 0, 7),
+                ('SELECT 1;\r\n;hetail', 1, 3, ';help', 0, 7),
+                ('// 가😀\r\n;help\r\nSELtail', 2, 3, 'SELECT', 0, 7),
+            )):
+                with self.subTest(text=text):
+                    uri = client.open(text, uri=f'untitled:mixed-{index}')
+                    item = next(item for item in client.completion(uri, line, character)['result']['items']
+                                if item['label'] == label)
+                    self.assertEqual(item['textEdit'], {'newText': label, 'range': {
+                        'start': {'line': line, 'character': start}, 'end': {'line': line, 'character': end}}})
+
     def test_completion_rejects_noninteger_wire_positions_without_coercion_or_traceback(self):
         with Client() as client:
             client.initialize()

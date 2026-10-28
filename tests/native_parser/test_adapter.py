@@ -1,4 +1,5 @@
 import asyncio
+from dataclasses import replace
 from pathlib import Path
 import json
 import unittest
@@ -9,6 +10,22 @@ BUILD = Path(__file__).resolve().parents[2] / "native/parser-worker/build"
 
 
 class NativeAdapterTests(unittest.TestCase):
+    def test_diagnostic_caps_preserve_earlier_findings_and_subsequent_requests(self):
+        text = 'SELECT ,;CREATE PROCEDURE p;' * 140
+        for limit in (256, 3, 1):
+            with self.subTest(limit=limit), NativeWorker(replace(self.config(), max_diagnostics=limit)) as worker:
+                result = worker.parse(text)
+                self.assertEqual((result.status, result.coverage), ('tool-error', 'partial'))
+                self.assertEqual(len(result.diagnostics), limit)
+                tool = next(d for d in result.diagnostics if d.category == 'tool')
+                self.assertEqual(tool.code, 'CUBRID-T1002')
+                self.assertIn('truncated', tool.message)
+                self.assertEqual(tool.span.end, len(text))
+                if limit > 1:
+                    self.assertEqual([(d.code, d.span.start, d.span.end) for d in result.diagnostics[:2]],
+                                     [('CUBRID-S1001', 0, 9), ('CUBRID-U1002', 9, 28)])
+                self.assertEqual(worker.parse('SELECT 1;').status, 'valid')
+
     def test_retained_query_dml_corpus_preserves_status_kinds_and_original_spans(self):
         corpus = json.loads((BUILD.parent / "qualification/corpus.json").read_text())
         with NativeWorker(self.config()) as worker:

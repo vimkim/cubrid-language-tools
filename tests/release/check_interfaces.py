@@ -65,6 +65,7 @@ def check(worker, runtime, with_lsp):
                         assert [d['range'] for d in diagnostics] == case['ranges'], case['name']
         for case in fixture['completion']:
             result = complete(case['text'], case['cursor'], PROFILE)
+            assert result.allowed == case.get('allowed', True)
             assert [result.replacement.start, result.replacement.end] == case['span']
             assert [item.text for item in result.items] == case['items']
             if client_type:

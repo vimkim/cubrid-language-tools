@@ -21,6 +21,37 @@ SCHEMA = Schema('reader', (
 
 class CompletionCoreTest(unittest.TestCase):
 
+  def test_cubrid_line_comments_and_escaped_strings_suppress_completion(self):
+    for text in ('// SEL', '// 가😀 SEL', "SELECT 'x\\' SEL", "SELECT '가😀\\'\r\n;he"):
+      with self.subTest(text=text):
+        result = complete(text, len(text), PROFILE)
+        self.assertFalse(result.allowed)
+        self.assertEqual(result.items, ())
+    for text in ('// comment\r\nSEL', "SELECT 'x\\\\';\r\nSEL"):
+      self.assertEqual([item.text for item in complete(text, len(text), PROFILE).items], ['SELECT'])
+
+  def test_mixed_document_completion_uses_current_command_line_and_original_spans(self):
+    for marked, span, expected in (
+      (';help\nSEL|tail', Span(6, 13), 'SELECT'),
+      ('SELECT 1;\n;he|tail', Span(10, 17), ';help'),
+      (';help\r\nSHOW TA|tail', Span(12, 18), 'TABLES'),
+      ('// 가😀\r\n;help\r\nSEL|tail', Span(14, 21), 'SELECT'),
+    ):
+      with self.subTest(marked=marked):
+        text, cursor = marked.replace('|', ''), marked.index('|')
+        result = complete(text, cursor, PROFILE)
+        self.assertEqual(result.replacement, span)
+        self.assertIn(expected, [item.text for item in result.items])
+        self.assertEqual(text[:span.start] + expected + text[span.end:],
+                         text[:result.replacement.start] + expected + text[result.replacement.end:])
+    for text in ("SELECT 'x\n;he", '/* comment\n;he', ";schema 'x\nSEL"):
+      self.assertFalse(complete(text, len(text), PROFILE).allowed)
+
+  def test_completion_kind_handles_empty_and_incomplete_display_detail(self):
+    for detail, expected in (('', 'keyword'), ('  ', 'keyword'), ('catalog', 'catalog'),
+                             ('catalog table', 'table')):
+      self.assertEqual(CompletionItem('name', detail).kind, expected)
+
   def test_offline_completion_returns_ordered_items_and_a_replacement_span(self):
     result = complete('selwrong;', 3, PROFILE)
     self.assertTrue(result.allowed)

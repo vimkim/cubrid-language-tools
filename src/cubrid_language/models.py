@@ -32,7 +32,7 @@ class CompletionItem:
         if self.detail == 'parameter value':
             return 'value'
         words = self.detail.split()
-        return words[1] if words[0] == 'catalog' else words[0]
+        return words[1] if len(words) > 1 and words[0] == 'catalog' else words[0] if words else 'keyword'
 
 
 @dataclass(frozen=True)

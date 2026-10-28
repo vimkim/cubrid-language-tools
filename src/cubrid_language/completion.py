@@ -110,7 +110,7 @@ def tokenize(text: str) -> list[Token]:
       index += 1
       continue
     kind, closed = "symbol", True
-    if text.startswith('--', index):
+    if text.startswith(('--', '//'), index):
       end = text.find('\n', index)
       index = len(text) if end < 0 else end
       kind, closed = "comment", end >= 0
@@ -124,6 +124,9 @@ def tokenize(text: str) -> list[Token]:
       index += 1
       closed = False
       while index < len(text):
+        if character == "'" and text[index] == '\\':
+          index = min(len(text), index + 2)
+          continue
         if text[index] == closer:
           index += 1
           if index < len(text) and text[index] == closer:
@@ -319,15 +322,29 @@ def session_suggestions(text: str, cursor: int, schema: Schema) -> _Suggestions:
 
 
 def _suggest(text: str, cursor: int, schema: Schema) -> _Suggestions:
-  if text.lstrip().startswith(';'):
-    return session_suggestions(text, cursor, schema)
-  return _complete_tokens(text, cursor, schema, tokenize(text))
+  tokens = tokenize(text)
+  commands = {}
+  for token in tokens:
+    if token.kind != 'symbol' or token.text != ';':
+      continue
+    start = text.rfind('\n', 0, token.start) + 1
+    if text[start:token.start].strip():
+      continue
+    end = text.find('\n', token.end)
+    commands[start] = len(text) if end < 0 else end
+  line_start = text.rfind('\n', 0, cursor) + 1
+  if line_start in commands:
+    result = session_suggestions(text[line_start:commands[line_start]], cursor - line_start, schema)
+    return _Suggestions(result.start + line_start, result.end + line_start, result.candidates, result.allowed)
+  tokens = [token for token in tokens if not any(start <= token.start < end and token.end <= end
+                                                for start, end in commands.items())]
+  return _complete_tokens(text, cursor, schema, tokens)
 
 
 def _complete_tokens(text: str, cursor: int, schema: Schema, tokens: list[Token], session: bool = False) -> _Suggestions:
   current = next((t for t in tokens if t.start < cursor <= t.end and (
     t.kind in ('word', 'identifier') or t.kind in ('comment', 'string') and (
-      cursor < t.end or not t.closed or t.text.startswith('--')
+      cursor < t.end or not t.closed or t.text.startswith(('--', '//'))
     )
   )), None)
   if current and current.kind in ('comment', 'string'):

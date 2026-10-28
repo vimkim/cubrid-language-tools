@@ -14,6 +14,35 @@ PROFILE = "cubrid-11.5.0.2704-cc94778"
 
 
 class NativeWorkerTests(unittest.TestCase):
+    def test_truncation_inside_final_statement_counts_errors_without_empty_tail(self):
+        text = 'CREATE SERIAL s START WITH 1' + ' START WITH 1' * 270 + ';'
+        results = self.exchange([
+            {"protocolVersion": 1, "id": 1, "method": "initialize", "profile": PROFILE},
+            {"protocolVersion": 1, "id": 2, "method": "parse", "text": text},
+            {"protocolVersion": 1, "id": 3, "method": "parse", "text": 'SELECT 1;'},
+        ])
+        result = results[1]
+        self.assertEqual((result['status'], result['coverage']), ('tool-error', 'partial'))
+        self.assertIs(result['diagnosticsTruncated'], True)
+        self.assertEqual(len(result['diagnostics']), 256)
+        self.assertEqual(result['coverageDecisions'], [{'start': 0, 'end': len(text), 'admitted': True}])
+        self.assertEqual(result['nativeObservations'][0]['errorCount'], 270)
+        self.assertEqual(result['diagnostics'][-1]['span'], {'start': 0, 'end': len(text)})
+        self.assertEqual(results[2]['status'], 'valid')
+
+    def test_native_truncation_preserves_prefix_and_accounts_for_original_tail(self):
+        text = 'SELECT ,;CREATE PROCEDURE p;' * 140
+        result = self.parse(text)
+        self.assertEqual((result['status'], result['coverage']), ('tool-error', 'partial'))
+        self.assertIs(result['diagnosticsTruncated'], True)
+        self.assertEqual(len(result['diagnostics']), 256)
+        self.assertEqual([d['code'] for d in result['diagnostics'][:2]], ['CUBRID-S1001', 'CUBRID-U1002'])
+        tail = result['coverageDecisions'][-1]
+        self.assertIs(tail['admitted'], False)
+        self.assertEqual(tail['start'], result['coverageDecisions'][-2]['end'])
+        self.assertEqual(tail['end'], len(text))
+        self.assertEqual(result['diagnostics'][-1]['span'], {'start': tail['start'], 'end': tail['end']})
+
     def test_retained_query_dml_qualification_corpus(self):
         corpus = json.loads((ROOT / "native/parser-worker/qualification/corpus.json").read_text())
         requests = [{"protocolVersion": 1, "id": 1, "method": "initialize", "profile": PROFILE}]
@@ -249,7 +278,7 @@ class NativeWorkerTests(unittest.TestCase):
         self.assertEqual(self.parse(" " * (8 * 1024 * 1024 + 1))["code"], "CUBRID-T1003")
         limited = self.parse("SELECT ,;" * 257)
         self.assertEqual(limited["status"], "tool-error")
-        self.assertIn("truncated", limited["message"])
+        self.assertIn("truncated", limited["diagnostics"][-1]["message"])
 
     def test_partial_tree_and_ordinary_errors_do_not_become_success(self):
         result = self.parse("CREATE SERIAL s START WITH 1 START WITH 2;")

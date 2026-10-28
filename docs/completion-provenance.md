@@ -34,7 +34,7 @@ It preserves the repository's existing `Span` implementation.
 Collection fields take tuple snapshots so later changes to caller lists cannot change stored values.
 The public package exports `complete`, `Span`, `CompletionItem`, `CompletionResult`, `Relation`, and `Schema`.
 
-Thirteen algorithm functions retain identical syntax trees after renaming the item and internal suggestion values.
+At the ticket 01 port, thirteen algorithm functions retained identical syntax trees after renaming the item and internal suggestion values.
 The two wrapper changes remove the legacy availability-message argument and construct the shared central result.
 The package contains no terminal menu, compatibility entry point, catalog loader, or CSQL execution path.
 Session command suggestions describe names and arguments only.
@@ -70,3 +70,13 @@ The immutable result reserves its optional `availability` field for future use a
 The repository retains its Apache-2.0 license.
 This port changes no existing source notices.
 Native runtime notices and final release qualification belong to later tickets.
+
+## Intentional delivery corrections
+
+Ticket 09 keeps the original 230 observations and their capture file unchanged.
+Final public-interface review identified missing CUBRID `//` comments and backslash escapes in single-quoted strings.
+The tokenizer now protects those lexical regions under the qualified profile settings.
+Session completion now selects the current command line and preserves full-document offsets.
+Earlier command arguments no longer enter later SQL context, while quoted lexical blocks still span lines.
+Public library and framed LSP regressions record these intentional corrections separately from the historical parity corpus.
+The public completion value also handles empty or incomplete display details without changing existing kinds or constructor arguments.
