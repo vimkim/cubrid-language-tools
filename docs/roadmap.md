@@ -14,12 +14,13 @@ Consumer products stay separate and use the same maintained language implementat
 
 ## Separate consumer projects
 
-- VS Code extension: dedicated `cubrid` language identity, `.csql` association, opt-in `.sql` mapping, lexical highlighting, indentation, server configuration, and extension-host tests.
-- Neovim plugin: file detection, highlighting, indentation, built-in LSP setup, snapshot reload, and headless editor tests.
+- VS Code local alpha implemented and verified: dedicated `cubrid` language identity, `.csql` association, opt-in `.sql` mapping, lexical highlighting, indentation, server configuration, and extension-host tests.
+- Neovim local alpha implemented and verified: file detection, highlighting, indentation, built-in LSP setup, snapshot reload, and headless editor tests.
 - AI checker: structured `cubrid-lint` integration, stable failure handling, CI examples, and workflow-specific policy.
 - csql-future migration: depend on the central library, convert existing catalog values, preserve terminal menus and metadata acquisition, and remove its duplicate completion implementation after parity checks.
 
-Consumer work starts after the relevant central interfaces pass their delivery gates.
+The [editor alpha report](tickets/reports/editor-alpha.md) records exact artifacts, supported editor versions, completion limits, and independent evidence. Local integration and consumer publication await approval.
+Each consumer starts after the relevant central interfaces pass their delivery gates.
 The terminal migration requires completion corpus parity, Unicode edit parity, metadata parity, and the existing terminal/PTY suite.
 Each consumer owns packaging and releases independently.
 

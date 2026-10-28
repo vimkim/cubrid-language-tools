@@ -2,7 +2,8 @@
 
 One maintained language engine for CUBRID completion, syntax checking, and lint diagnostics.
 This independent project owns the Python library, native parser worker, lint CLI, and optional LSP adapter.
-VS Code, Neovim, AI checkers, and csql-future are separate future consumers.
+Separate VS Code and Neovim alpha consumers are implemented and locally verified. They have not been published.
+See the [editor alpha report](tickets/reports/editor-alpha.md). AI checkers and csql-future migration remain future work.
 
 ![A shared library serves the LSP adapter, CLI, and future Python TUI](architecture-assets/library.svg)
 

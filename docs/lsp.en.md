@@ -20,7 +20,8 @@ See [installation and release qualification](install.en.md) and [V3 coverage](co
 Configure the editor to execute `cubrid-language-server` with an empty argument list and stdio transport.
 Use the exact language ID `cubrid` when the editor opens a document.
 Generic `sql` documents do not activate completion or diagnostics.
-VS Code and Neovim extension packages remain separate projects.
+Separate VS Code and Neovim alpha packages are locally verified. They have not been published.
+See the [editor alpha report](tickets/reports/editor-alpha.md) for artifacts and supported behavior.
 
 The core and `cubrid-lint` require no Python runtime dependencies.
 The server extra pins pygls 2.1.1, lsprotocol 2025.0.0, attrs 25.4.0, cattrs 25.3.0, and typing-extensions 4.15.0.

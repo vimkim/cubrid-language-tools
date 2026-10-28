@@ -19,7 +19,9 @@ uv pip install --python .venv/bin/python '.[lsp]'
 [설치·릴리스 검증](install.md)과 [V3 지원 범위](coverage.md)를 확인합니다.
 편집기에 실행 명령 `cubrid-language-server`, 빈 인자 목록, stdio 전송을 지정합니다.
 문서를 열 때 정확한 언어 ID `cubrid`를 사용합니다.
-일반 `sql` 문서에는 완성·진단을 제공하지 않습니다. VS Code·Neovim 확장은 별도 제품입니다.
+일반 `sql` 문서에는 완성·진단을 제공하지 않습니다.
+별도 VS Code·Neovim 알파는 로컬 검증을 마쳤으며 아직 공개하지 않았습니다.
+[편집기 알파 보고서](tickets/reports/editor-alpha.md)에서 설치 산출물과 지원 범위를 확인합니다.
 
 코어와 `cubrid-lint`의 필수 Python 런타임 의존성은 0개입니다.
 LSP extra는 pygls 2.1.1, lsprotocol 2025.0.0, attrs 25.4.0, cattrs 25.3.0, typing-extensions 4.15.0을 고정합니다.

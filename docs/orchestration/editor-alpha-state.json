@@ -66,7 +66,7 @@
   "designReview": "/home/vimkim/temp/cubrid-editor-alpha-aiYISe/architecture-verdict.md",
   "designLimitation": "One completed runner package containing two structural alternatives; Astra sketch runner dropped out. Independent judge selected the instance session with correspondence corrections.",
   "coreFix": {
-    "status": "committed-awaiting-independent-review",
+    "status": "independently-verified-local-candidate",
     "worktree": "/home/vimkim/gh/cubrid-language-tools-lsp-enums",
     "branch": "fix/lsp-wire-enums",
     "dispatchCommit": "7654d343394e2e8474f47811747ec96dba5b4e07",

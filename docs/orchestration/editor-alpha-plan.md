@@ -42,14 +42,14 @@ Keep the core's accepted grammar/platform limits visible. Editor integration doe
 ## Architecture and arena checkpoints
 
 - [x] Ground. Read the actual engine contract and current implementation.
-- [x] Sketch. Compare independent Astra and Terra packages.
+- [x] Sketch. Compare Terra's two structural alternatives and Astra's partial notes. The Astra runner did not complete a package.
 - [x] Agree. skip: default architect workflow proceeds after synthesis without a user checkpoint.
 - [x] Implement. Dispatch one fresh owner per consumer at exact commits.
 - [x] Scrap. skip: apply only if implementation demonstrates the selected shape is wrong.
 
 - [x] Frame. Two consumer packages and a real-editor acceptance contract.
 - [x] Fan out. Independent candidate packages in `design-astra` and `design-terra`.
-- [x] Cross-judge. Read-only independent scoring after both packages finish.
+- [x] Cross-judge. Read-only independent scoring of the completed package with the other runner's dropout recorded.
 - [x] Pick. Score the whole designs against the consumer and maintainer criteria.
 - [x] Graft. Preserve useful evidence and remove unnecessary client policy.
 - [x] Verify. Confirm selected behavior against real editors before integration.

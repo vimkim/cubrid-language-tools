@@ -599,5 +599,13 @@
       "pushAuthorized": true,
       "publicationEvidence": "Work item 579 records the final remote SHA and scoped worktree/branch cleanup"
     }
+  },
+  "editorAlpha": {
+    "workItem": 582,
+    "status": "verified-awaiting-trail-audit",
+    "state": "docs/orchestration/editor-alpha-state.json",
+    "report": "docs/tickets/reports/editor-alpha.md",
+    "mainIntegrationApproved": false,
+    "consumerPublicationApproved": false
   }
 }

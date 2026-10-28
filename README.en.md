@@ -10,7 +10,8 @@ an LSP adapter for separate csql-future, VS Code, Neovim, and AI products.
 
 **Validate a Python PoC first, then migrate gradually to Rust.**
 The development release provides completion, CLI, optional LSP, and bounded V3 offline syntax checks.
-This is a local development build. Consumer integrations and editor packages are later work.
+This is a local development build. Separate VS Code and Neovim alpha packages are implemented and locally verified. They have not been published.
+See the [editor alpha report](docs/tickets/reports/editor-alpha.md) for installable artifacts and supported behavior.
 
 [Install and qualify](docs/install.en.md) · [Coverage](docs/coverage.en.md) · [Architecture](docs/architecture.en.md) · [Development and product roadmap](docs/product-roadmap.en.md) ·
 [CLI and validation API](docs/lint-cli.en.md) · [Stdio LSP](docs/lsp.en.md) · [Documentation](docs/README.en.md)
@@ -69,7 +70,8 @@ qualified native runtime. The first parser target is Linux x86-64 and
 
 **Stdio LSP and offline syntax linting** are implemented. SHOW COLUMNS, DESCRIBE, DESC, and class-description EXPLAIN remain unsupported.
 Completion retains 11.4 vocabulary provenance, distinct from strict 11.5 parser qualification.
-Next are separate **VS Code/Neovim integrations and highlighting**. Later goals include **formatting with editor
+Separate **VS Code and Neovim alphas** have locally verified completion, syntax diagnostics, highlighting, and indentation.
+Editor publication and csql-future/AI consumer integration remain follow-up work. Later goals include **formatting with editor
 integration**, semantic/style lint, and broader language coverage. Initial linting
 means syntax diagnostics. See the [roadmap](docs/product-roadmap.en.md) for details.
 

@@ -45,7 +45,8 @@ The extra pins pygls 2.1.1, lsprotocol 2025.0.0, attrs 25.4.0, cattrs 25.3.0, an
 Python 3.10 also uses exceptiongroup 1.3.1.
 Configure an editor to spawn `.venv/bin/cubrid-language-server` with no arguments and stdio transport.
 Open documents with language ID `cubrid`. See the [LSP settings guide](lsp.en.md).
-VS Code and Neovim packages are separate future products.
+Separate VS Code and Neovim alpha packages are locally verified. They have not been published.
+The [editor alpha report](tickets/reports/editor-alpha.md) records artifacts, prerequisites, and supported behavior.
 
 ## Supply the qualified native worker
 

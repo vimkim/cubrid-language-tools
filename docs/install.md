@@ -45,7 +45,8 @@ uv pip install --python .venv/bin/python '.[lsp]'
 Python 3.10에서는 exceptiongroup 1.3.1도 사용합니다.
 편집기가 `.venv/bin/cubrid-language-server`를 인자 없이 stdio 자식 프로세스로 실행하도록 설정합니다.
 문서는 `cubrid` 언어 ID로 엽니다. [LSP 설정 안내](lsp.md)를 참조합니다.
-VS Code·Neovim 패키지는 별도 후속 제품입니다.
+별도 VS Code·Neovim 알파 패키지는 로컬 검증을 마쳤으며 아직 공개하지 않았습니다.
+설치 산출물·선행 조건·지원 범위는 [편집기 알파 보고서](tickets/reports/editor-alpha.md)에 기록했습니다.
 
 ## 검증된 네이티브 워커 준비
 

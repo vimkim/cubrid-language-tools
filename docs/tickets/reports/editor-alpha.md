@@ -69,7 +69,7 @@ Comment/suppression reviews found no deletion candidates or open flags in the re
 
 ## Review and proposed integration
 
-The coordinator branch is `editor/alpha` in `/home/vimkim/gh/cubrid-language-tools-editor-alpha`. It owns only planning, contracts, decision trail, state and this report.
+The coordinator branch is `editor/alpha` in `/home/vimkim/gh/cubrid-language-tools-editor-alpha`. It owns planning, contracts, decision trail, state, this report and user-facing delivery status documentation.
 
 The proposed order under one explicit integration approval is the core compatibility branch, the coordinator branch rebased onto that core tip, and each final consumer branch into its own clean local `main`. The user's main policy then pushes the existing core `origin/main`. Consumer publication is a separate decision because those repositories have no configured remotes.
 
