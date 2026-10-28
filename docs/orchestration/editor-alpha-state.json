@@ -1,6 +1,6 @@
 {
   "workItem": 582,
-  "status": "implementing",
+  "status": "independent-verification-and-menu-repair",
   "coreBaseline": "3bb70e492efe7bcb7de58a801281f7a088a9c39e",
   "coordinatorBranch": "editor/alpha",
   "coordinatorCheckout": "/home/vimkim/gh/cubrid-language-tools-editor-alpha",
@@ -14,9 +14,11 @@
       "branch": "alpha/editor",
       "emptyBaseline": "14c23950ee9e0f372916e1409788a4e4e19fe4b5",
       "remote": null,
-      "status": "installed-package-live-acceptance; multi-root/restart run pending",
+      "status": "committed-ready-for-independent-verification",
       "dispatchCommit": "6c7c6edefe66d1cc9f03af838b5e7f738abfc451",
-      "owner": "/root/vscode_alpha_owner"
+      "owner": "/root/vscode_alpha_owner",
+      "commit": "fcf74ec38c62be865876b6e9c8fa9febffda1abb",
+      "artifact": "/home/vimkim/temp/cubrid-editor-alpha-aiYISe/vscode/cubrid-language-0.1.0.vsix"
     },
     "neovim": {
       "checkout": "/home/vimkim/gh/cubrid.nvim",
@@ -24,14 +26,18 @@
       "branch": "alpha/editor",
       "emptyBaseline": "14c23950ee9e0f372916e1409788a4e4e19fe4b5",
       "remote": null,
-      "status": "installed-package-acceptance-passed; report pending",
+      "status": "P1-menu-suffix-blocker",
       "dispatchCommit": "3b341bf57e7ebc90b65bbcdfe20e889b30d8b79a",
-      "owner": "/root/neovim_alpha_owner"
+      "owner": "/root/neovim_alpha_owner",
+      "commit": "453c091e102b3d7c6649d37c55983ace06067bd5",
+      "independentReview": "/home/vimkim/temp/cubrid-editor-alpha-aiYISe/neovim-independent/report.md",
+      "menuFixWorktree": "/home/vimkim/gh/cubrid.nvim-menu",
+      "menuFixBranch": "fix/completion-span"
     }
   },
   "ownership": "Coordinator writes central docs/tracker/decision log. Each implementer owns only its consumer worktree and evidence directory.",
   "authorization": "Local commits authorized. Integration requires review and approval. Consumer remote creation, pushes, publication and deployment are not authorized.",
-  "nextAction": "Independently review core fix and installed consumer artifacts; finish owner receipts; run comment and trail reviews before integration approval.",
+  "nextAction": "Review installed VSIX independently; design and implement thin Neovim menu-span adapter, then repeat visible-menu acceptance and full extracted-package checks.",
   "design": "docs/orchestration/editor-alpha-design.md",
   "designReview": "/home/vimkim/temp/cubrid-editor-alpha-aiYISe/architecture-verdict.md",
   "designLimitation": "One completed runner package containing two structural alternatives; Astra sketch runner dropped out. Independent judge selected the instance session with correspondence corrections.",
@@ -45,7 +51,9 @@
     "reason": "Both real editor clients exposed legal LSP str/int enums being rejected by strict_converter",
     "checks": "109 core and 30 LSP tests; actual captured payloads and live Neovim initialize/completion pass",
     "report": "docs/tickets/reports/editor-lsp-wire-enums.md",
-    "limitations": "Pre-existing malformed capabilities-object and permissive enum-or-int union acceptance remain separate findings."
+    "limitations": "Pre-existing malformed capabilities-object and permissive enum-or-int union acceptance remain separate findings.",
+    "reportCommit": "3efe03b49a037041fe6e667acb990fc8403c3ab0",
+    "independentChecks": "Root framed trace=off request, 109 core tests and 30 LSP tests pass"
   },
   "acceptanceEngine": "d5a571eb03d543af1438b85933fcad3aed60f9f0"
 }
