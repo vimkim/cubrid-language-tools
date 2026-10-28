@@ -560,7 +560,7 @@
   },
   "formalVerification": {
     "workItem": 579,
-    "status": "committed-awaiting-main-approval",
+    "status": "merged-and-verified",
     "sourceBaseline": "1e3be4e8a1c07a52479b16a10aa1e523ef04ca7b",
     "dispatchCommit": "e4607ec60bd13f31b5aa4e9357f59013ee009ca5",
     "implementationCommit": "e6e5d7dd2e8bca17d3db28fc9183bb084195f496",
@@ -581,6 +581,23 @@
     "review": "Coordinator reviewed model/source correspondence, actual mutation replay, reproducibility and scope; no open actionable findings",
     "reviewEvidence": "/tmp/cubrid-language-formal-579-review-iuNJOm",
     "productSourceChanged": false,
-    "mainIntegrationApproved": false
+    "mainIntegrationApproved": true,
+    "integration": {
+      "approvedCommit": "e53e9199face41b912b38374c262e743358d4141",
+      "destinationCheckout": "/home/vimkim/gh/cubrid-language-tools",
+      "destinationBranch": "main",
+      "previousMain": "1e3be4e8a1c07a52479b16a10aa1e523ef04ca7b",
+      "method": "Rebase onto unchanged local main, then fast-forward; approved commit and tree preserved",
+      "checks": [
+        "After rebase: both scratch-code and model mutations caught, restored baseline 143 states passes, 28 LSP tests pass",
+        "After merge: main includes the approved tip and its full tree matches the task tree",
+        "Main verifier: real-code replay and both invariants pass, 271 generated states, 143 distinct, queue exhausted",
+        "JSON and diff checks pass; no product, recipe, dependency or packaging changes"
+      ],
+      "evidenceDirectory": "/home/vimkim/temp/cubrid-language-formal-579-integration-TAyBfj",
+      "remote": "origin https://github.com/vimkim/cubrid-language-tools.git",
+      "pushAuthorized": true,
+      "publicationEvidence": "Work item 579 records the final remote SHA and scoped worktree/branch cleanup"
+    }
   }
 }
