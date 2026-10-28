@@ -232,7 +232,7 @@
 <tr><td>AI checker / CI</td><td>Invoke the central CLI, interpret stable diagnostic codes and exits, and present results in the agent workflow.</td><td>Pin or constrain a tested engine version.</td></tr>
 <tr><td>csql-future</td><td>History, terminal editing, menu rendering, CSQL process ownership, and live catalog acquisition. Supply schema snapshots to the shared core after migration.</td><td>Migrate after the central engine is usable and qualified.</td></tr>
 </tbody></table></div>
-<div class="note"><strong>Repository shape:</strong> one central repository for the core and its standard adapters; independent repositories for consumer products when they are created. Shared diagnostic/schema types belong to the central project. The local cubrid-language-tools repository is initialized. No remote is configured and no publication has occurred.</div>
+<div class="note"><strong>Repository shape:</strong> one central repository for the core and its standard adapters; independent repositories for consumer products when they are created. Shared diagnostic/schema types belong to the central project. The project has a configured Git origin. This implementation is being reviewed on a local integration branch.</div>
 </section>
 <section id="contracts">
 <h2>A small maintained interface</h2>
@@ -243,7 +243,7 @@
 <div class="contract"><h3>Shared data</h3><code>Document · Span · Profile · SchemaSnapshot · Diagnostic</code><p>One range convention, stable codes, and explicit conversions for parser bytes and editor positions. Snapshots contain metadata, with credentials owned by consumers.</p></div>
 <div class="contract"><h3>Parser implementation</h3><code>qualified backend behind the diagnostic interface</code><p>The current native-worker checkpoint can be reused. Each supported CUBRID build needs qualification. The first target remains the pinned 11.5 build.</p></div>
 </div>
-<p class="muted">Python is a practical first implementation because the existing completion code already uses it. The parser worker remains internal. A future runtime change can preserve the LSP and CLI contracts, while library consumers would need a migration.</p>
+<p class="muted">Python is the current PoC stage. The accepted product roadmap calls for gradual Rust replacement after shared behavior is verified. The parser worker remains internal. LSP and CLI contracts can stay stable while direct library consumers gain a binding or compatibility layer.</p>
 <p class="muted">A shared engine can use tolerant analysis for completion and strict parsing for validation. A parser rejection during typing must still allow useful suggestions. Additional semantic/style rules can grow behind the diagnostic interface with explicit coverage.</p>
 </section>
 <section id="rollout">
@@ -259,7 +259,7 @@
 </section>
 <footer>
 <div>Suggested architecture, not a claim that the central project or consumer integrations already exist.</div>
-<div>Evidence: <a href="research/parser-research.md">parser research</a> · <a href="research/feasibility.md">native feasibility</a> · <a href="orchestration/state.json">current execution state</a></div>
+<div>Public roadmap: <a href="product-roadmap.en.md">Python PoC and gradual Rust migration</a> · Evidence: <a href="research/parser-research.md">parser research</a> · <a href="research/feasibility.md">native feasibility</a> · <a href="orchestration/state.json">current execution state</a></div>
 <div>Protocol background: <a href="https://microsoft.github.io/language-server-protocol/">LSP</a> · <a href="https://code.visualstudio.com/api/language-extensions/language-server-extension-guide">VS Code language-server guide</a></div>
 </footer>
 </main></div>
