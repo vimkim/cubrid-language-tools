@@ -1,0 +1,138 @@
+# Stdio language server
+
+[한국어](lsp.md) | **English**
+
+The optional Python server supplies shared CUBRID completion and offline syntax diagnostics through LSP 3.17.
+Editors start one `cubrid-language-server` child process and communicate through standard input/output.
+The command accepts no arguments. The server opens no TCP or WebSocket listener.
+
+## Install and start
+
+Install Python 3.10 or later. Install the optional dependency set:
+
+```sh
+pip install 'cubrid-language-tools[lsp]'
+cubrid-language-server
+```
+
+For a local wheel, replace the package name with its wheel path and append `[lsp]`.
+Configure the editor to execute `cubrid-language-server` with an empty argument list and stdio transport.
+Use the exact language ID `cubrid` when the editor opens a document.
+Generic `sql` documents do not activate completion or diagnostics.
+VS Code and Neovim extension packages remain separate projects.
+
+The core and `cubrid-lint` require no Python runtime dependencies.
+The server extra pins pygls 2.1.1, lsprotocol 2025.0.0, attrs 25.4.0, cattrs 25.3.0, and typing-extensions 4.15.0.
+Python 3.10 also uses exceptiongroup 1.3.1.
+Without the extra, the installed command prints installation guidance to stderr and exits with status 3.
+
+## Trusted editor settings
+
+Send this object as `initialize.initializationOptions`:
+
+```json
+{
+  "cubrid": {
+    "parserWorker": "/absolute/trusted/parser-worker",
+    "runtimePrefix": "/absolute/qualified/runtime",
+    "profile": "cubrid-11.5.0.2704-cc94778",
+    "schemaSnapshot": "/absolute/metadata/catalog.json"
+  }
+}
+```
+
+The editor can replace these settings through `workspace/didChangeConfiguration`:
+
+```json
+{"settings":{"cubrid":{"schemaSnapshot":null}}}
+```
+
+Each configuration notification replaces the previous editor settings.
+Omit a field to inherit the project value or default. Set `schemaSnapshot` to `null` to remove cached schema metadata.
+
+| Setting | Meaning |
+| --- | --- |
+| `profile` | Explicit parser profile, overriding project metadata |
+| `scriptMode` | `sql` or `csql`, overriding project metadata and filename defaults |
+| `schemaSnapshot` | Optional JSON snapshot path, or `null` to disable metadata |
+| `configPath` | Optional explicit project JSON configuration path |
+| `parserWorker` | Trusted absolute worker executable path |
+| `runtimePrefix` | Trusted absolute matching runtime prefix |
+| `workerManifest` | Optional absolute manifest path, defaulting to `manifest.json` beside the worker |
+| `workerTimeout` | Positive deadline in seconds, at most 300, default 5 |
+
+Configure `parserWorker` and `runtimePrefix` together.
+Build and qualify the worker with the [native instructions](../native/parser-worker/README.md).
+The server does not discover executables through PATH, download runtimes, or select executable paths from project files.
+
+File documents use the [shared CLI configuration rules](lint-cli.en.md).
+The nearest ancestor `.cubrid-language.json` supplies metadata.
+An explicit `configPath` overrides that file. Editor fields have the highest precedence.
+Project snapshot paths use the configuration file's directory.
+Relative editor paths use the initialization root directory, or the process working directory when no root exists.
+Project files can contain only `profile`, `scriptMode`, and `schemaSnapshot`.
+
+The filename default is `csql` for `.csql`, ignoring case, and `sql` for other files.
+Untitled documents use `sql` unless the editor explicitly supplies `scriptMode`.
+Changing settings cancels old validation and checks each open CUBRID document again.
+Invalid configuration produces `CUBRID-T1003` diagnostics and a protocol log message.
+
+## Completion and schema snapshots
+
+Completion calls the shared pure `complete` function with cached schema metadata.
+The server uses UTF-16 positions for all clients, including clients that omit encoding capabilities.
+It advertises Full synchronization. Send the entire original document text in each change notification.
+The server rejects ranged changes and preserves the document.
+Completion rejects invalid lines, surrogate interiors, and positions inside CRLF terminators with error `-32602`.
+Each completion item has an explicit text edit that replaces the complete token, including its suffix after the cursor.
+
+The optional snapshot uses the [version 1 schema contract](contracts.md#schema-snapshot).
+Absent snapshots allow keyword completion.
+A configured load failure produces a visible `window/logMessage` notification.
+Completion reads the cached metadata without a database connection or file read.
+
+Send `workspace/executeCommand` to refresh configuration and snapshots explicitly:
+
+```json
+{"command":"cubrid.reloadSchema"}
+```
+
+The result lists each open document's `uri`, `profile`, `scriptMode`, `schemaAvailable`, `stale`, and `availability`.
+A failed refresh retains the last valid metadata and reports its stale state through the result and protocol log.
+A successful refresh clears the stale state. Explicit `null` removes metadata immediately.
+The server does not watch files or obtain catalog data from a database.
+
+## Diagnostics and lifecycle
+
+The server waits 250 ms after an open, full change, or configuration refresh before validating.
+It runs the shared `Validator` and owned worker cleanup outside the protocol event loop.
+Completion continues while native initialization or parsing is slow, absent, or unsuccessful.
+Missing runtime configuration produces `CUBRID-T1001` diagnostics.
+Native results retain core codes, severity, category, and range precision.
+Each diagnostic publication includes the document version.
+
+New versions cancel old checks. Superseded results cannot replace current diagnostics.
+Closing a CUBRID document publishes an empty list and cancels its owned work.
+Cancellation also closes the owned validator, including checks still queued for execution.
+`shutdown`, `exit`, and input EOF clean up owned workers.
+Normal shutdown followed by exit returns status 0. Exit or EOF without shutdown returns status 1.
+Cancelled requests receive the protocol cancellation error `-32800`.
+Only framed protocol messages appear on stdout. Server errors use stderr, and worker stderr remains separately captured.
+
+## Headless verification
+
+From the source checkout, run:
+
+```sh
+just test
+just test-lsp
+just test-native-parser
+just test-lsp-native
+just build
+```
+
+`test-lsp` exercises framed stdio with explicit trusted child fixtures and requires the optional extra.
+`test-lsp-native` requires this checkout's matching built worker and manifest.
+Missing prerequisites fail these mandatory checks. Default tests require neither pygls nor native artifacts.
+Both optional and native LSP suites pass on Python 3.10 and 3.14.
+Native grammar limits remain those of the [qualified coverage](../native/parser-worker/QUERY_DML_AUDIT.md).

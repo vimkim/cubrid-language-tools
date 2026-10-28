@@ -12,7 +12,7 @@ an LSP adapter for separate csql-future, VS Code, Neovim, and AI products.
 Implementation and qualification are in progress. The diagram shows the target architecture. Consumer integrations and editor packages are planned.
 
 [Architecture](docs/architecture.en.md) · [Development and product roadmap](docs/product-roadmap.en.md) ·
-[CLI and validation API](docs/lint-cli.en.md) · [Documentation](docs/README.en.md)
+[CLI and validation API](docs/lint-cli.en.md) · [Stdio LSP](docs/lsp.en.md) · [Documentation](docs/README.en.md)
 
 ## One engine, three interfaces
 
