@@ -1,7 +1,8 @@
 # Central engine final review
 
-Status: fixes are in progress. Follow-up review and corrected artifact qualification remain pending.
-The implementation is not ready for final main integration until those checks pass.
+Status: both source review axes pass at `96d6fb5e85ce656f9fd1516ba1ce4a3922d02c44`.
+Fresh native qualification and corrected installed-artifact checks remain pending.
+Final main integration remains gated on those results and its separate approval.
 
 ## Review baseline
 
@@ -57,7 +58,26 @@ Markdown and diff checks passed. Artifact refresh remains part of final qualific
 
 ## Resolution and verification
 
-Ticket 09 owns these concrete fixes and their public regression tests.
+Both reviewers inspected the committed fixes through `96d6fb5e85ce656f9fd1516ba1ce4a3922d02c44`.
+They reported no remaining actionable violation in either axis.
+Ticket 09 owns these fixes and their public regression tests.
+
+The standards reviewer closed lexical suppression and diagnostic preservation.
+The defensive kind fallback resolves the crash while preserving the public constructor.
+Deriving kind from detail remains a nonblocking design heuristic.
+
+The specification reviewer closed lexical suppression and mixed-document completion.
+SQL delimiters with whitespace or trailing comments retain scope.
+Active semicolon command completion, multiline lexical protection, and original Unicode/CRLF ranges remain intact.
+
+Follow-up regressions also cover empty malformed diagnostic lists and valid empty-statement gaps.
+Ordinary source-trivia checks reject omitted nontrivial text.
+Truncation preserves marker, count, type, status, coverage, observation, and statement-kind checks.
+Exactly 256 ordinary findings fit. A 257th produces a retained prefix and explicit T1002.
+
+Source review result: zero open actionable standards findings and zero open specification findings.
+Native and installed-artifact qualification are separate gates. Their pending state is not a source review pass.
+
 The original 230 completion observations remain historical parity evidence.
 Changed native source requires a new worker, manifest, corpus replay, and trace evidence.
 The earlier eight-environment installation pass remains historical evidence for its original source snapshot.
