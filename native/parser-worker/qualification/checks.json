@@ -398,7 +398,7 @@
     "artifactCheckScriptSha256": "725ea80b57f14223c060b0efd5f928fdfff6cdc1dae9cbaf5ee4a09aebceae26"
   },
   "ticket09ReviewCorrection": {
-    "status": "source review and fresh native qualification passed; corrected final distribution run pending",
+    "status": "passed independent source review, native qualification, and corrected eight-environment distribution qualification",
     "sourceReviewCommit": "96d6fb5e85ce656f9fd1516ba1ce4a3922d02c44",
     "rootReviewRecordCommit": "0ab25f76343b69d5118c35f3c58ff96043077ba7",
     "coverageRevision": "bounded-query-dml-schema-engineer-v3",
@@ -410,5 +410,65 @@
     "workerSha256": "9af56541bc0d90dc63ce11ae0af2122c2dfa31720e92f38992656909d5e26548",
     "traceSha256": "5611f9bbb496e38c49f5e7aa712fa86b0f8a33bffc86bd1a854cf34941fdc422",
     "evidenceDirectory": "/mnt/nvme/data-5/tmp/central-ticket-09-reviewed-20261029"
+  },
+  "ticket09Distribution": {
+    "archiveSourceCommit": "4c756d6925a3850d49fbeb4ed692860ba6d99ef0",
+    "reviewedEngineSourceCommit": "96d6fb5e85ce656f9fd1516ba1ce4a3922d02c44",
+    "rootReviewRecordCommit": "0ab25f76343b69d5118c35f3c58ff96043077ba7",
+    "nativeArtifacts": {
+      "manifest.json": "34b4b020ef6858c9aa0707de8617d67dfd8336f1a67220b600988e2935893dee",
+      "parser-worker": "9af56541bc0d90dc63ce11ae0af2122c2dfa31720e92f38992656909d5e26548"
+    },
+    "completedSteps": 46,
+    "artifacts": {
+      "dist-310/cubrid_language_tools-0.1.0.dev0-py3-none-any.whl": "c6ba28ac5f0eccb56606a429c43c7da11ec051af53c92b108b84b23eb85d2a71",
+      "dist-310/cubrid_language_tools-0.1.0.dev0.tar.gz": "f52579a82eab3a2c1da5ad769ebffb777d8fe38007d1de47f81b0f7c5c36f926",
+      "dist-314/cubrid_language_tools-0.1.0.dev0-py3-none-any.whl": "0bf17dc6bd1d2b1b2099cde2584544443a049387a4d6a1499e681af65dcf7c23",
+      "dist-314/cubrid_language_tools-0.1.0.dev0.tar.gz": "49250209ec0e32c99d60267af957320d3c688e8a158ce40c751f30714f8a9243"
+    },
+    "suites": {
+      "310-source-core-default.log": {
+        "tests": 109,
+        "passed": true
+      },
+      "310-source-lsp-framed.log": {
+        "tests": 28,
+        "passed": true
+      },
+      "310-wheel-core-default.log": {
+        "tests": 109,
+        "passed": true
+      },
+      "310-wheel-lsp-framed.log": {
+        "tests": 28,
+        "passed": true
+      },
+      "314-source-core-default.log": {
+        "tests": 109,
+        "passed": true
+      },
+      "314-source-lsp-framed.log": {
+        "tests": 28,
+        "passed": true
+      },
+      "314-wheel-core-default.log": {
+        "tests": 109,
+        "passed": true
+      },
+      "314-wheel-lsp-framed.log": {
+        "tests": 28,
+        "passed": true
+      }
+    },
+    "evidenceDirectory": "/mnt/nvme/data-5/tmp/central-ticket-09-final-4c756d6",
+    "nativeInputHashCounts": {
+      "files": 16,
+      "generatedHeaders": 4,
+      "grammarInputs": 8,
+      "helperInputs": 7,
+      "headers": 618,
+      "workerInputs": 12,
+      "compiledInputs": 86
+    }
   }
 }

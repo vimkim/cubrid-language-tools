@@ -1,8 +1,8 @@
 # Central engine final review
 
 Status: both source review axes pass at `96d6fb5e85ce656f9fd1516ba1ce4a3922d02c44`.
-Fresh native qualification and corrected installed-artifact checks remain pending.
-Final main integration remains gated on those results and its separate approval.
+Fresh native qualification and corrected installed-artifact checks pass.
+Final main integration requires its separate approval. See the [delivery report](../tickets/reports/09.md).
 
 ## Review baseline
 
@@ -34,7 +34,7 @@ The user-approved description exclusions were accepted scope, not missing requir
   Empty detail or the lone word `catalog` can raise `IndexError`.
   A defensive fallback can preserve compatibility. An explicit-kind redesign is not required for this delivery.
 
-Standards result: two P2 violations and one P3 judgment call. The worst severity is P2.
+Initial standards result: two P2 violations and one P3 judgment call. The worst severity is P2.
 
 ## Specification
 
@@ -46,7 +46,7 @@ Standards result: two P2 violations and one P3 judgment call. The worst severity
   Select the active SQL or command context and preserve original document offsets.
 
 No additional confirmed scope, status, Unicode-range, lifecycle, configuration-trust, or release-harness findings were reported.
-Specification result: two P2 findings. The worst severity is P2.
+Initial specification result: two P2 findings. The worst severity is P2.
 
 ## Coordinator finding
 
@@ -54,7 +54,7 @@ The bilingual coverage guides initially described status priority as the reverse
 That wording incorrectly placed unsupported results above syntax errors.
 Commit `a32b4d2de9309123e346f164538cc4a8d6fb1fad` states the explicit contract order in both languages:
 `tool-error > syntax-error > unsupported > valid`.
-Markdown and diff checks passed. Artifact refresh remains part of final qualification.
+Markdown, diff, and final archive checks pass. The corrected coverage text is included in qualified snapshot `4c756d6`.
 
 ## Resolution and verification
 
@@ -76,9 +76,20 @@ Truncation preserves marker, count, type, status, coverage, observation, and sta
 Exactly 256 ordinary findings fit. A 257th produces a retained prefix and explicit T1002.
 
 Source review result: zero open actionable standards findings and zero open specification findings.
-Native and installed-artifact qualification are separate gates. Their pending state is not a source review pass.
+Native and installed-artifact qualification are separate gates. Both now pass.
 
 The original 230 completion observations remain historical parity evidence.
-Changed native source requires a new worker, manifest, corpus replay, and trace evidence.
+The corrected native source has a fresh worker/manifest, a successful 325-case corpus replay, and renewed no-execution trace evidence.
 The earlier eight-environment installation pass remains historical evidence for its original source snapshot.
-The final [ticket report](../tickets/reports/09.md) must identify the corrected artifacts and follow-up review results.
+The corrected installed snapshot is `4c756d6925a3850d49fbeb4ed692860ba6d99ef0`, with unchanged reviewed engine `96d6fb5`.
+All eight Python 3.10.6/3.14.0 wheel/source core/optional installs pass. Each core environment passes 109 defaults and public parity.
+Each optional environment passes 28 framed tests and public parity. Every variant checks 11 validation and six completion cases.
+Fresh native checks pass 45 native/CLI, 20 independent, and six actual-native LSP tests.
+The 325-case trace records one worker exec and no descendants, network calls, or external writable opens.
+
+- Current manifest: `34b4b020ef6858c9aa0707de8617d67dfd8336f1a67220b600988e2935893dee`.
+- Current worker: `9af56541bc0d90dc63ce11ae0af2122c2dfa31720e92f38992656909d5e26548`.
+- Current trace: `5611f9bbb496e38c49f5e7aa712fa86b0f8a33bffc86bd1a854cf34941fdc422`.
+
+The final [ticket report](../tickets/reports/09.md) records exact commands, artifact hashes, remaining limits, and preserved evidence.
+Later prose/metadata commits preserve the reviewed engine and receive fresh archive byte checks. Main approval remains a separate internal integration gate.
