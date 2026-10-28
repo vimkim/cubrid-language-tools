@@ -498,7 +498,7 @@
   },
   "authorization": {
     "ticketIntegration": "Standing user approval for all planned tickets, granted 2026-10-28. No further ticket-merge prompts. Committed results/checks/review remain mandatory.",
-    "finalMain": "Separate final review and approval; configured main push follows user Git policy after that approval.",
+    "finalMain": "User approved final main merge and configured origin/main push on 2026-10-29.",
     "deployment": "Requires separate explicit request."
   },
   "dependencyRefinement": "08 consumes03stable Validator and05LSP, independent of07describe backend scope.09still directly gated by07.",
@@ -508,7 +508,7 @@
     "bytes": 94617396,
     "purpose": "Verified immutable copy of exact runtime/generated/compiler inputs for cross-session resumption. Live sources/runtime unchanged."
   },
-  "nextAction": "Present the committed central result for separate final main merge/push approval. Work item 572 remains active until root handles that approval.",
+  "nextAction": "Future product work is documented in docs/roadmap.md.",
   "finalReview": {
     "base": "721b9bca96d91951ea81f95be755a9e30ca5a20b",
     "candidate": "c7f6c4d9ba096989ecfb2ce55eee59faceb884cc",
@@ -537,5 +537,25 @@
     "finalArchiveSourceCommit": "f66072d1e0e76d86ca3c53c8cae4d53126d82bd6",
     "artifactDirectory": "/mnt/nvme/data-5/tmp/central-language-572-ticket-09-artifacts"
   },
-  "allTicketsIntegrated": true
+  "allTicketsIntegrated": true,
+  "mainIntegration": {
+    "status": "merged-and-verified",
+    "checkout": "/home/vimkim/gh/cubrid-language-tools",
+    "branch": "main",
+    "previousMain": "721b9bca96d91951ea81f95be755a9e30ca5a20b",
+    "approvedIntegrationTip": "dd15d87a3c47d11931c3d1c45379a1f57d672e46",
+    "method": "rebase --rebase-merges (identical tip/tree), then fast-forward",
+    "checks": [
+      "109 core tests passed after rebase",
+      "Main native rebuild matches qualified worker and manifest",
+      "Installed core wheel passes 11 validation and 6 completion cases",
+      "Archive byte/dependency/notice checks passed"
+    ],
+    "artifactSourceCommit": "dd15d87a3c47d11931c3d1c45379a1f57d672e46",
+    "evidenceDirectory": "/mnt/nvme/data-5/tmp/central-language-572-main-vwtjqrcq",
+    "cleanup": "Integration worktree and branch removed without force after verified preservation; original csql-future checkpoints untouched",
+    "remote": "origin https://github.com/vimkim/cubrid-language-tools.git",
+    "pushAuthorized": true,
+    "publicationEvidence": "Work-tracker 572 records remote push and final verification."
+  }
 }
