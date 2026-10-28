@@ -269,6 +269,8 @@ class NativeWorker:
             raise WorkerFailure("CUBRID-T1002", "native result has invalid status")
         if "diagnostics" not in response:
             raise self._reported_failure(response)
+        if response.get("syntaxSettingsUnchanged") is not True:
+            raise WorkerFailure("CUBRID-T1002", "native result does not verify qualified syntax settings")
         if response.get("manifestDigest") != self._identity["manifestDigest"]:
             raise WorkerFailure("CUBRID-T1002", "native result manifest identity mismatch")
         if (response.get("profile") != self.profile or response.get("coverage") not in ("complete", "partial", "none")

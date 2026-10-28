@@ -1,7 +1,7 @@
 {
-  "evidenceDirectory": "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-5tjj8djv",
-  "wheelSha256": "5ecde143533e4dcdd56b94e83d54bdc32d1233df99cf12c0a0fd4df72eb71e52",
-  "sdistSha256": "fc33e8abde8d7f557bb0959d7962410457974e89316b2ffd2f0ab29460448ab1",
+  "evidenceDirectory": "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-tp3wyojd",
+  "wheelSha256": "5a6edf36c3b200e88370c00bed428fce2932627a9998cebc5ee66865450a14ef",
+  "sdistSha256": "8591edda78b0cc3a638997c79f18abd790ae8b689bf4a9b775adef8b12796eb2",
   "fixtureCount": 325,
   "commands": [
     {
@@ -10,7 +10,7 @@
         "venv",
         "--python",
         "3.10",
-        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-5tjj8djv/venv"
+        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-tp3wyojd/venv"
       ],
       "cwd": "/home/vimkim/gh/cubrid-language-tools-07"
     },
@@ -20,7 +20,7 @@
         "pip",
         "install",
         "--python",
-        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-5tjj8djv/venv/bin/python",
+        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-tp3wyojd/venv/bin/python",
         "--no-deps",
         "/home/vimkim/gh/cubrid-language-tools-07/dist/cubrid_language_tools-0.1.0.dev0-py3-none-any.whl"
       ],
@@ -28,61 +28,61 @@
     },
     {
       "command": [
-        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-5tjj8djv/venv/bin/python",
-        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-5tjj8djv/installed-corpus.py",
+        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-tp3wyojd/venv/bin/python",
+        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-tp3wyojd/installed-corpus.py",
         "/home/vimkim/gh/cubrid-language-tools-07/native/parser-worker/qualification/corpus.json",
-        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-5tjj8djv/native/parser-worker",
+        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-tp3wyojd/native/parser-worker",
         "/home/vimkim/.cub/install/develop/debug",
-        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-5tjj8djv/native/manifest.json"
+        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-tp3wyojd/native/manifest.json"
       ],
-      "cwd": "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-5tjj8djv"
+      "cwd": "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-tp3wyojd"
     },
     {
       "command": [
-        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-5tjj8djv/venv/bin/cubrid-lint",
+        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-tp3wyojd/venv/bin/cubrid-lint",
         "--format",
         "json",
         "--parser-worker",
-        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-5tjj8djv/native/parser-worker",
+        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-tp3wyojd/native/parser-worker",
         "--runtime-prefix",
         "/home/vimkim/.cub/install/develop/debug",
-        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-5tjj8djv/valid.sql"
+        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-tp3wyojd/valid.sql"
       ],
-      "cwd": "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-5tjj8djv",
+      "cwd": "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-tp3wyojd",
       "expectedExit": 0
     },
     {
       "command": [
-        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-5tjj8djv/venv/bin/cubrid-lint",
+        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-tp3wyojd/venv/bin/cubrid-lint",
         "--format",
         "json",
         "--parser-worker",
-        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-5tjj8djv/native/parser-worker",
+        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-tp3wyojd/native/parser-worker",
         "--runtime-prefix",
         "/home/vimkim/.cub/install/develop/debug",
-        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-5tjj8djv/syntax.sql"
+        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-tp3wyojd/syntax.sql"
       ],
-      "cwd": "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-5tjj8djv",
+      "cwd": "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-tp3wyojd",
       "expectedExit": 1
     },
     {
       "command": [
-        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-5tjj8djv/venv/bin/cubrid-lint",
+        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-tp3wyojd/venv/bin/cubrid-lint",
         "--format",
         "json",
         "--parser-worker",
-        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-5tjj8djv/native/parser-worker",
+        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-tp3wyojd/native/parser-worker",
         "--runtime-prefix",
         "/home/vimkim/.cub/install/develop/debug",
-        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-5tjj8djv/unsupported.sql"
+        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-tp3wyojd/unsupported.sql"
       ],
-      "cwd": "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-5tjj8djv",
+      "cwd": "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-tp3wyojd",
       "expectedExit": 2
     },
     {
       "command": [
-        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-5tjj8djv/venv/bin/python",
-        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-5tjj8djv/source/cubrid_language_tools-0.1.0.dev0/native/parser-worker/build.py",
+        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-tp3wyojd/venv/bin/python",
+        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-tp3wyojd/source/cubrid_language_tools-0.1.0.dev0/native/parser-worker/build.py",
         "--source",
         "/home/vimkim/gh/cubrid-rust/reference-cubrid-cc947788",
         "--generated",
@@ -92,31 +92,31 @@
         "--runtime-prefix",
         "/home/vimkim/.cub/install/develop/debug"
       ],
-      "cwd": "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-5tjj8djv/source/cubrid_language_tools-0.1.0.dev0"
+      "cwd": "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-tp3wyojd/source/cubrid_language_tools-0.1.0.dev0"
     },
     {
       "command": [
-        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-5tjj8djv/venv/bin/python",
+        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-tp3wyojd/venv/bin/python",
         "-m",
         "unittest",
         "test_worker.NativeWorkerTests.test_retained_query_dml_qualification_corpus",
         "-v"
       ],
-      "cwd": "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-5tjj8djv/source/cubrid_language_tools-0.1.0.dev0/tests/native_parser"
+      "cwd": "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-tp3wyojd/source/cubrid_language_tools-0.1.0.dev0/tests/native_parser"
     },
     {
       "command": [
-        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-5tjj8djv/venv/bin/python",
+        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-tp3wyojd/venv/bin/python",
         "-m",
         "unittest",
         "test_adapter.NativeAdapterTests.test_retained_query_dml_corpus_preserves_status_kinds_and_original_spans",
         "-v"
       ],
-      "cwd": "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-5tjj8djv/source/cubrid_language_tools-0.1.0.dev0/tests/native_parser"
+      "cwd": "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-tp3wyojd/source/cubrid_language_tools-0.1.0.dev0/tests/native_parser"
     },
     {
       "command": [
-        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-5tjj8djv/venv/bin/python",
+        "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-tp3wyojd/venv/bin/python",
         "-m",
         "unittest",
         "discover",
@@ -124,7 +124,7 @@
         "tests",
         "-v"
       ],
-      "cwd": "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-5tjj8djv/source/cubrid_language_tools-0.1.0.dev0"
+      "cwd": "/mnt/nvme/data-5/tmp/central-ticket-07-distribution-tp3wyojd/source/cubrid_language_tools-0.1.0.dev0"
     }
   ],
   "results": {
@@ -141,16 +141,17 @@
     "sdistProjectTests": 89
   },
   "logsSha256": {
-    "venv.log": "444bc0a0fa3f045ac962f998ff5cc1d5ef72738a654f180299526cc48221bdbe",
-    "install.log": "44e1977e9d80be302bbd618465371d8ea502236104bcef3129496a37a5eb508c",
+    "venv.log": "f14b5e6f3b41f288f2a64992e1087e307e94ecda8acb3db6a137ba2a8241a201",
+    "install.log": "62b4956408f630b15d1ef99cca13e20262876796404d9f12bd5ab5d519896902",
     "wheel-corpus.log": "d7ae773ff5c72238a9e67be8a1f508fa93293d7b09459d5883685f28732f8f0d",
-    "sdist-native-build.log": "67ea1ec21ba0d35831e18bd17bbea6030396232bed59394a97dcc492fbe9dac3",
-    "sdist-test_worker.log": "79dc2ac0c9643a37ee0a3e83f0f5a1a9a9d568169d6fef5af0fa5f4769f69bca",
-    "sdist-test_adapter.log": "0d73fe9ce41776ebf82d8c4c99e9ca3cbfdcf0fa8e0fde48cfe6f4b79038a597",
-    "sdist-project.log": "8edb771419a180bcd49f4c351844b85d9e9d3ed65c0a6a27fec6af50bc723cce"
+    "sdist-native-build.log": "1864b581cf976fbc16247681e9b90ff13868685a560d5f7624c5e933592d6c01",
+    "sdist-test_worker.log": "e9942143d138ec81a3989496b1c5c3916920853ad366e4f4182a0e4de0e29553",
+    "sdist-test_adapter.log": "6bde200a725a56e67ee1993b0754a4ed61e06935b0d22b85b0b783440a8bd748",
+    "sdist-project.log": "909ac5f49425a99d578317e0e3e29b33b905e87b621f87607d8d595f6d8dd8c0"
   },
   "taskChecks": {
     "baseline": "3653199a6ddd5e91982c736d576be2b481d205c0",
+    "initialCheckpoint": "54327b9d1ec67dcd1095adecc5550067670bec79",
     "coverageRevision": "bounded-query-dml-schema-engineer-v3",
     "nativeTests": 33,
     "validationPositionTests": 18,
@@ -160,26 +161,15 @@
       "syntax-error": 80,
       "unsupported": 146
     },
-    "nativeErrorIds": "all admitted final fixture observations are0",
-    "trace": {
-      "workerExecs": 1,
-      "descendants": 0,
-      "networkCalls": 0,
-      "externalWritableOpens": 0
-    },
-    "incomplete": "DESCRIBE/DESC/EXPLAIN cannot qualify offline because shared value cloning reports ER_OBJ_NO_CONNECT=-224; SHOW COLUMNS also pre-denied.",
-    "priorCorpus": "all179 retained;2expectations intentionally superseded by DROP TABLE qualification",
+    "trace": "Unchanged native implementation and retained trace from initial checkpoint.",
+    "refinement": "Structured parse responses require syntaxSettingsUnchanged is True. False/missing/null/integer/string markers return T1002. Bare T1003 remains T1003 without marker.",
+    "incomplete": "Description-alias criterion remains incomplete. DESCRIBE/DESC/EXPLAIN and SHOW COLUMNS stay pre-denied because their shared helper reports native error -224.",
     "taskLogsSha256": {
-      "central07-red.log": "d7a6172487ac1ed78bf193b57b15fd50bbdba9b7a89b6abd9907eb492f7a2d50",
-      "central07-green.log": "7451b53d7ac4fb53ce195da930d1266e60769cd1e8ebcbe652d4bce9ee5c9b25",
-      "central07-closure.log": "f2cca3a28f0502e7fc9716c5ad9440ad8ef55e2859c2ff0dbf39f358e02b3d00",
-      "central07-adapter-red.log": "2bf1108659aa039dcf8fb8e308a14e18879e06076c75ffd1cdaae4d437602f78",
-      "central07-adapter-green.log": "f48d929f5fd0d5da238055bdd445593fec6be52914a29905820e9e5d0d77fb18",
-      "central07-native-final.log": "77bb20d5ab3ed8a090793c1e0bfdce67c447f6d649f213fed1f6fcf15cee1a66",
-      "central07-project-final.log": "47cb232dc056cc7d6b3c9ae91042868984f21c364a18ec2c9883cc2309106dd0",
-      "central07-qualify.log": "ac647744cedbfd3640341bf552596f9fbc1a99b15e9dddeb3e7d9c163442baeb",
-      "central07-release-build.log": "b5ed689d916f58f9246163ed16946c8173ade9491a241247db3b13851ee277e3",
-      "central07-distribution-build.log": "66ac671277fad6d9013e9a93bcc07ddc5311b68469a0edf5db06e50284539929"
+      "central07-marker-red.log": "9eb9168807154d890c86392830b4a6f92ef5ca588cf50f394de5be034b984d1e",
+      "central07-marker-green.log": "8d01d98900c28aea34ca595fad4843ad652afd81d88d34992e003b13b653ae7a",
+      "central07-native-marker.log": "d8f7c90706eadcbeec689efef615204b0e1734bcc8e518ad7851e7a7f35fe95f",
+      "central07-project-marker.log": "dfbd89ca981058845f06335033dd7064917c0d09ed77a93c4851040186f651d4",
+      "central07-marker-distribution-build.log": "897b4079025761fba3ee5bfb186da1a8862f7076eb430693e8cfc78442ff89c1"
     }
   }
 }

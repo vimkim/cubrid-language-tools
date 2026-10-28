@@ -46,7 +46,7 @@ class WorkerAdapterTests(unittest.TestCase):
         executable.chmod(0o755)
         return executable
 
-    def reply_worker(self, directory, response, identity_changes=None):
+    def reply_worker(self, directory, response, identity_changes=None, *, omit=()):
         manifest = Path(directory) / "manifest.json"
         manifest.write_text("{}")
         digest = hashlib.sha256(manifest.read_bytes()).hexdigest()
@@ -54,9 +54,12 @@ class WorkerAdapterTests(unittest.TestCase):
                     **qualified_identity("cubrid-11.5.0.2704-cc94778", PREFIX), **(identity_changes or {})}
         result = {"status": "valid", "profile": identity["profile"], "coverage": "complete",
                   "diagnostics": [], "statementKinds": ["PT_SELECT"], "manifestDigest": digest,
+                  "syntaxSettingsUnchanged": True,
                   "coverageDecisions": [{"start": 0, "end": 9, "admitted": True}],
                   "nativeObservations": [{"hasTree": True, "treeCount": 1, "hasInternalError": False,
                                           "hasError": False, "errorCount": 0, "nativeErrorId": 0, "partialStackCount": 0}], **response}
+        for key in omit:
+            result.pop(key)
         return self.fake(directory, "import json,sys\n"
             f"identity={identity!r}\nresult={result!r}\n"
             "for line in sys.stdin:\n"
@@ -104,6 +107,10 @@ class WorkerAdapterTests(unittest.TestCase):
         unsupported = {"code": "CUBRID-U1002", "category": "unsupported", "severity": "warning",
                        "message": "outside coverage", "span": {"start": 0, "end": 9}, "rangePrecision": "statement"}
         for response in (
+            {"syntaxSettingsUnchanged": False},
+            {"syntaxSettingsUnchanged": 1},
+            {"syntaxSettingsUnchanged": "true"},
+            {"syntaxSettingsUnchanged": None},
             {"status": "unsupported", "diagnostics": [unsupported]},
             {"coverage": "partial"},
             {"coverageDecisions": [{"start": 0, "end": 10, "admitted": True}]},
@@ -129,6 +136,20 @@ class WorkerAdapterTests(unittest.TestCase):
                     result = worker.parse("SELECT 1;")
                 self.assertEqual(result.status, "tool-error")
                 self.assertEqual(result.diagnostics[0].code, "CUBRID-T1002")
+
+        with self.subTest(response="missing settings marker"), tempfile.TemporaryDirectory() as directory:
+            executable = self.reply_worker(directory, {}, omit=("syntaxSettingsUnchanged",))
+            with NativeWorker(WorkerConfig(executable, PREFIX)) as worker:
+                result = worker.parse("SELECT 1;")
+            self.assertEqual(result.status, "tool-error")
+            self.assertEqual(result.diagnostics[0].code, "CUBRID-T1002")
+        with self.subTest(response="bare native failure"), tempfile.TemporaryDirectory() as directory:
+            executable = self.reply_worker(directory, {"status": "tool-error", "code": "CUBRID-T1003",
+                "message": "native input rejected"}, omit=("diagnostics", "syntaxSettingsUnchanged"))
+            with NativeWorker(WorkerConfig(executable, PREFIX)) as worker:
+                result = worker.parse("SELECT 1;")
+            self.assertEqual(result.status, "tool-error")
+            self.assertEqual(result.diagnostics[0].code, "CUBRID-T1003")
 
     def test_unrecognized_failure_codes_and_noninteger_protocol_versions_are_rejected(self):
         for response, identity in (({"status": "tool-error", "diagnostics": None, "code": "other"}, {}),
