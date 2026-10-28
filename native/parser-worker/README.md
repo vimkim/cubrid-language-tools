@@ -11,7 +11,8 @@ UPDATE STATISTICS, SHOW TRACE, SET SYSTEM PARAMETERS, SET TRACE and
 COMMIT/ROLLBACK/SAVEPOINT are also qualified.
 DESCRIBE/DESC/EXPLAIN and SHOW COLUMNS remain unsupported: their shared helper
 reports a native not-connected error in this exact offline runtime.
-**Ticket 07 remains an incomplete checkpoint pending that scope decision.**
+The user accepted these exclusions for the first offline profile on 2026-10-29.
+A separately qualified parser-only backend remains later work.
 Functions, hints and unknown features return unsupported
 coverage before native parsing. An admitted token
 sequence must still pass the native parser, error flags and tree checks.

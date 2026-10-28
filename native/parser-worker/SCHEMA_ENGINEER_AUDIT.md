@@ -4,9 +4,11 @@ Profile: **cubrid-11.5.0.2704-cc94778**. Current coverage revision:
 **bounded-query-dml-schema-engineer-v3**. Source commit:
 **cc947788d3b7dc402f46192d0f3299ddcc8563ba**.
 
-**Ticket 07 remains incomplete.** The disconnected runtime cannot safely qualify
-DESCRIBE, DESC, EXPLAIN or SHOW COLUMNS. These forms return unsupported before
-native parsing. This audit qualifies the other bounded forms below.
+The user accepted the first-profile exclusions on **2026-10-29**. The disconnected
+runtime cannot safely qualify DESCRIBE, DESC, class-description EXPLAIN, or
+SHOW COLUMNS. These forms return unsupported before native parsing. A separately
+qualified parser-only backend remains later work. The original description
+criterion did not pass. This audit qualifies the revised bounded scope below.
 It extends [AUDIT.md](AUDIT.md) and [QUERY_DML_AUDIT.md](QUERY_DML_AUDIT.md).
 It preserves their query/DML and CREATE SERIAL limits.
 
