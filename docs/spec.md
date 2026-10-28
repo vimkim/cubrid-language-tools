@@ -2,6 +2,8 @@
 
 Architecture A was accepted on 2026-10-28: one independent project contains the shared library, LSP adapter, and lint CLI.
 This specification supersedes the earlier csql-future monorepo implementation plan.
+The accepted [product roadmap](product-roadmap.en.md) calls for a verified Python PoC followed by gradual Rust replacements.
+The current nine-ticket graph delivers the Python implementation and qualification. Rust migration and formatting remain later work.
 The [contracts](contracts.md) define observable behavior. The [tickets](tickets/README.md) define delivery gates.
 
 ## Product and ownership

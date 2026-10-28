@@ -26,7 +26,9 @@ One approval can cover an explicitly named batch of ready ticket commits.
 After approval, verify the destination is clean, rebase onto its current tip, check, and merge with `--ff-only`.
 Use the authorized squash fallback only when needed.
 Final integration into local main requires approval too.
-The repository has no remote. Repository creation, publication, and deployment require explicit authorization.
+Inspect the live configured remote before publication.
+Final approval to merge into main authorizes its configured main push under the user's Git workflow.
+Remote repository creation, other pushes, and deployment require separate explicit authorization.
 Preserve original csql-future checkpoints and unrelated worktrees.
 
 ## Milestones

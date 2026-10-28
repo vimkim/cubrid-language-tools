@@ -1,13 +1,14 @@
 # Long-term work
 
-The current implementation goal is the central engine and its library, CLI, and LSP adapters.
+The current implementation goal is the Python central engine and its library, CLI, and LSP adapters.
+The accepted [public product roadmap](product-roadmap.en.md) adds gradual Rust migration after Python behavior and contracts are verified.
 The [ticket graph](tickets/README.md) tracks that work.
 Consumer products stay separate and use the same maintained language implementation.
 
 ## Finish the central engine
 
-- Port pure completion and finish exact-profile parser qualification.
-- Deliver shared configuration, snapshots, lint CLI, and LSP.
+- Completed foundation: pure completion, offline snapshots, and exact-profile literal SELECT/CREATE SERIAL qualification.
+- Deliver shared configuration, lint CLI, and LSP.
 - Expand audited query, DML, schema, and engineer-statement coverage.
 - Handle CSQL script boundaries and qualify installation, notices, and release artifacts.
 
@@ -21,6 +22,13 @@ Consumer products stay separate and use the same maintained language implementat
 Consumer work starts after the relevant central interfaces pass their delivery gates.
 The terminal migration requires completion corpus parity, Unicode edit parity, metadata parity, and the existing terminal/PTY suite.
 Each consumer owns packaging and releases independently.
+
+## Rust migration and formatting
+
+- Compare bounded Rust replacements against the shared Python corpus before replacing each module.
+- Preserve CLI/LSP results and choose Python bindings or compatibility layers before changing direct library consumers.
+- Keep the qualified native CUBRID parser; a new Rust SQL grammar is not selected.
+- Develop SQL formatting and editor formatting actions as a separate later feature.
 
 ## Language depth
 

@@ -5,7 +5,7 @@
   "accepted": "2026-10-28",
   "integrationBranch": "implement/central-engine",
   "integrationCheckout": "/home/vimkim/gh/cubrid-language-tools-build",
-  "finalDestination": "local main",
+  "finalDestination": "main; configured origin https://github.com/vimkim/cubrid-language-tools.git",
   "scope": "Nine central tickets; separate consumers later",
   "tickets": {
     "01": {
@@ -207,5 +207,10 @@
     ],
     "scope": "Approved local integration into implement/central-engine only; no main merge, push, publication, database, daemon, or pinned CUBRID source/runtime mutation",
     "remoteState": "origin is configured by separate documentation/publication work; this batch performed no remote operations"
+  },
+  "upstreamDocs": {
+    "commit": "721b9bc",
+    "direction": "Korean-first public docs with English companions; Python PoC then gradual Rust migration",
+    "integration": "Accepted main docs synchronized without changing implementation scope"
   }
 }

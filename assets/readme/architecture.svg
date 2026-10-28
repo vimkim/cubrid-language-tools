@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+<title id="title">CUBRID 공통 언어 엔진의 목표 아키텍처</title>
+<desc id="desc">별도 소비 제품은 라이브러리, LSP, CLI로 공통 엔진을 호출합니다. Python PoC를 검증한 뒤 Rust로 점진 전환합니다. 문법 검사만 네이티브 CUBRID 파서 워커를 사용합니다. 소비 제품 연동은 예정입니다.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#087f8c"/></marker></defs>
+<rect width="1200" height="900" fill="#f7f9fc"/>
+<g font-family="Noto Sans CJK KR, Noto Sans KR, DejaVu Sans, sans-serif" fill="#17283e">
+<text x="56" y="43" font-size="27" font-weight="600" fill="#52617a" text-anchor="start">목표 구조 · 별도 소비 제품의 연동은 예정</text>
+<rect x="32" y="294" width="1136" height="494" rx="10" fill="#ddeef0" stroke="#087f8c" stroke-width="2"/>
+<rect x="56" y="75" width="352" height="92" rx="10" fill="#ffffff" stroke="#8ea3b7" stroke-width="2" stroke-dasharray="8 5"/>
+<text x="232" y="132" font-size="32" font-weight="600" fill="#17283e" text-anchor="middle">csql-future</text>
+<path d="M232 167 V328" fill="none" stroke="#087f8c" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="106" y="195" width="252" height="36" fill="#f7f9fc"/>
+<text x="232" y="222" font-size="26" font-weight="400" fill="#087f8c" text-anchor="middle">Python import</text>
+<rect x="64" y="328" width="336" height="72" rx="10" fill="#ffffff" stroke="#8ea3b7" stroke-width="2"/>
+<text x="232" y="374" font-size="30" font-weight="600" fill="#17283e" text-anchor="middle">라이브러리</text>
+<path d="M232 400 V456" fill="none" stroke="#087f8c" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="424" y="75" width="352" height="92" rx="10" fill="#ffffff" stroke="#8ea3b7" stroke-width="2" stroke-dasharray="8 5"/>
+<text x="600" y="132" font-size="32" font-weight="600" fill="#17283e" text-anchor="middle">VS Code · Neovim</text>
+<path d="M600 167 V328" fill="none" stroke="#087f8c" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="474" y="195" width="252" height="36" fill="#f7f9fc"/>
+<text x="600" y="222" font-size="26" font-weight="400" fill="#087f8c" text-anchor="middle">LSP · stdio</text>
+<rect x="432" y="328" width="336" height="72" rx="10" fill="#ffffff" stroke="#8ea3b7" stroke-width="2"/>
+<text x="600" y="374" font-size="30" font-weight="600" fill="#17283e" text-anchor="middle">LSP 어댑터</text>
+<path d="M600 400 V456" fill="none" stroke="#087f8c" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="792" y="75" width="352" height="92" rx="10" fill="#ffffff" stroke="#8ea3b7" stroke-width="2" stroke-dasharray="8 5"/>
+<text x="968" y="132" font-size="32" font-weight="600" fill="#17283e" text-anchor="middle">AI · CI</text>
+<path d="M968 167 V328" fill="none" stroke="#087f8c" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="842" y="195" width="252" height="36" fill="#f7f9fc"/>
+<text x="968" y="222" font-size="26" font-weight="400" fill="#087f8c" text-anchor="middle">CLI · JSON</text>
+<rect x="800" y="328" width="336" height="72" rx="10" fill="#ffffff" stroke="#8ea3b7" stroke-width="2"/>
+<text x="968" y="374" font-size="30" font-weight="600" fill="#17283e" text-anchor="middle">린트 CLI</text>
+<path d="M968 400 V456" fill="none" stroke="#087f8c" stroke-width="3" marker-end="url(#arrow)"/>
+<text x="64" y="766" font-size="34" font-weight="700" fill="#087f8c" text-anchor="start">cubrid-language-tools</text>
+<rect x="64" y="456" width="1072" height="122" rx="10" fill="#ffffff" stroke="#087f8c" stroke-width="2"/>
+<text x="88" y="504" font-size="34" font-weight="700" fill="#17283e" text-anchor="start">공통 언어 코어 · Python PoC → Rust</text>
+<text x="88" y="550" font-size="28" font-weight="400" fill="#52617a" text-anchor="start">완성 · 문법 진단 · 원문 범위 · 스키마 · 프로파일</text>
+<path d="M600 578 V640" fill="none" stroke="#087f8c" stroke-width="3" marker-end="url(#arrow)"/>
+<text x="626" y="619" font-size="25" font-weight="400" fill="#087f8c" text-anchor="start">엄격한 문법 검사만</text>
+<rect x="64" y="640" width="1072" height="76" rx="10" fill="#ffffff" stroke="#8ea3b7" stroke-width="2"/>
+<text x="88" y="673" font-size="30" font-weight="600" fill="#17283e" text-anchor="start">네이티브 CUBRID 파서 워커</text>
+<text x="88" y="704" font-size="24" font-weight="400" fill="#52617a" text-anchor="start">검증한 빌드의 파싱 · 별도 자식 프로세스</text>
+<text x="56" y="850" font-size="26" font-weight="400" fill="#52617a" text-anchor="start">로컬 import · stdio / pipes · SQL 실행·DB 접속 없이 검사</text>
+</g></svg>
