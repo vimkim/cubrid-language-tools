@@ -304,7 +304,7 @@
       "scopeDecision": "User accepted explicit unsupported SHOW COLUMNS/DESCRIBE/DESC/class-description EXPLAIN on 2026-10-29. Parser-only backend deferred; native error guards retained."
     },
     "08": {
-      "status": "verified-approved-for-integration",
+      "status": "integrated",
       "dependsOn": [
         "03",
         "05"
@@ -312,21 +312,45 @@
       "base": "925c90ac9dcf555dde2fee5b15357d1a4f7f088a",
       "branch": "central/ticket-08",
       "worktree": "/home/vimkim/gh/cubrid-language-tools-08",
-      "commit": "e55a6e82500d25b4c9cd8e4f6b852dfadf05d1fd",
-      "implementationCommit": "9fb4f5a7625eddf981807df8710ccf4f26bc4bc9",
+      "commit": "cfcf1d0c75083d42f3ba886e90d53cfc05e51689",
+      "implementationCommit": "ec07b1387d05070e24cc1906f52d3dcd66c4f585",
       "checks": [
         "Coordinator:8classifier+5scriptvalidation+7actualnativeCLI tests passed",
         "Agent Python3.10/3.14:103default+26framed+6nativeLSP checks passed",
         "Full36native baseline and affected7nativeCLI checks passed after refinements",
         "Isolated core/optional wheel and extracted-sdist103 checks passed",
         "Trace:no include-target operations,shell/touch execution or marker creation",
-        "Unknown profiles return U1001 before opaque lexical classification; input guards and known-profile S+U retained"
+        "Unknown profiles return U1001 before opaque lexical classification; input guards and known-profile S+U retained",
+        "Integration: conflict-free rebase onto aedf878; all three range-diff patches unchanged and task source/tests/native/packaging/public docs byte-identical to approved e55a6e8",
+        "Integration: 13 public script tests plus 7 actual native/CLI tests pass before fast-forward merge",
+        "Integration: final core-only Python 3.14 environment passes 103 default tests; mandatory native recipe passes 37 native and 17 independent tests",
+        "Integration: separate optional environment passes 26 framed LSP and 6 actual-native LSP tests",
+        "Integration: wheel/sdist build and byte checks pass for 17 package, 41 native and 25 test/fixture files; both commands and optional-only requirements retained; generated native outputs excluded",
+        "Integration: fresh core-only Python 3.10 installed wheel and extracted sdist each pass 103 tests; installed native CSQL command passes and missing-extra server exits 3",
+        "Integration: unchanged qualified V2 worker/manifest and all 16 runtime, 4 generated, 7 grammar, 618 source-header, 9 worker and 85 compiler inputs rehashed; pinned source clean",
+        "Integration: Markdown and git diff --check pass; Korean main-doc merge 504541a remains an ancestor; preserved artifact manifest verifies 1523 regular files and 28 symlink targets before task-only cleanup"
       ],
       "limitations": [
         "Pending-SQL command interleaving and procedural constructs remain opaque/unsupported throughEOF",
         "Only full audited command names with ASCII argument/suffix whitespace; indentation,abbreviations,extra arguments unsupported"
       ],
-      "report": "/home/vimkim/gh/cubrid-language-tools-08/docs/tickets/reports/08.md"
+      "report": "docs/tickets/reports/08.md",
+      "originalImplementationCommit": "9fb4f5a7625eddf981807df8710ccf4f26bc4bc9",
+      "approvedCommit": "e55a6e82500d25b4c9cd8e4f6b852dfadf05d1fd",
+      "integrationBase": "aedf8786797e6a4a0022fa484c5958b227bc21d7",
+      "integrationMethod": "rebase then fast-forward",
+      "integrationAuthorization": "Standing user approval for all planned tickets, recorded 2026-10-28 in docs/execution.md",
+      "integratedAt": "2026-10-28T15:08:04.034336+00:00",
+      "artifactDirectory": "/mnt/nvme/data-5/tmp/central-language-572-ticket-08-artifacts",
+      "artifactManifestSha256": "27f563f164dee1e1a69600f309777d02ce24ef4123a2d27db9f53ec747d2cccc",
+      "nativeManifestSha256": "07f84eabef149f4954ac31d4d4d5a97c73b7f0ed8af760c34bdb158038aa0400",
+      "nativeWorkerSha256": "700397292c67b5e2d568a4c4722a83283672b022f99f96cf66adec5d00f8d864",
+      "combinedVerificationSource": "cfcf1d0c75083d42f3ba886e90d53cfc05e51689",
+      "distributionSha256": {
+        "dist/cubrid_language_tools-0.1.0.dev0-py3-none-any.whl": "d7ead924fd3b02a9424b315b5a2b22a8bf601c96b0ac42265e8168e5ebd16214",
+        "dist/cubrid_language_tools-0.1.0.dev0.tar.gz": "1075b86c8bdda946e86d92a15e7522119f966813806c9248cc45afa4bc2ad700"
+      },
+      "cleanup": "Merged ticket 08 worktree removed and central/ticket-08 deleted without force; original source native/build, dist, full named verification evidence, premerge/final destination artifacts, scripts and logs preserved with 1523 verified regular-file SHA-256 digests and 28 symlink targets"
     },
     "09": {
       "status": "pending",
