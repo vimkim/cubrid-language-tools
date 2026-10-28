@@ -14,8 +14,10 @@ Separate editor, AI, and terminal work remains in the [long-term roadmap](../roa
 - [08: CSQL script classification](08-script-boundaries.md) — dependencies: 03, 05.
 - [09: Distribution and final qualification](09-delivery.md) — dependencies: 05, 07, 08.
 
-Tickets 01 through 08 are integrated. Ticket 07 passed its revised bounded scope with four accepted description exclusions.
-The original description-qualification criterion did not pass. Ticket 09 owns delivery qualification. Independent source review passed at `96d6fb5`; all corrected installation checks passed at `4c756d6`. Ticket 09 is ready for coordinator integration.
+All nine tickets are integrated into `implement/central-engine`. Ticket 07 passed its revised bounded scope with four accepted description exclusions.
+The original description-qualification criterion did not pass. Ticket 09 completed delivery qualification at `f66072d`.
+Independent source review passed at `96d6fb5`, and all corrected installation checks passed at `4c756d6`.
+Final main integration requires separate approval.
 Exact dispatch commits and acceptance evidence live in [execution state](../orchestration/state.json).
 
 Dependency refinement after ticket 05: script classification uses the stable Validator seam independently of ticket 07.

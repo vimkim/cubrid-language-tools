@@ -1,6 +1,6 @@
 # 09: Distribution and final qualification
 
-Status: complete for coordinator integration. Independent source review passed at `96d6fb5`; corrected eight-environment qualification passed at archive snapshot `4c756d6`.
+Status: integrated into `implement/central-engine` at `f66072d`. Independent source review passed at `96d6fb5`; corrected eight-environment qualification passed at archive snapshot `4c756d6`.
 Dependencies: 05, 07, 08. The coordinator confirmed the ticket 07 qualification gate on 2026-10-29.
 
 Read [spec](../spec.md), [contracts](../contracts.md), and [execution](../execution.md).
