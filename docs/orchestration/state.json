@@ -9,24 +9,37 @@
   "scope": "Nine central tickets; separate consumers later",
   "tickets": {
     "01": {
-      "status": "verified-awaiting-integration-approval",
+      "status": "integrated",
       "dependsOn": [],
       "base": "f2fb5c72b687b133627dcccc7ced398d5a0dbbf6",
       "worktree": "/home/vimkim/gh/cubrid-language-tools-01",
       "branch": "central/ticket-01",
-      "commit": "d51c6585765e31eb7f472cde9b23ee0cfd080473",
-      "implementationCommit": "3b75f98634c5c9a92783217095f9e528537b94b1",
+      "commit": "7e2b59f0673503bcd0f0e631bc21e50d041f4aeb",
+      "implementationCommit": "cef5789aaf757db30bbbe1702801611bf7e29489",
       "checks": [
         "Agent: 35 tests pass on Python 3.10 and 3.14",
         "Coordinator: just test-language-core, 35 tests passed",
         "230 golden observations match checkpoint values and ranges",
         "Wheel and sdist build; extracted sdist passes all 35 tests",
-        "No-I/O determinism checks pass; csql_future absent in isolated install"
+        "No-I/O determinism checks pass; csql_future absent in isolated install",
+        "Integration: conflict-free rebase onto 56acebf; git range-diff confirms both approved patches unchanged",
+        "Integration: just test-language-core and just test each pass 35 tests on Python 3.14",
+        "Integration: just build creates wheel and sdist; fixture included, no csql_future, mandatory dependencies or generated native objects",
+        "Integration: Python 3.10 isolated wheel import/completion and extracted-sdist 35 tests pass",
+        "Integration: git diff --check passes; destination includes rebased source tip"
       ],
       "limitations": [
-        "Existing setuptools project.license table deprecation warning; delivery metadata follow-up"
+        "Existing setuptools project.license table deprecation warning; delivery metadata follow-up",
+        "Packaging emits expected unmatched native-source/test globs while ticket 02 is not integrated; native qualification is outside ticket 01"
       ],
-      "report": "/home/vimkim/gh/cubrid-language-tools-01/docs/tickets/reports/01.md"
+      "report": "docs/tickets/reports/01.md",
+      "approvedCommit": "d51c6585765e31eb7f472cde9b23ee0cfd080473",
+      "originalImplementationCommit": "3b75f98634c5c9a92783217095f9e528537b94b1",
+      "integrationBase": "56acebf9fc10c97b94e832b9df7ca65e548df261",
+      "integrationMethod": "rebase then fast-forward",
+      "integratedAt": "2026-10-28T12:24:52.690679+00:00",
+      "artifactDirectory": "/mnt/nvme/data-5/tmp/central-language-572-ticket-01-artifacts",
+      "cleanup": "Merged task worktree removed and central/ticket-01 deleted without force; original and rebuilt dist archives preserved and SHA-256 verified"
     },
     "02": {
       "status": "dispatched",
