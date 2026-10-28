@@ -10,7 +10,7 @@
 
 **Python으로 PoC를 검증한 뒤, 모듈별로 Rust로 전환합니다.**
 개발 버전은 완성 라이브러리·CLI·선택적 LSP와 제한된 V3 오프라인 문법 검사를 제공합니다.
-최종 검토·통합은 진행 중이며 소비 제품 연동·편집기 패키지는 후속 기능입니다.
+로컬 개발 버전이며 소비 제품 연동·편집기 패키지는 후속 기능입니다.
 
 [설치·릴리스 검증](docs/install.md) · [지원 범위](docs/coverage.md) · [아키텍처](docs/architecture.md) · [개발·제품 로드맵](docs/product-roadmap.md) ·
 [CLI·검증 API](docs/lint-cli.md) · [stdio LSP](docs/lsp.md) · [문서 목차](docs/README.md)

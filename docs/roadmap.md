@@ -10,7 +10,7 @@ Consumer products stay separate and use the same maintained language implementat
 - Implemented: pure completion, offline snapshots, shared configuration, lint CLI, optional stdio LSP, and CSQL batch classification.
 - Qualified grammar: exact Linux x86-64 V3 profile with bounded query, DML, schema, and engineer subsets. See [coverage](coverage.en.md).
 - Delivery: [isolated installation, archive, notice, and parity checks](install.en.md) precede final standards/spec review and integration.
-- Final review and integration remain pending. Remote publication is a separate decision.
+- Source review passed. Final main integration requires approval. Remote publication is a separate decision.
 
 ## Separate consumer projects
 

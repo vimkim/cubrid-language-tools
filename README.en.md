@@ -10,7 +10,7 @@ an LSP adapter for separate csql-future, VS Code, Neovim, and AI products.
 
 **Validate a Python PoC first, then migrate gradually to Rust.**
 The development release provides completion, CLI, optional LSP, and bounded V3 offline syntax checks.
-Final review and integration remain in progress. Consumer integrations and editor packages are later work.
+This is a local development build. Consumer integrations and editor packages are later work.
 
 [Install and qualify](docs/install.en.md) · [Coverage](docs/coverage.en.md) · [Architecture](docs/architecture.en.md) · [Development and product roadmap](docs/product-roadmap.en.md) ·
 [CLI and validation API](docs/lint-cli.en.md) · [Stdio LSP](docs/lsp.en.md) · [Documentation](docs/README.en.md)

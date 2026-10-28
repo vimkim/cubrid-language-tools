@@ -398,24 +398,17 @@
     "artifactCheckScriptSha256": "725ea80b57f14223c060b0efd5f928fdfff6cdc1dae9cbaf5ee4a09aebceae26"
   },
   "ticket09ReviewCorrection": {
-    "status": "historical checkpoint; superseded by follow-up cap-boundary corrections, fresh full qualification pending targeted review",
+    "status": "source review and fresh native qualification passed; corrected final distribution run pending",
+    "sourceReviewCommit": "96d6fb5e85ce656f9fd1516ba1ce4a3922d02c44",
+    "rootReviewRecordCommit": "0ab25f76343b69d5118c35f3c58ff96043077ba7",
     "coverageRevision": "bounded-query-dml-schema-engineer-v3",
     "fixtureCount": 325,
-    "nativeTests": 44,
+    "nativeTests": 45,
     "independentTests": 20,
-    "framedTests": 28,
-    "manifestSha256": "1cf19abfc6b48eae19bff7179a013a6795c1c3aa72a498904ca96b7f0635d4b1",
-    "workerSha256": "005d867e67d626d220d71509baac30d15cbe08afb634f6322c0df89245bac967",
-    "traceSha256": "2ea0c64f072ab1365c02449a70a301d573385db4a25e2af83628c51ee53894d2",
-    "evidenceDirectory": "/mnt/nvme/data-5/tmp/central-ticket-09-release-20261029-b",
-    "qualificationCommand": [
-      "python3",
-      "native/parser-worker/qualify.py",
-      "--build",
-      "native/parser-worker/build",
-      "--output",
-      "native/parser-worker/qualification"
-    ],
-    "qualifiedCommit": "b9c165aca6f7cbba614f9b9f6dfb58cfb161a46d"
+    "nativeLspTests": 6,
+    "manifestSha256": "34b4b020ef6858c9aa0707de8617d67dfd8336f1a67220b600988e2935893dee",
+    "workerSha256": "9af56541bc0d90dc63ce11ae0af2122c2dfa31720e92f38992656909d5e26548",
+    "traceSha256": "5611f9bbb496e38c49f5e7aa712fa86b0f8a33bffc86bd1a854cf34941fdc422",
+    "evidenceDirectory": "/mnt/nvme/data-5/tmp/central-ticket-09-reviewed-20261029"
   }
 }

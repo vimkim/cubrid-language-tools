@@ -16,7 +16,7 @@ Code, commands, and protocol identifiers remain consistent across languages.
 | [Architecture](architecture.en.md) | Understand the library, CLI, LSP, native parser, and separate consumers |
 | [Development and product roadmap](product-roadmap.en.md) | Follow Python PoC, gradual Rust migration, and editor plans |
 
-The development release implements the library, CLI, optional LSP, and bounded V3 syntax checks. Final review and integration remain in progress. `csql-future` is a
+The development release implements the library, CLI, optional LSP, and bounded V3 syntax checks. `csql-future` is a
 separate project and has not migrated to this engine. These documents distinguish planned central/editor features from available terminal features.
 
 Terminal usage and adoption material belong in the [csql-future repository](https://github.com/vimkim/csql-future).
