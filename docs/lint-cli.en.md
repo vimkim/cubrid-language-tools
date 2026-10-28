@@ -169,9 +169,9 @@ Worker configuration remains a separate trusted input.
 ## Current qualification boundary
 
 This Python stage uses the exact Linux x86-64 CUBRID 11.5 profile identified above.
-Current worker coverage includes qualified literal SELECT and CREATE SERIAL forms.
-Expanded query/DML coverage is a separate ticket.
-Both accepted script modes currently use the worker's conservative coverage.
-Full mixed-script classification is a separate ticket.
+The [native guide](../native/parser-worker/README.md) defines the worker's current qualified SQL coverage.
+SQL mode checks the original SQL document.
+CSQL mode also classifies the exact help, exit, and autocommit on/off command lines without execution.
+The [batch script guide](scripts.en.md) describes original offsets, command spellings, and conservative recovery for pending SQL and procedural regions.
 Unaudited procedures, includes, and shell constructs remain explicit unsupported results.
 A syntax pass does not establish object existence, privileges, or server semantics.

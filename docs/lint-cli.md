@@ -154,8 +154,9 @@ assert settings.schema_snapshot is None
 ## 현재 검증 범위
 
 현재 Python 단계는 위에서 지정한 Linux x86-64 CUBRID 11.5 프로파일만 검증합니다.
-워커는 검증한 리터럴 SELECT와 CREATE SERIAL 형식을 지원합니다.
-query·DML 확대와 전체 혼합 스크립트 분류는 별도 티켓입니다.
-두 모드 모두 현재 워커의 보수적인 지원 범위를 사용합니다.
+워커의 현재 SQL 검증 범위는 [네이티브 안내서](../native/parser-worker/README.md)에 정의합니다.
+SQL 모드는 원본 SQL 문서를 검사합니다.
+CSQL 모드는 정확한 help·exit·autocommit on/off 명령 줄도 실행 없이 분류합니다.
+[배치 스크립트 안내서](scripts.md)는 원문 오프셋·명령 표기·미완료 SQL과 프로시저 영역의 보수적인 복구 제한을 설명합니다.
 검증하지 않은 프로시저·include·셸 구문은 명시적인 미지원 결과를 반환합니다.
 문법 통과는 객체 존재·권한·서버 의미 검증을 뜻하지 않습니다.

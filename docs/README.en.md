@@ -9,6 +9,7 @@ Code, commands, and protocol identifiers remain consistent across languages.
 | --- | --- |
 | [Project README](../README.en.md) | Understand the engine and consumer boundaries |
 | [CLI and validation API](lint-cli.en.md) | Install, lint files, configure metadata, and own a validator |
+| [CSQL batch scripts](scripts.en.md) | Check command boundaries, original spans, and conservative recovery limits |
 | [Stdio LSP](lsp.en.md) | Install the optional server, configure editors, and use snapshots, completion, and diagnostics |
 | [Architecture](architecture.en.md) | Understand the library, CLI, LSP, native parser, and separate consumers |
 | [Development and product roadmap](product-roadmap.en.md) | Follow Python PoC, gradual Rust migration, and editor plans |

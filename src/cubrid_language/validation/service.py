@@ -2,15 +2,17 @@
 
 import threading
 
+from cubrid_language.scripts import classify
+
 from .models import Diagnostic, Span, ValidationResult
-from .worker import NativeWorker, WorkerConfig
+from .worker import NativeWorker, WorkerConfig, WorkerFailure
 
 
 class Validator:
     """Own a native worker selected only by explicit trusted configuration.
 
-    Both script modes currently use the worker's conservative coverage. Mixed
-    CSQL constructs remain unsupported until separately qualified.
+    SQL uses the native coverage directly. CSQL additionally classifies batch
+    commands and opaque unsupported regions without executing their effects.
     """
 
     def __init__(self, config: WorkerConfig | None = None):
@@ -64,7 +66,53 @@ class Validator:
                     self._worker.close()
                 self._worker = NativeWorker(self.config, profile)
             worker = self._worker
-        result = worker.parse(text)
+        result = self._script(worker, text, profile) if script_mode == 'csql' else worker.parse(text)
         diagnostics = tuple(sorted(dict.fromkeys(result.diagnostics), key=lambda d:
             (d.span.start, d.span.end, d.code, d.message, d.severity, d.range_precision, d.category)))
         return ValidationResult(result.status, result.coverage, result.profile, diagnostics, result.statement_kinds)
+
+    def _script(self, worker, text, profile):
+        parts = classify(text)
+        diagnostics, kinds = [], []
+        available = True
+        try:
+            worker.initialize()
+        except WorkerFailure as error:
+            available = False
+            category = 'unsupported' if error.code == 'CUBRID-U1001' else 'tool'
+            diagnostics.append(Diagnostic(error.code, 'warning' if category == 'unsupported' else 'error',
+                                          str(error), Span(0, len(text)), 'statement', category))
+        checked = False
+        incomplete = not available
+        for part in parts:
+            if part.kind == 'command':
+                checked |= available
+            elif part.kind == 'unsupported':
+                incomplete = True
+                diagnostics.append(Diagnostic('CUBRID-U1002', 'warning',
+                    'CSQL construct is outside qualified batch coverage', part.span, 'statement', 'unsupported'))
+                if part.lexical_error:
+                    diagnostics.append(Diagnostic('CUBRID-S1001', 'error',
+                        'Unterminated quoted token or comment', part.span, 'statement', 'syntax'))
+            elif available:
+                result = worker.parse(text[part.span.start:part.span.end])
+                diagnostics.extend(Diagnostic(d.code, d.severity, d.message,
+                    Span(part.span.start + d.span.start, part.span.start + d.span.end),
+                    d.range_precision, d.category) for d in result.diagnostics)
+                kinds.extend(result.statement_kinds)
+                checked |= result.coverage == 'partial' or (result.coverage == 'complete' and
+                    bool(result.statement_kinds or result.diagnostics))
+                incomplete |= result.coverage != 'complete' or result.status == 'tool-error'
+                if result.status == 'tool-error' or any(d.code == 'CUBRID-U1001' for d in result.diagnostics):
+                    available = False
+            if len(diagnostics) > self.config.max_diagnostics:
+                diagnostics = diagnostics[:self.config.max_diagnostics - 1]
+                diagnostics.append(Diagnostic('CUBRID-T1002', 'error',
+                    'Document diagnostic limit exceeded; result truncated', part.span, 'statement', 'tool'))
+                incomplete = True
+                break
+        status = ('tool-error' if any(d.category == 'tool' for d in diagnostics) else
+                  'syntax-error' if any(d.category == 'syntax' for d in diagnostics) else
+                  'unsupported' if any(d.category == 'unsupported' for d in diagnostics) else 'valid')
+        coverage = ('partial' if checked else 'none') if incomplete else 'complete'
+        return ValidationResult(status, coverage, profile, tuple(diagnostics), tuple(kinds))
