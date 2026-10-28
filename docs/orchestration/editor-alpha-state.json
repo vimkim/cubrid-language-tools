@@ -1,6 +1,6 @@
 {
   "workItem": 582,
-  "status": "design-and-bootstrap",
+  "status": "implementing",
   "coreBaseline": "3bb70e492efe7bcb7de58a801281f7a088a9c39e",
   "coordinatorBranch": "editor/alpha",
   "coordinatorCheckout": "/home/vimkim/gh/cubrid-language-tools-editor-alpha",
@@ -14,7 +14,9 @@
       "branch": "alpha/editor",
       "emptyBaseline": "14c23950ee9e0f372916e1409788a4e4e19fe4b5",
       "remote": null,
-      "status": "awaiting-design-dispatch"
+      "status": "implementing",
+      "dispatchCommit": "6c7c6edefe66d1cc9f03af838b5e7f738abfc451",
+      "owner": "/root/vscode_alpha_owner"
     },
     "neovim": {
       "checkout": "/home/vimkim/gh/cubrid.nvim",
@@ -22,10 +24,15 @@
       "branch": "alpha/editor",
       "emptyBaseline": "14c23950ee9e0f372916e1409788a4e4e19fe4b5",
       "remote": null,
-      "status": "awaiting-design-dispatch"
+      "status": "implementing",
+      "dispatchCommit": "3b341bf57e7ebc90b65bbcdfe20e889b30d8b79a",
+      "owner": "/root/neovim_alpha_owner"
     }
   },
   "ownership": "Coordinator writes central docs/tracker/decision log. Each implementer owns only its consumer worktree and evidence directory.",
   "authorization": "Local commits authorized. Integration requires review and approval. Consumer remote creation, pushes, publication and deployment are not authorized.",
-  "nextAction": "Finish architecture cross-judge and synthesize the shared design; commit exact consumer dispatch baselines and start fresh implementation owners."
+  "nextAction": "Drain fresh editor owners, inspect actual diffs and artifacts, then run independent real-editor and comment reviews at committed heads. Preserve integration/publication approval gates.",
+  "design": "docs/orchestration/editor-alpha-design.md",
+  "designReview": "/home/vimkim/temp/cubrid-editor-alpha-aiYISe/architecture-verdict.md",
+  "designLimitation": "One completed runner package containing two structural alternatives; Astra sketch runner dropped out. Independent judge selected the instance session with correspondence corrections."
 }

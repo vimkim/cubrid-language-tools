@@ -20,17 +20,17 @@ Integration follows the user's existing approval rule after concrete results are
 
 - [x] Read the Principles section of poteto-mode.
 - [x] Phase A: Frame. Confirm core delivery, user milestone, tools, and native baseline.
-- [ ] Phase B: Design the workflow. Ground editor integration and compare two architecture sketches before dispatch.
+- [x] Phase B: Design the workflow. Ground editor integration and compare two architecture sketches before dispatch.
 - [ ] Phase C: Run the loop. Implement each independent consumer with public-interface TDD and real editor evidence.
 - [ ] Phase D: Keep the audit trail. Record decisions and exact evidence as they occur.
 - [ ] Phase E: Verify and hand back. Independently review packages and editor behavior before requesting integration.
 
 ## Throughput checkpoint
 
-- [ ] Blocking first steps. Verify the engine/native baseline, choose editor lifecycle/configuration shapes, and prove a headless VS Code host can run before extension feature work.
-- [ ] Independent workstreams. VS Code and Neovim own separate repositories, worktrees, tests, environments, and artifacts.
-- [ ] Shared mutable state. The coordinator alone writes this plan, central tickets, common acceptance contracts, tracker state, and decision log. Workers read the core and qualified native artifacts.
-- [ ] Smallest safe decomposition. One fresh implementation agent per editor ticket. Separate independent reviewers own bounded verification tasks after implementation.
+- [x] Blocking first steps. Verify the engine/native baseline, choose editor lifecycle/configuration shapes, and prove a headless VS Code host can run before extension feature work.
+- [x] Independent workstreams. VS Code and Neovim own separate repositories, worktrees, tests, environments, and artifacts.
+- [x] Shared mutable state. The coordinator alone writes this plan, central tickets, common acceptance contracts, tracker state, and decision log. Workers read the core and qualified native artifacts.
+- [x] Smallest safe decomposition. One fresh implementation agent per editor ticket. Separate independent reviewers own bounded verification tasks after implementation.
 
 ## Proof and limits
 
@@ -42,16 +42,16 @@ Keep the core's accepted grammar/platform limits visible. Editor integration doe
 ## Architecture and arena checkpoints
 
 - [x] Ground. Read the actual engine contract and current implementation.
-- [ ] Sketch. Compare independent Astra and Terra packages.
-- [ ] Agree. skip: default architect workflow proceeds after synthesis without a user checkpoint.
+- [x] Sketch. Compare independent Astra and Terra packages.
+- [x] Agree. skip: default architect workflow proceeds after synthesis without a user checkpoint.
 - [ ] Implement. Dispatch one fresh owner per consumer at exact commits.
-- [ ] Scrap. skip: apply only if implementation demonstrates the selected shape is wrong.
+- [x] Scrap. skip: apply only if implementation demonstrates the selected shape is wrong.
 
 - [x] Frame. Two consumer packages and a real-editor acceptance contract.
-- [ ] Fan out. Independent candidate packages in `design-astra` and `design-terra`.
-- [ ] Cross-judge. Read-only independent scoring after both packages finish.
-- [ ] Pick. Score the whole designs against the consumer and maintainer criteria.
-- [ ] Graft. Preserve useful evidence and remove unnecessary client policy.
+- [x] Fan out. Independent candidate packages in `design-astra` and `design-terra`.
+- [x] Cross-judge. Read-only independent scoring after both packages finish.
+- [x] Pick. Score the whole designs against the consumer and maintainer criteria.
+- [x] Graft. Preserve useful evidence and remove unnecessary client policy.
 - [ ] Verify. Confirm selected behavior against real editors before integration.
 
 The real headless VS Code host prerequisite passed. OpenVSCode Server 1.109.5 ran a Node v22.21.1 extension host and a contributed command through headless Chromium. Evidence is `headless-host/result.json` and `headless-host/workbench.png` under the evidence directory. This proves the host, not the unfinished CUBRID extension.
@@ -63,3 +63,5 @@ The real headless VS Code host prerequisite passed. OpenVSCode Server 1.109.5 ra
 - VS Code consumer checkout is `/home/vimkim/gh/cubrid-vscode`.
 - Neovim consumer checkout is `/home/vimkim/gh/cubrid.nvim`.
 - Ticket definitions and exact dispatch commits will be recorded before fresh implementers start.
+
+The selected architecture is recorded in `editor-alpha-design.md`. The independent judge selected the instance session after correcting untitled metadata and CRLF expectations. One runner completed a package containing both structural alternatives; the other returned only partial notes and was stopped. Fresh implementation owners have exact dispatch commits in `editor-alpha-state.json`.
