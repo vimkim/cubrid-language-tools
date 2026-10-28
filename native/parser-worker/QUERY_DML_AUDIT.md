@@ -1,7 +1,10 @@
 # Bounded query and DML qualification
 
 Profile: **cubrid-11.5.0.2704-cc94778**. Coverage revision:
-**bounded-query-dml-create-serial-v2**. All source links refer to the exact
+**bounded-query-dml-schema-engineer-v3**, which reuses the original v2 query/DML
+feature predicates. [SCHEMA_ENGINEER_AUDIT.md](SCHEMA_ENGINEER_AUDIT.md) adds
+the native error-manager guard and records newly qualified and rejected forms.
+All source links refer to the exact
 read-only commit **cc947788d3b7dc402f46192d0f3299ddcc8563ba**. The generated
 headers, library, runtime assets, settings, platform and production inputs stay
 bound by the manifest and embedded digest. This extends the common lifecycle,

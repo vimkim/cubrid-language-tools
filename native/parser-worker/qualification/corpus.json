@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "coverageRevision": "bounded-query-dml-create-serial-v2",
+  "coverageRevision": "bounded-query-dml-schema-engineer-v3",
   "cases": [
     {
       "id": "serial-valid",
@@ -151,10 +151,12 @@
       "family": "baseline",
       "text": "SELECT 1,; DROP TABLE never_execute;",
       "expected": "syntax-error",
-      "kinds": [],
+      "kinds": [
+        "PT_DROP"
+      ],
       "admitted": [
         true,
-        false
+        true
       ]
     },
     {
@@ -267,12 +269,14 @@
     },
     {
       "id": "destructive-text-blocked",
-      "family": "baseline",
+      "family": "drop-table",
       "text": "DROP TABLE must_never_be_executed;",
-      "expected": "unsupported",
-      "kinds": [],
+      "expected": "valid",
+      "kinds": [
+        "PT_DROP"
+      ],
       "admitted": [
-        false
+        true
       ]
     },
     {
@@ -1944,6 +1948,1603 @@
       "kinds": [
         "PT_MERGE"
       ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "create-table-valid",
+      "family": "create-table",
+      "text": "CREATE TABLE absent (id INTEGER, n BIGINT);",
+      "expected": "valid",
+      "kinds": [
+        "PT_CREATE_ENTITY"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "create-table-malformed",
+      "family": "create-table",
+      "text": "CREATE TABLE absent (id INTEGER,);",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "create-table-incomplete",
+      "family": "create-table",
+      "text": "CREATE TABLE absent (id",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "create-table-unicode",
+      "family": "create-table",
+      "text": "CREATE TABLE \"테이블\" (\"번호\" SMALLINT);",
+      "expected": "valid",
+      "kinds": [
+        "PT_CREATE_ENTITY"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "create-table-mixed",
+      "family": "create-table",
+      "text": "CREATE TABLE absent (id INTEGER, n BIGINT); CALL must_not_execute();",
+      "expected": "unsupported",
+      "kinds": [
+        "PT_CREATE_ENTITY"
+      ],
+      "admitted": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "alter-table-valid",
+      "family": "alter-table",
+      "text": "ALTER TABLE absent ADD COLUMN n INTEGER;",
+      "expected": "valid",
+      "kinds": [
+        "PT_ALTER"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "alter-table-malformed",
+      "family": "alter-table",
+      "text": "ALTER TABLE absent ADD COLUMN INTEGER;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "alter-table-incomplete",
+      "family": "alter-table",
+      "text": "ALTER TABLE absent ADD COLUMN",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "alter-table-unicode",
+      "family": "alter-table",
+      "text": "ALTER TABLE \"테이블\" ADD COLUMN \"번호\" BIGINT;",
+      "expected": "valid",
+      "kinds": [
+        "PT_ALTER"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "alter-table-mixed",
+      "family": "alter-table",
+      "text": "ALTER TABLE absent ADD COLUMN n INTEGER; CALL must_not_execute();",
+      "expected": "unsupported",
+      "kinds": [
+        "PT_ALTER"
+      ],
+      "admitted": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "drop-table-valid",
+      "family": "drop-table",
+      "text": "DROP TABLE absent, other_absent;",
+      "expected": "valid",
+      "kinds": [
+        "PT_DROP"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "drop-table-malformed",
+      "family": "drop-table",
+      "text": "DROP TABLE absent,;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "drop-table-incomplete",
+      "family": "drop-table",
+      "text": "DROP TABLE",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "drop-table-unicode",
+      "family": "drop-table",
+      "text": "DROP TABLE \"테이블\";",
+      "expected": "valid",
+      "kinds": [
+        "PT_DROP"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "drop-table-mixed",
+      "family": "drop-table",
+      "text": "DROP TABLE absent, other_absent; CALL must_not_execute();",
+      "expected": "unsupported",
+      "kinds": [
+        "PT_DROP"
+      ],
+      "admitted": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "create-view-valid",
+      "family": "create-view",
+      "text": "CREATE VIEW absent_v AS SELECT id FROM absent;",
+      "expected": "valid",
+      "kinds": [
+        "PT_CREATE_ENTITY"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "create-view-malformed",
+      "family": "create-view",
+      "text": "CREATE VIEW absent_v AS SELECT ,;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "create-view-incomplete",
+      "family": "create-view",
+      "text": "CREATE VIEW absent_v AS SELECT",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "create-view-unicode",
+      "family": "create-view",
+      "text": "CREATE VIEW \"뷰\" AS SELECT '가😀';",
+      "expected": "valid",
+      "kinds": [
+        "PT_CREATE_ENTITY"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "create-view-mixed",
+      "family": "create-view",
+      "text": "CREATE VIEW absent_v AS SELECT id FROM absent; CALL must_not_execute();",
+      "expected": "unsupported",
+      "kinds": [
+        "PT_CREATE_ENTITY"
+      ],
+      "admitted": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "alter-view-valid",
+      "family": "alter-view",
+      "text": "ALTER VIEW absent_v CHANGE QUERY SELECT 2;",
+      "expected": "valid",
+      "kinds": [
+        "PT_ALTER"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "alter-view-malformed",
+      "family": "alter-view",
+      "text": "ALTER VIEW absent_v CHANGE QUERY SELECT ,;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "alter-view-incomplete",
+      "family": "alter-view",
+      "text": "ALTER VIEW absent_v CHANGE QUERY",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "alter-view-unicode",
+      "family": "alter-view",
+      "text": "ALTER VIEW \"뷰\" CHANGE QUERY SELECT '가😀';",
+      "expected": "valid",
+      "kinds": [
+        "PT_ALTER"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "alter-view-mixed",
+      "family": "alter-view",
+      "text": "ALTER VIEW absent_v CHANGE QUERY SELECT 2; CALL must_not_execute();",
+      "expected": "unsupported",
+      "kinds": [
+        "PT_ALTER"
+      ],
+      "admitted": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "drop-view-valid",
+      "family": "drop-view",
+      "text": "DROP VIEW absent_v;",
+      "expected": "valid",
+      "kinds": [
+        "PT_DROP"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "drop-view-malformed",
+      "family": "drop-view",
+      "text": "DROP VIEW absent_v,;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "drop-view-incomplete",
+      "family": "drop-view",
+      "text": "DROP VIEW",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "drop-view-unicode",
+      "family": "drop-view",
+      "text": "DROP VIEW \"뷰\";",
+      "expected": "valid",
+      "kinds": [
+        "PT_DROP"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "drop-view-mixed",
+      "family": "drop-view",
+      "text": "DROP VIEW absent_v; CALL must_not_execute();",
+      "expected": "unsupported",
+      "kinds": [
+        "PT_DROP"
+      ],
+      "admitted": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "create-index-valid",
+      "family": "create-index",
+      "text": "CREATE INDEX absent_i ON absent (id ASC, n DESC);",
+      "expected": "valid",
+      "kinds": [
+        "PT_CREATE_INDEX"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "create-index-malformed",
+      "family": "create-index",
+      "text": "CREATE INDEX absent_i ON absent (id,);",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "create-index-incomplete",
+      "family": "create-index",
+      "text": "CREATE INDEX absent_i ON",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "create-index-unicode",
+      "family": "create-index",
+      "text": "CREATE INDEX \"인덱스\" ON \"테이블\" (\"번호\");",
+      "expected": "valid",
+      "kinds": [
+        "PT_CREATE_INDEX"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "create-index-mixed",
+      "family": "create-index",
+      "text": "CREATE INDEX absent_i ON absent (id ASC, n DESC); CALL must_not_execute();",
+      "expected": "unsupported",
+      "kinds": [
+        "PT_CREATE_INDEX"
+      ],
+      "admitted": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "alter-index-valid",
+      "family": "alter-index",
+      "text": "ALTER INDEX absent_i ON absent REBUILD;",
+      "expected": "valid",
+      "kinds": [
+        "PT_ALTER_INDEX"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "alter-index-malformed",
+      "family": "alter-index",
+      "text": "ALTER INDEX absent_i ON absent REBUILD REBUILD;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "alter-index-incomplete",
+      "family": "alter-index",
+      "text": "ALTER INDEX absent_i ON",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "alter-index-unicode",
+      "family": "alter-index",
+      "text": "ALTER INDEX \"인덱스\" ON \"테이블\" REBUILD;",
+      "expected": "valid",
+      "kinds": [
+        "PT_ALTER_INDEX"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "alter-index-mixed",
+      "family": "alter-index",
+      "text": "ALTER INDEX absent_i ON absent REBUILD; CALL must_not_execute();",
+      "expected": "unsupported",
+      "kinds": [
+        "PT_ALTER_INDEX"
+      ],
+      "admitted": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "drop-index-valid",
+      "family": "drop-index",
+      "text": "DROP INDEX absent_i ON absent;",
+      "expected": "valid",
+      "kinds": [
+        "PT_DROP_INDEX"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "drop-index-malformed",
+      "family": "drop-index",
+      "text": "DROP INDEX absent_i ON ON;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "drop-index-incomplete",
+      "family": "drop-index",
+      "text": "DROP INDEX absent_i ON",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "drop-index-unicode",
+      "family": "drop-index",
+      "text": "DROP INDEX \"인덱스\" ON \"테이블\";",
+      "expected": "valid",
+      "kinds": [
+        "PT_DROP_INDEX"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "drop-index-mixed",
+      "family": "drop-index",
+      "text": "DROP INDEX absent_i ON absent; CALL must_not_execute();",
+      "expected": "unsupported",
+      "kinds": [
+        "PT_DROP_INDEX"
+      ],
+      "admitted": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "alter-serial-valid",
+      "family": "alter-serial",
+      "text": "ALTER SERIAL absent_s INCREMENT BY 2;",
+      "expected": "valid",
+      "kinds": [
+        "PT_ALTER_SERIAL"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "alter-serial-malformed",
+      "family": "alter-serial",
+      "text": "ALTER SERIAL absent_s START WITH 1 START WITH 2;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "alter-serial-incomplete",
+      "family": "alter-serial",
+      "text": "ALTER SERIAL absent_s START WITH",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "alter-serial-unicode",
+      "family": "alter-serial",
+      "text": "ALTER SERIAL 순서 START WITH 2;",
+      "expected": "valid",
+      "kinds": [
+        "PT_ALTER_SERIAL"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "alter-serial-mixed",
+      "family": "alter-serial",
+      "text": "ALTER SERIAL absent_s INCREMENT BY 2; CALL must_not_execute();",
+      "expected": "unsupported",
+      "kinds": [
+        "PT_ALTER_SERIAL"
+      ],
+      "admitted": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "drop-serial-valid",
+      "family": "drop-serial",
+      "text": "DROP SERIAL absent_s;",
+      "expected": "valid",
+      "kinds": [
+        "PT_DROP_SERIAL"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "drop-serial-malformed",
+      "family": "drop-serial",
+      "text": "DROP SERIAL absent_s extra_name;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "drop-serial-incomplete",
+      "family": "drop-serial",
+      "text": "DROP SERIAL",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "drop-serial-unicode",
+      "family": "drop-serial",
+      "text": "DROP SERIAL \"순서\";",
+      "expected": "valid",
+      "kinds": [
+        "PT_DROP_SERIAL"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "drop-serial-mixed",
+      "family": "drop-serial",
+      "text": "DROP SERIAL absent_s; CALL must_not_execute();",
+      "expected": "unsupported",
+      "kinds": [
+        "PT_DROP_SERIAL"
+      ],
+      "admitted": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "show-trace-valid",
+      "family": "show-trace",
+      "text": "SHOW TRACE;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "show-trace-malformed",
+      "family": "show-trace",
+      "text": "SHOW TRACE TRACE;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "show-trace-incomplete",
+      "family": "show-trace",
+      "text": "SHOW",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "show-trace-unicode",
+      "family": "show-trace",
+      "text": "-- 가😀\r\nSHOW TRACE;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "show-trace-mixed",
+      "family": "show-trace",
+      "text": "SHOW TRACE; CALL must_not_execute();",
+      "expected": "unsupported",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "evaluate-valid",
+      "family": "evaluate",
+      "text": "EVALUATE 1 / 0;",
+      "expected": "valid",
+      "kinds": [
+        "PT_EVALUATE"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "evaluate-malformed",
+      "family": "evaluate",
+      "text": "EVALUATE 1 +;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "evaluate-incomplete",
+      "family": "evaluate",
+      "text": "EVALUATE",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "evaluate-unicode",
+      "family": "evaluate",
+      "text": "EVALUATE '가😀';",
+      "expected": "valid",
+      "kinds": [
+        "PT_EVALUATE"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "evaluate-mixed",
+      "family": "evaluate",
+      "text": "EVALUATE 1 / 0; CALL must_not_execute();",
+      "expected": "unsupported",
+      "kinds": [
+        "PT_EVALUATE"
+      ],
+      "admitted": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "statistics-valid",
+      "family": "statistics",
+      "text": "UPDATE STATISTICS ON absent, other_absent;",
+      "expected": "valid",
+      "kinds": [
+        "PT_UPDATE_STATS"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "statistics-malformed",
+      "family": "statistics",
+      "text": "UPDATE STATISTICS ON absent,;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "statistics-incomplete",
+      "family": "statistics",
+      "text": "UPDATE STATISTICS ON",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "statistics-unicode",
+      "family": "statistics",
+      "text": "UPDATE STATISTICS ON \"테이블\";",
+      "expected": "valid",
+      "kinds": [
+        "PT_UPDATE_STATS"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "statistics-mixed",
+      "family": "statistics",
+      "text": "UPDATE STATISTICS ON absent, other_absent; CALL must_not_execute();",
+      "expected": "unsupported",
+      "kinds": [
+        "PT_UPDATE_STATS"
+      ],
+      "admitted": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "set-system-valid",
+      "family": "set-system",
+      "text": "SET SYSTEM PARAMETERS 'ansi_quotes=no', 'query_trace=yes';",
+      "expected": "valid",
+      "kinds": [
+        "PT_SET_SYS_PARAMS"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "set-system-malformed",
+      "family": "set-system",
+      "text": "SET SYSTEM PARAMETERS ,;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "set-system-incomplete",
+      "family": "set-system",
+      "text": "SET SYSTEM PARAMETERS",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "set-system-unicode",
+      "family": "set-system",
+      "text": "SET SYSTEM PARAMETERS 'unknown_가😀=value';",
+      "expected": "valid",
+      "kinds": [
+        "PT_SET_SYS_PARAMS"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "set-system-mixed",
+      "family": "set-system",
+      "text": "SET SYSTEM PARAMETERS 'ansi_quotes=no', 'query_trace=yes'; CALL must_not_execute();",
+      "expected": "unsupported",
+      "kinds": [
+        "PT_SET_SYS_PARAMS"
+      ],
+      "admitted": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "set-trace-valid",
+      "family": "set-trace",
+      "text": "SET TRACE ON OUTPUT JSON;",
+      "expected": "valid",
+      "kinds": [
+        "PT_QUERY_TRACE"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "set-trace-malformed",
+      "family": "set-trace",
+      "text": "SET TRACE ON ON;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "set-trace-incomplete",
+      "family": "set-trace",
+      "text": "SET TRACE",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "set-trace-unicode",
+      "family": "set-trace",
+      "text": "-- 가😀\r\nSET TRACE OFF OUTPUT TEXT;",
+      "expected": "valid",
+      "kinds": [
+        "PT_QUERY_TRACE"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "set-trace-mixed",
+      "family": "set-trace",
+      "text": "SET TRACE ON OUTPUT JSON; CALL must_not_execute();",
+      "expected": "unsupported",
+      "kinds": [
+        "PT_QUERY_TRACE"
+      ],
+      "admitted": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "commit-valid",
+      "family": "commit",
+      "text": "COMMIT WORK RETAIN LOCK;",
+      "expected": "valid",
+      "kinds": [
+        "PT_COMMIT_WORK"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "commit-malformed",
+      "family": "commit",
+      "text": "COMMIT WORK WORK;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "commit-incomplete",
+      "family": "commit",
+      "text": "COMMIT WORK RETAIN",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "commit-unicode",
+      "family": "commit",
+      "text": "-- 가😀\r\nCOMMIT;",
+      "expected": "valid",
+      "kinds": [
+        "PT_COMMIT_WORK"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "commit-mixed",
+      "family": "commit",
+      "text": "COMMIT WORK RETAIN LOCK; CALL must_not_execute();",
+      "expected": "unsupported",
+      "kinds": [
+        "PT_COMMIT_WORK"
+      ],
+      "admitted": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "rollback-valid",
+      "family": "rollback",
+      "text": "ROLLBACK WORK TO SAVEPOINT absent_point;",
+      "expected": "valid",
+      "kinds": [
+        "PT_ROLLBACK_WORK"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "rollback-malformed",
+      "family": "rollback",
+      "text": "ROLLBACK WORK WORK;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "rollback-incomplete",
+      "family": "rollback",
+      "text": "ROLLBACK TO SAVEPOINT",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "rollback-unicode",
+      "family": "rollback",
+      "text": "ROLLBACK TO SAVEPOINT '가😀';",
+      "expected": "valid",
+      "kinds": [
+        "PT_ROLLBACK_WORK"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "rollback-mixed",
+      "family": "rollback",
+      "text": "ROLLBACK WORK TO SAVEPOINT absent_point; CALL must_not_execute();",
+      "expected": "unsupported",
+      "kinds": [
+        "PT_ROLLBACK_WORK"
+      ],
+      "admitted": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "savepoint-valid",
+      "family": "savepoint",
+      "text": "SAVEPOINT absent_point;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SAVEPOINT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "savepoint-malformed",
+      "family": "savepoint",
+      "text": "SAVEPOINT absent_point extra_name;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "savepoint-incomplete",
+      "family": "savepoint",
+      "text": "SAVEPOINT",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "savepoint-unicode",
+      "family": "savepoint",
+      "text": "SAVEPOINT '가😀';",
+      "expected": "valid",
+      "kinds": [
+        "PT_SAVEPOINT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "savepoint-mixed",
+      "family": "savepoint",
+      "text": "SAVEPOINT absent_point; CALL must_not_execute();",
+      "expected": "unsupported",
+      "kinds": [
+        "PT_SAVEPOINT"
+      ],
+      "admitted": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-01",
+      "family": "schema-engineer-excluded",
+      "text": "SHOW TABLES;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-02",
+      "family": "schema-engineer-excluded",
+      "text": "SHOW FULL TABLES;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-03",
+      "family": "schema-engineer-excluded",
+      "text": "SHOW CREATE TABLE absent;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-04",
+      "family": "schema-engineer-excluded",
+      "text": "SHOW CREATE VIEW absent;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-05",
+      "family": "schema-engineer-excluded",
+      "text": "SHOW GRANTS;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-06",
+      "family": "schema-engineer-excluded",
+      "text": "SHOW GRANTS FOR CURRENT_USER;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-07",
+      "family": "schema-engineer-excluded",
+      "text": "SHOW GRANTS FOR dba;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-08",
+      "family": "schema-engineer-excluded",
+      "text": "SHOW ACCESS STATUS;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-09",
+      "family": "schema-engineer-excluded",
+      "text": "SHOW VOLUME HEADER OF 0;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-10",
+      "family": "schema-engineer-excluded",
+      "text": "SHOW HEAP HEADER OF absent;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-11",
+      "family": "schema-engineer-excluded",
+      "text": "SHOW INDEX FROM absent;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-12",
+      "family": "schema-engineer-excluded",
+      "text": "SHOW COLLATION;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-13",
+      "family": "schema-engineer-excluded",
+      "text": "SHOW COLUMNS FROM absent;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-14",
+      "family": "schema-engineer-excluded",
+      "text": "DESCRIBE absent;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-15",
+      "family": "schema-engineer-excluded",
+      "text": "DESC absent;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-16",
+      "family": "schema-engineer-excluded",
+      "text": "EXPLAIN absent;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-17",
+      "family": "schema-engineer-excluded",
+      "text": "DESCRIBE absent id;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-18",
+      "family": "schema-engineer-excluded",
+      "text": "DESC absent 'id%';",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-19",
+      "family": "schema-engineer-excluded",
+      "text": "EXPLAIN SELECT 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-20",
+      "family": "schema-engineer-excluded",
+      "text": "CREATE TABLE t (n INTEGER(1));",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-21",
+      "family": "schema-engineer-excluded",
+      "text": "CREATE TABLE t (n missing_type);",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-22",
+      "family": "schema-engineer-excluded",
+      "text": "CREATE TABLE t (n VARCHAR(20));",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-23",
+      "family": "schema-engineer-excluded",
+      "text": "CREATE TABLE t (n INTEGER DEFAULT 1);",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-24",
+      "family": "schema-engineer-excluded",
+      "text": "CREATE TABLE t AS SELECT 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-25",
+      "family": "schema-engineer-excluded",
+      "text": "CREATE TABLE t (n INTEGER PRIMARY KEY);",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-26",
+      "family": "schema-engineer-excluded",
+      "text": "ALTER TABLE t DROP n;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-27",
+      "family": "schema-engineer-excluded",
+      "text": "ALTER TABLE t ADD n missing_type;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-28",
+      "family": "schema-engineer-excluded",
+      "text": "CREATE VIEW v AS SELECT INTEGER(1);",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-29",
+      "family": "schema-engineer-excluded",
+      "text": "CREATE VIEW v AS SELECT TABLE(1);",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-30",
+      "family": "schema-engineer-excluded",
+      "text": "ALTER VIEW v CHANGE QUERY SELECT QUERY(1);",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-31",
+      "family": "schema-engineer-excluded",
+      "text": "CREATE INDEX i ON t (a(1));",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-32",
+      "family": "schema-engineer-excluded",
+      "text": "CREATE INDEX i ON t (LEFT('x',1));",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-33",
+      "family": "schema-engineer-excluded",
+      "text": "CREATE INDEX i ON t (\"sleep\" /* hidden */ (1));",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-34",
+      "family": "schema-engineer-excluded",
+      "text": "CREATE INDEX i ON t (a) WHERE a>0;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-35",
+      "family": "schema-engineer-excluded",
+      "text": "CREATE UNIQUE INDEX i ON t (a);",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-36",
+      "family": "schema-engineer-excluded",
+      "text": "ALTER INDEX i ON t COMPACT;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-37",
+      "family": "schema-engineer-excluded",
+      "text": "ALTER SERIAL s OWNER TO dba;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-38",
+      "family": "schema-engineer-excluded",
+      "text": "DROP SERIAL s.nextval;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-39",
+      "family": "schema-engineer-excluded",
+      "text": "EVALUATE sleep(1);",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-40",
+      "family": "schema-engineer-excluded",
+      "text": "EVALUATE 1 INTO x;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-41",
+      "family": "schema-engineer-excluded",
+      "text": "EVALUATE @x;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-42",
+      "family": "schema-engineer-excluded",
+      "text": "EVALUATE s.\"nextval\";",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-43",
+      "family": "schema-engineer-excluded",
+      "text": "UPDATE STATISTICS ON ALL CLASSES;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-44",
+      "family": "schema-engineer-excluded",
+      "text": "SET NAMES utf8;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-45",
+      "family": "schema-engineer-excluded",
+      "text": "SET SYSTEM PARAMETERS N'ansi_quotes=no';",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-46",
+      "family": "schema-engineer-excluded",
+      "text": "SET TRACE ON OUTPUT XML;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-47",
+      "family": "schema-engineer-excluded",
+      "text": "SET TRANSACTION ISOLATION LEVEL READ COMMITTED;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-48",
+      "family": "schema-engineer-excluded",
+      "text": "ROLLBACK TO sleep(1);",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-excluded-49",
+      "family": "schema-engineer-excluded",
+      "text": "SAVEPOINT \"sleep\"(1);",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "schema-engineer-original-unicode-mixed-error",
+      "family": "mixed",
+      "text": "-- 가😀\r\nCREATE TABLE \"테이블\" (\"번호\" INTEGER,); EXPLAIN absent; SELECT 1;",
+      "expected": "syntax-error",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true,
+        false,
+        true
+      ]
+    },
+    {
+      "id": "view-reserved-as-is-native-syntax-error",
+      "family": "create-view",
+      "text": "CREATE VIEW v AS SELECT AS(1);",
+      "expected": "syntax-error",
+      "kinds": [],
       "admitted": [
         true
       ]

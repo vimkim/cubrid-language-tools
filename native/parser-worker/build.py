@@ -74,17 +74,21 @@ def main():
     headers = sorted([*source.joinpath("src").rglob("*.h"), *source.joinpath("src").rglob("*.hpp"),
                       *source.joinpath("include").rglob("*.h")])
     header_records = {str(p.relative_to(source)): sha(p) for p in headers}
-    worker_inputs = [HERE / "worker.cpp", HERE / "build.py", HERE / "coverage_keywords.py", *sorted((HERE / "coverage").glob("*.hpp"))]
+    worker_inputs = [HERE / "worker.cpp", HERE / "build.py", HERE / "coverage_keywords.py", HERE / "audit_query_dml.py", HERE / "audit_schema_engineer.py", *sorted((HERE / "coverage").glob("*.hpp"))]
     manifest = {"profile": "cubrid-" + VERSION, "testOnly": args.test_internal_error,
                 "workerInputs": {str(p.relative_to(HERE)): sha(p) for p in worker_inputs},
                 "limits": {"addressSpaceBytes": 512 * 1024 * 1024, "documentBytes": 8 * 1024 * 1024,
                            "frameBytes": 64 * 1024 * 1024, "diagnostics": 256}, "sourceCommit": SOURCE,
                 "nativeVersion": VERSION, "platform": "linux-x86_64", "settings": settings,
                 "host": {"platform": platform.platform(), "libc": platform.libc_ver()},
-                "coverageRevision": "bounded-query-dml-create-serial-v2",
-                "supportedStatementKinds": ["PT_SELECT", "PT_INSERT", "PT_UPDATE", "PT_DELETE", "PT_MERGE", "PT_CREATE_SERIAL"],
+                "coverageRevision": "bounded-query-dml-schema-engineer-v3",
+                "supportedStatementKinds": ["PT_SELECT", "PT_INSERT", "PT_UPDATE", "PT_DELETE", "PT_MERGE", "PT_CREATE_SERIAL", "PT_CREATE_ENTITY", "PT_ALTER", "PT_DROP", "PT_CREATE_INDEX", "PT_ALTER_INDEX", "PT_DROP_INDEX", "PT_ALTER_SERIAL", "PT_DROP_SERIAL", "PT_EVALUATE", "PT_UPDATE_STATS", "PT_SET_SYS_PARAMS", "PT_QUERY_TRACE", "PT_COMMIT_WORK", "PT_ROLLBACK_WORK", "PT_SAVEPOINT"],
                 "grammarInputs": {str(p): sha(p) for p in (source / "src/parser" / name for name in
-                    ("csql_grammar.y", "csql_lexer.l", "keyword.c", "parse_tree.c", "parse_tree_cl.c", "parser_support.c", "name_resolution.c"))},
+                    ("csql_grammar.y", "csql_lexer.l", "keyword.c", "parse_tree.c", "parse_tree_cl.c", "parser_support.c", "name_resolution.c", "parse_dbi.c"))},
+                "helperInputs": {str(source / name): sha(source / name) for name in
+                    ("src/compat/db_macro.c", "src/compat/db.h", "src/object/schema_manager.c",
+                     "src/object/object_primitive.c", "src/base/error_manager.c",
+                     "src/base/language_support.c", "src/base/system_parameter.c")},
                 "source": str(source), "library": str(library), "runtimePrefix": str(prefix),
                 "files": {str(p.resolve(strict=True)): sha(p) for p in files},
                 "generatedHeaders": {str(p): sha(p) for p in build_headers},

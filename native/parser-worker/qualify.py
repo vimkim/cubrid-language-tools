@@ -42,7 +42,9 @@ def main():
     if any(case["response"]["status"] != case["expected"]
            or case["response"]["statementKinds"] != case["kinds"]
            or [d["admitted"] for d in case["response"]["coverageDecisions"]] != case["admitted"]
-           or len(case["response"]["nativeObservations"]) != sum(case["admitted"]) for case in cases):
+           or len(case["response"]["nativeObservations"]) != sum(case["admitted"])
+           or not case["response"].get("syntaxSettingsUnchanged")
+           or any(o["nativeErrorId"] != 0 for o in case["response"]["nativeObservations"]) for case in cases):
         raise RuntimeError("qualification fixture failed")
     trace = trace_path.read_text()
     network = [line for line in trace.splitlines() if re.search(r"\b(socket|socketpair|connect|bind|listen|accept|sendto|recvfrom|sendmsg|recvmsg)\(", line)]
@@ -57,8 +59,9 @@ def main():
     report = {"command": command, "initialize": responses[0], "cases": cases,
               "evidenceSha256": {str(path.relative_to(HERE)): hashlib.sha256(path.read_bytes()).hexdigest()
                                  for path in (HERE / "qualification/corpus.json", HERE / "qualification/query-dml-reductions.json",
-                                              HERE / "audit_query_dml.py", HERE / "coverage_keywords.py",
-                                              HERE / "AUDIT.md", HERE / "QUERY_DML_AUDIT.md")},
+                                              HERE / "qualification/schema-engineer-reductions.json", HERE / "qualification/rejected-candidates.json",
+                                              HERE / "audit_query_dml.py", HERE / "audit_schema_engineer.py", HERE / "coverage_keywords.py",
+                                              HERE / "AUDIT.md", HERE / "QUERY_DML_AUDIT.md", HERE / "SCHEMA_ENGINEER_AUDIT.md")},
               "trace": {"sha256": hashlib.sha256(trace_path.read_bytes()).hexdigest(),
                         "networkCalls": network, "executions": executions, "descendants": descendants,
                         "writableOpens": writable, "externalWritableOpens": outside},

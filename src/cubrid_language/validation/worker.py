@@ -324,12 +324,15 @@ class NativeWorker:
                 for key in ("treeCount", "errorCount", "partialStackCount"):
                     if type(observation[key]) is not int or observation[key] < 0:
                         raise ValueError("invalid native observation count")
+                if type(observation["nativeErrorId"]) is not int:
+                    raise ValueError("invalid native error-manager observation")
                 if observation["hasTree"] != (observation["treeCount"] > 0):
                     raise ValueError("native tree flag contradicts tree count")
                 if (observation["treeCount"] > 1 or (not observation["errorCount"]
                         and observation["treeCount"] != 1)) and not any(d.category == "tool" for d in diagnostics):
                     raise ValueError("missing or partial native trees have no tool diagnostic")
-                internal = observation["hasInternalError"] or (observation["hasError"] and not observation["errorCount"])
+                internal = (observation["hasInternalError"] or observation["nativeErrorId"] != 0
+                            or (observation["hasError"] and not observation["errorCount"]))
                 if internal and not any(d.category == "tool" for d in diagnostics):
                     raise ValueError("internal error has no tool diagnostic")
                 if observation["errorCount"] and not any(d.category in ("syntax", "tool") for d in diagnostics):

@@ -2,16 +2,24 @@
 
 This separately built Linux x86-64 executable qualifies only
 **cubrid-11.5.0.2704-cc94778**, with coverage revision
-**bounded-query-dml-create-serial-v2**.
+**bounded-query-dml-schema-engineer-v3**.
 It checks parser-stage syntax without a database connection or submitted-SQL
 execution. Bounded SELECT, joins, integer arithmetic/comparisons, nonrecursive
 CTEs/subqueries, INSERT, UPDATE, DELETE, MERGE and the original CREATE SERIAL
-subset are qualified. Functions, hints and unknown features return unsupported
+subset are qualified. Bounded TABLE/VIEW/INDEX/SERIAL DDL, EVALUATE,
+UPDATE STATISTICS, SHOW TRACE, SET SYSTEM PARAMETERS, SET TRACE and
+COMMIT/ROLLBACK/SAVEPOINT are also qualified.
+DESCRIBE/DESC/EXPLAIN and SHOW COLUMNS remain unsupported: their shared helper
+reports a native not-connected error in this exact offline runtime.
+**Ticket 07 remains an incomplete checkpoint pending that scope decision.**
+Functions, hints and unknown features return unsupported
 coverage before native parsing. An admitted token
 sequence must still pass the native parser, error flags and tree checks.
 
 Read [AUDIT.md](AUDIT.md) for the pinned-source reachable-action/settings review,
-[QUERY_DML_AUDIT.md](QUERY_DML_AUDIT.md) for the exact expanded limits and reductions,
+[QUERY_DML_AUDIT.md](QUERY_DML_AUDIT.md) for query/DML limits,
+[SCHEMA_ENGINEER_AUDIT.md](SCHEMA_ENGINEER_AUDIT.md) for schema/engineer bounds
+and the concrete description blocker,
 [notices/README.md](notices/README.md) for retained licenses and runtime inventory,
 and [qualification/results.json](qualification/results.json) for actual fixtures
 and trace limits. The Python distribution contains the adapter; native binaries
@@ -137,7 +145,10 @@ Unknown profiles are U1001 unsupported results. Missing worker/manifest/assets
 are T1001. Native crashes, deadlines, malformed or contradictory responses,
 manifest/asset digest failures, internal flags and incomplete trees are T1002.
 Invalid Unicode/UTF-8, NUL, configuration and document-size failures are T1003.
-Ordinary errors in these audited productions are S1001. Syntax and unsupported
+Ordinary parser errors in these audited productions are S1001. Each admitted
+observation includes an integer nativeErrorId. Any nonzero native error-manager
+value yields T1002, even when a tree has no parser error. Every parse request
+checks the actual qualified syntax settings before and after parsing. Syntax and unsupported
 diagnostics can coexist; priority is tool-error, syntax-error, unsupported, valid.
 Empty text passes only after runtime/profile availability succeeds.
 
@@ -159,7 +170,7 @@ cancellation or active close uses kill/reap of the owned PID only. Abrupt native
 termination can leave its private temporary directory; the client never sweeps
 /tmp or signals descendants/unrelated processes.
 
-The retained strace covers network/process/openat calls for 179 listed fixtures:
+The retained strace covers network/process/openat calls for 325 listed fixtures:
 one worker execution, no descendants, no network calls and no external writable
 opens. Ordinary system library/locale files can be read. This observation is
 corpus-specific and is not an operating-system sandbox or a proof for other SQL.

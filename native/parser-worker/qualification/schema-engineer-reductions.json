@@ -1,0 +1,8741 @@
+{
+  "sourceCommit": "cc947788d3b7dc402f46192d0f3299ddcc8563ba",
+  "grammarSha256": "29ae75dd8cb2efbecf484ab118cf4812ca25bf4ae59d8fc73a438e71766608f2",
+  "boundInputs": {
+    "source/src/parser/parse_tree.c": "602fee0eafbe850d4606e161f355a41a802ed8a9a7deed28dab3ddb4957eceef",
+    "source/src/parser/parse_tree_cl.c": "33f9d59527b6e9eb11e49e0d81b0f4a7cbcf1495c39e69c806674fae9d4c2a19",
+    "source/src/parser/parser_support.c": "1f248e686c0a3f383a0f817ac9d69470404a5a3ad97784ead752f739cea87abb",
+    "source/src/parser/parse_dbi.c": "3989ec0807bccb80d922e2d5d6ed977fdc2896aa87ce4f58964c5d96ad0e5317",
+    "source/src/compat/db_macro.c": "863174c5486d535826af541147f762b550d831441dc2e919f713d0b710bb9cd9",
+    "source/src/compat/db.h": "33b0fd5a37b2e305de4e702e06af6a740f019e795513eb4e14e1a5bbeccca607",
+    "source/src/object/schema_manager.c": "0f1a87c0a83ddcb3a24d6dd603a8468e8a40b773fcd3621f2161663140c2b9e0",
+    "source/src/object/object_primitive.c": "7a5e5af360a707e1337e192b36bd2d9faddfd221e190bd41ff7539910b59ec83",
+    "source/src/parser/csql_lexer.l": "f1bb1fce3b355dc8cd85d12cc597e68cf006ec1291865408ae3cd1d53bdb1322",
+    "source/src/parser/keyword.c": "ab589cfc38e8f90abe123583f8cdb8a89b2ef96340a20a131350393706d81046",
+    "source/src/base/language_support.c": "b6277a7a27bae6383f9b6fa865e4ad96b799adbdc7e1944752511396fcf8ef95",
+    "source/src/base/system_parameter.c": "433e77b685d28ffee0917672c27bcbebfe8544f7ea4c7e38a6990482ff77efed",
+    "source/src/base/error_manager.c": "d3c15d578482183e7e86fa17b87d303e989f2702774cd95b926e93706a79b009",
+    "source/src/parser/name_resolution.c": "681551ae8b99ef23c1a974517fbc8a98890994bbe1fb15baab784e22c1e4eaab",
+    "audit_schema_engineer.py": "9ed5b978c102d09da7ba551bc4aef722cf830e1bd14f30fb820e4263dbe6fffb",
+    "audit_query_dml.py": "c7a26cae2cec1f162a036e827a732c89369a17ca156f4a78f8df39d4e4843cec",
+    "coverage/create_serial.hpp": "fe237d5363b24723f8728e15d1c918950024249dd335525fac09a30b86f3d1aa",
+    "coverage/keywords.hpp": "41a58777a74930309b95a3678d78bd4d004f96f1f21c686a351d7636c90f33f2",
+    "coverage/literal_select.hpp": "d141888c5dd22ab6eb7f8056c30300b66d76b2ec9e3a14e520f274f244ca3850",
+    "coverage/query_dml.hpp": "63d3abb63120bdcfc2b47f1b7887e126c03ae8aedb86c9fd6ebd48fb53b025a3",
+    "coverage/registry.hpp": "5b38fa1874e526d2f233f704a48b1c5c43d44335da7d2d971b481a8cfab4146e",
+    "coverage/scan.hpp": "dc959fba64994f10ba5734853460394c7664c28e6957c70e8b86d358e0ebce2b",
+    "coverage/schema_engineer.hpp": "68da5ef7a835bb755be6e5c6880665ad9fe3e00e62b179cb047ab495a920f278"
+  },
+  "families": {
+    "create-table": {
+      "root": "stmt_done",
+      "terminals": [
+        "'('",
+        "')'",
+        "','",
+        "BIGINT",
+        "BacktickDelimitedIdName",
+        "BracketDelimitedIdName",
+        "CREATE",
+        "DelimitedIdName",
+        "INTEGER",
+        "IdName",
+        "SEMICOLON",
+        "SmallInt",
+        "TABLE"
+      ],
+      "nonterminals": [
+        "attr_def",
+        "attr_def_one",
+        "class_name",
+        "class_name_without_dot",
+        "class_or_normal_attr_def",
+        "class_or_normal_attr_def_list",
+        "create_stmt",
+        "data_type",
+        "identifier",
+        "identifier_without_dot",
+        "object_name",
+        "of_class_table_type",
+        "opt_attr_ordering_info",
+        "opt_class_attr_def_list",
+        "opt_class_or_normal_attr_def_list",
+        "opt_constraint_list_and_opt_column_comment",
+        "opt_create_as_clause",
+        "opt_hint_list",
+        "opt_identity",
+        "opt_if_not_exists",
+        "opt_inherit_resolution_list",
+        "opt_method_def_list",
+        "opt_method_files",
+        "opt_padding",
+        "opt_partition_clause",
+        "opt_subtable_clause",
+        "opt_table_option_list",
+        "primitive_type",
+        "stmt",
+        "stmt_",
+        "stmt_done",
+        "stmt_list",
+        "user_specified_name",
+        "user_specified_name_without_dot"
+      ],
+      "reductionIds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "admission": "bounded predicate, manual context proof required"
+    },
+    "alter-table": {
+      "root": "stmt_done",
+      "terminals": [
+        "'('",
+        "')'",
+        "','",
+        "ADD",
+        "ALTER",
+        "BIGINT",
+        "BacktickDelimitedIdName",
+        "BracketDelimitedIdName",
+        "COLUMN",
+        "DelimitedIdName",
+        "INTEGER",
+        "IdName",
+        "SEMICOLON",
+        "SmallInt",
+        "TABLE"
+      ],
+      "nonterminals": [
+        "alter_add_clause_cubrid_specific",
+        "alter_add_clause_for_alter_list",
+        "alter_clause_cubrid_specific",
+        "alter_clause_for_alter_list",
+        "alter_clause_list",
+        "alter_stmt",
+        "attr_def",
+        "attr_def_list",
+        "attr_def_list_with_commas",
+        "attr_def_one",
+        "class_name",
+        "data_type",
+        "identifier",
+        "object_name",
+        "only_class_name",
+        "opt_attr_ordering_info",
+        "opt_class_type",
+        "opt_constraint_list_and_opt_column_comment",
+        "opt_hint_list",
+        "opt_identity",
+        "opt_of_column_attribute",
+        "opt_padding",
+        "opt_resolution_list_for_alter",
+        "prepare_alter_node",
+        "primitive_type",
+        "stmt",
+        "stmt_",
+        "stmt_done",
+        "stmt_list",
+        "user_specified_name"
+      ],
+      "reductionIds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        10,
+        12,
+        14,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        43,
+        44,
+        45,
+        46
+      ],
+      "admission": "bounded predicate, manual context proof required"
+    },
+    "create-view": {
+      "root": "stmt_done",
+      "terminals": [
+        "'('",
+        "')'",
+        "'*'",
+        "'+'",
+        "','",
+        "'-'",
+        "'.'",
+        "'/'",
+        "'<'",
+        "'='",
+        "'>'",
+        "AND",
+        "AS",
+        "BacktickDelimitedIdName",
+        "BracketDelimitedIdName",
+        "CHAR_STRING",
+        "COMP_GE",
+        "COMP_LE",
+        "COMP_NOT_EQ",
+        "CREATE",
+        "CROSS",
+        "DISTINCT",
+        "DOT",
+        "DelimitedIdName",
+        "EXISTS",
+        "FROM",
+        "INNER",
+        "IS",
+        "IdName",
+        "JOIN",
+        "LEFT",
+        "NOT",
+        "Null",
+        "ON_",
+        "OR",
+        "OUTER",
+        "RIGHT",
+        "SELECT",
+        "SEMICOLON",
+        "UNSIGNED_INTEGER",
+        "VIEW",
+        "WHERE",
+        "WITH"
+      ],
+      "nonterminals": [
+        "alias_enabled_expression_",
+        "alias_enabled_expression_list",
+        "alias_enabled_expression_list_top",
+        "all_distinct",
+        "attr_def",
+        "attr_def_one",
+        "boolean_factor",
+        "boolean_term",
+        "boolean_term_is",
+        "boolean_term_xor",
+        "char_string",
+        "char_string_literal",
+        "class_name",
+        "class_name_without_dot",
+        "class_spec",
+        "column_constraint_and_comment_def",
+        "column_null_constraint_def",
+        "comp_op",
+        "constraint_list_and_column_comment",
+        "create_stmt",
+        "csql_query",
+        "csql_query_select_has_no_with_clause",
+        "cte_definition",
+        "cte_definition_list",
+        "cte_query_list",
+        "data_type",
+        "esql_query_stmt",
+        "expression_",
+        "expression_add_sub",
+        "expression_bitand",
+        "expression_bitor",
+        "expression_bitshift",
+        "expression_list",
+        "expression_queue",
+        "expression_strcat",
+        "extended_table_spec_list",
+        "factor",
+        "factor_",
+        "generic_function",
+        "generic_function_id",
+        "identifier",
+        "identifier_list",
+        "identifier_without_dot",
+        "join_condition",
+        "join_table_spec",
+        "literal_w_o_param",
+        "normal_expression",
+        "null_op",
+        "object_name",
+        "of_view_vclass",
+        "only_all_class_spec",
+        "only_all_class_spec_list",
+        "only_class_name",
+        "opt_as",
+        "opt_as_identifier",
+        "opt_as_identifier_attr_name",
+        "opt_as_query_list",
+        "opt_attr_ordering_info",
+        "opt_bracketed_identifier_list",
+        "opt_class_attr_def_list",
+        "opt_collation",
+        "opt_comment_spec",
+        "opt_constraint_attr_list",
+        "opt_constraint_id",
+        "opt_constraint_list_and_opt_column_comment",
+        "opt_expression_list",
+        "opt_for_update_clause",
+        "opt_from_clause",
+        "opt_groupby_clause",
+        "opt_having_clause",
+        "opt_hint_list",
+        "opt_identity",
+        "opt_inherit_resolution_list",
+        "opt_method_def_list",
+        "opt_method_files",
+        "opt_of_all_some_any",
+        "opt_of_inner_left_right",
+        "opt_on_target",
+        "opt_or_replace",
+        "opt_orderby_clause",
+        "opt_outer",
+        "opt_paren_plus",
+        "opt_paren_view_attr_def_list",
+        "opt_partition_spec",
+        "opt_recursive",
+        "opt_select_limit_clause",
+        "opt_select_param_list",
+        "opt_startwith_connectby_clause",
+        "opt_subtable_clause",
+        "opt_table_spec_index_hint_list",
+        "opt_using_index_clause",
+        "opt_vclass_comment_spec",
+        "opt_where_clause",
+        "opt_with_clause",
+        "opt_with_increment_clause",
+        "opt_with_levels_clause",
+        "opt_with_rollup",
+        "original_table_spec",
+        "paren_plus",
+        "path_dot",
+        "path_expression",
+        "path_header",
+        "path_id",
+        "path_id_list",
+        "pred_lhs",
+        "predicate",
+        "predicate_expr_sub",
+        "predicate_expression",
+        "primary",
+        "primary_w_collate",
+        "primitive_type",
+        "query_list",
+        "reserved_func",
+        "search_condition",
+        "search_condition_expression",
+        "search_condition_query",
+        "select_expression",
+        "select_expression_opt_with",
+        "select_list",
+        "select_or_subquery",
+        "select_stmt",
+        "stmt",
+        "stmt_",
+        "stmt_done",
+        "stmt_list",
+        "subquery",
+        "table_spec",
+        "term",
+        "unsigned_integer",
+        "user_specified_name",
+        "user_specified_name_without_dot",
+        "view_attr_def",
+        "view_attr_def_list"
+      ],
+      "reductionIds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        68,
+        69,
+        9,
+        53,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        10,
+        100,
+        11,
+        12,
+        13,
+        14,
+        101,
+        102,
+        103,
+        104,
+        17,
+        18,
+        19,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        25,
+        114,
+        115,
+        26,
+        116,
+        117,
+        118,
+        119,
+        30,
+        31,
+        32,
+        33,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143,
+        34,
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        157,
+        158,
+        159,
+        160,
+        161,
+        162,
+        163,
+        164,
+        165,
+        166,
+        167,
+        168,
+        169,
+        170,
+        171,
+        172,
+        173,
+        174,
+        175,
+        176,
+        177,
+        178,
+        179,
+        180,
+        181,
+        182,
+        183,
+        184,
+        185,
+        186,
+        187,
+        188,
+        189,
+        190,
+        191,
+        192,
+        193,
+        194,
+        195,
+        196,
+        197,
+        198,
+        199,
+        200,
+        201,
+        202,
+        203,
+        204,
+        205,
+        206,
+        207,
+        208,
+        209,
+        210,
+        211,
+        212,
+        213,
+        214,
+        215,
+        216,
+        217,
+        218,
+        219,
+        220,
+        221,
+        222,
+        223,
+        224,
+        225,
+        226,
+        227,
+        228,
+        229,
+        230,
+        231,
+        232,
+        233,
+        234,
+        235,
+        236,
+        35,
+        39,
+        40,
+        237,
+        238,
+        239,
+        240,
+        241,
+        242,
+        243,
+        244,
+        245,
+        246,
+        42,
+        43,
+        44,
+        45,
+        46,
+        247,
+        248,
+        249,
+        250,
+        251
+      ],
+      "admission": "bounded predicate, manual context proof required"
+    },
+    "alter-view": {
+      "root": "stmt_done",
+      "terminals": [
+        "'('",
+        "')'",
+        "'*'",
+        "'+'",
+        "','",
+        "'-'",
+        "'.'",
+        "'/'",
+        "'<'",
+        "'='",
+        "'>'",
+        "ALTER",
+        "AND",
+        "AS",
+        "BacktickDelimitedIdName",
+        "BracketDelimitedIdName",
+        "CHANGE",
+        "CHAR_STRING",
+        "COMP_GE",
+        "COMP_LE",
+        "COMP_NOT_EQ",
+        "CROSS",
+        "DISTINCT",
+        "DOT",
+        "DelimitedIdName",
+        "EXISTS",
+        "FROM",
+        "INNER",
+        "IS",
+        "IdName",
+        "JOIN",
+        "LEFT",
+        "NOT",
+        "Null",
+        "ON_",
+        "OR",
+        "OUTER",
+        "QUERY",
+        "RIGHT",
+        "SELECT",
+        "SEMICOLON",
+        "UNSIGNED_INTEGER",
+        "VIEW",
+        "WHERE",
+        "WITH"
+      ],
+      "nonterminals": [
+        "alias_enabled_expression_",
+        "alias_enabled_expression_list",
+        "alias_enabled_expression_list_top",
+        "all_distinct",
+        "alter_change_clause_cubrid_specific",
+        "alter_change_clause_for_alter_list",
+        "alter_clause_cubrid_specific",
+        "alter_clause_for_alter_list",
+        "alter_clause_list",
+        "alter_stmt",
+        "attr_def_one",
+        "boolean_factor",
+        "boolean_term",
+        "boolean_term_is",
+        "boolean_term_xor",
+        "char_string",
+        "char_string_literal",
+        "class_name",
+        "class_spec",
+        "column_constraint_and_comment_def",
+        "column_null_constraint_def",
+        "comp_op",
+        "constraint_list_and_column_comment",
+        "csql_query",
+        "csql_query_select_has_no_with_clause",
+        "cte_definition",
+        "cte_definition_list",
+        "cte_query_list",
+        "data_type",
+        "esql_query_stmt",
+        "expression_",
+        "expression_add_sub",
+        "expression_bitand",
+        "expression_bitor",
+        "expression_bitshift",
+        "expression_list",
+        "expression_queue",
+        "expression_strcat",
+        "extended_table_spec_list",
+        "factor",
+        "factor_",
+        "generic_function",
+        "generic_function_id",
+        "identifier",
+        "identifier_list",
+        "join_condition",
+        "join_table_spec",
+        "literal_w_o_param",
+        "normal_column_or_class_attribute",
+        "normal_expression",
+        "null_op",
+        "object_name",
+        "only_all_class_spec",
+        "only_all_class_spec_list",
+        "only_class_name",
+        "opt_as",
+        "opt_as_identifier",
+        "opt_as_identifier_attr_name",
+        "opt_attr_ordering_info",
+        "opt_bracketed_identifier_list",
+        "opt_class_type",
+        "opt_collation",
+        "opt_constraint_attr_list",
+        "opt_constraint_id",
+        "opt_constraint_list_and_opt_column_comment",
+        "opt_expression_list",
+        "opt_for_update_clause",
+        "opt_from_clause",
+        "opt_groupby_clause",
+        "opt_having_clause",
+        "opt_hint_list",
+        "opt_identity",
+        "opt_of_all_some_any",
+        "opt_of_column_attribute",
+        "opt_of_inner_left_right",
+        "opt_on_target",
+        "opt_orderby_clause",
+        "opt_outer",
+        "opt_paren_plus",
+        "opt_partition_spec",
+        "opt_recursive",
+        "opt_select_limit_clause",
+        "opt_select_param_list",
+        "opt_startwith_connectby_clause",
+        "opt_table_spec_index_hint_list",
+        "opt_using_index_clause",
+        "opt_vclass_comment_spec",
+        "opt_where_clause",
+        "opt_with_clause",
+        "opt_with_increment_clause",
+        "opt_with_rollup",
+        "original_table_spec",
+        "paren_plus",
+        "path_dot",
+        "path_expression",
+        "path_header",
+        "path_id",
+        "path_id_list",
+        "pred_lhs",
+        "predicate",
+        "predicate_expr_sub",
+        "predicate_expression",
+        "prepare_alter_node",
+        "primary",
+        "primary_w_collate",
+        "primitive_type",
+        "reserved_func",
+        "search_condition",
+        "search_condition_expression",
+        "search_condition_query",
+        "select_expression",
+        "select_expression_opt_with",
+        "select_list",
+        "select_or_subquery",
+        "select_stmt",
+        "stmt",
+        "stmt_",
+        "stmt_done",
+        "stmt_list",
+        "subquery",
+        "table_spec",
+        "term",
+        "unsigned_integer",
+        "user_specified_name",
+        "view_or_vclass"
+      ],
+      "reductionIds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        47,
+        68,
+        48,
+        49,
+        252,
+        253,
+        50,
+        51,
+        52,
+        53,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        10,
+        12,
+        14,
+        101,
+        54,
+        254,
+        255,
+        256,
+        62,
+        257,
+        258,
+        259,
+        260,
+        102,
+        103,
+        104,
+        114,
+        115,
+        31,
+        32,
+        33,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143,
+        34,
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        157,
+        158,
+        159,
+        160,
+        161,
+        162,
+        163,
+        164,
+        165,
+        166,
+        167,
+        168,
+        169,
+        170,
+        171,
+        172,
+        173,
+        174,
+        175,
+        176,
+        177,
+        178,
+        179,
+        180,
+        181,
+        182,
+        183,
+        184,
+        185,
+        186,
+        187,
+        188,
+        189,
+        190,
+        191,
+        192,
+        193,
+        194,
+        195,
+        196,
+        197,
+        198,
+        199,
+        200,
+        201,
+        202,
+        203,
+        204,
+        205,
+        206,
+        207,
+        208,
+        209,
+        210,
+        211,
+        212,
+        213,
+        214,
+        215,
+        216,
+        217,
+        218,
+        219,
+        220,
+        221,
+        222,
+        223,
+        224,
+        225,
+        226,
+        227,
+        228,
+        229,
+        230,
+        231,
+        232,
+        233,
+        234,
+        235,
+        236,
+        35,
+        39,
+        40,
+        237,
+        238,
+        240,
+        241,
+        242,
+        243,
+        244,
+        245,
+        246,
+        43,
+        44,
+        45,
+        46,
+        247,
+        248,
+        249,
+        250,
+        251
+      ],
+      "admission": "bounded predicate, manual context proof required"
+    },
+    "drop-entity": {
+      "root": "stmt_done",
+      "terminals": [
+        "','",
+        "BacktickDelimitedIdName",
+        "BracketDelimitedIdName",
+        "DROP",
+        "DelimitedIdName",
+        "IdName",
+        "SEMICOLON",
+        "TABLE",
+        "VIEW"
+      ],
+      "nonterminals": [
+        "class_spec_list",
+        "class_spec_without_server_name",
+        "drop_stmt",
+        "identifier",
+        "object_name",
+        "only_all_class_spec",
+        "only_class_name",
+        "opt_cascade_constraints",
+        "opt_class_type",
+        "opt_if_exists",
+        "opt_partition_spec",
+        "stmt",
+        "stmt_",
+        "stmt_done",
+        "stmt_list",
+        "user_specified_name"
+      ],
+      "reductionIds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        261,
+        53,
+        262,
+        263,
+        264,
+        265,
+        98,
+        10,
+        12,
+        101,
+        54,
+        254,
+        55,
+        266,
+        267,
+        43,
+        44,
+        45,
+        46
+      ],
+      "admission": "bounded predicate, manual context proof required"
+    },
+    "create-index": {
+      "root": "stmt_done",
+      "terminals": [
+        "'('",
+        "')'",
+        "','",
+        "ASC",
+        "BacktickDelimitedIdName",
+        "BracketDelimitedIdName",
+        "CREATE",
+        "DESC",
+        "DelimitedIdName",
+        "INDEX",
+        "IdName",
+        "ON_",
+        "SEMICOLON"
+      ],
+      "nonterminals": [
+        "boolean_factor",
+        "boolean_term",
+        "boolean_term_is",
+        "boolean_term_xor",
+        "class_name",
+        "create_stmt",
+        "expression_",
+        "expression_add_sub",
+        "expression_bitand",
+        "expression_bitor",
+        "expression_bitshift",
+        "expression_list",
+        "expression_queue",
+        "expression_strcat",
+        "factor",
+        "factor_",
+        "generic_function",
+        "generic_function_id",
+        "identifier",
+        "index_column_name_list",
+        "normal_expression",
+        "object_name",
+        "of_describe_desc_explain",
+        "only_class_name",
+        "opt_collation",
+        "opt_comment_spec",
+        "opt_expression_list",
+        "opt_hint_list",
+        "opt_index_with_clause",
+        "opt_invisible",
+        "opt_nulls_first_or_last",
+        "opt_on_target",
+        "opt_orderby_clause",
+        "opt_reverse",
+        "opt_unique",
+        "opt_where_clause",
+        "path_expression",
+        "path_header",
+        "path_id",
+        "path_id_list",
+        "predicate",
+        "primary",
+        "primary_w_collate",
+        "search_condition",
+        "search_condition_expression",
+        "search_condition_query",
+        "show_stmt",
+        "sort_spec",
+        "sort_spec_list",
+        "stmt",
+        "stmt_",
+        "stmt_done",
+        "stmt_list",
+        "term",
+        "user_specified_name"
+      ],
+      "reductionIds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        268,
+        269,
+        9,
+        53,
+        270,
+        271,
+        272,
+        273,
+        10,
+        12,
+        14,
+        274,
+        275,
+        276,
+        34,
+        154,
+        155,
+        156,
+        157,
+        166,
+        277,
+        278,
+        279,
+        280,
+        281,
+        282,
+        168,
+        170,
+        171,
+        172,
+        173,
+        174,
+        177,
+        180,
+        181,
+        182,
+        185,
+        188,
+        189,
+        190,
+        192,
+        193,
+        196,
+        197,
+        198,
+        199,
+        200,
+        201,
+        203,
+        204,
+        205,
+        207,
+        209,
+        211,
+        230,
+        232,
+        233,
+        235,
+        236,
+        237,
+        283,
+        239,
+        43,
+        44,
+        45,
+        46
+      ],
+      "admission": "bounded predicate, manual context proof required"
+    },
+    "alter-index": {
+      "root": "stmt_done",
+      "terminals": [
+        "ALTER",
+        "BacktickDelimitedIdName",
+        "BracketDelimitedIdName",
+        "DelimitedIdName",
+        "INDEX",
+        "IdName",
+        "ON_",
+        "REBUILD",
+        "SEMICOLON"
+      ],
+      "nonterminals": [
+        "alter_stmt",
+        "identifier",
+        "object_name",
+        "only_class_name",
+        "opt_comment_spec",
+        "opt_hint_list",
+        "opt_reverse",
+        "opt_unique",
+        "stmt",
+        "stmt_",
+        "stmt_done",
+        "stmt_list",
+        "user_specified_name"
+      ],
+      "reductionIds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        47,
+        284,
+        53,
+        270,
+        271,
+        10,
+        12,
+        34,
+        239,
+        43,
+        44,
+        45,
+        46,
+        285
+      ],
+      "admission": "bounded predicate, manual context proof required"
+    },
+    "drop-index": {
+      "root": "stmt_done",
+      "terminals": [
+        "BacktickDelimitedIdName",
+        "BracketDelimitedIdName",
+        "DROP",
+        "DelimitedIdName",
+        "INDEX",
+        "IdName",
+        "ON_",
+        "SEMICOLON"
+      ],
+      "nonterminals": [
+        "class_spec_list",
+        "class_spec_without_server_name",
+        "drop_stmt",
+        "identifier",
+        "object_name",
+        "only_all_class_spec",
+        "only_class_name",
+        "opt_cascade_constraints",
+        "opt_class_type",
+        "opt_hint_list",
+        "opt_if_exists",
+        "opt_index_column_name_list",
+        "opt_partition_spec",
+        "opt_reverse",
+        "opt_unique",
+        "stmt",
+        "stmt_",
+        "stmt_done",
+        "stmt_list",
+        "user_specified_name"
+      ],
+      "reductionIds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        261,
+        53,
+        262,
+        286,
+        270,
+        271,
+        287,
+        264,
+        265,
+        98,
+        10,
+        12,
+        101,
+        54,
+        266,
+        267,
+        34,
+        43,
+        44,
+        45,
+        46
+      ],
+      "admission": "bounded predicate, manual context proof required"
+    },
+    "alter-serial": {
+      "root": "stmt_done",
+      "terminals": [
+        "'+'",
+        "'-'",
+        "ALTER",
+        "BY",
+        "BacktickDelimitedIdName",
+        "BracketDelimitedIdName",
+        "CACHE",
+        "CHAR_STRING",
+        "COMMENT",
+        "CYCLE",
+        "DelimitedIdName",
+        "INCREMENT",
+        "IdName",
+        "MAXVALUE",
+        "MINVALUE",
+        "NOCACHE",
+        "NOCYCLE",
+        "NOMAXVALUE",
+        "NOMINVALUE",
+        "SEMICOLON",
+        "SERIAL",
+        "START_",
+        "UNSIGNED_INTEGER",
+        "WITH"
+      ],
+      "nonterminals": [
+        "alter_clause_for_alter_list",
+        "alter_clause_list",
+        "alter_stmt",
+        "char_string",
+        "char_string_literal",
+        "class_comment_spec",
+        "comment_value",
+        "identifier",
+        "integer_text",
+        "object_name",
+        "of_cached_num",
+        "of_cycle_nocycle",
+        "of_serial_option",
+        "only_class_name",
+        "opt_class_type",
+        "opt_comment_spec",
+        "opt_equalsign",
+        "opt_hint_list",
+        "opt_plus",
+        "opt_serial_option_list_or_owner_clause",
+        "serial_increment",
+        "serial_max",
+        "serial_min",
+        "serial_name",
+        "serial_option_list",
+        "serial_start",
+        "stmt",
+        "stmt_",
+        "stmt_done",
+        "stmt_list",
+        "unsigned_int32",
+        "user_specified_name"
+      ],
+      "reductionIds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        47,
+        288,
+        289,
+        290,
+        291,
+        292,
+        293,
+        294,
+        295,
+        296,
+        297,
+        49,
+        298,
+        51,
+        53,
+        10,
+        12,
+        299,
+        54,
+        300,
+        301,
+        302,
+        303,
+        304,
+        305,
+        306,
+        307,
+        308,
+        309,
+        310,
+        311,
+        312,
+        313,
+        314,
+        34,
+        315,
+        316,
+        239,
+        317,
+        318,
+        43,
+        44,
+        45,
+        46,
+        319,
+        320,
+        321,
+        322,
+        323,
+        324,
+        325,
+        326,
+        327,
+        328,
+        329,
+        247,
+        248,
+        249,
+        330
+      ],
+      "admission": "bounded predicate, manual context proof required"
+    },
+    "drop-serial": {
+      "root": "stmt_done",
+      "terminals": [
+        "BacktickDelimitedIdName",
+        "BracketDelimitedIdName",
+        "DROP",
+        "DelimitedIdName",
+        "IdName",
+        "SEMICOLON",
+        "SERIAL"
+      ],
+      "nonterminals": [
+        "class_spec_list",
+        "class_spec_without_server_name",
+        "drop_stmt",
+        "identifier",
+        "object_name",
+        "only_all_class_spec",
+        "only_class_name",
+        "opt_cascade_constraints",
+        "opt_class_type",
+        "opt_if_exists",
+        "opt_partition_spec",
+        "serial_name",
+        "stmt",
+        "stmt_",
+        "stmt_done",
+        "stmt_list",
+        "user_specified_name"
+      ],
+      "reductionIds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        261,
+        53,
+        262,
+        331,
+        264,
+        265,
+        98,
+        10,
+        12,
+        299,
+        101,
+        54,
+        266,
+        267,
+        43,
+        44,
+        45,
+        46,
+        328
+      ],
+      "admission": "bounded predicate, manual context proof required"
+    },
+    "describe": {
+      "root": "stmt_done",
+      "terminals": [
+        "BacktickDelimitedIdName",
+        "BracketDelimitedIdName",
+        "CHAR_STRING",
+        "DESC",
+        "DESCRIBE",
+        "DelimitedIdName",
+        "EXPLAIN",
+        "IdName",
+        "SEMICOLON"
+      ],
+      "nonterminals": [
+        "char_string",
+        "char_string_literal",
+        "class_name",
+        "identifier",
+        "object_name",
+        "of_describe_desc_explain",
+        "show_stmt",
+        "stmt",
+        "stmt_",
+        "stmt_done",
+        "stmt_list",
+        "user_specified_name"
+      ],
+      "reductionIds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        268,
+        10,
+        12,
+        14,
+        274,
+        275,
+        332,
+        333,
+        276,
+        334,
+        43,
+        44,
+        45,
+        46,
+        335,
+        247,
+        248,
+        249
+      ],
+      "admission": "rejected: disconnected value-clone helper"
+    },
+    "show-columns": {
+      "root": "stmt_done",
+      "terminals": [
+        "BacktickDelimitedIdName",
+        "BracketDelimitedIdName",
+        "COLUMNS",
+        "DelimitedIdName",
+        "FROM",
+        "IdName",
+        "SEMICOLON",
+        "SHOW"
+      ],
+      "nonterminals": [
+        "class_name",
+        "identifier",
+        "object_name",
+        "of_from_in",
+        "opt_full",
+        "show_stmt",
+        "stmt",
+        "stmt_",
+        "stmt_done",
+        "stmt_list",
+        "user_specified_name"
+      ],
+      "reductionIds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        268,
+        10,
+        12,
+        14,
+        336,
+        337,
+        338,
+        43,
+        44,
+        45,
+        46,
+        339,
+        340
+      ],
+      "admission": "rejected: disconnected value-clone helper"
+    },
+    "show-trace": {
+      "root": "stmt_done",
+      "terminals": [
+        "BacktickDelimitedIdName",
+        "BracketDelimitedIdName",
+        "DelimitedIdName",
+        "IdName",
+        "SEMICOLON",
+        "SHOW",
+        "TRACE"
+      ],
+      "nonterminals": [
+        "show_stmt",
+        "stmt",
+        "stmt_",
+        "stmt_done",
+        "stmt_list"
+      ],
+      "reductionIds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        268,
+        341
+      ],
+      "admission": "bounded predicate, manual context proof required"
+    },
+    "evaluate": {
+      "root": "stmt_done",
+      "terminals": [
+        "'('",
+        "')'",
+        "'*'",
+        "'+'",
+        "','",
+        "'-'",
+        "'.'",
+        "'/'",
+        "'<'",
+        "'='",
+        "'>'",
+        "AND",
+        "AS",
+        "BacktickDelimitedIdName",
+        "BracketDelimitedIdName",
+        "CHAR_STRING",
+        "COMP_GE",
+        "COMP_LE",
+        "COMP_NOT_EQ",
+        "CROSS",
+        "DISTINCT",
+        "DOT",
+        "DelimitedIdName",
+        "EVALUATE",
+        "EXISTS",
+        "FROM",
+        "INNER",
+        "IS",
+        "IdName",
+        "JOIN",
+        "LEFT",
+        "NOT",
+        "Null",
+        "ON_",
+        "OR",
+        "OUTER",
+        "RIGHT",
+        "SELECT",
+        "SEMICOLON",
+        "UNSIGNED_INTEGER",
+        "WHERE",
+        "WITH"
+      ],
+      "nonterminals": [
+        "alias_enabled_expression_",
+        "alias_enabled_expression_list",
+        "alias_enabled_expression_list_top",
+        "all_distinct",
+        "boolean_factor",
+        "boolean_term",
+        "boolean_term_is",
+        "boolean_term_xor",
+        "char_string",
+        "char_string_literal",
+        "class_spec",
+        "comp_op",
+        "csql_query",
+        "csql_query_select_has_no_with_clause",
+        "cte_definition",
+        "cte_definition_list",
+        "cte_query_list",
+        "esql_query_stmt",
+        "evaluate_stmt",
+        "expression_",
+        "expression_add_sub",
+        "expression_bitand",
+        "expression_bitor",
+        "expression_bitshift",
+        "expression_list",
+        "expression_queue",
+        "expression_strcat",
+        "extended_table_spec_list",
+        "factor",
+        "factor_",
+        "generic_function",
+        "generic_function_id",
+        "identifier",
+        "identifier_list",
+        "into_clause_opt",
+        "join_condition",
+        "join_table_spec",
+        "literal_w_o_param",
+        "normal_expression",
+        "null_op",
+        "object_name",
+        "only_all_class_spec",
+        "only_all_class_spec_list",
+        "only_class_name",
+        "opt_as",
+        "opt_as_identifier",
+        "opt_as_identifier_attr_name",
+        "opt_bracketed_identifier_list",
+        "opt_collation",
+        "opt_expression_list",
+        "opt_for_update_clause",
+        "opt_from_clause",
+        "opt_groupby_clause",
+        "opt_having_clause",
+        "opt_hint_list",
+        "opt_of_all_some_any",
+        "opt_of_inner_left_right",
+        "opt_on_target",
+        "opt_orderby_clause",
+        "opt_outer",
+        "opt_paren_plus",
+        "opt_partition_spec",
+        "opt_recursive",
+        "opt_select_limit_clause",
+        "opt_select_param_list",
+        "opt_startwith_connectby_clause",
+        "opt_table_spec_index_hint_list",
+        "opt_using_index_clause",
+        "opt_where_clause",
+        "opt_with_clause",
+        "opt_with_increment_clause",
+        "opt_with_rollup",
+        "original_table_spec",
+        "paren_plus",
+        "path_dot",
+        "path_expression",
+        "path_header",
+        "path_id",
+        "path_id_list",
+        "pred_lhs",
+        "predicate",
+        "predicate_expr_sub",
+        "predicate_expression",
+        "primary",
+        "primary_w_collate",
+        "reserved_func",
+        "search_condition",
+        "search_condition_expression",
+        "search_condition_query",
+        "select_expression",
+        "select_expression_opt_with",
+        "select_list",
+        "select_or_subquery",
+        "select_stmt",
+        "stmt",
+        "stmt_",
+        "stmt_done",
+        "stmt_list",
+        "subquery",
+        "table_spec",
+        "term",
+        "unsigned_integer",
+        "user_specified_name"
+      ],
+      "reductionIds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        68,
+        342,
+        53,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        10,
+        12,
+        101,
+        343,
+        102,
+        103,
+        104,
+        344,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143,
+        34,
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        157,
+        158,
+        159,
+        160,
+        161,
+        162,
+        163,
+        164,
+        165,
+        166,
+        167,
+        168,
+        169,
+        170,
+        171,
+        172,
+        173,
+        174,
+        175,
+        176,
+        177,
+        178,
+        179,
+        180,
+        181,
+        182,
+        183,
+        184,
+        185,
+        186,
+        187,
+        188,
+        189,
+        190,
+        191,
+        192,
+        193,
+        194,
+        195,
+        196,
+        197,
+        198,
+        199,
+        200,
+        201,
+        202,
+        203,
+        204,
+        205,
+        206,
+        207,
+        208,
+        209,
+        210,
+        211,
+        212,
+        213,
+        214,
+        215,
+        216,
+        217,
+        218,
+        219,
+        220,
+        221,
+        222,
+        223,
+        224,
+        225,
+        226,
+        227,
+        228,
+        229,
+        230,
+        231,
+        232,
+        233,
+        234,
+        235,
+        236,
+        237,
+        240,
+        241,
+        242,
+        243,
+        244,
+        245,
+        246,
+        43,
+        44,
+        45,
+        46,
+        247,
+        248,
+        249,
+        250,
+        251
+      ],
+      "admission": "bounded predicate, manual context proof required"
+    },
+    "statistics": {
+      "root": "stmt_done",
+      "terminals": [
+        "','",
+        "BacktickDelimitedIdName",
+        "BracketDelimitedIdName",
+        "DelimitedIdName",
+        "IdName",
+        "ON_",
+        "SEMICOLON",
+        "STATISTICS",
+        "UPDATE"
+      ],
+      "nonterminals": [
+        "identifier",
+        "object_name",
+        "only_class_name",
+        "only_class_name_list",
+        "opt_stats_options",
+        "stmt",
+        "stmt_",
+        "stmt_done",
+        "stmt_list",
+        "update_statistics_stmt",
+        "user_specified_name"
+      ],
+      "reductionIds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        345,
+        53,
+        346,
+        347,
+        348,
+        349,
+        10,
+        12,
+        43,
+        44,
+        45,
+        46
+      ],
+      "admission": "bounded predicate, manual context proof required"
+    },
+    "set-system": {
+      "root": "stmt_done",
+      "terminals": [
+        "','",
+        "BacktickDelimitedIdName",
+        "BracketDelimitedIdName",
+        "CHAR_STRING",
+        "DelimitedIdName",
+        "IdName",
+        "PARAMETERS",
+        "SEMICOLON",
+        "SET",
+        "SYSTEM"
+      ],
+      "nonterminals": [
+        "char_string",
+        "char_string_literal",
+        "char_string_literal_list",
+        "set_stmt",
+        "stmt",
+        "stmt_",
+        "stmt_done",
+        "stmt_list"
+      ],
+      "reductionIds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        350,
+        351,
+        352,
+        353,
+        247,
+        248,
+        249
+      ],
+      "admission": "bounded predicate, manual context proof required"
+    },
+    "set-trace": {
+      "root": "stmt_done",
+      "terminals": [
+        "BacktickDelimitedIdName",
+        "BracketDelimitedIdName",
+        "DelimitedIdName",
+        "IdName",
+        "JSON",
+        "OFF_",
+        "ON_",
+        "OUTPUT",
+        "SEMICOLON",
+        "SET",
+        "TEXT",
+        "TRACE"
+      ],
+      "nonterminals": [
+        "opt_trace_output_format",
+        "query_trace_spec",
+        "set_stmt",
+        "stmt",
+        "stmt_",
+        "stmt_done",
+        "stmt_list"
+      ],
+      "reductionIds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        350,
+        354,
+        355,
+        356,
+        357,
+        358,
+        359
+      ],
+      "admission": "bounded predicate, manual context proof required"
+    },
+    "commit": {
+      "root": "stmt_done",
+      "terminals": [
+        "BacktickDelimitedIdName",
+        "BracketDelimitedIdName",
+        "COMMIT",
+        "DelimitedIdName",
+        "IdName",
+        "LOCK_",
+        "RETAIN",
+        "SEMICOLON",
+        "WORK"
+      ],
+      "nonterminals": [
+        "opt_work",
+        "stmt",
+        "stmt_",
+        "stmt_done",
+        "stmt_list",
+        "transaction_stmt"
+      ],
+      "reductionIds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        360,
+        361,
+        362,
+        363,
+        364
+      ],
+      "admission": "bounded predicate, manual context proof required"
+    },
+    "rollback": {
+      "root": "stmt_done",
+      "terminals": [
+        "BacktickDelimitedIdName",
+        "BracketDelimitedIdName",
+        "CHAR_STRING",
+        "DelimitedIdName",
+        "IdName",
+        "ROLLBACK",
+        "SAVEPOINT",
+        "SEMICOLON",
+        "TO",
+        "WORK"
+      ],
+      "nonterminals": [
+        "char_string",
+        "char_string_literal",
+        "expression_",
+        "expression_add_sub",
+        "expression_bitand",
+        "expression_bitor",
+        "expression_bitshift",
+        "expression_strcat",
+        "factor",
+        "factor_",
+        "identifier",
+        "literal_w_o_param",
+        "normal_expression",
+        "opt_collation",
+        "opt_savepoint",
+        "opt_work",
+        "path_expression",
+        "path_header",
+        "path_id",
+        "path_id_list",
+        "primary",
+        "primary_w_collate",
+        "stmt",
+        "stmt_",
+        "stmt_done",
+        "stmt_list",
+        "term",
+        "transaction_stmt"
+      ],
+      "reductionIds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        360,
+        365,
+        366,
+        367,
+        368,
+        369,
+        363,
+        364,
+        168,
+        170,
+        171,
+        172,
+        173,
+        174,
+        177,
+        180,
+        181,
+        182,
+        185,
+        187,
+        188,
+        230,
+        232,
+        233,
+        235,
+        237,
+        241,
+        43,
+        44,
+        45,
+        46,
+        247,
+        248,
+        249
+      ],
+      "admission": "bounded predicate, manual context proof required"
+    },
+    "savepoint": {
+      "root": "stmt_done",
+      "terminals": [
+        "BacktickDelimitedIdName",
+        "BracketDelimitedIdName",
+        "CHAR_STRING",
+        "DelimitedIdName",
+        "IdName",
+        "SAVEPOINT",
+        "SEMICOLON"
+      ],
+      "nonterminals": [
+        "char_string",
+        "char_string_literal",
+        "expression_",
+        "expression_add_sub",
+        "expression_bitand",
+        "expression_bitor",
+        "expression_bitshift",
+        "expression_strcat",
+        "factor",
+        "factor_",
+        "identifier",
+        "literal_w_o_param",
+        "normal_expression",
+        "opt_collation",
+        "path_expression",
+        "path_header",
+        "path_id",
+        "path_id_list",
+        "primary",
+        "primary_w_collate",
+        "stmt",
+        "stmt_",
+        "stmt_done",
+        "stmt_list",
+        "term",
+        "transaction_stmt"
+      ],
+      "reductionIds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        360,
+        367,
+        168,
+        170,
+        171,
+        172,
+        173,
+        174,
+        177,
+        180,
+        181,
+        182,
+        185,
+        187,
+        188,
+        230,
+        232,
+        233,
+        235,
+        237,
+        241,
+        43,
+        44,
+        45,
+        46,
+        247,
+        248,
+        249
+      ],
+      "admission": "bounded predicate, manual context proof required"
+    }
+  },
+  "candidateReductions": [
+    {
+      "lhs": "stmt_done",
+      "rhs": [
+        "stmt_list"
+      ],
+      "line": 1765,
+      "actions": []
+    },
+    {
+      "lhs": "stmt_done",
+      "rhs": [],
+      "line": 1767,
+      "actions": []
+    },
+    {
+      "lhs": "stmt_list",
+      "rhs": [
+        "stmt_list",
+        "SEMICOLON"
+      ],
+      "line": 1770,
+      "actions": [
+        {
+          "line": 1772,
+          "sha256": "454fa184fb2d75b6675367a27d1fff5cbb64ca615a3cdabc45a4672cee26d958",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "stmt_list",
+      "rhs": [
+        "stmt_list",
+        "SEMICOLON",
+        "stmt"
+      ],
+      "line": 1773,
+      "actions": [
+        {
+          "line": 1774,
+          "sha256": "e79745ea329df71647646a6f1ff1f3357f18e5cd44f29327a3706b6c99619d59",
+          "calls": [
+            "pt_push"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "stmt_list",
+      "rhs": [
+        "stmt"
+      ],
+      "line": 1789,
+      "actions": [
+        {
+          "line": 1790,
+          "sha256": "f3302f289d30ba36d2b35312f063549172f9698f741db672dff5c5d936ae79b3",
+          "calls": [
+            "pt_push"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "stmt_list",
+      "rhs": [
+        "SEMICOLON"
+      ],
+      "line": 1805,
+      "actions": [
+        {
+          "line": 1806,
+          "sha256": "454fa184fb2d75b6675367a27d1fff5cbb64ca615a3cdabc45a4672cee26d958",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "stmt",
+      "rhs": [
+        "stmt_"
+      ],
+      "line": 1811,
+      "actions": [
+        {
+          "line": 1813,
+          "sha256": "e6a3dcd6b7e82bda4bc8fe555e7420e867abbd5be7215e04fc6002d4dbcd129f",
+          "calls": [
+            "assert",
+            "char_isspace",
+            "strlen"
+          ]
+        },
+        {
+          "line": 1854,
+          "sha256": "1097fd41133ccc9d064452b5a95500356deffe390bb0c82f747ce4379404af94",
+          "calls": [
+            "assert",
+            "parser_initialize_parser_context",
+            "parser_save_and_set_cannot_prepare",
+            "parser_save_and_set_si_datetime",
+            "parser_save_and_set_si_tran_id"
+          ]
+        },
+        {
+          "line": 1888,
+          "sha256": "f69f443ccd5cbfe73f44344a43e120dad78587de05a90cf19da8b9a33bfcd5a3",
+          "calls": [
+            "assert",
+            "csql_yyerror",
+            "strlen"
+          ]
+        },
+        {
+          "line": 1926,
+          "sha256": "51f1eda799dbacd80396047b6afe603ffabf300b07b1df13caa7ca6ce45a4d10",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_restore_cannot_prepare",
+            "parser_restore_si_datetime",
+            "parser_restore_si_tran_id"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "stmt_",
+      "rhs": [
+        "create_stmt"
+      ],
+      "line": 1944,
+      "actions": [
+        {
+          "line": 1946,
+          "sha256": "c276fdd563ae15ec5db116a8e7779bfafa9b327ce4e7bd3f57ef0f3917545cb1",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "create_stmt",
+      "rhs": [
+        "CREATE",
+        "opt_hint_list",
+        "of_class_table_type",
+        "opt_if_not_exists",
+        "class_name_without_dot",
+        "opt_subtable_clause",
+        "opt_class_attr_def_list",
+        "opt_class_or_normal_attr_def_list",
+        "opt_table_option_list",
+        "opt_method_def_list",
+        "opt_method_files",
+        "opt_inherit_resolution_list",
+        "opt_partition_clause",
+        "opt_create_as_clause"
+      ],
+      "line": 2576,
+      "actions": [
+        {
+          "line": 2578,
+          "sha256": "4a49cb64c71c3b44b0ee22d14af904815900ef7abdc2722941ff818bd960d6d6",
+          "calls": [
+            "parser_new_node",
+            "parser_push_hint_node"
+          ]
+        },
+        {
+          "line": 2595,
+          "sha256": "53074f4c1baa712425449288383c356f3f7c7f2996f4b8fec23cb009b5f04621",
+          "calls": [
+            "CONTAINER_AT_0",
+            "CONTAINER_AT_1",
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PT_ERRORf",
+            "TO_NUMBER",
+            "parser_pop_hint_node",
+            "parser_print_tree",
+            "pt_gather_constraints"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "create_stmt",
+      "rhs": [
+        "CREATE",
+        "IdName"
+      ],
+      "line": 3119,
+      "actions": [
+        {
+          "line": 3120,
+          "sha256": "66b73cd5c7c1d07a16766b839adfe1d6d94e305cf2685b4c117f33629f266f41",
+          "calls": [
+            "csql_yyerror_explicit",
+            "push_msg"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "object_name",
+      "rhs": [
+        "identifier"
+      ],
+      "line": 5673,
+      "actions": [
+        {
+          "line": 5674,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "user_specified_name_without_dot",
+      "rhs": [
+        "identifier_without_dot"
+      ],
+      "line": 5697,
+      "actions": [
+        {
+          "line": 5698,
+          "sha256": "a223cb58f56bfa7bf9e1a969cca2f45a8f1ce192c48d0956353405b689f1b62d",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PT_NAME_INFO_SET_FLAG"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "user_specified_name",
+      "rhs": [
+        "object_name"
+      ],
+      "line": 5711,
+      "actions": [
+        {
+          "line": 5713,
+          "sha256": "a223cb58f56bfa7bf9e1a969cca2f45a8f1ce192c48d0956353405b689f1b62d",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PT_NAME_INFO_SET_FLAG"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "class_name_without_dot",
+      "rhs": [
+        "user_specified_name_without_dot"
+      ],
+      "line": 5726,
+      "actions": [
+        {
+          "line": 5728,
+          "sha256": "c276fdd563ae15ec5db116a8e7779bfafa9b327ce4e7bd3f57ef0f3917545cb1",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "class_name",
+      "rhs": [
+        "user_specified_name"
+      ],
+      "line": 5731,
+      "actions": [
+        {
+          "line": 5733,
+          "sha256": "c276fdd563ae15ec5db116a8e7779bfafa9b327ce4e7bd3f57ef0f3917545cb1",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_class_or_normal_attr_def_list",
+      "rhs": [],
+      "line": 8906,
+      "actions": [
+        {
+          "line": 8908,
+          "sha256": "9f06a5dcca74e929a2a991dc80dbf5ae0178230814b325466c0022801af69f77",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_class_or_normal_attr_def_list",
+      "rhs": [
+        "'('",
+        "class_or_normal_attr_def_list",
+        "')'"
+      ],
+      "line": 8911,
+      "actions": [
+        {
+          "line": 8912,
+          "sha256": "a3dbb9400c88464757cbc5ad967d2376aab5029667d9f57c10e31aafab065419",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_method_def_list",
+      "rhs": [],
+      "line": 8918,
+      "actions": [
+        {
+          "line": 8920,
+          "sha256": "9f06a5dcca74e929a2a991dc80dbf5ae0178230814b325466c0022801af69f77",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_method_files",
+      "rhs": [],
+      "line": 8930,
+      "actions": [
+        {
+          "line": 8932,
+          "sha256": "9f06a5dcca74e929a2a991dc80dbf5ae0178230814b325466c0022801af69f77",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_inherit_resolution_list",
+      "rhs": [],
+      "line": 8942,
+      "actions": [
+        {
+          "line": 8944,
+          "sha256": "9f06a5dcca74e929a2a991dc80dbf5ae0178230814b325466c0022801af69f77",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_table_option_list",
+      "rhs": [],
+      "line": 8954,
+      "actions": [
+        {
+          "line": 8956,
+          "sha256": "9f06a5dcca74e929a2a991dc80dbf5ae0178230814b325466c0022801af69f77",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_partition_clause",
+      "rhs": [],
+      "line": 8966,
+      "actions": [
+        {
+          "line": 8968,
+          "sha256": "9f06a5dcca74e929a2a991dc80dbf5ae0178230814b325466c0022801af69f77",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_create_as_clause",
+      "rhs": [],
+      "line": 8978,
+      "actions": [
+        {
+          "line": 8980,
+          "sha256": "1bc277cf15574a17104ae3e6a74e753ab6829a2d9eebc9efa5999895d7ca9206",
+          "calls": [
+            "SET_CONTAINER_2"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "of_class_table_type",
+      "rhs": [
+        "TABLE"
+      ],
+      "line": 8996,
+      "actions": [
+        {
+          "line": 8997,
+          "sha256": "af24f2ccbcf450e84efc44f4f5e44117f808de6fe8bfed22185ea16e50f098dd",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_if_not_exists",
+      "rhs": [],
+      "line": 9018,
+      "actions": [
+        {
+          "line": 9020,
+          "sha256": "d28384283a2b2a321b5d3ff5b48a42c4c075a9e2fcebd023b1eb4c6c5a4b749d",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_subtable_clause",
+      "rhs": [],
+      "line": 9216,
+      "actions": [
+        {
+          "line": 9218,
+          "sha256": "9f06a5dcca74e929a2a991dc80dbf5ae0178230814b325466c0022801af69f77",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_class_attr_def_list",
+      "rhs": [],
+      "line": 9830,
+      "actions": [
+        {
+          "line": 9832,
+          "sha256": "9f06a5dcca74e929a2a991dc80dbf5ae0178230814b325466c0022801af69f77",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "class_or_normal_attr_def_list",
+      "rhs": [
+        "class_or_normal_attr_def_list",
+        "','",
+        "class_or_normal_attr_def"
+      ],
+      "line": 9846,
+      "actions": [
+        {
+          "line": 9848,
+          "sha256": "d97beef03fd25e66ede0b15ff7dcb664edf4a38a7e61ce85192cc32fedb351ad",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_make_link"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "class_or_normal_attr_def_list",
+      "rhs": [
+        "class_or_normal_attr_def"
+      ],
+      "line": 9852,
+      "actions": [
+        {
+          "line": 9853,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "class_or_normal_attr_def",
+      "rhs": [
+        "attr_def"
+      ],
+      "line": 9865,
+      "actions": [
+        {
+          "line": 9866,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "attr_def",
+      "rhs": [
+        "attr_def_one"
+      ],
+      "line": 9945,
+      "actions": [
+        {
+          "line": 9946,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "attr_def_one",
+      "rhs": [
+        "identifier",
+        "data_type",
+        "opt_constraint_list_and_opt_column_comment",
+        "opt_attr_ordering_info"
+      ],
+      "line": 10084,
+      "actions": [
+        {
+          "line": 10087,
+          "sha256": "8f041144cc230111759b66dacedbacffc90f2fbf6fa6f222ef5784e6f02172de",
+          "calls": [
+            "CONTAINER_AT_0",
+            "CONTAINER_AT_1",
+            "PT_NAME_INFO_SET_FLAG",
+            "TO_NUMBER",
+            "parser_new_node",
+            "parser_save_attr_def_one"
+          ]
+        },
+        {
+          "line": 10111,
+          "sha256": "6e522413495f6014c3aadd1fe42176bb3895e56b16bebe5a7d9ad156d8944b02",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PT_ERRORmf",
+            "parser_get_attr_def_one"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_attr_ordering_info",
+      "rhs": [],
+      "line": 10143,
+      "actions": [
+        {
+          "line": 10145,
+          "sha256": "9f06a5dcca74e929a2a991dc80dbf5ae0178230814b325466c0022801af69f77",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_constraint_list_and_opt_column_comment",
+      "rhs": [],
+      "line": 10184,
+      "actions": [
+        {
+          "line": 10186,
+          "sha256": "8524df1c28e65f18efb8df5bb4b98757f32d6d1b23fc93870d01b24f1d155366",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_hint_list",
+      "rhs": [],
+      "line": 13376,
+      "actions": [
+        {
+          "line": 13378,
+          "sha256": "257c1be96ae69f4b01c2c69bdb6d78605f59175819fb007d0bf245bf48444c4a",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "data_type",
+      "rhs": [
+        "primitive_type"
+      ],
+      "line": 19031,
+      "actions": [
+        {
+          "line": 19032,
+          "sha256": "9b96fc620f2fdbe22f4ae6548feb6ec3f8490ac5fbb26f21f9e7931cf604dd28",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "primitive_type",
+      "rhs": [
+        "INTEGER",
+        "opt_padding"
+      ],
+      "line": 19170,
+      "actions": [
+        {
+          "line": 19172,
+          "sha256": "f2727aa38c2696ad2f34cc08322cdf6e28c164ac8ef555db4d2731c93f46e504",
+          "calls": [
+            "FROM_NUMBER",
+            "SET_CONTAINER_2"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "primitive_type",
+      "rhs": [
+        "SmallInt"
+      ],
+      "line": 19177,
+      "actions": [
+        {
+          "line": 19178,
+          "sha256": "8949dedeb6033107415d0ef6834305ba358904ea99cb9b68750ea9e556981f5b",
+          "calls": [
+            "FROM_NUMBER",
+            "SET_CONTAINER_2"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "primitive_type",
+      "rhs": [
+        "BIGINT"
+      ],
+      "line": 19183,
+      "actions": [
+        {
+          "line": 19184,
+          "sha256": "768ee41f50201737cdc4dfab88800590d9df8958344c5e6739095d37dda97f7e",
+          "calls": [
+            "FROM_NUMBER",
+            "SET_CONTAINER_2"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "primitive_type",
+      "rhs": [
+        "class_name",
+        "opt_identity"
+      ],
+      "line": 19386,
+      "actions": [
+        {
+          "line": 19387,
+          "sha256": "4218100b3033941efc621411a376b4d652eb7aeda06950cf3fcc45c9f0d31bda",
+          "calls": [
+            "FROM_NUMBER",
+            "PARSER_SAVE_ERR_CONTEXT",
+            "SET_CONTAINER_2",
+            "parser_new_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_identity",
+      "rhs": [],
+      "line": 19790,
+      "actions": [
+        {
+          "line": 19792,
+          "sha256": "d28384283a2b2a321b5d3ff5b48a42c4c075a9e2fcebd023b1eb4c6c5a4b749d",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_padding",
+      "rhs": [],
+      "line": 19812,
+      "actions": [
+        {
+          "line": 19814,
+          "sha256": "9f06a5dcca74e929a2a991dc80dbf5ae0178230814b325466c0022801af69f77",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "identifier_without_dot",
+      "rhs": [
+        "identifier"
+      ],
+      "line": 20624,
+      "actions": [
+        {
+          "line": 20626,
+          "sha256": "89b05468c69a0f22072fe3d39ad98c6cd6a48cd730000b18ddee7f9862043606",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PT_ERRORf",
+            "strchr"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "identifier",
+      "rhs": [
+        "IdName"
+      ],
+      "line": 20648,
+      "actions": [
+        {
+          "line": 20650,
+          "sha256": "bf040bee0b9fd8d43969691738c8bdf3e4e5d51e2655c97398b9bdeeb1b09022",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PARSER_SET_LINE_COL",
+            "parser_new_node",
+            "pt_check_identifier"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "identifier",
+      "rhs": [
+        "BracketDelimitedIdName"
+      ],
+      "line": 20663,
+      "actions": [
+        {
+          "line": 20664,
+          "sha256": "bf040bee0b9fd8d43969691738c8bdf3e4e5d51e2655c97398b9bdeeb1b09022",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PARSER_SET_LINE_COL",
+            "parser_new_node",
+            "pt_check_identifier"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "identifier",
+      "rhs": [
+        "BacktickDelimitedIdName"
+      ],
+      "line": 20677,
+      "actions": [
+        {
+          "line": 20678,
+          "sha256": "bf040bee0b9fd8d43969691738c8bdf3e4e5d51e2655c97398b9bdeeb1b09022",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PARSER_SET_LINE_COL",
+            "parser_new_node",
+            "pt_check_identifier"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "identifier",
+      "rhs": [
+        "DelimitedIdName"
+      ],
+      "line": 20691,
+      "actions": [
+        {
+          "line": 20692,
+          "sha256": "bf040bee0b9fd8d43969691738c8bdf3e4e5d51e2655c97398b9bdeeb1b09022",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PARSER_SET_LINE_COL",
+            "parser_new_node",
+            "pt_check_identifier"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "stmt_",
+      "rhs": [
+        "alter_stmt"
+      ],
+      "line": 1947,
+      "actions": [
+        {
+          "line": 1948,
+          "sha256": "c276fdd563ae15ec5db116a8e7779bfafa9b327ce4e7bd3f57ef0f3917545cb1",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "alter_stmt",
+      "rhs": [
+        "ALTER",
+        "opt_hint_list",
+        "opt_class_type",
+        "only_class_name",
+        "alter_clause_cubrid_specific"
+      ],
+      "line": 3586,
+      "actions": [
+        {
+          "line": 3588,
+          "sha256": "313b6532769a0e8a965a9f437cf99165e4cee36cdfde16d324925c9d30d96859",
+          "calls": [
+            "parser_new_node",
+            "parser_push_hint_node"
+          ]
+        },
+        {
+          "line": 3595,
+          "sha256": "25f94d2cad09c134342dba2e29994e3d30bc1b7e06941cf91b995c84fae02116",
+          "calls": [
+            "parser_pop_hint_node",
+            "parser_save_alter_node"
+          ]
+        },
+        {
+          "line": 3608,
+          "sha256": "276fdfce756056af56c44e6835975259d9e4611c07133ce8f7a137c2280e049c",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_get_alter_node",
+            "pt_gather_constraints"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "alter_stmt",
+      "rhs": [
+        "ALTER",
+        "opt_hint_list",
+        "opt_class_type",
+        "only_class_name",
+        "alter_clause_list"
+      ],
+      "line": 3618,
+      "actions": [
+        {
+          "line": 3619,
+          "sha256": "313b6532769a0e8a965a9f437cf99165e4cee36cdfde16d324925c9d30d96859",
+          "calls": [
+            "parser_new_node",
+            "parser_push_hint_node"
+          ]
+        },
+        {
+          "line": 3627,
+          "sha256": "b4268d2c81a8bb463495cf290fb7485f5b7ce014744ef249ec529d892397e262",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_copy_tree",
+            "parser_free_tree",
+            "parser_new_node",
+            "pt_gather_constraints"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "alter_clause_list",
+      "rhs": [
+        "alter_clause_list",
+        "','",
+        "prepare_alter_node",
+        "alter_clause_for_alter_list"
+      ],
+      "line": 4273,
+      "actions": [
+        {
+          "line": 4275,
+          "sha256": "d3bf3a601c5991b95836313debf56f34205b125fdf471efa461b23bcc05bc8cf",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_get_alter_node",
+            "parser_make_link"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "alter_clause_list",
+      "rhs": [
+        "alter_clause_for_alter_list"
+      ],
+      "line": 4279,
+      "actions": [
+        {
+          "line": 4280,
+          "sha256": "827b0ddf300f181aab4fce056a18833d23ea44416314c3b6e8f474bddde62fd5",
+          "calls": [
+            "parser_pop_hint_node",
+            "parser_save_alter_node"
+          ]
+        },
+        {
+          "line": 4285,
+          "sha256": "379f063934db0ce21bf0aa0153c891005416a58c9aee933823605bde446226f1",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_get_alter_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "prepare_alter_node",
+      "rhs": [],
+      "line": 4291,
+      "actions": [
+        {
+          "line": 4293,
+          "sha256": "3afa17afbe03b52839e13e488f84efbf3a30deae000e43642b38d10c40e0f6a0",
+          "calls": [
+            "parser_new_node",
+            "parser_save_alter_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "only_class_name",
+      "rhs": [
+        "user_specified_name"
+      ],
+      "line": 4302,
+      "actions": [
+        {
+          "line": 4303,
+          "sha256": "c276fdd563ae15ec5db116a8e7779bfafa9b327ce4e7bd3f57ef0f3917545cb1",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_class_type",
+      "rhs": [],
+      "line": 5850,
+      "actions": [
+        {
+          "line": 5852,
+          "sha256": "58ca89135c5a6eabf9ba67fbae80c299fe484a8f0e785ea2b8ef9268559be832",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_class_type",
+      "rhs": [
+        "TABLE"
+      ],
+      "line": 5867,
+      "actions": [
+        {
+          "line": 5868,
+          "sha256": "af24f2ccbcf450e84efc44f4f5e44117f808de6fe8bfed22185ea16e50f098dd",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "alter_clause_for_alter_list",
+      "rhs": [
+        "ADD",
+        "alter_add_clause_for_alter_list"
+      ],
+      "line": 5910,
+      "actions": []
+    },
+    {
+      "lhs": "alter_clause_cubrid_specific",
+      "rhs": [
+        "ADD",
+        "alter_add_clause_cubrid_specific",
+        "opt_resolution_list_for_alter"
+      ],
+      "line": 5997,
+      "actions": []
+    },
+    {
+      "lhs": "opt_resolution_list_for_alter",
+      "rhs": [],
+      "line": 6016,
+      "actions": []
+    },
+    {
+      "lhs": "alter_add_clause_for_alter_list",
+      "rhs": [
+        "opt_of_column_attribute",
+        "'('",
+        "attr_def_list",
+        "')'"
+      ],
+      "line": 6195,
+      "actions": [
+        {
+          "line": 6196,
+          "sha256": "3f3ac0a05978939ddc355ea5c3331e393e6bd87aa7fe123e69e22aea266e3981",
+          "calls": []
+        },
+        {
+          "line": 6198,
+          "sha256": "8f3f2f18afc3fbf545ca952ee9bb4fbd935ca6c4de5975945ebd4b05268b0b3e",
+          "calls": []
+        },
+        {
+          "line": 6199,
+          "sha256": "f819c8348e4a9704f8cef43ab7288b751085600b58f8fdabbba239d3f0cb9c4c",
+          "calls": [
+            "parser_get_alter_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "alter_add_clause_for_alter_list",
+      "rhs": [
+        "opt_of_column_attribute",
+        "attr_def"
+      ],
+      "line": 6207,
+      "actions": [
+        {
+          "line": 6208,
+          "sha256": "3f3ac0a05978939ddc355ea5c3331e393e6bd87aa7fe123e69e22aea266e3981",
+          "calls": []
+        },
+        {
+          "line": 6210,
+          "sha256": "8f3f2f18afc3fbf545ca952ee9bb4fbd935ca6c4de5975945ebd4b05268b0b3e",
+          "calls": []
+        },
+        {
+          "line": 6211,
+          "sha256": "15665fb77d9df981a82dcddbafb436b6cec45d94384f436fc0321579cc15486e",
+          "calls": [
+            "parser_get_alter_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "alter_add_clause_cubrid_specific",
+      "rhs": [
+        "opt_of_column_attribute",
+        "attr_def_list_with_commas"
+      ],
+      "line": 6285,
+      "actions": [
+        {
+          "line": 6286,
+          "sha256": "defaedbdc9157077d93f8c0850d44fcf54716f5847b1e76128d4165543422820",
+          "calls": [
+            "parser_get_alter_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_of_column_attribute",
+      "rhs": [],
+      "line": 6296,
+      "actions": []
+    },
+    {
+      "lhs": "opt_of_column_attribute",
+      "rhs": [
+        "COLUMN"
+      ],
+      "line": 6298,
+      "actions": []
+    },
+    {
+      "lhs": "attr_def_list_with_commas",
+      "rhs": [
+        "attr_def_list_with_commas",
+        "','",
+        "attr_def"
+      ],
+      "line": 9908,
+      "actions": [
+        {
+          "line": 9910,
+          "sha256": "d97beef03fd25e66ede0b15ff7dcb664edf4a38a7e61ce85192cc32fedb351ad",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_make_link"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "attr_def_list_with_commas",
+      "rhs": [
+        "attr_def",
+        "','",
+        "attr_def"
+      ],
+      "line": 9914,
+      "actions": [
+        {
+          "line": 9915,
+          "sha256": "d97beef03fd25e66ede0b15ff7dcb664edf4a38a7e61ce85192cc32fedb351ad",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_make_link"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "attr_def_list",
+      "rhs": [
+        "attr_def_list",
+        "','",
+        "attr_def"
+      ],
+      "line": 9921,
+      "actions": [
+        {
+          "line": 9923,
+          "sha256": "d97beef03fd25e66ede0b15ff7dcb664edf4a38a7e61ce85192cc32fedb351ad",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_make_link"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "attr_def_list",
+      "rhs": [
+        "attr_def"
+      ],
+      "line": 9927,
+      "actions": [
+        {
+          "line": 9928,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "stmt_",
+      "rhs": [
+        "opt_with_clause",
+        "esql_query_stmt"
+      ],
+      "line": 1957,
+      "actions": [
+        {
+          "line": 1959,
+          "sha256": "2dc11d725ca6a62a1fb3bf884779ca0aab99859de690649aa32bc814d34a5b6b",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "create_stmt",
+      "rhs": [
+        "CREATE",
+        "opt_or_replace",
+        "of_view_vclass",
+        "class_name_without_dot",
+        "opt_subtable_clause",
+        "opt_class_attr_def_list",
+        "opt_paren_view_attr_def_list",
+        "opt_method_def_list",
+        "opt_method_files",
+        "opt_inherit_resolution_list",
+        "opt_as_query_list",
+        "opt_with_levels_clause",
+        "opt_vclass_comment_spec"
+      ],
+      "line": 2637,
+      "actions": [
+        {
+          "line": 2650,
+          "sha256": "e6fed8d1644b95dd38b1773afee17d71d5d9361e3f302bb7460bbc86305726d8",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_new_node",
+            "pt_gather_constraints"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "extended_table_spec_list",
+      "rhs": [
+        "extended_table_spec_list",
+        "','",
+        "table_spec"
+      ],
+      "line": 5031,
+      "actions": [
+        {
+          "line": 5033,
+          "sha256": "7c1739c5ceff2f0f630517c9c5e563f31f70d357d61d794775602e823285651a",
+          "calls": [
+            "CONTAINER_AT_0",
+            "CONTAINER_AT_1",
+            "FROM_NUMBER",
+            "SET_CONTAINER_2",
+            "TO_NUMBER",
+            "parser_make_link"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "extended_table_spec_list",
+      "rhs": [
+        "extended_table_spec_list",
+        "join_table_spec"
+      ],
+      "line": 5041,
+      "actions": [
+        {
+          "line": 5042,
+          "sha256": "780fe13fda5d60846f72bd140530fcb396bd8c7cd31e2ad743aba785e2a1ab4d",
+          "calls": [
+            "CONTAINER_AT_0",
+            "FROM_NUMBER",
+            "SET_CONTAINER_2",
+            "parser_make_link"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "extended_table_spec_list",
+      "rhs": [
+        "'('",
+        "extended_table_spec_list",
+        "join_table_spec",
+        "')'"
+      ],
+      "line": 5049,
+      "actions": [
+        {
+          "line": 5050,
+          "sha256": "f63e44e9ae58f0cd7f44bb25d54404cd919591c92d4e78504c7c2dfedae53f2e",
+          "calls": [
+            "CONTAINER_AT_0",
+            "FROM_NUMBER",
+            "SET_CONTAINER_2",
+            "parser_make_link"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "extended_table_spec_list",
+      "rhs": [
+        "table_spec"
+      ],
+      "line": 5057,
+      "actions": [
+        {
+          "line": 5058,
+          "sha256": "7c8bc3c22b0a38dd0424ffd40e64b11057283627aa4803f84351718d49e8c08f",
+          "calls": [
+            "FROM_NUMBER",
+            "SET_CONTAINER_2"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "join_table_spec",
+      "rhs": [
+        "CROSS",
+        "JOIN",
+        "table_spec"
+      ],
+      "line": 5065,
+      "actions": [
+        {
+          "line": 5067,
+          "sha256": "c255192948052430b7c1655149c76e5e6984de2eb45d5423c29598474c487115",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "join_table_spec",
+      "rhs": [
+        "opt_of_inner_left_right",
+        "JOIN",
+        "table_spec",
+        "join_condition"
+      ],
+      "line": 5074,
+      "actions": [
+        {
+          "line": 5075,
+          "sha256": "568647eab326cdeeab38fd9e99b64cbe7b268b5fe78669ff4c599327879932d9",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PT_ERRORm",
+            "parser_restore_pseudoc"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "join_condition",
+      "rhs": [],
+      "line": 5146,
+      "actions": [
+        {
+          "line": 5148,
+          "sha256": "067e10050ced9e77783c0ce7a562edc0beb2ab82b550887e16faba54d64f114f",
+          "calls": [
+            "parser_save_and_set_pseudoc"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "join_condition",
+      "rhs": [
+        "ON_",
+        "search_condition"
+      ],
+      "line": 5152,
+      "actions": [
+        {
+          "line": 5153,
+          "sha256": "5eb1fd1331137872f26a91e3177da0f3c21443f0934ec3d2ffb660b5b1f1de8c",
+          "calls": [
+            "parser_save_and_set_ic",
+            "parser_save_and_set_pseudoc",
+            "parser_save_and_set_wjc"
+          ]
+        },
+        {
+          "line": 5159,
+          "sha256": "793085e023b907432da0a764428ac8f9a9e21f273f211f0b4d8b1fdd327d4f21",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PT_ERRORmf",
+            "parser_restore_ic",
+            "parser_restore_wjc",
+            "parser_walk_tree"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_of_inner_left_right",
+      "rhs": [],
+      "line": 5181,
+      "actions": [
+        {
+          "line": 5183,
+          "sha256": "6599f176cd4abc2243d93656778718bcc621cb7cb03218fbd5e9e58f56207fb2",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_of_inner_left_right",
+      "rhs": [
+        "INNER",
+        "opt_outer"
+      ],
+      "line": 5186,
+      "actions": [
+        {
+          "line": 5187,
+          "sha256": "6599f176cd4abc2243d93656778718bcc621cb7cb03218fbd5e9e58f56207fb2",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_of_inner_left_right",
+      "rhs": [
+        "LEFT",
+        "opt_outer"
+      ],
+      "line": 5190,
+      "actions": [
+        {
+          "line": 5191,
+          "sha256": "45ac8434c3bc8b1e1c2396ecd8623d1124eb9986b5e6b4e5c4684cc614e30623",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_of_inner_left_right",
+      "rhs": [
+        "RIGHT",
+        "opt_outer"
+      ],
+      "line": 5194,
+      "actions": [
+        {
+          "line": 5195,
+          "sha256": "06e51156181cf2acf49230f9d41726f7d45e3e43359224842b670b5b37a903a1",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_outer",
+      "rhs": [],
+      "line": 5200,
+      "actions": []
+    },
+    {
+      "lhs": "opt_outer",
+      "rhs": [
+        "OUTER"
+      ],
+      "line": 5202,
+      "actions": []
+    },
+    {
+      "lhs": "table_spec",
+      "rhs": [
+        "'('",
+        "table_spec",
+        "')'"
+      ],
+      "line": 5205,
+      "actions": [
+        {
+          "line": 5207,
+          "sha256": "a3dbb9400c88464757cbc5ad967d2376aab5029667d9f57c10e31aafab065419",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "table_spec",
+      "rhs": [
+        "original_table_spec"
+      ],
+      "line": 5211,
+      "actions": [
+        {
+          "line": 5212,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "original_table_spec",
+      "rhs": [
+        "class_spec",
+        "opt_as_identifier_attr_name",
+        "opt_table_spec_index_hint_list"
+      ],
+      "line": 5217,
+      "actions": [
+        {
+          "line": 5219,
+          "sha256": "988152a4947f26047def1b429db56708ba739b7b71e9cf508cf5d6bf7c39d276",
+          "calls": [
+            "CONTAINER_AT_0",
+            "CONTAINER_AT_1",
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PT_ERRORm",
+            "parser_free_tree",
+            "parser_is_hint_node_empty",
+            "parser_make_link",
+            "parser_pop_hint_node",
+            "parser_push_hint_node",
+            "pt_append_string"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "original_table_spec",
+      "rhs": [
+        "subquery",
+        "opt_as_identifier_attr_name"
+      ],
+      "line": 5345,
+      "actions": [
+        {
+          "line": 5346,
+          "sha256": "e492ef90abc3a9d591c0e59194924ff89a943e3f410ba1da5e82a58fae7cf98e",
+          "calls": [
+            "CONTAINER_AT_0",
+            "CONTAINER_AT_1",
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PT_SELECT_INFO_CLEAR_FLAG",
+            "parser_new_node",
+            "parser_pop_hint_node",
+            "parser_push_hint_node",
+            "parser_remove_dummy_select"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_table_spec_index_hint_list",
+      "rhs": [],
+      "line": 5457,
+      "actions": [
+        {
+          "line": 5459,
+          "sha256": "d2f73af07420e5dc741fb83fff12c1867d2be586fa8c3f2fbf7ea94bd36561e2",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_as_identifier_attr_name",
+      "rhs": [],
+      "line": 5475,
+      "actions": [
+        {
+          "line": 5477,
+          "sha256": "342d460fde81adefc8eaae2bc0a9baab427cdbe8085b05df6a512411b56e11dc",
+          "calls": [
+            "SET_CONTAINER_2"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_as_identifier_attr_name",
+      "rhs": [
+        "opt_as",
+        "identifier",
+        "'('",
+        "identifier_list",
+        "')'"
+      ],
+      "line": 5482,
+      "actions": [
+        {
+          "line": 5483,
+          "sha256": "f96b5240f16714634dda7efdc07722997ce3f64f70b8841e5b483786da18bd3a",
+          "calls": [
+            "SET_CONTAINER_2"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_as_identifier_attr_name",
+      "rhs": [
+        "opt_as",
+        "identifier"
+      ],
+      "line": 5488,
+      "actions": [
+        {
+          "line": 5489,
+          "sha256": "b880e220ed394d4fe4b62a937e714c006c9f6d065a72de6c5625088c4878464d",
+          "calls": [
+            "SET_CONTAINER_2"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_as",
+      "rhs": [],
+      "line": 5496,
+      "actions": []
+    },
+    {
+      "lhs": "opt_as",
+      "rhs": [
+        "AS"
+      ],
+      "line": 5498,
+      "actions": []
+    },
+    {
+      "lhs": "class_spec",
+      "rhs": [
+        "only_all_class_spec"
+      ],
+      "line": 5527,
+      "actions": [
+        {
+          "line": 5529,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "class_spec",
+      "rhs": [
+        "'('",
+        "only_all_class_spec_list",
+        "')'"
+      ],
+      "line": 5538,
+      "actions": [
+        {
+          "line": 5539,
+          "sha256": "a3dbb9400c88464757cbc5ad967d2376aab5029667d9f57c10e31aafab065419",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "only_all_class_spec_list",
+      "rhs": [
+        "only_all_class_spec_list",
+        "','",
+        "only_all_class_spec"
+      ],
+      "line": 5545,
+      "actions": [
+        {
+          "line": 5547,
+          "sha256": "8c3ddb3a5d3221a2b67b65fadc38fa7f4109c7be2e8413955efec110ac397b2e",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_make_link",
+            "parser_new_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "only_all_class_spec_list",
+      "rhs": [
+        "only_all_class_spec"
+      ],
+      "line": 5555,
+      "actions": [
+        {
+          "line": 5556,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "only_all_class_spec",
+      "rhs": [
+        "only_class_name",
+        "opt_partition_spec"
+      ],
+      "line": 5597,
+      "actions": [
+        {
+          "line": 5599,
+          "sha256": "8ba9d2486754550f12e17bb0dbb5e41c3016942845280c11cdf4ab50d9bc033a",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_new_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "object_name",
+      "rhs": [
+        "identifier",
+        "DOT",
+        "identifier"
+      ],
+      "line": 5658,
+      "actions": [
+        {
+          "line": 5660,
+          "sha256": "27aa91e25c2694391d90bd33b3f5fb567420c284e8c8a3a335ba948f5ea9374b",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_free_tree",
+            "pt_append_string"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "user_specified_name_without_dot",
+      "rhs": [
+        "identifier_without_dot",
+        "DOT",
+        "identifier_without_dot"
+      ],
+      "line": 5680,
+      "actions": [
+        {
+          "line": 5682,
+          "sha256": "7a94c0c5cfb594e9e8e34adda077f51d19d8cff4448b37ea7d0eb2371709063d",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PT_NAME_INFO_SET_FLAG",
+            "parser_free_tree",
+            "pt_append_string"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_partition_spec",
+      "rhs": [],
+      "line": 5838,
+      "actions": [
+        {
+          "line": 5840,
+          "sha256": "cb7495d4c65aad3367d3b4530735b2c15a12172d92161426c71934edd2e8f5d7",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_as_identifier",
+      "rhs": [],
+      "line": 7971,
+      "actions": [
+        {
+          "line": 7973,
+          "sha256": "9f06a5dcca74e929a2a991dc80dbf5ae0178230814b325466c0022801af69f77",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_as_identifier",
+      "rhs": [
+        "AS",
+        "identifier"
+      ],
+      "line": 7976,
+      "actions": [
+        {
+          "line": 7977,
+          "sha256": "a3dbb9400c88464757cbc5ad967d2376aab5029667d9f57c10e31aafab065419",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_as_identifier",
+      "rhs": [
+        "identifier"
+      ],
+      "line": 7981,
+      "actions": [
+        {
+          "line": 7982,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "of_view_vclass",
+      "rhs": [
+        "VIEW"
+      ],
+      "line": 9002,
+      "actions": []
+    },
+    {
+      "lhs": "opt_or_replace",
+      "rhs": [],
+      "line": 9007,
+      "actions": [
+        {
+          "line": 9009,
+          "sha256": "d28384283a2b2a321b5d3ff5b48a42c4c075a9e2fcebd023b1eb4c6c5a4b749d",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_paren_view_attr_def_list",
+      "rhs": [],
+      "line": 9040,
+      "actions": [
+        {
+          "line": 9042,
+          "sha256": "9f06a5dcca74e929a2a991dc80dbf5ae0178230814b325466c0022801af69f77",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_paren_view_attr_def_list",
+      "rhs": [
+        "'('",
+        "view_attr_def_list",
+        "')'"
+      ],
+      "line": 9045,
+      "actions": [
+        {
+          "line": 9046,
+          "sha256": "a3dbb9400c88464757cbc5ad967d2376aab5029667d9f57c10e31aafab065419",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_as_query_list",
+      "rhs": [],
+      "line": 9052,
+      "actions": [
+        {
+          "line": 9054,
+          "sha256": "9f06a5dcca74e929a2a991dc80dbf5ae0178230814b325466c0022801af69f77",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_as_query_list",
+      "rhs": [
+        "AS",
+        "query_list"
+      ],
+      "line": 9057,
+      "actions": [
+        {
+          "line": 9058,
+          "sha256": "a3dbb9400c88464757cbc5ad967d2376aab5029667d9f57c10e31aafab065419",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_with_levels_clause",
+      "rhs": [],
+      "line": 9064,
+      "actions": [
+        {
+          "line": 9066,
+          "sha256": "58ca89135c5a6eabf9ba67fbae80c299fe484a8f0e785ea2b8ef9268559be832",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "query_list",
+      "rhs": [
+        "query_list",
+        "','",
+        "csql_query"
+      ],
+      "line": 9083,
+      "actions": [
+        {
+          "line": 9085,
+          "sha256": "d97beef03fd25e66ede0b15ff7dcb664edf4a38a7e61ce85192cc32fedb351ad",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_make_link"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "query_list",
+      "rhs": [
+        "csql_query"
+      ],
+      "line": 9089,
+      "actions": [
+        {
+          "line": 9090,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_constraint_id",
+      "rhs": [],
+      "line": 9233,
+      "actions": [
+        {
+          "line": 9235,
+          "sha256": "9f06a5dcca74e929a2a991dc80dbf5ae0178230814b325466c0022801af69f77",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_constraint_attr_list",
+      "rhs": [],
+      "line": 9275,
+      "actions": [
+        {
+          "line": 9277,
+          "sha256": "9b92654efc6ccf7a4dc2db4ceb0886ad65bd4eac3db4e2e35fdcfdf579a29f20",
+          "calls": [
+            "FROM_NUMBER",
+            "SET_CONTAINER_4"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "view_attr_def_list",
+      "rhs": [
+        "view_attr_def_list",
+        "','",
+        "view_attr_def"
+      ],
+      "line": 9872,
+      "actions": [
+        {
+          "line": 9874,
+          "sha256": "d97beef03fd25e66ede0b15ff7dcb664edf4a38a7e61ce85192cc32fedb351ad",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_make_link"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "view_attr_def_list",
+      "rhs": [
+        "view_attr_def"
+      ],
+      "line": 9878,
+      "actions": [
+        {
+          "line": 9879,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "view_attr_def",
+      "rhs": [
+        "attr_def"
+      ],
+      "line": 9885,
+      "actions": [
+        {
+          "line": 9887,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "view_attr_def",
+      "rhs": [
+        "identifier",
+        "opt_comment_spec"
+      ],
+      "line": 9891,
+      "actions": [
+        {
+          "line": 9892,
+          "sha256": "8192a24291fd836d8521722aa1f6871065b65dca51063b88b722cdf7b4f6f8bf",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_new_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_constraint_list_and_opt_column_comment",
+      "rhs": [
+        "constraint_list_and_column_comment"
+      ],
+      "line": 10187,
+      "actions": [
+        {
+          "line": 10188,
+          "sha256": "c276fdd563ae15ec5db116a8e7779bfafa9b327ce4e7bd3f57ef0f3917545cb1",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "constraint_list_and_column_comment",
+      "rhs": [
+        "constraint_list_and_column_comment",
+        "column_constraint_and_comment_def"
+      ],
+      "line": 10191,
+      "actions": [
+        {
+          "line": 10193,
+          "sha256": "0ed07ac575da0300f610ea79977e533889a4b9477c580b2cbde2405c34f5d576",
+          "calls": [
+            "PT_ERROR",
+            "PT_ERRORm",
+            "pt_top"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "constraint_list_and_column_comment",
+      "rhs": [
+        "column_constraint_and_comment_def"
+      ],
+      "line": 10226,
+      "actions": [
+        {
+          "line": 10227,
+          "sha256": "9b96fc620f2fdbe22f4ae6548feb6ec3f8490ac5fbb26f21f9e7931cf604dd28",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "column_constraint_and_comment_def",
+      "rhs": [
+        "column_null_constraint_def"
+      ],
+      "line": 10241,
+      "actions": [
+        {
+          "line": 10242,
+          "sha256": "fa49773ed2c94c1da23068417074c5e653f5b15087abab5eeaaa09af099d5fe0",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "column_null_constraint_def",
+      "rhs": [
+        "opt_constraint_id",
+        "Null",
+        "opt_constraint_attr_list"
+      ],
+      "line": 10347,
+      "actions": [
+        {
+          "line": 10349,
+          "sha256": "605b625ef63ff28cb0e5bdf412e7926e442f4c7ee5553c0052ca1281cecf98ce",
+          "calls": [
+            "CONTAINER_AT_0",
+            "CONTAINER_AT_1",
+            "CONTAINER_AT_2",
+            "CONTAINER_AT_3",
+            "TO_NUMBER",
+            "parser_get_attr_def_one",
+            "parser_make_link",
+            "parser_new_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "column_null_constraint_def",
+      "rhs": [
+        "opt_constraint_id",
+        "NOT",
+        "Null",
+        "opt_constraint_attr_list"
+      ],
+      "line": 10375,
+      "actions": [
+        {
+          "line": 10376,
+          "sha256": "fa4442a5d3e318feb6e44fb9bb86e19b38e41b0ca94411065b776b8448dc5e5e",
+          "calls": [
+            "CONTAINER_AT_0",
+            "CONTAINER_AT_1",
+            "CONTAINER_AT_2",
+            "CONTAINER_AT_3",
+            "TO_NUMBER",
+            "parser_copy_tree",
+            "parser_get_attr_def_one",
+            "parser_make_link",
+            "parser_new_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "esql_query_stmt",
+      "rhs": [
+        "csql_query_select_has_no_with_clause"
+      ],
+      "line": 12053,
+      "actions": [
+        {
+          "line": 12054,
+          "sha256": "fe3941267cbea05d42f0336fa35314fba7282eabfd6e309386a00f54d652d38c",
+          "calls": []
+        },
+        {
+          "line": 12056,
+          "sha256": "be9cbb2289662ab1bc8cc0f8b3232243a35086904bb637013ca74bd098e417c9",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "csql_query",
+      "rhs": [
+        "select_expression_opt_with",
+        "opt_orderby_clause",
+        "opt_select_limit_clause",
+        "opt_for_update_clause"
+      ],
+      "line": 12063,
+      "actions": [
+        {
+          "line": 12065,
+          "sha256": "aece61d59cafca565bbbeff0ad0935947bf1d745fef232bd2107cf14ca03ef13",
+          "calls": [
+            "parser_save_and_set_cannot_cache",
+            "parser_save_and_set_cbrc",
+            "parser_save_and_set_gc",
+            "parser_save_and_set_ic",
+            "parser_save_and_set_oc",
+            "parser_save_and_set_prc",
+            "parser_save_and_set_pseudoc",
+            "parser_save_and_set_serc",
+            "parser_save_and_set_sqc",
+            "parser_save_and_set_sysc",
+            "parser_save_and_set_wjc"
+          ]
+        },
+        {
+          "line": 12079,
+          "sha256": "24290c34f7217facce6dde4e95f3784b0bc4546d141304f40744d5eaed9c84cd",
+          "calls": [
+            "parser_push_orderby_node"
+          ]
+        },
+        {
+          "line": 12084,
+          "sha256": "88b2290e8ecb34eae9feb986f03d86b38adab591107db368f2106a0f9981def1",
+          "calls": [
+            "PT_ERRORm",
+            "PT_ERRORmf",
+            "parser_free_tree",
+            "parser_pop_orderby_node",
+            "parser_push_orderby_node",
+            "parser_restore_cannot_cache",
+            "parser_restore_cbrc",
+            "parser_restore_gc",
+            "parser_restore_ic",
+            "parser_restore_oc",
+            "parser_restore_prc",
+            "parser_restore_pseudoc",
+            "parser_restore_serc",
+            "parser_restore_sqc",
+            "parser_restore_sysc",
+            "parser_restore_wjc",
+            "pt_top"
+          ]
+        },
+        {
+          "line": 12136,
+          "sha256": "d62969bd9d75b6a4e096325ee28cceef8acba07be1fbe6b6a7044d19dc65ed1b",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_pop_orderby_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "csql_query_select_has_no_with_clause",
+      "rhs": [
+        "select_expression",
+        "opt_orderby_clause",
+        "opt_select_limit_clause",
+        "opt_for_update_clause"
+      ],
+      "line": 12143,
+      "actions": [
+        {
+          "line": 12145,
+          "sha256": "aece61d59cafca565bbbeff0ad0935947bf1d745fef232bd2107cf14ca03ef13",
+          "calls": [
+            "parser_save_and_set_cannot_cache",
+            "parser_save_and_set_cbrc",
+            "parser_save_and_set_gc",
+            "parser_save_and_set_ic",
+            "parser_save_and_set_oc",
+            "parser_save_and_set_prc",
+            "parser_save_and_set_pseudoc",
+            "parser_save_and_set_serc",
+            "parser_save_and_set_sqc",
+            "parser_save_and_set_sysc",
+            "parser_save_and_set_wjc"
+          ]
+        },
+        {
+          "line": 12159,
+          "sha256": "24290c34f7217facce6dde4e95f3784b0bc4546d141304f40744d5eaed9c84cd",
+          "calls": [
+            "parser_push_orderby_node"
+          ]
+        },
+        {
+          "line": 12164,
+          "sha256": "88b2290e8ecb34eae9feb986f03d86b38adab591107db368f2106a0f9981def1",
+          "calls": [
+            "PT_ERRORm",
+            "PT_ERRORmf",
+            "parser_free_tree",
+            "parser_pop_orderby_node",
+            "parser_push_orderby_node",
+            "parser_restore_cannot_cache",
+            "parser_restore_cbrc",
+            "parser_restore_gc",
+            "parser_restore_ic",
+            "parser_restore_oc",
+            "parser_restore_prc",
+            "parser_restore_pseudoc",
+            "parser_restore_serc",
+            "parser_restore_sqc",
+            "parser_restore_sysc",
+            "parser_restore_wjc",
+            "pt_top"
+          ]
+        },
+        {
+          "line": 12216,
+          "sha256": "d62969bd9d75b6a4e096325ee28cceef8acba07be1fbe6b6a7044d19dc65ed1b",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_pop_orderby_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "select_expression_opt_with",
+      "rhs": [
+        "opt_with_clause",
+        "select_expression"
+      ],
+      "line": 12463,
+      "actions": [
+        {
+          "line": 12466,
+          "sha256": "b1eaf1a07ada063444cd825cd2d3075a3333a66607192e1f8142c5626eb576cc",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "select_expression",
+      "rhs": [
+        "select_or_subquery"
+      ],
+      "line": 12642,
+      "actions": [
+        {
+          "line": 12643,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "select_or_subquery",
+      "rhs": [
+        "select_stmt"
+      ],
+      "line": 12889,
+      "actions": [
+        {
+          "line": 12891,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "select_or_subquery",
+      "rhs": [
+        "subquery"
+      ],
+      "line": 12895,
+      "actions": [
+        {
+          "line": 12896,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "select_stmt",
+      "rhs": [
+        "SELECT",
+        "opt_hint_list",
+        "all_distinct",
+        "select_list",
+        "opt_select_param_list",
+        "opt_from_clause"
+      ],
+      "line": 13048,
+      "actions": [
+        {
+          "line": 13051,
+          "sha256": "e7c2ee00dff34f6fbb36a89869d3e8b2cfa1b292242d6e45bd4358bd0d93accb",
+          "calls": [
+            "parser_new_node",
+            "parser_push_hint_node",
+            "parser_push_select_stmt_node",
+            "parser_save_found_Oracle_outer"
+          ]
+        },
+        {
+          "line": 13074,
+          "sha256": "f700f4888b5b52438d0bfe934b45b394339e71c4784fc7dfa7a4ef954f619815",
+          "calls": [
+            "parser_append_node",
+            "parser_top_select_stmt_node"
+          ]
+        },
+        {
+          "line": 13094,
+          "sha256": "283e5ae5e273faf53c225315ef1cf9d9cd91896811e29701212571f12b65d9ac",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_with_clause",
+      "rhs": [],
+      "line": 13099,
+      "actions": [
+        {
+          "line": 13101,
+          "sha256": "9f06a5dcca74e929a2a991dc80dbf5ae0178230814b325466c0022801af69f77",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_with_clause",
+      "rhs": [
+        "WITH",
+        "opt_recursive",
+        "cte_definition_list"
+      ],
+      "line": 13104,
+      "actions": [
+        {
+          "line": 13107,
+          "sha256": "d27c3e2f4475c22016738801ff3d2b28ee068ce84d50d04637f0295b19fdf28b",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_new_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_recursive",
+      "rhs": [],
+      "line": 13123,
+      "actions": [
+        {
+          "line": 13125,
+          "sha256": "d28384283a2b2a321b5d3ff5b48a42c4c075a9e2fcebd023b1eb4c6c5a4b749d",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "cte_definition_list",
+      "rhs": [
+        "cte_definition_list",
+        "','",
+        "cte_definition"
+      ],
+      "line": 13134,
+      "actions": [
+        {
+          "line": 13136,
+          "sha256": "0f088e87ff93d6d9f1f07cd13d99eece7a5ccbdc4bb3f8e7994e8b2f079fc45a",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_make_link"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "cte_definition_list",
+      "rhs": [
+        "cte_definition"
+      ],
+      "line": 13140,
+      "actions": [
+        {
+          "line": 13141,
+          "sha256": "7e1e9b3b5ecb455413035273f1f1ec33bf3c95dedd8636e8f8ec873fe5cc3b16",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "cte_definition",
+      "rhs": [
+        "identifier",
+        "opt_bracketed_identifier_list",
+        "AS",
+        "cte_query_list"
+      ],
+      "line": 13147,
+      "actions": [
+        {
+          "line": 13152,
+          "sha256": "160b67d55158c773ca58a977dabc513988be5921eccacf17f9cd53f86749ccfd",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_new_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "cte_query_list",
+      "rhs": [
+        "select_or_subquery"
+      ],
+      "line": 13188,
+      "actions": [
+        {
+          "line": 13189,
+          "sha256": "d6f09eabbc7893f1c1e927cdd4e283e8dbd449fd154ec057ce4d89c957b85086",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_from_clause",
+      "rhs": [],
+      "line": 13195,
+      "actions": [
+        {
+          "line": 13197,
+          "sha256": "1c3e2e0f9e2bee23734ea7c16afcc475f08d9c7fbd32b74594faa3ba9d5811ab",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PT_ERRORf",
+            "PT_ERRORm",
+            "parser_pop_hint_node",
+            "parser_pop_select_stmt_node",
+            "parser_restore_found_Oracle_outer",
+            "pt_short_print"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_from_clause",
+      "rhs": [
+        "FROM",
+        "extended_table_spec_list",
+        "opt_where_clause",
+        "opt_startwith_connectby_clause",
+        "opt_groupby_clause",
+        "opt_with_rollup",
+        "opt_having_clause",
+        "opt_using_index_clause",
+        "opt_with_increment_clause"
+      ],
+      "line": 13232,
+      "actions": [
+        {
+          "line": 13234,
+          "sha256": "b34e69594e0cd9c2ecebff444354497e95b3d4196eed3d83074befbaec275792",
+          "calls": []
+        },
+        {
+          "line": 13245,
+          "sha256": "a8eaea258fda2852009361c3e8285535ca3a6bf014cd1cd5229060c476386870",
+          "calls": [
+            "CONTAINER_AT_0",
+            "CONTAINER_AT_1",
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PT_ERRORf",
+            "PT_ERRORm",
+            "PT_SELECT_INFO_SET_FLAG",
+            "TO_NUMBER",
+            "parser_make_link",
+            "parser_pop_hint_node",
+            "parser_pop_select_stmt_node",
+            "parser_restore_found_Oracle_outer",
+            "pt_short_print"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_select_param_list",
+      "rhs": [],
+      "line": 13359,
+      "actions": [
+        {
+          "line": 13361,
+          "sha256": "9f06a5dcca74e929a2a991dc80dbf5ae0178230814b325466c0022801af69f77",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "all_distinct",
+      "rhs": [],
+      "line": 13398,
+      "actions": [
+        {
+          "line": 13400,
+          "sha256": "58ca89135c5a6eabf9ba67fbae80c299fe484a8f0e785ea2b8ef9268559be832",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "all_distinct",
+      "rhs": [
+        "DISTINCT"
+      ],
+      "line": 13407,
+      "actions": [
+        {
+          "line": 13408,
+          "sha256": "09f87799a6594481c8e70e91dd7ffbfef9a1c76d42c8b501f03918b0323fb6f9",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "select_list",
+      "rhs": [
+        "'*'"
+      ],
+      "line": 13417,
+      "actions": [
+        {
+          "line": 13419,
+          "sha256": "14824172029ef90ea1fcb019b9f217a7fa5a4b41e8167139cae944d44faf5406",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_new_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "select_list",
+      "rhs": [
+        "'*'",
+        "','",
+        "alias_enabled_expression_list_top"
+      ],
+      "line": 13427,
+      "actions": [
+        {
+          "line": 13428,
+          "sha256": "fbc308af7a802c694319560bf1171731cbbae6a9aced4c7dca5385c89ebe6681",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_make_link",
+            "parser_new_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "select_list",
+      "rhs": [
+        "alias_enabled_expression_list_top"
+      ],
+      "line": 13437,
+      "actions": [
+        {
+          "line": 13438,
+          "sha256": "09e5caf9b5f2cb5298d4a3595be0d4c1c7001c861be8bd9c522e2be85517e290",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "alias_enabled_expression_list_top",
+      "rhs": [
+        "alias_enabled_expression_list"
+      ],
+      "line": 13444,
+      "actions": [
+        {
+          "line": 13446,
+          "sha256": "3cb63cc968f753a836515d4f0ca46a8076e7d73b830538ff405a33a3bfb55fd9",
+          "calls": [
+            "parser_save_and_set_cbrc",
+            "parser_save_and_set_gc",
+            "parser_save_and_set_ic",
+            "parser_save_and_set_oc",
+            "parser_save_and_set_prc",
+            "parser_save_and_set_sysc"
+          ]
+        },
+        {
+          "line": 13455,
+          "sha256": "0b001f9280a046cc788c779e5ce9f0dea76c8c761e5ac61d2a3af419e987f37e",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_restore_cbrc",
+            "parser_restore_gc",
+            "parser_restore_ic",
+            "parser_restore_oc",
+            "parser_restore_prc",
+            "parser_restore_sysc"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "alias_enabled_expression_list",
+      "rhs": [
+        "alias_enabled_expression_list",
+        "','",
+        "alias_enabled_expression_"
+      ],
+      "line": 13467,
+      "actions": [
+        {
+          "line": 13469,
+          "sha256": "d97beef03fd25e66ede0b15ff7dcb664edf4a38a7e61ce85192cc32fedb351ad",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_make_link"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "alias_enabled_expression_list",
+      "rhs": [
+        "alias_enabled_expression_"
+      ],
+      "line": 13473,
+      "actions": [
+        {
+          "line": 13474,
+          "sha256": "c196c87803a69407882eedce9920b33e35aa0e1ab118117131b5b7f1a50c2bc7",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "alias_enabled_expression_",
+      "rhs": [
+        "normal_expression",
+        "opt_as_identifier"
+      ],
+      "line": 13485,
+      "actions": [
+        {
+          "line": 13487,
+          "sha256": "30769333d0ce9010002b7ddfed282d27bb3d0f9fae94d617b40d2f14d5699178",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PT_ERROR",
+            "PT_ERRORf",
+            "PT_ERRORm",
+            "PT_IS_QUERY_NODE_TYPE",
+            "parser_free_node",
+            "pt_get_subquery_list",
+            "pt_makename",
+            "pt_short_print"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "alias_enabled_expression_",
+      "rhs": [
+        "predicate_expression",
+        "opt_as_identifier"
+      ],
+      "line": 13529,
+      "actions": [
+        {
+          "line": 13530,
+          "sha256": "988fe3023f1b66e2b94138a234b8fd7e389d6bdce14a5d0adaf4fc51d716fa24",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_free_node",
+            "pt_makename"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "expression_list",
+      "rhs": [
+        "expression_queue"
+      ],
+      "line": 13546,
+      "actions": [
+        {
+          "line": 13548,
+          "sha256": "0c314bac7ad07b4f6f6f031b6020f0b88ae06179b584f5114ef035944b1969c0",
+          "calls": [
+            "CONTAINER_AT_0"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "expression_queue",
+      "rhs": [
+        "expression_queue",
+        "','",
+        "expression_"
+      ],
+      "line": 13553,
+      "actions": [
+        {
+          "line": 13555,
+          "sha256": "4569078ba83d2e4b40e2c21e9fef488f27ac5654613ac847da3cdf0835c82ffe",
+          "calls": [
+            "CONTAINER_AT_0",
+            "CONTAINER_AT_1",
+            "PARSER_SAVE_ERR_CONTEXT",
+            "SET_CONTAINER_2"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "expression_queue",
+      "rhs": [
+        "expression_"
+      ],
+      "line": 13566,
+      "actions": [
+        {
+          "line": 13567,
+          "sha256": "c0b5928206e328f681d4a78cbbd0d78f8ee63c2181dcb538c81497cbb39cded5",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "SET_CONTAINER_2"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_where_clause",
+      "rhs": [],
+      "line": 13874,
+      "actions": [
+        {
+          "line": 13876,
+          "sha256": "9f06a5dcca74e929a2a991dc80dbf5ae0178230814b325466c0022801af69f77",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_where_clause",
+      "rhs": [
+        "WHERE",
+        "search_condition"
+      ],
+      "line": 13879,
+      "actions": [
+        {
+          "line": 13879,
+          "sha256": "eedf1144d7f4a2d56009aa6bb6a14365c97b904ae0135c6004e1dc53f9957fdc",
+          "calls": [
+            "assert",
+            "parser_save_and_set_cbrc",
+            "parser_save_and_set_ic",
+            "parser_save_and_set_prc",
+            "parser_save_and_set_sysc"
+          ]
+        },
+        {
+          "line": 13888,
+          "sha256": "6d2133d8e10a5fcac66d894a20bfc446c5eca224839d179cb26b1154d7d9579f",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_restore_cbrc",
+            "parser_restore_ic",
+            "parser_restore_prc",
+            "parser_restore_sysc"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_startwith_connectby_clause",
+      "rhs": [],
+      "line": 13898,
+      "actions": [
+        {
+          "line": 13900,
+          "sha256": "342d460fde81adefc8eaae2bc0a9baab427cdbe8085b05df6a512411b56e11dc",
+          "calls": [
+            "SET_CONTAINER_2"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_groupby_clause",
+      "rhs": [],
+      "line": 13973,
+      "actions": [
+        {
+          "line": 13975,
+          "sha256": "9f06a5dcca74e929a2a991dc80dbf5ae0178230814b325466c0022801af69f77",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_with_rollup",
+      "rhs": [],
+      "line": 13985,
+      "actions": [
+        {
+          "line": 13987,
+          "sha256": "d28384283a2b2a321b5d3ff5b48a42c4c075a9e2fcebd023b1eb4c6c5a4b749d",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_having_clause",
+      "rhs": [],
+      "line": 14065,
+      "actions": [
+        {
+          "line": 14067,
+          "sha256": "9f06a5dcca74e929a2a991dc80dbf5ae0178230814b325466c0022801af69f77",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_using_index_clause",
+      "rhs": [],
+      "line": 14079,
+      "actions": [
+        {
+          "line": 14081,
+          "sha256": "9f06a5dcca74e929a2a991dc80dbf5ae0178230814b325466c0022801af69f77",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_with_increment_clause",
+      "rhs": [],
+      "line": 14256,
+      "actions": [
+        {
+          "line": 14258,
+          "sha256": "9f06a5dcca74e929a2a991dc80dbf5ae0178230814b325466c0022801af69f77",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_for_update_clause",
+      "rhs": [],
+      "line": 14273,
+      "actions": [
+        {
+          "line": 14274,
+          "sha256": "257c1be96ae69f4b01c2c69bdb6d78605f59175819fb007d0bf245bf48444c4a",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_orderby_clause",
+      "rhs": [],
+      "line": 14431,
+      "actions": [
+        {
+          "line": 14433,
+          "sha256": "d05fc136561cd582df8a7718226cdb4164d892f2518b0e9c55880ad7741197f3",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_select_limit_clause",
+      "rhs": [],
+      "line": 14736,
+      "actions": [
+        {
+          "line": 14738,
+          "sha256": "c3615b720d272693b5214feeecc26a23bc9b74e0c880a247e8d6082fd4da40c1",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "expression_",
+      "rhs": [
+        "normal_expression"
+      ],
+      "line": 14963,
+      "actions": [
+        {
+          "line": 14965,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "expression_",
+      "rhs": [
+        "predicate_expression"
+      ],
+      "line": 14969,
+      "actions": [
+        {
+          "line": 14970,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "normal_expression",
+      "rhs": [
+        "expression_strcat"
+      ],
+      "line": 14983,
+      "actions": [
+        {
+          "line": 14984,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "expression_strcat",
+      "rhs": [
+        "expression_bitor"
+      ],
+      "line": 14996,
+      "actions": [
+        {
+          "line": 14997,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "expression_bitor",
+      "rhs": [
+        "expression_bitand"
+      ],
+      "line": 15009,
+      "actions": [
+        {
+          "line": 15010,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "expression_bitand",
+      "rhs": [
+        "expression_bitshift"
+      ],
+      "line": 15022,
+      "actions": [
+        {
+          "line": 15023,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "expression_bitshift",
+      "rhs": [
+        "expression_add_sub"
+      ],
+      "line": 15040,
+      "actions": [
+        {
+          "line": 15041,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "expression_add_sub",
+      "rhs": [
+        "expression_add_sub",
+        "'+'",
+        "term"
+      ],
+      "line": 15047,
+      "actions": [
+        {
+          "line": 15049,
+          "sha256": "7fc925a918bbc866d60f1ebced6f7348fab6c4303feee30964f1dbb068d709a6",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_make_expression"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "expression_add_sub",
+      "rhs": [
+        "expression_add_sub",
+        "'-'",
+        "term"
+      ],
+      "line": 15053,
+      "actions": [
+        {
+          "line": 15054,
+          "sha256": "77cd93da48e25c8593d7038ff9299d20471b20f62011b3aa13cb5c3a92c49d31",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_make_expression"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "expression_add_sub",
+      "rhs": [
+        "term"
+      ],
+      "line": 15058,
+      "actions": [
+        {
+          "line": 15059,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "term",
+      "rhs": [
+        "term",
+        "'*'",
+        "factor"
+      ],
+      "line": 15065,
+      "actions": [
+        {
+          "line": 15067,
+          "sha256": "e2b1a35f8f1665affc6c3cd8452a6c14314309346f651d838aadc77199b25093",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_make_expression"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "term",
+      "rhs": [
+        "term",
+        "'/'",
+        "factor"
+      ],
+      "line": 15071,
+      "actions": [
+        {
+          "line": 15072,
+          "sha256": "a4fde75d7cf91cf721f648d64a72de072ba0fb4a4341a7052002263fc87b85e6",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_make_expression"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "term",
+      "rhs": [
+        "factor"
+      ],
+      "line": 15086,
+      "actions": [
+        {
+          "line": 15087,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "factor",
+      "rhs": [
+        "factor_"
+      ],
+      "line": 15099,
+      "actions": [
+        {
+          "line": 15100,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "factor_",
+      "rhs": [
+        "primary_w_collate"
+      ],
+      "line": 15106,
+      "actions": [
+        {
+          "line": 15108,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "factor_",
+      "rhs": [
+        "'-'",
+        "factor_"
+      ],
+      "line": 15112,
+      "actions": [
+        {
+          "line": 15113,
+          "sha256": "00a912e355d6dad8398d2e0a7fffd5234202942b78716f394e2104ad02b3ab62",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_make_expression"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "factor_",
+      "rhs": [
+        "'+'",
+        "factor_"
+      ],
+      "line": 15117,
+      "actions": [
+        {
+          "line": 15118,
+          "sha256": "a3dbb9400c88464757cbc5ad967d2376aab5029667d9f57c10e31aafab065419",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "primary_w_collate",
+      "rhs": [
+        "primary",
+        "opt_collation"
+      ],
+      "line": 15179,
+      "actions": [
+        {
+          "line": 15181,
+          "sha256": "46f80b0119f35cd4eaf8f7f67da874197f9b176347b1b9a657a7d4810b55bdb0",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "pt_set_collation_modifier"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "primary",
+      "rhs": [
+        "reserved_func"
+      ],
+      "line": 15209,
+      "actions": [
+        {
+          "line": 15210,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "primary",
+      "rhs": [
+        "literal_w_o_param"
+      ],
+      "line": 15224,
+      "actions": [
+        {
+          "line": 15225,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "primary",
+      "rhs": [
+        "path_expression"
+      ],
+      "line": 15236,
+      "actions": [
+        {
+          "line": 15237,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "primary",
+      "rhs": [
+        "'('",
+        "expression_list",
+        "')'"
+      ],
+      "line": 15241,
+      "actions": [
+        {
+          "line": 15242,
+          "sha256": "3ffa9c28b6702412d59839b0c3fa4fc819bceb547564ddddf2d1e9c79d5265fd",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "pt_create_paren_expr_list"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "primary",
+      "rhs": [
+        "'('",
+        "search_condition_query",
+        "')'"
+      ],
+      "line": 15255,
+      "actions": [
+        {
+          "line": 15256,
+          "sha256": "d165819dae04978facb30b66ab6488d8de6bc4933162975101d080d5a6f7c26b",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "primary",
+      "rhs": [
+        "subquery"
+      ],
+      "line": 15268,
+      "actions": [
+        {
+          "line": 15269,
+          "sha256": "ecbf3ab95b9baf96fc3c244d12bd7f67f3c6733ef231de713554a4858c2cea5d",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "search_condition_query",
+      "rhs": [
+        "search_condition_expression",
+        "opt_orderby_clause"
+      ],
+      "line": 15281,
+      "actions": [
+        {
+          "line": 15283,
+          "sha256": "3f9179e323d62fee4bbfe6872f0c7bcfbe568a62745fcff6d46e67c8f3142c0a",
+          "calls": [
+            "parser_push_orderby_node"
+          ]
+        },
+        {
+          "line": 15288,
+          "sha256": "d62969bd9d75b6a4e096325ee28cceef8acba07be1fbe6b6a7044d19dc65ed1b",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_pop_orderby_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "search_condition_expression",
+      "rhs": [
+        "search_condition"
+      ],
+      "line": 15295,
+      "actions": [
+        {
+          "line": 15297,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "reserved_func",
+      "rhs": [
+        "LEFT",
+        "'('",
+        "expression_",
+        "','",
+        "expression_",
+        "')'"
+      ],
+      "line": 16355,
+      "actions": [
+        {
+          "line": 16356,
+          "sha256": "3a3540e7319d55a843960fe9718af20cf3873c3ec393a6d57056f7f6f9f63cc1",
+          "calls": [
+            "push_msg"
+          ]
+        },
+        {
+          "line": 16358,
+          "sha256": "f4829b4b5a8fa2ac14ad7f23cf5e10745a9e147b22315d92417281276a4bff23",
+          "calls": [
+            "pop_msg"
+          ]
+        },
+        {
+          "line": 16359,
+          "sha256": "027d103c2129eab7c1b744809a9f07adfdb116fea331089339521e4516f7227e",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PICE",
+            "parser_make_expression"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "reserved_func",
+      "rhs": [
+        "RIGHT",
+        "'('",
+        "expression_",
+        "','",
+        "expression_",
+        "')'"
+      ],
+      "line": 16366,
+      "actions": [
+        {
+          "line": 16367,
+          "sha256": "f2f3fc7c68dbce3efaa8b34884cf4931849cec66ec3bb25aa2da3fc2f2de5532",
+          "calls": [
+            "push_msg"
+          ]
+        },
+        {
+          "line": 16369,
+          "sha256": "f4829b4b5a8fa2ac14ad7f23cf5e10745a9e147b22315d92417281276a4bff23",
+          "calls": [
+            "pop_msg"
+          ]
+        },
+        {
+          "line": 16370,
+          "sha256": "983dedfe39425d7b7757b789bf9e273866d795df7ccacfbd9099b40159765ed7",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PICE",
+            "parser_make_expression"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_on_target",
+      "rhs": [],
+      "line": 17429,
+      "actions": [
+        {
+          "line": 17431,
+          "sha256": "9f06a5dcca74e929a2a991dc80dbf5ae0178230814b325466c0022801af69f77",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_on_target",
+      "rhs": [
+        "ON_",
+        "primary"
+      ],
+      "line": 17434,
+      "actions": [
+        {
+          "line": 17435,
+          "sha256": "5b3700ff08f5cf305fc3bbf041069c11e1c5fffcff6103292e5329ade277aab9",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PT_ERRORm",
+            "PT_IS_NULL_NODE"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "generic_function",
+      "rhs": [
+        "identifier",
+        "'('",
+        "opt_expression_list",
+        "')'",
+        "opt_on_target"
+      ],
+      "line": 17445,
+      "actions": [
+        {
+          "line": 17447,
+          "sha256": "10acb0fc8b027062a8f098b93586c335fb9fdaad6fb7ab9536137b1a2f7f586f",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_keyword_func",
+            "parser_new_node",
+            "pt_add_password_offset"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "generic_function_id",
+      "rhs": [
+        "generic_function"
+      ],
+      "line": 17536,
+      "actions": [
+        {
+          "line": 17538,
+          "sha256": "a6fe3d4dd28633db38d5730a3ae8e609cef0ee35e80edda66b34184b8f322d29",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_free_node",
+            "parser_new_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_expression_list",
+      "rhs": [],
+      "line": 17576,
+      "actions": [
+        {
+          "line": 17578,
+          "sha256": "9f06a5dcca74e929a2a991dc80dbf5ae0178230814b325466c0022801af69f77",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_expression_list",
+      "rhs": [
+        "expression_list"
+      ],
+      "line": 17581,
+      "actions": [
+        {
+          "line": 17582,
+          "sha256": "06d2141d955d8492bac9d6844ef3fca3f645a4f21e3ee2d1289dd8a6d0f64d28",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "search_condition",
+      "rhs": [
+        "search_condition",
+        "OR",
+        "boolean_term_xor"
+      ],
+      "line": 17660,
+      "actions": [
+        {
+          "line": 17662,
+          "sha256": "c5628bc5cd90dcbb6800583b020916b5ca4949cc33315eab16fc24dbc123eef6",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_make_expression",
+            "pt_check_non_logical_expr"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "search_condition",
+      "rhs": [
+        "boolean_term_xor"
+      ],
+      "line": 17668,
+      "actions": [
+        {
+          "line": 17669,
+          "sha256": "adcf7f319462e90017402f173080df205b9fb8748aaab60ee6ca0165264eeef3",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "pt_check_non_logical_expr"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "boolean_term_xor",
+      "rhs": [
+        "boolean_term_is"
+      ],
+      "line": 17683,
+      "actions": [
+        {
+          "line": 17684,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "boolean_term_is",
+      "rhs": [
+        "boolean_term"
+      ],
+      "line": 17697,
+      "actions": [
+        {
+          "line": 17698,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "boolean_term",
+      "rhs": [
+        "boolean_term",
+        "AND",
+        "boolean_factor"
+      ],
+      "line": 17715,
+      "actions": [
+        {
+          "line": 17717,
+          "sha256": "ed7b7ca5036684d6894c98c50fc8cb2560c465982b43f5ce53a9c3a1a893c598",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_make_expression",
+            "pt_check_non_logical_expr"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "boolean_term",
+      "rhs": [
+        "boolean_factor"
+      ],
+      "line": 17723,
+      "actions": [
+        {
+          "line": 17724,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "boolean_factor",
+      "rhs": [
+        "NOT",
+        "predicate"
+      ],
+      "line": 17730,
+      "actions": [
+        {
+          "line": 17732,
+          "sha256": "b97c6469fdb11ae64300e89ffec0b92c4f133932c699387078364e2c77ac8837",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_make_expression",
+            "pt_check_non_logical_expr"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "boolean_factor",
+      "rhs": [
+        "predicate"
+      ],
+      "line": 17743,
+      "actions": [
+        {
+          "line": 17744,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "predicate",
+      "rhs": [
+        "EXISTS",
+        "expression_"
+      ],
+      "line": 17750,
+      "actions": [
+        {
+          "line": 17752,
+          "sha256": "d3efc5fb6989aa1a88c60c823f0efcedd45918de743c9c6a81b2efdb57518b1d",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_make_expression"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "predicate",
+      "rhs": [
+        "expression_"
+      ],
+      "line": 17756,
+      "actions": [
+        {
+          "line": 17757,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "predicate_expression",
+      "rhs": [
+        "predicate_expr_sub",
+        "opt_paren_plus"
+      ],
+      "line": 17763,
+      "actions": [
+        {
+          "line": 17765,
+          "sha256": "025e3e9dea03d5d24e36ad19e58613a9f6f3dec363a13fc3ba9dbcb932a3340f",
+          "calls": [
+            "parser_restore_wjc",
+            "parser_top_join_type"
+          ]
+        },
+        {
+          "line": 17771,
+          "sha256": "d89477c9119c1cefccd59e145b67b6bc21e0d6a3589f764a3958a918dc20b654",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PT_ERROR",
+            "PT_EXPR_INFO_SET_FLAG",
+            "parser_pop_join_type"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "predicate_expr_sub",
+      "rhs": [
+        "pred_lhs",
+        "comp_op",
+        "normal_expression"
+      ],
+      "line": 17854,
+      "actions": [
+        {
+          "line": 17856,
+          "sha256": "1fc401371ee9d464ef3ca871eb27dd1483a2670330d86f9f4af699329db8e3c2",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PICE",
+            "PT_ERRORf",
+            "PT_ERRORmf2",
+            "PT_IS_QUERY_NODE_TYPE",
+            "parser_make_expression",
+            "pt_check_set_count_set",
+            "pt_get_expression_count",
+            "pt_get_subquery_list",
+            "pt_has_error",
+            "pt_is_set_type",
+            "pt_rewrite_set_eq_set",
+            "pt_select_list_to_one_col",
+            "pt_show_binopcode"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "predicate_expr_sub",
+      "rhs": [
+        "pred_lhs",
+        "null_op"
+      ],
+      "line": 18030,
+      "actions": [
+        {
+          "line": 18031,
+          "sha256": "2e65d08cb919b560ac330e6397c6fe923712176e35f2f772143468229188015e",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_make_expression"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "pred_lhs",
+      "rhs": [
+        "normal_expression",
+        "opt_paren_plus"
+      ],
+      "line": 18252,
+      "actions": [
+        {
+          "line": 18254,
+          "sha256": "c64a2441570af8bb7f2b7c2cd852adea05d9ca255e56628f13c735fc74038fd8",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_push_join_type",
+            "parser_save_and_set_wjc"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_paren_plus",
+      "rhs": [],
+      "line": 18269,
+      "actions": [
+        {
+          "line": 18271,
+          "sha256": "d28384283a2b2a321b5d3ff5b48a42c4c075a9e2fcebd023b1eb4c6c5a4b749d",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_paren_plus",
+      "rhs": [
+        "paren_plus"
+      ],
+      "line": 18274,
+      "actions": [
+        {
+          "line": 18275,
+          "sha256": "6208ae12fcfffca66fd511916947a78380c3e0b89835a6a9387f60294e16af31",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "comp_op",
+      "rhs": [
+        "'='",
+        "opt_of_all_some_any"
+      ],
+      "line": 18280,
+      "actions": [
+        {
+          "line": 18282,
+          "sha256": "ce31154e0f740a6d2b731c9855066e77cfb5e1906ca821ba380b1ecd4b0b67ed",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "comp_op",
+      "rhs": [
+        "COMP_NOT_EQ",
+        "opt_of_all_some_any"
+      ],
+      "line": 18299,
+      "actions": [
+        {
+          "line": 18300,
+          "sha256": "82d8295ae5bde638e1a8bb72585e218a4467a3e461df4bd69f1017b25e262d50",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "comp_op",
+      "rhs": [
+        "'>'",
+        "opt_of_all_some_any"
+      ],
+      "line": 18317,
+      "actions": [
+        {
+          "line": 18318,
+          "sha256": "90a61d9777f0a38c058ff822455adc426b3e39eeb88fdf5a7508260c54b1a2e7",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "comp_op",
+      "rhs": [
+        "COMP_GE",
+        "opt_of_all_some_any"
+      ],
+      "line": 18335,
+      "actions": [
+        {
+          "line": 18336,
+          "sha256": "ae1de2647d79b089fa0137398a710a4c31512cfca860514418939bc77d8afbcb",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "comp_op",
+      "rhs": [
+        "'<'",
+        "opt_of_all_some_any"
+      ],
+      "line": 18353,
+      "actions": [
+        {
+          "line": 18354,
+          "sha256": "6f2baed6443abb6af6adad182e4a6c4d02d7d00a99ab43f1b585d19f5bb27f20",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "comp_op",
+      "rhs": [
+        "COMP_LE",
+        "opt_of_all_some_any"
+      ],
+      "line": 18371,
+      "actions": [
+        {
+          "line": 18372,
+          "sha256": "4805794be4d328abc69ff6b19dd3403dd6453d6e25437965f40ead9358b756d3",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "comp_op",
+      "rhs": [
+        "'='",
+        "'='",
+        "opt_of_all_some_any"
+      ],
+      "line": 18389,
+      "actions": [
+        {
+          "line": 18390,
+          "sha256": "61fb8cd262505e578eb9886e2c94b9ace943b39d89fe2c49f75d35c0a6202aa3",
+          "calls": [
+            "csql_yyerror_explicit",
+            "push_msg"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_of_all_some_any",
+      "rhs": [],
+      "line": 18407,
+      "actions": [
+        {
+          "line": 18409,
+          "sha256": "d28384283a2b2a321b5d3ff5b48a42c4c075a9e2fcebd023b1eb4c6c5a4b749d",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "null_op",
+      "rhs": [
+        "IS",
+        "NOT",
+        "Null"
+      ],
+      "line": 18461,
+      "actions": [
+        {
+          "line": 18463,
+          "sha256": "c37c95df7ea36a89b6e6ee1e7237edf80f08bfd9f5d3c5d57c1849d57f3cc57d",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "null_op",
+      "rhs": [
+        "IS",
+        "Null"
+      ],
+      "line": 18466,
+      "actions": [
+        {
+          "line": 18467,
+          "sha256": "46650417bb413b84915a444cbf73796097a4e176c2811acf8a02bc21fbcfa0d2",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "subquery",
+      "rhs": [
+        "'('",
+        "csql_query",
+        "')'"
+      ],
+      "line": 18601,
+      "actions": [
+        {
+          "line": 18603,
+          "sha256": "da749528b0b69455db79989c827d7d60b5326f7dad1482be965da03dbb6cfc88",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PT_ERRORm"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "path_expression",
+      "rhs": [
+        "path_header",
+        "DOT",
+        "'*'"
+      ],
+      "line": 18665,
+      "actions": [
+        {
+          "line": 18666,
+          "sha256": "e6847a61197935ef030dd3987996713ebd9581c63eda59f8786d5e42bff95561",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PT_ERROR"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "path_expression",
+      "rhs": [
+        "path_id_list"
+      ],
+      "line": 18683,
+      "actions": [
+        {
+          "line": 18684,
+          "sha256": "c01fc9bbf0bad07e19885eca437b30e24eab89ca76eea897ae51f976fc9a16e5",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PICE",
+            "PT_ERRORmf",
+            "intl_identifier_casecmp",
+            "parser_free_node",
+            "parser_new_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "path_id_list",
+      "rhs": [
+        "path_id_list",
+        "path_dot",
+        "path_id"
+      ],
+      "line": 18759,
+      "actions": [
+        {
+          "line": 18761,
+          "sha256": "6154ee17e3fa6cf3877f53d1da724970912ee638bff4b583275f7617cb7651a4",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_new_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "path_id_list",
+      "rhs": [
+        "path_header"
+      ],
+      "line": 18772,
+      "actions": [
+        {
+          "line": 18773,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "path_header",
+      "rhs": [
+        "path_id"
+      ],
+      "line": 18792,
+      "actions": [
+        {
+          "line": 18793,
+          "sha256": "cacff393ce67444b8baab3675003d98bfc5578ddafc228abfdca95de158dc05b",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "path_dot",
+      "rhs": [
+        "DOT"
+      ],
+      "line": 18802,
+      "actions": [
+        {
+          "line": 18803,
+          "sha256": "257c1be96ae69f4b01c2c69bdb6d78605f59175819fb007d0bf245bf48444c4a",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "path_id",
+      "rhs": [
+        "identifier"
+      ],
+      "line": 18818,
+      "actions": [
+        {
+          "line": 18819,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "path_id",
+      "rhs": [
+        "generic_function_id"
+      ],
+      "line": 18823,
+      "actions": [
+        {
+          "line": 18824,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_collation",
+      "rhs": [],
+      "line": 19849,
+      "actions": [
+        {
+          "line": 19851,
+          "sha256": "9f06a5dcca74e929a2a991dc80dbf5ae0178230814b325466c0022801af69f77",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_vclass_comment_spec",
+      "rhs": [],
+      "line": 19973,
+      "actions": [
+        {
+          "line": 19975,
+          "sha256": "4912afe05ddb4ddbbd977e6f5ffe990adf02e5c67c116dee8e16db1f99036451",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_comment_spec",
+      "rhs": [],
+      "line": 20084,
+      "actions": [
+        {
+          "line": 20086,
+          "sha256": "4912afe05ddb4ddbbd977e6f5ffe990adf02e5c67c116dee8e16db1f99036451",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "literal_w_o_param",
+      "rhs": [
+        "unsigned_integer"
+      ],
+      "line": 20407,
+      "actions": [
+        {
+          "line": 20409,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "literal_w_o_param",
+      "rhs": [
+        "char_string_literal"
+      ],
+      "line": 20423,
+      "actions": [
+        {
+          "line": 20424,
+          "sha256": "1aafa4dc09f806b07c4c51f0c423b4d7a448367bff033c022485376307e1f0cd",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "pt_value_set_collation_info"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "literal_w_o_param",
+      "rhs": [
+        "Null"
+      ],
+      "line": 20442,
+      "actions": [
+        {
+          "line": 20443,
+          "sha256": "f2465f7f1119ea539d8a198183bc66808371ae4d4521327153556a576a7eecdc",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_new_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "identifier_list",
+      "rhs": [
+        "identifier_list",
+        "','",
+        "identifier"
+      ],
+      "line": 20587,
+      "actions": [
+        {
+          "line": 20589,
+          "sha256": "d97beef03fd25e66ede0b15ff7dcb664edf4a38a7e61ce85192cc32fedb351ad",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_make_link"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "identifier_list",
+      "rhs": [
+        "identifier"
+      ],
+      "line": 20593,
+      "actions": [
+        {
+          "line": 20594,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_bracketed_identifier_list",
+      "rhs": [],
+      "line": 20600,
+      "actions": [
+        {
+          "line": 20602,
+          "sha256": "9f06a5dcca74e929a2a991dc80dbf5ae0178230814b325466c0022801af69f77",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_bracketed_identifier_list",
+      "rhs": [
+        "'('",
+        "identifier_list",
+        "')'"
+      ],
+      "line": 20605,
+      "actions": [
+        {
+          "line": 20606,
+          "sha256": "e3f445d40ef0ef6a83e59c723ceaeeb7c75aae77d7757ce0475245a06a6b029b",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "char_string_literal",
+      "rhs": [
+        "char_string_literal",
+        "CHAR_STRING"
+      ],
+      "line": 20962,
+      "actions": [
+        {
+          "line": 20964,
+          "sha256": "eaf5c9a3da4acefb5fc4bac09aae9adb19130c1eec43d9392a8190d9cbbde75d",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PT_NODE_PRINT_VALUE_TO_TEXT",
+            "pt_append_bytes",
+            "strlen"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "char_string_literal",
+      "rhs": [
+        "char_string"
+      ],
+      "line": 20978,
+      "actions": [
+        {
+          "line": 20979,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "char_string",
+      "rhs": [
+        "CHAR_STRING"
+      ],
+      "line": 20985,
+      "actions": [
+        {
+          "line": 20987,
+          "sha256": "66e3a76d0be44c4c951d18d0f8754da6f926a77d6cc8ff6d21acbd495dd4bb06",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "pt_create_string_literal_node_w_charset_coll"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "unsigned_integer",
+      "rhs": [
+        "UNSIGNED_INTEGER"
+      ],
+      "line": 21163,
+      "actions": [
+        {
+          "line": 21165,
+          "sha256": "fc31b4e745918fdddd90827665967b0278abdbd15ae98dce389dc3f2f8730057",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "atol",
+            "atoll",
+            "parser_new_node",
+            "pt_append_bytes",
+            "strcmp",
+            "strlen"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "paren_plus",
+      "rhs": [
+        "'('",
+        "'+'",
+        "')'"
+      ],
+      "line": 22031,
+      "actions": []
+    },
+    {
+      "lhs": "alter_stmt",
+      "rhs": [
+        "ALTER",
+        "view_or_vclass",
+        "class_name",
+        "AS",
+        "csql_query",
+        "opt_vclass_comment_spec"
+      ],
+      "line": 4047,
+      "actions": [
+        {
+          "line": 4053,
+          "sha256": "b0214f80f69994b89e857141997c691ba6b566273a5d4e74ef4eb1fc86464cb9",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_new_node",
+            "pt_gather_constraints"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "view_or_vclass",
+      "rhs": [
+        "VIEW"
+      ],
+      "line": 4268,
+      "actions": [
+        {
+          "line": 4269,
+          "sha256": "257c1be96ae69f4b01c2c69bdb6d78605f59175819fb007d0bf245bf48444c4a",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_class_type",
+      "rhs": [
+        "VIEW"
+      ],
+      "line": 5859,
+      "actions": [
+        {
+          "line": 5860,
+          "sha256": "63cd256c9ba2669c8c1697c3c0077d19553eb53f689b37a0cc371e56a3fec782",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "alter_clause_for_alter_list",
+      "rhs": [
+        "CHANGE",
+        "alter_change_clause_for_alter_list"
+      ],
+      "line": 5920,
+      "actions": []
+    },
+    {
+      "lhs": "alter_clause_cubrid_specific",
+      "rhs": [
+        "CHANGE",
+        "alter_change_clause_cubrid_specific"
+      ],
+      "line": 6001,
+      "actions": []
+    },
+    {
+      "lhs": "alter_change_clause_for_alter_list",
+      "rhs": [
+        "normal_column_or_class_attribute",
+        "attr_def_one"
+      ],
+      "line": 6484,
+      "actions": [
+        {
+          "line": 6486,
+          "sha256": "3f3ac0a05978939ddc355ea5c3331e393e6bd87aa7fe123e69e22aea266e3981",
+          "calls": []
+        },
+        {
+          "line": 6488,
+          "sha256": "8f3f2f18afc3fbf545ca952ee9bb4fbd935ca6c4de5975945ebd4b05268b0b3e",
+          "calls": []
+        },
+        {
+          "line": 6489,
+          "sha256": "95825e71df8b3732308269485b00aa795895a2544cf6797aa9b49dc9bd7458a6",
+          "calls": [
+            "parser_get_alter_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "alter_change_clause_cubrid_specific",
+      "rhs": [
+        "QUERY",
+        "unsigned_integer",
+        "csql_query",
+        "opt_vclass_comment_spec"
+      ],
+      "line": 6518,
+      "actions": [
+        {
+          "line": 6519,
+          "sha256": "97164f4ec2df855b0e1062b12cf2b2a1fdc3b708956840baed6484f008471732",
+          "calls": [
+            "parser_get_alter_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "alter_change_clause_cubrid_specific",
+      "rhs": [
+        "QUERY",
+        "csql_query",
+        "opt_vclass_comment_spec"
+      ],
+      "line": 6530,
+      "actions": [
+        {
+          "line": 6531,
+          "sha256": "c47568ba284c6f44137e4f06ee16e8c4bf444deb374b6459cf83894adcd2a0ca",
+          "calls": [
+            "parser_get_alter_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "normal_column_or_class_attribute",
+      "rhs": [
+        "opt_of_column_attribute",
+        "identifier"
+      ],
+      "line": 6599,
+      "actions": [
+        {
+          "line": 6601,
+          "sha256": "a8a77d895fde71f49b4a6872e9476ff554ae0c6160ef2b6b87f77207a1e96767",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "stmt_",
+      "rhs": [
+        "drop_stmt"
+      ],
+      "line": 1953,
+      "actions": [
+        {
+          "line": 1954,
+          "sha256": "c276fdd563ae15ec5db116a8e7779bfafa9b327ce4e7bd3f57ef0f3917545cb1",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "drop_stmt",
+      "rhs": [
+        "DROP",
+        "opt_class_type",
+        "opt_if_exists",
+        "class_spec_list",
+        "opt_cascade_constraints"
+      ],
+      "line": 4493,
+      "actions": [
+        {
+          "line": 4495,
+          "sha256": "60c4aa93d646b6cbdf525743a0ac1c533119c29c61ff07a80ef161c35854b34f",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_new_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "class_spec_list",
+      "rhs": [
+        "class_spec_list",
+        "','",
+        "class_spec_without_server_name"
+      ],
+      "line": 5501,
+      "actions": [
+        {
+          "line": 5503,
+          "sha256": "d97beef03fd25e66ede0b15ff7dcb664edf4a38a7e61ce85192cc32fedb351ad",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_make_link"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "class_spec_list",
+      "rhs": [
+        "class_spec_without_server_name"
+      ],
+      "line": 5507,
+      "actions": [
+        {
+          "line": 5508,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "class_spec_without_server_name",
+      "rhs": [
+        "only_all_class_spec"
+      ],
+      "line": 5514,
+      "actions": [
+        {
+          "line": 5516,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_cascade_constraints",
+      "rhs": [],
+      "line": 5899,
+      "actions": [
+        {
+          "line": 5901,
+          "sha256": "d6ec62ef097788c19639971e71d50752ac85b6e5bc86fc9026ee7486adb4bed1",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_if_exists",
+      "rhs": [],
+      "line": 9029,
+      "actions": [
+        {
+          "line": 9031,
+          "sha256": "d28384283a2b2a321b5d3ff5b48a42c4c075a9e2fcebd023b1eb4c6c5a4b749d",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "stmt_",
+      "rhs": [
+        "show_stmt"
+      ],
+      "line": 1998,
+      "actions": [
+        {
+          "line": 1999,
+          "sha256": "c276fdd563ae15ec5db116a8e7779bfafa9b327ce4e7bd3f57ef0f3917545cb1",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "create_stmt",
+      "rhs": [
+        "CREATE",
+        "opt_hint_list",
+        "opt_reverse",
+        "opt_unique",
+        "INDEX",
+        "identifier",
+        "ON_",
+        "only_class_name",
+        "index_column_name_list",
+        "opt_where_clause",
+        "opt_index_with_clause",
+        "opt_invisible",
+        "opt_comment_spec"
+      ],
+      "line": 2677,
+      "actions": [
+        {
+          "line": 2678,
+          "sha256": "4779b68df49e32f675b074969af1fff46ae5133b09836854a6edc02736f9009a",
+          "calls": [
+            "parser_new_node",
+            "parser_push_hint_node",
+            "push_msg"
+          ]
+        },
+        {
+          "line": 2687,
+          "sha256": "f4829b4b5a8fa2ac14ad7f23cf5e10745a9e147b22315d92417281276a4bff23",
+          "calls": [
+            "pop_msg"
+          ]
+        },
+        {
+          "line": 2696,
+          "sha256": "5e2058437f3f89f9cc8c6e92bbb2359b09e530fbbc026c37748d8027a213f83b",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PT_ERRORm",
+            "PT_ERRORmf",
+            "fcode_get_lowercase_name",
+            "parser_count_prefix_columns",
+            "parser_free_node",
+            "parser_new_node",
+            "parser_pop_hint_node",
+            "snprintf"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_reverse",
+      "rhs": [],
+      "line": 4741,
+      "actions": [
+        {
+          "line": 4743,
+          "sha256": "140a357450f607a3d2c1615524d62d5617f20b7009a906bb2c42f8334cbef4f9",
+          "calls": [
+            "parser_save_is_reverse"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_unique",
+      "rhs": [],
+      "line": 4754,
+      "actions": [
+        {
+          "line": 4756,
+          "sha256": "d6ec62ef097788c19639971e71d50752ac85b6e5bc86fc9026ee7486adb4bed1",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "index_column_name_list",
+      "rhs": [
+        "'('",
+        "sort_spec_list",
+        "')'"
+      ],
+      "line": 4777,
+      "actions": [
+        {
+          "line": 4779,
+          "sha256": "ebd1469b1445c3d7049c8c2908717467e786dedadf000a344bfb73ecbff8d148",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_get_is_reverse"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_invisible",
+      "rhs": [],
+      "line": 4871,
+      "actions": [
+        {
+          "line": 4873,
+          "sha256": "4545b2b73b071ffec925023c4c256dad20513e8de82eb25bc13cfa0c6f677076",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "show_stmt",
+      "rhs": [
+        "of_describe_desc_explain",
+        "class_name"
+      ],
+      "line": 7213,
+      "actions": [
+        {
+          "line": 7215,
+          "sha256": "6ff2f615d93fbffe438f7f3325d920c590bf2869b0bb63073b5db14a1ed37bed",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "pt_make_query_show_columns"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "show_stmt",
+      "rhs": [
+        "of_describe_desc_explain",
+        "class_name",
+        "identifier"
+      ],
+      "line": 7225,
+      "actions": [
+        {
+          "line": 7228,
+          "sha256": "8d123b6766e332b1bd223d38d73eff81230fc0fb38c7f5967889302fc79aaeda",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "pt_make_query_describe_w_identifier"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "of_describe_desc_explain",
+      "rhs": [
+        "DESC"
+      ],
+      "line": 7798,
+      "actions": []
+    },
+    {
+      "lhs": "sort_spec_list",
+      "rhs": [
+        "sort_spec_list",
+        "','",
+        "sort_spec"
+      ],
+      "line": 14890,
+      "actions": [
+        {
+          "line": 14892,
+          "sha256": "d97beef03fd25e66ede0b15ff7dcb664edf4a38a7e61ce85192cc32fedb351ad",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_make_link"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "sort_spec_list",
+      "rhs": [
+        "sort_spec"
+      ],
+      "line": 14896,
+      "actions": [
+        {
+          "line": 14897,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "sort_spec",
+      "rhs": [
+        "expression_",
+        "ASC",
+        "opt_nulls_first_or_last"
+      ],
+      "line": 14903,
+      "actions": [
+        {
+          "line": 14905,
+          "sha256": "b38155c6d13a025526e6d9b74ebfaa1eb0fc17cdf426466fb8bd284a08f4d92f",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_new_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "sort_spec",
+      "rhs": [
+        "expression_",
+        "DESC",
+        "opt_nulls_first_or_last"
+      ],
+      "line": 14918,
+      "actions": [
+        {
+          "line": 14919,
+          "sha256": "dbfde8197be59760f7c8959070ad322925d97d05a24108f10a08e0fb6a1aed72",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_new_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "sort_spec",
+      "rhs": [
+        "expression_",
+        "opt_nulls_first_or_last"
+      ],
+      "line": 14932,
+      "actions": [
+        {
+          "line": 14933,
+          "sha256": "35b9a70ba71f72ccf6c4deb915dd79f9d64496afde490d115db1dcfc73ed15c3",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_new_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_nulls_first_or_last",
+      "rhs": [],
+      "line": 14948,
+      "actions": [
+        {
+          "line": 14950,
+          "sha256": "13ae88fe663033f40130bd40684aceb160785541be09637e99390b4539d461fc",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_index_with_clause",
+      "rhs": [],
+      "line": 20006,
+      "actions": [
+        {
+          "line": 20008,
+          "sha256": "003ae6b539074dc9adf8b44c427622fd1a5f78c448ee812d62dbf5a7f51f463c",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "alter_stmt",
+      "rhs": [
+        "ALTER",
+        "opt_hint_list",
+        "opt_reverse",
+        "opt_unique",
+        "INDEX",
+        "identifier",
+        "ON_",
+        "only_class_name",
+        "opt_comment_spec",
+        "REBUILD"
+      ],
+      "line": 3866,
+      "actions": [
+        {
+          "line": 3867,
+          "sha256": "310b168c90a6f7168ba3f295432a56d83fc3795126171899a91c92e48a524588",
+          "calls": [
+            "parser_new_node",
+            "parser_push_hint_node"
+          ]
+        },
+        {
+          "line": 3880,
+          "sha256": "540bc0fc0ab25bb1f7bd2ad6f8d8d8f3a9299a6bc378974a0627f2621e523e8c",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_new_node",
+            "parser_pop_hint_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "identifier",
+      "rhs": [
+        "REBUILD"
+      ],
+      "line": 20867,
+      "actions": [
+        {
+          "line": 20867,
+          "sha256": "fb48ac44a55936df40b5f948be3d89bb341b0a89d889f586f0ced2bfcb3eaefa",
+          "calls": [
+            "SET_CPTR_2_PTNAME"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "drop_stmt",
+      "rhs": [
+        "DROP",
+        "opt_hint_list",
+        "opt_reverse",
+        "opt_unique",
+        "INDEX",
+        "identifier",
+        "ON_",
+        "only_class_name",
+        "opt_index_column_name_list"
+      ],
+      "line": 4512,
+      "actions": [
+        {
+          "line": 4513,
+          "sha256": "3baace4de197ee2e7477ab701c12dc5704651f324efe417d8a3fdd130588f9ec",
+          "calls": [
+            "parser_new_node",
+            "parser_push_hint_node"
+          ]
+        },
+        {
+          "line": 4525,
+          "sha256": "ee6b25e44ccfe45d62f966463babf61f783b244691e0f5d495b06b222dc03f9a",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PT_ERRORm",
+            "parser_new_node",
+            "parser_pop_hint_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_index_column_name_list",
+      "rhs": [],
+      "line": 4765,
+      "actions": [
+        {
+          "line": 4767,
+          "sha256": "9f06a5dcca74e929a2a991dc80dbf5ae0178230814b325466c0022801af69f77",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_serial_option_list_or_owner_clause",
+      "rhs": [],
+      "line": 3321,
+      "actions": [
+        {
+          "line": 3323,
+          "sha256": "16ecfb461436433138e1d12ae88d929b577cb96e629fda30316aac01dc260763",
+          "calls": [
+            "memset"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_serial_option_list_or_owner_clause",
+      "rhs": [
+        "serial_option_list"
+      ],
+      "line": 3328,
+      "actions": [
+        {
+          "line": 3329,
+          "sha256": "9b96fc620f2fdbe22f4ae6548feb6ec3f8490ac5fbb26f21f9e7931cf604dd28",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "serial_option_list",
+      "rhs": [
+        "serial_option_list",
+        "of_serial_option"
+      ],
+      "line": 3338,
+      "actions": [
+        {
+          "line": 3340,
+          "sha256": "f79a6287fc6c4984bd5622eebc1b6c43705d3636cc5ed84c55ed0cb0fbd1cdf7",
+          "calls": [
+            "CONTAINER_AT_0",
+            "CONTAINER_AT_1",
+            "CONTAINER_AT_2",
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PT_ERRORmf",
+            "TO_NUMBER",
+            "pt_top"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "serial_option_list",
+      "rhs": [
+        "of_serial_option"
+      ],
+      "line": 3433,
+      "actions": [
+        {
+          "line": 3434,
+          "sha256": "80e89cace298ba4eec70b729879f80568d5e41156fd06dbacae04a5929acd6d2",
+          "calls": [
+            "CONTAINER_AT_0",
+            "CONTAINER_AT_1",
+            "CONTAINER_AT_2",
+            "TO_NUMBER",
+            "memset"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "of_serial_option",
+      "rhs": [
+        "serial_start"
+      ],
+      "line": 3491,
+      "actions": [
+        {
+          "line": 3493,
+          "sha256": "5614909e1fccf03d2ca4fd6e6121887767b1448764d3c7fba84b1820f738256d",
+          "calls": [
+            "FROM_NUMBER",
+            "SET_CONTAINER_3"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "of_serial_option",
+      "rhs": [
+        "serial_increment"
+      ],
+      "line": 3498,
+      "actions": [
+        {
+          "line": 3499,
+          "sha256": "e974cfb002521ed7c8b1a02e93149f99850be601470e9d63d016bffb0c6e7584",
+          "calls": [
+            "FROM_NUMBER",
+            "SET_CONTAINER_3"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "of_serial_option",
+      "rhs": [
+        "serial_min"
+      ],
+      "line": 3504,
+      "actions": [
+        {
+          "line": 3505,
+          "sha256": "6b9011e83b3cc62b18b200612d1c1baf26dc0b171efaec4a5abd0b4fce3625be",
+          "calls": [
+            "CONTAINER_AT_0",
+            "CONTAINER_AT_1",
+            "FROM_NUMBER",
+            "SET_CONTAINER_3"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "of_serial_option",
+      "rhs": [
+        "serial_max"
+      ],
+      "line": 3510,
+      "actions": [
+        {
+          "line": 3511,
+          "sha256": "6b217705e96e9dd2f36f0ba79d23c409ced01c203b025911a21d908cee8a778e",
+          "calls": [
+            "CONTAINER_AT_0",
+            "CONTAINER_AT_1",
+            "FROM_NUMBER",
+            "SET_CONTAINER_3"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "of_serial_option",
+      "rhs": [
+        "of_cycle_nocycle"
+      ],
+      "line": 3516,
+      "actions": [
+        {
+          "line": 3517,
+          "sha256": "39102f19d36d22da2a495dac13790667f6d344300e71967acae07b07daa93df6",
+          "calls": [
+            "CONTAINER_AT_0",
+            "CONTAINER_AT_1",
+            "FROM_NUMBER",
+            "SET_CONTAINER_3"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "of_serial_option",
+      "rhs": [
+        "of_cached_num"
+      ],
+      "line": 3522,
+      "actions": [
+        {
+          "line": 3523,
+          "sha256": "570392544daff8b9a477a80b4721561efc9da61575897fddc611a98b75e2db24",
+          "calls": [
+            "CONTAINER_AT_0",
+            "CONTAINER_AT_1",
+            "FROM_NUMBER",
+            "SET_CONTAINER_3"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "alter_stmt",
+      "rhs": [
+        "ALTER",
+        "SERIAL",
+        "serial_name",
+        "opt_serial_option_list_or_owner_clause",
+        "opt_comment_spec"
+      ],
+      "line": 3800,
+      "actions": [
+        {
+          "line": 3805,
+          "sha256": "48a1b0f699a4b4d7dfa5612a42aa33457ca757ad7dd0bc0502541c5fa0e921f1",
+          "calls": [
+            "CONTAINER_AT_0",
+            "CONTAINER_AT_1",
+            "CONTAINER_AT_10",
+            "CONTAINER_AT_2",
+            "CONTAINER_AT_3",
+            "CONTAINER_AT_4",
+            "CONTAINER_AT_5",
+            "CONTAINER_AT_6",
+            "CONTAINER_AT_7",
+            "CONTAINER_AT_8",
+            "CONTAINER_AT_9",
+            "PARSER_SAVE_ERR_CONTEXT",
+            "TO_NUMBER",
+            "parser_new_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "serial_name",
+      "rhs": [
+        "user_specified_name"
+      ],
+      "line": 5792,
+      "actions": [
+        {
+          "line": 5794,
+          "sha256": "c276fdd563ae15ec5db116a8e7779bfafa9b327ce4e7bd3f57ef0f3917545cb1",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "alter_clause_for_alter_list",
+      "rhs": [
+        "class_comment_spec"
+      ],
+      "line": 5985,
+      "actions": [
+        {
+          "line": 5986,
+          "sha256": "1f16f2d7053a8d733b8d45ad4fba80d6b767dc3c4246c1f63a33cfe25055e43a",
+          "calls": [
+            "parser_get_alter_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "serial_start",
+      "rhs": [
+        "START_",
+        "WITH",
+        "integer_text"
+      ],
+      "line": 11563,
+      "actions": [
+        {
+          "line": 11565,
+          "sha256": "b85812093dbedd5aa55d064dc3f812a32a15cc002a3951b3a5e93e08380e9cc1",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PT_NODE_PRINT_VALUE_TO_TEXT",
+            "parser_new_node",
+            "pt_append_bytes",
+            "strlen"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "serial_increment",
+      "rhs": [
+        "INCREMENT",
+        "BY",
+        "integer_text"
+      ],
+      "line": 11581,
+      "actions": [
+        {
+          "line": 11583,
+          "sha256": "b85812093dbedd5aa55d064dc3f812a32a15cc002a3951b3a5e93e08380e9cc1",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PT_NODE_PRINT_VALUE_TO_TEXT",
+            "parser_new_node",
+            "pt_append_bytes",
+            "strlen"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "serial_min",
+      "rhs": [
+        "MINVALUE",
+        "integer_text"
+      ],
+      "line": 11600,
+      "actions": [
+        {
+          "line": 11602,
+          "sha256": "20bf33fee2ef288c96c77fbe531cd487a4911136e3d3b29b6d96a09f4b73ec0b",
+          "calls": [
+            "FROM_NUMBER",
+            "PT_NODE_PRINT_VALUE_TO_TEXT",
+            "SET_CONTAINER_2",
+            "parser_new_node",
+            "pt_append_bytes",
+            "strlen"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "serial_min",
+      "rhs": [
+        "NOMINVALUE"
+      ],
+      "line": 11617,
+      "actions": [
+        {
+          "line": 11618,
+          "sha256": "b4e3f9d10825f87ad85ad1f3075cedc7d23005a3a21e5bc44126012ed8843f7e",
+          "calls": [
+            "FROM_NUMBER",
+            "SET_CONTAINER_2"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "serial_max",
+      "rhs": [
+        "MAXVALUE",
+        "integer_text"
+      ],
+      "line": 11625,
+      "actions": [
+        {
+          "line": 11627,
+          "sha256": "20bf33fee2ef288c96c77fbe531cd487a4911136e3d3b29b6d96a09f4b73ec0b",
+          "calls": [
+            "FROM_NUMBER",
+            "PT_NODE_PRINT_VALUE_TO_TEXT",
+            "SET_CONTAINER_2",
+            "parser_new_node",
+            "pt_append_bytes",
+            "strlen"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "serial_max",
+      "rhs": [
+        "NOMAXVALUE"
+      ],
+      "line": 11642,
+      "actions": [
+        {
+          "line": 11643,
+          "sha256": "b4e3f9d10825f87ad85ad1f3075cedc7d23005a3a21e5bc44126012ed8843f7e",
+          "calls": [
+            "FROM_NUMBER",
+            "SET_CONTAINER_2"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "of_cycle_nocycle",
+      "rhs": [
+        "CYCLE"
+      ],
+      "line": 11650,
+      "actions": [
+        {
+          "line": 11652,
+          "sha256": "a0dcee036bfcd6fb802e19a8619bd398cb0c4bbcdcd9280864d2c9b6d2b61e98",
+          "calls": [
+            "FROM_NUMBER",
+            "SET_CONTAINER_2"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "of_cycle_nocycle",
+      "rhs": [
+        "NOCYCLE"
+      ],
+      "line": 11657,
+      "actions": [
+        {
+          "line": 11658,
+          "sha256": "8551565e8b100cb16adc94776b83fdf1084931d74f14c1dfb4d41223116cba87",
+          "calls": [
+            "FROM_NUMBER",
+            "SET_CONTAINER_2"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "of_cached_num",
+      "rhs": [
+        "CACHE",
+        "unsigned_int32"
+      ],
+      "line": 11665,
+      "actions": [
+        {
+          "line": 11667,
+          "sha256": "9181acec3e166b7025b7f6ed0c94e88d58a63cd97a7c827398a852a8f08085ac",
+          "calls": [
+            "FROM_NUMBER",
+            "SET_CONTAINER_2"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "of_cached_num",
+      "rhs": [
+        "NOCACHE"
+      ],
+      "line": 11672,
+      "actions": [
+        {
+          "line": 11673,
+          "sha256": "b4e3f9d10825f87ad85ad1f3075cedc7d23005a3a21e5bc44126012ed8843f7e",
+          "calls": [
+            "FROM_NUMBER",
+            "SET_CONTAINER_2"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "integer_text",
+      "rhs": [
+        "opt_plus",
+        "UNSIGNED_INTEGER"
+      ],
+      "line": 11680,
+      "actions": [
+        {
+          "line": 11682,
+          "sha256": "e3f445d40ef0ef6a83e59c723ceaeeb7c75aae77d7757ce0475245a06a6b029b",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "integer_text",
+      "rhs": [
+        "'-'",
+        "UNSIGNED_INTEGER"
+      ],
+      "line": 11685,
+      "actions": [
+        {
+          "line": 11686,
+          "sha256": "e9bea31f007313177b909136fc723667c589d88ef1881b9649575b332b373fb8",
+          "calls": [
+            "pt_append_string"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_plus",
+      "rhs": [],
+      "line": 11698,
+      "actions": []
+    },
+    {
+      "lhs": "opt_plus",
+      "rhs": [
+        "'+'"
+      ],
+      "line": 11700,
+      "actions": []
+    },
+    {
+      "lhs": "class_comment_spec",
+      "rhs": [
+        "COMMENT",
+        "opt_equalsign",
+        "char_string_literal"
+      ],
+      "line": 19920,
+      "actions": [
+        {
+          "line": 19922,
+          "sha256": "465705eee7b72ad026ef3f36643880f0f7e1ca5eb4ff15a16b4dea76dd0ffc7e",
+          "calls": [
+            "PT_ERRORmf",
+            "PT_NODE_PRINT_VALUE_TO_TEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_equalsign",
+      "rhs": [],
+      "line": 19982,
+      "actions": []
+    },
+    {
+      "lhs": "opt_comment_spec",
+      "rhs": [
+        "COMMENT",
+        "comment_value"
+      ],
+      "line": 20088,
+      "actions": [
+        {
+          "line": 20089,
+          "sha256": "ab10dcb0a2a5571c4fb0964b2cfd6f2bd0ea243904781747c3bd7e70318df653",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "comment_value",
+      "rhs": [
+        "char_string_literal"
+      ],
+      "line": 20093,
+      "actions": [
+        {
+          "line": 20095,
+          "sha256": "5cf9e078ccd60739d4d61d2cee86953b1e2be2204806f897b19d961be78d97f3",
+          "calls": [
+            "PT_ERRORmf",
+            "PT_NODE_PRINT_VALUE_TO_TEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "identifier",
+      "rhs": [
+        "CACHE"
+      ],
+      "line": 20721,
+      "actions": [
+        {
+          "line": 20721,
+          "sha256": "fb48ac44a55936df40b5f948be3d89bb341b0a89d889f586f0ced2bfcb3eaefa",
+          "calls": [
+            "SET_CPTR_2_PTNAME"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "identifier",
+      "rhs": [
+        "COMMENT"
+      ],
+      "line": 20730,
+      "actions": [
+        {
+          "line": 20730,
+          "sha256": "fb48ac44a55936df40b5f948be3d89bb341b0a89d889f586f0ced2bfcb3eaefa",
+          "calls": [
+            "SET_CPTR_2_PTNAME"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "identifier",
+      "rhs": [
+        "INCREMENT"
+      ],
+      "line": 20773,
+      "actions": [
+        {
+          "line": 20773,
+          "sha256": "fb48ac44a55936df40b5f948be3d89bb341b0a89d889f586f0ced2bfcb3eaefa",
+          "calls": [
+            "SET_CPTR_2_PTNAME"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "identifier",
+      "rhs": [
+        "MAXVALUE"
+      ],
+      "line": 20824,
+      "actions": [
+        {
+          "line": 20824,
+          "sha256": "fb48ac44a55936df40b5f948be3d89bb341b0a89d889f586f0ced2bfcb3eaefa",
+          "calls": [
+            "SET_CPTR_2_PTNAME"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "identifier",
+      "rhs": [
+        "MINVALUE"
+      ],
+      "line": 20827,
+      "actions": [
+        {
+          "line": 20827,
+          "sha256": "fb48ac44a55936df40b5f948be3d89bb341b0a89d889f586f0ced2bfcb3eaefa",
+          "calls": [
+            "SET_CPTR_2_PTNAME"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "identifier",
+      "rhs": [
+        "NOCACHE"
+      ],
+      "line": 20830,
+      "actions": [
+        {
+          "line": 20830,
+          "sha256": "fb48ac44a55936df40b5f948be3d89bb341b0a89d889f586f0ced2bfcb3eaefa",
+          "calls": [
+            "SET_CPTR_2_PTNAME"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "identifier",
+      "rhs": [
+        "NOCYCLE"
+      ],
+      "line": 20831,
+      "actions": [
+        {
+          "line": 20831,
+          "sha256": "fb48ac44a55936df40b5f948be3d89bb341b0a89d889f586f0ced2bfcb3eaefa",
+          "calls": [
+            "SET_CPTR_2_PTNAME"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "identifier",
+      "rhs": [
+        "NOMAXVALUE"
+      ],
+      "line": 20833,
+      "actions": [
+        {
+          "line": 20833,
+          "sha256": "fb48ac44a55936df40b5f948be3d89bb341b0a89d889f586f0ced2bfcb3eaefa",
+          "calls": [
+            "SET_CPTR_2_PTNAME"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "identifier",
+      "rhs": [
+        "NOMINVALUE"
+      ],
+      "line": 20834,
+      "actions": [
+        {
+          "line": 20834,
+          "sha256": "fb48ac44a55936df40b5f948be3d89bb341b0a89d889f586f0ced2bfcb3eaefa",
+          "calls": [
+            "SET_CPTR_2_PTNAME"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "identifier",
+      "rhs": [
+        "SERIAL"
+      ],
+      "line": 20886,
+      "actions": [
+        {
+          "line": 20886,
+          "sha256": "fb48ac44a55936df40b5f948be3d89bb341b0a89d889f586f0ced2bfcb3eaefa",
+          "calls": [
+            "SET_CPTR_2_PTNAME"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "identifier",
+      "rhs": [
+        "START_"
+      ],
+      "line": 20893,
+      "actions": [
+        {
+          "line": 20893,
+          "sha256": "fb48ac44a55936df40b5f948be3d89bb341b0a89d889f586f0ced2bfcb3eaefa",
+          "calls": [
+            "SET_CPTR_2_PTNAME"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "unsigned_int32",
+      "rhs": [
+        "UNSIGNED_INTEGER"
+      ],
+      "line": 21248,
+      "actions": [
+        {
+          "line": 21250,
+          "sha256": "8406d0e9069104950c546f3e6fc2ba214fb1b9c523140490accb3ffe2cf01c05",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PT_ERRORmf",
+            "parse_int",
+            "parser_new_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "drop_stmt",
+      "rhs": [
+        "DROP",
+        "SERIAL",
+        "opt_if_exists",
+        "serial_name"
+      ],
+      "line": 4625,
+      "actions": [
+        {
+          "line": 4626,
+          "sha256": "0cc78d0a0c4d054c69fb8442afeb40bd2affce51faed9f8c693dd75f9da32d5a",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_new_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "show_stmt",
+      "rhs": [
+        "of_describe_desc_explain",
+        "class_name",
+        "char_string_literal"
+      ],
+      "line": 7238,
+      "actions": [
+        {
+          "line": 7241,
+          "sha256": "131c0cf3d19485255c71c69a892306924f62d35ec82f8de604bec4b7659fc946",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "pt_make_query_show_columns"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "of_describe_desc_explain",
+      "rhs": [
+        "DESCRIBE"
+      ],
+      "line": 7796,
+      "actions": []
+    },
+    {
+      "lhs": "of_describe_desc_explain",
+      "rhs": [
+        "EXPLAIN"
+      ],
+      "line": 7799,
+      "actions": []
+    },
+    {
+      "lhs": "identifier",
+      "rhs": [
+        "EXPLAIN"
+      ],
+      "line": 20754,
+      "actions": [
+        {
+          "line": 20754,
+          "sha256": "fb48ac44a55936df40b5f948be3d89bb341b0a89d889f586f0ced2bfcb3eaefa",
+          "calls": [
+            "SET_CPTR_2_PTNAME"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "show_stmt",
+      "rhs": [
+        "SHOW",
+        "opt_full",
+        "COLUMNS",
+        "of_from_in",
+        "class_name"
+      ],
+      "line": 7156,
+      "actions": [
+        {
+          "line": 7161,
+          "sha256": "604020e30a30e722c5aac6037d94f3bcf979677c6b4cfe19a3ddd4ec75816824",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "pt_make_query_show_columns"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_full",
+      "rhs": [],
+      "line": 7774,
+      "actions": [
+        {
+          "line": 7776,
+          "sha256": "d28384283a2b2a321b5d3ff5b48a42c4c075a9e2fcebd023b1eb4c6c5a4b749d",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "of_from_in",
+      "rhs": [
+        "FROM"
+      ],
+      "line": 7785,
+      "actions": []
+    },
+    {
+      "lhs": "identifier",
+      "rhs": [
+        "COLUMNS"
+      ],
+      "line": 20729,
+      "actions": [
+        {
+          "line": 20729,
+          "sha256": "fb48ac44a55936df40b5f948be3d89bb341b0a89d889f586f0ced2bfcb3eaefa",
+          "calls": [
+            "SET_CPTR_2_PTNAME"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "identifier",
+      "rhs": [
+        "SHOW"
+      ],
+      "line": 20889,
+      "actions": [
+        {
+          "line": 20889,
+          "sha256": "fb48ac44a55936df40b5f948be3d89bb341b0a89d889f586f0ced2bfcb3eaefa",
+          "calls": [
+            "SET_CPTR_2_PTNAME"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "show_stmt",
+      "rhs": [
+        "SHOW",
+        "TRACE"
+      ],
+      "line": 7381,
+      "actions": [
+        {
+          "line": 7382,
+          "sha256": "5e5e4bffb9ac08bd8736562089993136cc6d9ae13f749c06e5284244d069bcc7",
+          "calls": [
+            "pt_make_query_show_trace"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "stmt_",
+      "rhs": [
+        "evaluate_stmt"
+      ],
+      "line": 1968,
+      "actions": [
+        {
+          "line": 1969,
+          "sha256": "c276fdd563ae15ec5db116a8e7779bfafa9b327ce4e7bd3f57ef0f3917545cb1",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "into_clause_opt",
+      "rhs": [],
+      "line": 7010,
+      "actions": [
+        {
+          "line": 7012,
+          "sha256": "9f06a5dcca74e929a2a991dc80dbf5ae0178230814b325466c0022801af69f77",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "evaluate_stmt",
+      "rhs": [
+        "EVALUATE",
+        "expression_",
+        "into_clause_opt"
+      ],
+      "line": 11055,
+      "actions": [
+        {
+          "line": 11057,
+          "sha256": "b85d1b4898b28dc01fa831eea314aca78d441cb144e86af9033c76545f8f400c",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_new_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "stmt_",
+      "rhs": [
+        "update_statistics_stmt"
+      ],
+      "line": 1951,
+      "actions": [
+        {
+          "line": 1952,
+          "sha256": "c276fdd563ae15ec5db116a8e7779bfafa9b327ce4e7bd3f57ef0f3917545cb1",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "update_statistics_stmt",
+      "rhs": [
+        "UPDATE",
+        "STATISTICS",
+        "ON_",
+        "only_class_name_list",
+        "opt_stats_options"
+      ],
+      "line": 4794,
+      "actions": [
+        {
+          "line": 4796,
+          "sha256": "7c26fa62f45caa9b29a6856928c22edb4dd91046b4d492dbcc46913ee6bf0399",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "PT_ERRORf",
+            "parser_new_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "only_class_name_list",
+      "rhs": [
+        "only_class_name_list",
+        "','",
+        "only_class_name"
+      ],
+      "line": 4858,
+      "actions": [
+        {
+          "line": 4860,
+          "sha256": "d97beef03fd25e66ede0b15ff7dcb664edf4a38a7e61ce85192cc32fedb351ad",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_make_link"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "only_class_name_list",
+      "rhs": [
+        "only_class_name"
+      ],
+      "line": 4864,
+      "actions": [
+        {
+          "line": 4865,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_stats_options",
+      "rhs": [],
+      "line": 4887,
+      "actions": [
+        {
+          "line": 4889,
+          "sha256": "04b3356c6f0bdc101dc5af0fb0cf3595d803c47fc52f836140f2f4df7c63c0d5",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "stmt_",
+      "rhs": [
+        "set_stmt"
+      ],
+      "line": 2010,
+      "actions": [
+        {
+          "line": 2011,
+          "sha256": "c276fdd563ae15ec5db116a8e7779bfafa9b327ce4e7bd3f57ef0f3917545cb1",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "set_stmt",
+      "rhs": [
+        "SET",
+        "SYSTEM",
+        "PARAMETERS",
+        "char_string_literal_list"
+      ],
+      "line": 2193,
+      "actions": [
+        {
+          "line": 2194,
+          "sha256": "e7248e0ad973164b5820d5747a9f6ed494a7b1335f33eb17e7b5e5a3cdbaef74",
+          "calls": [
+            "push_msg"
+          ]
+        },
+        {
+          "line": 2196,
+          "sha256": "f4829b4b5a8fa2ac14ad7f23cf5e10745a9e147b22315d92417281276a4bff23",
+          "calls": [
+            "pop_msg"
+          ]
+        },
+        {
+          "line": 2197,
+          "sha256": "3e1e3b38e03118c676c3023682cc1b3b04b412a9db46b1c10953dca6246cc483",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_new_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "char_string_literal_list",
+      "rhs": [
+        "char_string_literal_list",
+        "','",
+        "char_string_literal"
+      ],
+      "line": 5005,
+      "actions": [
+        {
+          "line": 5007,
+          "sha256": "d97beef03fd25e66ede0b15ff7dcb664edf4a38a7e61ce85192cc32fedb351ad",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_make_link"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "char_string_literal_list",
+      "rhs": [
+        "char_string_literal"
+      ],
+      "line": 5011,
+      "actions": [
+        {
+          "line": 5012,
+          "sha256": "1bd4b258e044630d8c01e66ab51a499f1ee86c44f336e8ae5adce6df43dd1f64",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "set_stmt",
+      "rhs": [
+        "SET",
+        "TRACE",
+        "query_trace_spec",
+        "opt_trace_output_format"
+      ],
+      "line": 2333,
+      "actions": [
+        {
+          "line": 2334,
+          "sha256": "3110e4ae365bfe1cd5d387e143c733cd42bc8ae774c6421db9e5eac13a732365",
+          "calls": [
+            "parser_new_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "query_trace_spec",
+      "rhs": [
+        "ON_"
+      ],
+      "line": 2347,
+      "actions": [
+        {
+          "line": 2349,
+          "sha256": "e6cf6c90b08375e156f26dfbe0c477cd69132c5682fa29659b6357294dd6db41",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "query_trace_spec",
+      "rhs": [
+        "OFF_"
+      ],
+      "line": 2352,
+      "actions": [
+        {
+          "line": 2353,
+          "sha256": "a0b6379e4af46e032edcefbb5995de420e26d4313aad1ac1bd9e2ee83ee0fd22",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_trace_output_format",
+      "rhs": [],
+      "line": 2358,
+      "actions": [
+        {
+          "line": 2360,
+          "sha256": "5f1aaf98591e087ba9c67f27ab91dded6c930b3d681c76dd2038f2d80c99c1b9",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_trace_output_format",
+      "rhs": [
+        "OUTPUT",
+        "TEXT"
+      ],
+      "line": 2363,
+      "actions": [
+        {
+          "line": 2364,
+          "sha256": "5f1aaf98591e087ba9c67f27ab91dded6c930b3d681c76dd2038f2d80c99c1b9",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "opt_trace_output_format",
+      "rhs": [
+        "OUTPUT",
+        "JSON"
+      ],
+      "line": 2367,
+      "actions": [
+        {
+          "line": 2368,
+          "sha256": "ce8161d2c00933267f4b6cc192bd6c92f8cadfd22fd741a770d94a00eb96539c",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "stmt_",
+      "rhs": [
+        "transaction_stmt"
+      ],
+      "line": 2004,
+      "actions": [
+        {
+          "line": 2005,
+          "sha256": "c276fdd563ae15ec5db116a8e7779bfafa9b327ce4e7bd3f57ef0f3917545cb1",
+          "calls": []
+        }
+      ]
+    },
+    {
+      "lhs": "transaction_stmt",
+      "rhs": [
+        "COMMIT",
+        "opt_work",
+        "RETAIN",
+        "LOCK_"
+      ],
+      "line": 10988,
+      "actions": [
+        {
+          "line": 10990,
+          "sha256": "d9e039386db9fc3c9789a76bb2aa24638660896dd7248739aa315293b7d56ec9",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_new_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "transaction_stmt",
+      "rhs": [
+        "COMMIT",
+        "opt_work"
+      ],
+      "line": 11001,
+      "actions": [
+        {
+          "line": 11002,
+          "sha256": "7733cf0845e8140fc09945088ab24988ec49d588f21449998267044fc2db4140",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_new_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_work",
+      "rhs": [],
+      "line": 11045,
+      "actions": []
+    },
+    {
+      "lhs": "opt_work",
+      "rhs": [
+        "WORK"
+      ],
+      "line": 11047,
+      "actions": []
+    },
+    {
+      "lhs": "transaction_stmt",
+      "rhs": [
+        "ROLLBACK",
+        "opt_work",
+        "TO",
+        "opt_savepoint",
+        "expression_"
+      ],
+      "line": 11007,
+      "actions": [
+        {
+          "line": 11008,
+          "sha256": "1430a93b9493b28e2d34af5ec892d8a73aab9dc2bbb4d41069416024485dc91a",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_new_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "transaction_stmt",
+      "rhs": [
+        "ROLLBACK",
+        "opt_work"
+      ],
+      "line": 11019,
+      "actions": [
+        {
+          "line": 11020,
+          "sha256": "7fec0b1867f739737ab788c7b8bd63674f46e2d6f276b9cbf38a299ff3a8ed14",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_new_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "transaction_stmt",
+      "rhs": [
+        "SAVEPOINT",
+        "expression_"
+      ],
+      "line": 11025,
+      "actions": [
+        {
+          "line": 11026,
+          "sha256": "930f7cf652b2655d0a94a902c8cd3c84bda3d19966f5ee791fee368f64f0b953",
+          "calls": [
+            "PARSER_SAVE_ERR_CONTEXT",
+            "parser_new_node"
+          ]
+        }
+      ]
+    },
+    {
+      "lhs": "opt_savepoint",
+      "rhs": [],
+      "line": 11040,
+      "actions": []
+    },
+    {
+      "lhs": "opt_savepoint",
+      "rhs": [
+        "SAVEPOINT"
+      ],
+      "line": 11042,
+      "actions": []
+    }
+  ],
+  "limits": "Complete alphabet-productive candidates, not an admission or safety proof. Context exclusions, prefix/midrule/error actions and transitive helper branches require the manual audit."
+}

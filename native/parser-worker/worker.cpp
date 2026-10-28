@@ -94,7 +94,13 @@ struct Runtime {
     NATIVE(prm_set_bool_value)(PRM_ID_UNICODE_INPUT_NORMALIZATION, false);
     NATIVE(prm_set_bool_value)(PRM_ID_UNICODE_OUTPUT_NORMALIZATION, false);
     NATIVE(lang_set_parser_use_client_charset)(true);
-    if (!NATIVE(prm_get_value)(PRM_ID_ANSI_QUOTES)->b
+    verify_settings();
+    ready = true;
+  }
+  void verify_settings() {
+    if (!NATIVE(lang_get_parser_use_client_charset)()
+        || NATIVE(lang_get_client_charset)() != INTL_CODESET_UTF8
+        || !NATIVE(prm_get_value)(PRM_ID_ANSI_QUOTES)->b
         || NATIVE(prm_get_value)(PRM_ID_NO_BACKSLASH_ESCAPES)->b
         || !NATIVE(prm_get_value)(PRM_ID_PIPES_AS_CONCAT)->b
         || NATIVE(prm_get_value)(PRM_ID_ORACLE_STYLE_EMPTY_STRING)->b
@@ -106,7 +112,6 @@ struct Runtime {
         || !NATIVE(prm_get_value)(PRM_ID_INTL_COLLATION)->str
         || std::string(NATIVE(prm_get_value)(PRM_ID_INTL_COLLATION)->str) != "utf8_bin")
       throw std::runtime_error("native syntax settings differ from profile");
-    ready = true;
   }
   ~Runtime() { if (!scratch.empty()) { chdir("/"); std::filesystem::remove_all(scratch); } }
 };
@@ -130,6 +135,7 @@ static void parse(Runtime &runtime, const std::string &text, Json &response) {
   if (text.find('\0') != std::string::npos || text.size() > 8 * 1024 * 1024) {
     failure(response, "NUL or input larger than 8 MiB", "CUBRID-T1003"); return;
   }
+  runtime.verify_settings();
   Value diagnostics(rapidjson::kArrayType), kinds(rapidjson::kArrayType), decisions(rapidjson::kArrayType), observations(rapidjson::kArrayType);
   int priority = 0; size_t admitted = 0, unsupported = 0;
   for (const auto &statement : coverage::scan(text)) {
@@ -151,6 +157,7 @@ static void parse(Runtime &runtime, const std::string &text, Json &response) {
       continue;
     }
     ++admitted;
+    NATIVE(er_clear)();
     PARSER_CONTEXT *parser = NATIVE(parser_create_parser)();
     if (!parser) throw std::runtime_error("native parser allocation failed");
     struct Cleanup { void *handle; PARSER_CONTEXT *parser; ~Cleanup() { NATIVE(parser_free_parser)(parser); } } cleanup{handle, parser};
@@ -160,6 +167,7 @@ static void parse(Runtime &runtime, const std::string &text, Json &response) {
     // Deterministic classifier fixture. No production request can set this flag.
     parser->flag.has_internal_error = 1;
 #endif
+    const int native_error = NATIVE(er_errid)();
     const bool internal = parser->flag.has_internal_error;
     const bool flagged = pt_has_error(parser);
     PT_NODE *error = NATIVE(pt_get_errors)(parser);
@@ -168,7 +176,8 @@ static void parse(Runtime &runtime, const std::string &text, Json &response) {
     while (error) {
       int number = 0, line = 0, column = 0; const char *message = nullptr;
       error = NATIVE(pt_get_next_error)(error, &number, &line, &column, &message); ++errors;
-      auto d = diagnostic(internal ? "CUBRID-T1002" : "CUBRID-S1001", internal ? "tool" : "syntax",
+      auto d = diagnostic((internal || native_error != NO_ERROR) ? "CUBRID-T1002" : "CUBRID-S1001",
+                          (internal || native_error != NO_ERROR) ? "tool" : "syntax",
                           message ? message : "Native parser rejected input", begin, end, a);
       Value coordinates(rapidjson::kObjectType);
       coordinates.AddMember("statement", number, a); coordinates.AddMember("line", line, a); coordinates.AddMember("column", column, a);
@@ -179,16 +188,19 @@ static void parse(Runtime &runtime, const std::string &text, Json &response) {
     observation.AddMember("hasTree", tree != nullptr, a); observation.AddMember("treeCount", uint64_t(trees), a);
     observation.AddMember("hasInternalError", internal, a); observation.AddMember("hasError", flagged, a);
     observation.AddMember("errorCount", uint64_t(errors), a);
+    observation.AddMember("nativeErrorId", native_error, a);
     observation.AddMember("partialStackCount", parser->stack_top, a); observations.PushBack(observation, a);
-    if (internal || (flagged && errors == 0)) {
+    if (internal || (flagged && errors == 0) || native_error != NO_ERROR) {
       priority = 3;
-      if (!errors) diagnostics.PushBack(diagnostic("CUBRID-T1002", "tool", "Native internal error", begin, end, a), a);
+      if (!errors) diagnostics.PushBack(diagnostic("CUBRID-T1002", "tool", "Native internal or unreported error", begin, end, a), a);
     } else if (errors) priority = std::max(priority, 2);
     else if (trees != 1 || !tree[0] || tree[0]->node_type != family->native_kind) {
       priority = 3; diagnostics.PushBack(diagnostic("CUBRID-T1002", "tool", "Missing, partial or unexpected native statement tree", begin, end, a), a);
     } else kinds.PushBack(str(kind, a), a);
   }
   if (diagnostics.Size() > 256) throw std::runtime_error("256 diagnostic limit exceeded; result truncated");
+  runtime.verify_settings();
+  response.AddMember("syntaxSettingsUnchanged", true, a);
   response.AddMember("status", str(priority == 3 ? "tool-error" : priority == 2 ? "syntax-error" : priority == 1 ? "unsupported" : "valid", a), a);
   response.AddMember("profile", Value(runtime.manifest["profile"], a), a);
   response.AddMember("manifestDigest", str(manifest_sha, a), a);

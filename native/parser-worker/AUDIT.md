@@ -2,9 +2,10 @@
 
 This audit records the common lifecycle and the original literal SELECT / CREATE
 SERIAL predicates for profile **cubrid-11.5.0.2704-cc94778** on Linux x86-64.
-The current revision is **bounded-query-dml-create-serial-v2**; its expanded
-predicates and additional reachable actions are qualified in
-[QUERY_DML_AUDIT.md](QUERY_DML_AUDIT.md). Every upstream line below
+The current revision is **bounded-query-dml-schema-engineer-v3**. Expanded
+query/DML paths are qualified in [QUERY_DML_AUDIT.md](QUERY_DML_AUDIT.md).
+[SCHEMA_ENGINEER_AUDIT.md](SCHEMA_ENGINEER_AUDIT.md) records bounded DDL and
+engineer coverage, settings/error guards, and rejected description paths. Every upstream line below
 refers to commit **cc947788d3b7dc402f46192d0f3299ddcc8563ba** in the clean,
 read-only reference checkout. The source commit, source-header set, actual
 compiler inputs, generated headers, library, runtime assets, worker inputs,

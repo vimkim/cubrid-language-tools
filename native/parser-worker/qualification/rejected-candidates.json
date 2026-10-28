@@ -1,0 +1,263 @@
+{
+  "purpose": "Rejected candidate probe only; not qualified coverage. Performed before final predicates were closed. No connection/user state set.",
+  "manifestSha256": "d5223d717ef3cd8145b39681e1438891ef2aaa394643abdbc6a52a2a6847b439",
+  "workerInputs": {
+    "build.py": "a4cd4a9e9fb218a25d5954d370113d46a01e6b8c5494cdb8b82962a7fc1fd0ef",
+    "coverage/create_serial.hpp": "fe237d5363b24723f8728e15d1c918950024249dd335525fac09a30b86f3d1aa",
+    "coverage/keywords.hpp": "41a58777a74930309b95a3678d78bd4d004f96f1f21c686a351d7636c90f33f2",
+    "coverage/literal_select.hpp": "d141888c5dd22ab6eb7f8056c30300b66d76b2ec9e3a14e520f274f244ca3850",
+    "coverage/query_dml.hpp": "63d3abb63120bdcfc2b47f1b7887e126c03ae8aedb86c9fd6ebd48fb53b025a3",
+    "coverage/registry.hpp": "18f3616491fa9ea7ffc9627ce6d828e69eab17c7428ddd4379ad6aa0f494c788",
+    "coverage/scan.hpp": "dc959fba64994f10ba5734853460394c7664c28e6957c70e8b86d358e0ebce2b",
+    "coverage/schema_engineer.hpp": "ff36d81ba32ea8054c0fdfc1c9f30f70e1f2c1db6eee022a2d2e84ba89e345d5",
+    "coverage_keywords.py": "2811b618fffe0ac37f3e562fb60babf8b695e42bd2a2eb47a414a59c5c958ad0",
+    "worker.cpp": "bba5752df59f67efb808884a4b2cde184b4d8ab16ae54232b6abb5c6334139a8"
+  },
+  "sourceCommit": "cc947788d3b7dc402f46192d0f3299ddcc8563ba",
+  "cases": [
+    {
+      "text": "SHOW COLUMNS FROM absent;",
+      "response": {
+        "protocolVersion": 1,
+        "id": 2,
+        "syntaxSettingsUnchanged": true,
+        "status": "tool-error",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "d5223d717ef3cd8145b39681e1438891ef2aaa394643abdbc6a52a2a6847b439",
+        "coverage": "complete",
+        "diagnostics": [
+          {
+            "code": "CUBRID-T1002",
+            "category": "tool",
+            "severity": "error",
+            "message": "Native internal or unreported error",
+            "span": {
+              "start": 0,
+              "end": 25
+            },
+            "rangePrecision": "statement"
+          }
+        ],
+        "statementKinds": [],
+        "coverageDecisions": [
+          {
+            "start": 0,
+            "end": 25,
+            "admitted": true
+          }
+        ],
+        "nativeObservations": [
+          {
+            "hasTree": true,
+            "treeCount": 1,
+            "hasInternalError": false,
+            "hasError": false,
+            "errorCount": 0,
+            "nativeErrorId": -224,
+            "partialStackCount": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "DESCRIBE absent;",
+      "response": {
+        "protocolVersion": 1,
+        "id": 3,
+        "syntaxSettingsUnchanged": true,
+        "status": "tool-error",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "d5223d717ef3cd8145b39681e1438891ef2aaa394643abdbc6a52a2a6847b439",
+        "coverage": "complete",
+        "diagnostics": [
+          {
+            "code": "CUBRID-T1002",
+            "category": "tool",
+            "severity": "error",
+            "message": "Native internal or unreported error",
+            "span": {
+              "start": 0,
+              "end": 16
+            },
+            "rangePrecision": "statement"
+          }
+        ],
+        "statementKinds": [],
+        "coverageDecisions": [
+          {
+            "start": 0,
+            "end": 16,
+            "admitted": true
+          }
+        ],
+        "nativeObservations": [
+          {
+            "hasTree": true,
+            "treeCount": 1,
+            "hasInternalError": false,
+            "hasError": false,
+            "errorCount": 0,
+            "nativeErrorId": -224,
+            "partialStackCount": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "DESC absent;",
+      "response": {
+        "protocolVersion": 1,
+        "id": 4,
+        "syntaxSettingsUnchanged": true,
+        "status": "tool-error",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "d5223d717ef3cd8145b39681e1438891ef2aaa394643abdbc6a52a2a6847b439",
+        "coverage": "complete",
+        "diagnostics": [
+          {
+            "code": "CUBRID-T1002",
+            "category": "tool",
+            "severity": "error",
+            "message": "Native internal or unreported error",
+            "span": {
+              "start": 0,
+              "end": 12
+            },
+            "rangePrecision": "statement"
+          }
+        ],
+        "statementKinds": [],
+        "coverageDecisions": [
+          {
+            "start": 0,
+            "end": 12,
+            "admitted": true
+          }
+        ],
+        "nativeObservations": [
+          {
+            "hasTree": true,
+            "treeCount": 1,
+            "hasInternalError": false,
+            "hasError": false,
+            "errorCount": 0,
+            "nativeErrorId": -224,
+            "partialStackCount": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "EXPLAIN absent;",
+      "response": {
+        "protocolVersion": 1,
+        "id": 5,
+        "syntaxSettingsUnchanged": true,
+        "status": "tool-error",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "d5223d717ef3cd8145b39681e1438891ef2aaa394643abdbc6a52a2a6847b439",
+        "coverage": "complete",
+        "diagnostics": [
+          {
+            "code": "CUBRID-T1002",
+            "category": "tool",
+            "severity": "error",
+            "message": "Native internal or unreported error",
+            "span": {
+              "start": 0,
+              "end": 15
+            },
+            "rangePrecision": "statement"
+          }
+        ],
+        "statementKinds": [],
+        "coverageDecisions": [
+          {
+            "start": 0,
+            "end": 15,
+            "admitted": true
+          }
+        ],
+        "nativeObservations": [
+          {
+            "hasTree": true,
+            "treeCount": 1,
+            "hasInternalError": false,
+            "hasError": false,
+            "errorCount": 0,
+            "nativeErrorId": -224,
+            "partialStackCount": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "SHOW TRACE;",
+      "response": {
+        "protocolVersion": 1,
+        "id": 6,
+        "syntaxSettingsUnchanged": true,
+        "status": "valid",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "d5223d717ef3cd8145b39681e1438891ef2aaa394643abdbc6a52a2a6847b439",
+        "coverage": "complete",
+        "diagnostics": [],
+        "statementKinds": [
+          "PT_SELECT"
+        ],
+        "coverageDecisions": [
+          {
+            "start": 0,
+            "end": 11,
+            "admitted": true
+          }
+        ],
+        "nativeObservations": [
+          {
+            "hasTree": true,
+            "treeCount": 1,
+            "hasInternalError": false,
+            "hasError": false,
+            "errorCount": 0,
+            "nativeErrorId": 0,
+            "partialStackCount": 1
+          }
+        ]
+      }
+    },
+    {
+      "text": "SELECT 1;",
+      "response": {
+        "protocolVersion": 1,
+        "id": 7,
+        "syntaxSettingsUnchanged": true,
+        "status": "valid",
+        "profile": "cubrid-11.5.0.2704-cc94778",
+        "manifestDigest": "d5223d717ef3cd8145b39681e1438891ef2aaa394643abdbc6a52a2a6847b439",
+        "coverage": "complete",
+        "diagnostics": [],
+        "statementKinds": [
+          "PT_SELECT"
+        ],
+        "coverageDecisions": [
+          {
+            "start": 0,
+            "end": 9,
+            "admitted": true
+          }
+        ],
+        "nativeObservations": [
+          {
+            "hasTree": true,
+            "treeCount": 1,
+            "hasInternalError": false,
+            "hasError": false,
+            "errorCount": 0,
+            "nativeErrorId": 0,
+            "partialStackCount": 1
+          }
+        ]
+      }
+    }
+  ]
+}

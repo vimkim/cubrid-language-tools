@@ -18,6 +18,18 @@ PREFIX = Path("/unused/explicit-runtime")
 
 
 class WorkerAdapterTests(unittest.TestCase):
+    def test_unreported_native_error_cannot_be_returned_as_a_pass(self):
+        for native_error in (-224, True, "0", None):
+            with self.subTest(native_error=native_error), tempfile.TemporaryDirectory() as directory:
+                observation = {"hasTree": True, "treeCount": 1, "hasInternalError": False,
+                               "hasError": False, "errorCount": 0, "partialStackCount": 0,
+                               "nativeErrorId": native_error}
+                executable = self.reply_worker(directory, {"nativeObservations": [observation]})
+                with NativeWorker(WorkerConfig(executable, PREFIX)) as worker:
+                    result = worker.parse("SELECT 1;")
+                self.assertEqual(result.status, "tool-error")
+                self.assertEqual(result.diagnostics[0].code, "CUBRID-T1002")
+
     def test_validation_uses_the_shared_span_value(self):
         from cubrid_language.validation import Span as ValidationSpan
         self.assertIs(ValidationSpan, Span)
@@ -44,7 +56,7 @@ class WorkerAdapterTests(unittest.TestCase):
                   "diagnostics": [], "statementKinds": ["PT_SELECT"], "manifestDigest": digest,
                   "coverageDecisions": [{"start": 0, "end": 9, "admitted": True}],
                   "nativeObservations": [{"hasTree": True, "treeCount": 1, "hasInternalError": False,
-                                          "hasError": False, "errorCount": 0, "partialStackCount": 0}], **response}
+                                          "hasError": False, "errorCount": 0, "nativeErrorId": 0, "partialStackCount": 0}], **response}
         return self.fake(directory, "import json,sys\n"
             f"identity={identity!r}\nresult={result!r}\n"
             "for line in sys.stdin:\n"
@@ -78,8 +90,9 @@ class WorkerAdapterTests(unittest.TestCase):
 
     def test_prior_coverage_revision_and_unqualified_kinds_are_rejected(self):
         for response, identity, expected in (({}, {"coverageRevision": "literal-select-create-serial-v1"}, "unsupported"),
+                                             ({}, {"coverageRevision": "bounded-query-dml-create-serial-v2"}, "unsupported"),
                                              ({}, {"supportedStatementKinds": ["PT_SELECT", "PT_CREATE_SERIAL"]}, "unsupported"),
-                                             ({"statementKinds": ["PT_DROP"]}, {}, "tool-error")):
+                                             ({"statementKinds": ["PT_CREATE_USER"]}, {}, "tool-error")):
             with self.subTest(response=response, identity=identity), tempfile.TemporaryDirectory() as directory:
                 executable = self.reply_worker(directory, response, identity)
                 with NativeWorker(WorkerConfig(executable, PREFIX)) as worker:
@@ -98,13 +111,13 @@ class WorkerAdapterTests(unittest.TestCase):
             {"coverageDecisions": [{"start": 0, "end": 9, "admitted": False}]},
             {"nativeObservations": []},
             {"nativeObservations": [{"hasTree": True, "treeCount": 1, "hasInternalError": True,
-                                     "hasError": False, "errorCount": 0, "partialStackCount": 0}]},
+                                     "hasError": False, "errorCount": 0, "nativeErrorId": 0, "partialStackCount": 0}]},
             {"statementKinds": [], "nativeObservations": [{"hasTree": False, "treeCount": 0,
-                "hasInternalError": False, "hasError": False, "errorCount": 0, "partialStackCount": 0}]},
+                "hasInternalError": False, "hasError": False, "errorCount": 0, "nativeErrorId": 0, "partialStackCount": 0}]},
             {"statementKinds": [], "nativeObservations": [{"hasTree": True, "treeCount": 2,
-                "hasInternalError": False, "hasError": False, "errorCount": 0, "partialStackCount": 0}]},
+                "hasInternalError": False, "hasError": False, "errorCount": 0, "nativeErrorId": 0, "partialStackCount": 0}]},
             {"nativeObservations": [{"hasTree": False, "treeCount": 1,
-                "hasInternalError": False, "hasError": False, "errorCount": 0, "partialStackCount": 0}]},
+                "hasInternalError": False, "hasError": False, "errorCount": 0, "nativeErrorId": 0, "partialStackCount": 0}]},
             {"coverageDecisions": [], "nativeObservations": [], "statementKinds": []},
             {"coverageDecisions": [{"start": 1, "end": 9, "admitted": True}]},
             {"statementKinds": []},

@@ -52,8 +52,76 @@ class NativeWorkerTests(unittest.TestCase):
         self.assertEqual(result["profile"], PROFILE)
         self.assertEqual(result["nativeVersion"], "11.5.0.2704-cc94778")
         self.assertEqual(result["sourceCommit"], "cc947788d3b7dc402f46192d0f3299ddcc8563ba")
-        self.assertEqual(result["coverageRevision"], "bounded-query-dml-create-serial-v2")
-        self.assertEqual(result["supportedStatementKinds"], ["PT_SELECT", "PT_INSERT", "PT_UPDATE", "PT_DELETE", "PT_MERGE", "PT_CREATE_SERIAL"])
+        self.assertEqual(result["coverageRevision"], "bounded-query-dml-schema-engineer-v3")
+        from cubrid_language.validation.profiles import SUPPORTED_STATEMENT_KINDS
+        self.assertEqual(result["supportedStatementKinds"], list(SUPPORTED_STATEMENT_KINDS))
+
+    def test_schema_context_exceptions_cannot_enable_expressions_or_catalog_calls(self):
+        for text in (
+            "CREATE TABLE t (n INTEGER(1));", "CREATE TABLE t (n missing_type);",
+            "CREATE TABLE t (n INTEGER DEFAULT sleep(1));",
+            "CREATE TABLE t AS SELECT 1;", "CREATE TABLE t (n SERIAL);",
+            "CREATE TABLE t (n VARCHAR(2));", "CREATE TABLE t (n INT) METHOD f();",
+            "ALTER TABLE t ADD n INTEGER DEFAULT 1;", "ALTER TABLE t ADD n missing_type;",
+            "CREATE VIEW v AS SELECT INTEGER(1);", "CREATE VIEW v AS SELECT TABLE(1);",
+            "ALTER VIEW v CHANGE QUERY SELECT QUERY(1);",
+            "CREATE INDEX i ON t (sleep(1));", "CREATE INDEX i ON t (a(1));",
+            'CREATE INDEX i ON t ("sleep" /* hidden */ (1));',
+            "ALTER SERIAL s OWNER TO dba;", "DROP SERIAL s.nextval;",
+            "SHOW TABLES;", "SHOW CREATE TABLE t;", "SHOW CREATE VIEW v;",
+            "SHOW GRANTS;", "SHOW GRANTS FOR dba;", "SHOW VOLUME HEADER OF 0;",
+            "SHOW ACCESS STATUS;", "SHOW COLUMNS FROM t WHERE sleep(1)=1;",
+            "SHOW COLUMNS FROM t;", "DESCRIBE t;", "DESC t;", "EXPLAIN t;",
+            "DESCRIBE t.a;", "EXPLAIN SELECT 1;", "EVALUATE sleep(1);",
+            "EVALUATE NEXT_VALUE(s);", "EVALUATE 1 INTO x;", "EVALUATE @x;",
+            "UPDATE STATISTICS ON ALL CLASSES;", "SET NAMES utf8;",
+            "SET SYSTEM PARAMETERS N'ansi_quotes=no';", "SET TRACE ON OUTPUT XML;",
+            "ROLLBACK TO sleep(1);", "SAVEPOINT x(1);",
+        ):
+            with self.subTest(text=text):
+                result = self.parse(text)
+                self.assertEqual(result["status"], "unsupported", result)
+                self.assertEqual(result["nativeObservations"], [])
+
+    def test_settings_and_trace_sql_do_not_change_qualified_settings_across_requests(self):
+        texts = ["SET SYSTEM PARAMETERS 'ansi_quotes=no', 'no_backslash_escapes=yes', "
+                 "'pipes_as_concat=no', 'query_trace=yes', 'intl_collation=utf8_en_ci';",
+                 "SET TRACE ON OUTPUT JSON;", "SAVEPOINT '가😀';", "COMMIT WORK RETAIN LOCK;",
+                 "ROLLBACK WORK TO SAVEPOINT '가😀';", 'SELECT "id" FROM absent;',
+                 "SELECT 'a\\n';", "SHOW TRACE;", "SELECT 1;"]
+        requests = [{"protocolVersion": 1, "id": 1, "method": "initialize", "profile": PROFILE}]
+        requests += [{"protocolVersion": 1, "id": i+2, "method": "parse", "text": text} for i, text in enumerate(texts)]
+        results = self.exchange(requests)
+        for text, result in zip(texts, results[1:]):
+            with self.subTest(text=text):
+                self.assertEqual(result["status"], "valid", result)
+                self.assertTrue(result["syntaxSettingsUnchanged"])
+
+    def test_schema_and_engineer_forms_build_trees_without_execution(self):
+        for text, kind in (
+            ("CREATE TABLE absent (id INTEGER, n BIGINT);", "PT_CREATE_ENTITY"),
+            ("ALTER TABLE absent ADD COLUMN n INTEGER;", "PT_ALTER"),
+            ("DROP TABLE absent;", "PT_DROP"),
+            ("CREATE VIEW absent_v AS SELECT id FROM absent;", "PT_CREATE_ENTITY"),
+            ("ALTER VIEW absent_v CHANGE QUERY SELECT 2;", "PT_ALTER"),
+            ("DROP VIEW absent_v;", "PT_DROP"),
+            ("CREATE INDEX absent_i ON absent (id);", "PT_CREATE_INDEX"),
+            ("ALTER INDEX absent_i ON absent REBUILD;", "PT_ALTER_INDEX"),
+            ("DROP INDEX absent_i ON absent;", "PT_DROP_INDEX"),
+            ("ALTER SERIAL absent_s INCREMENT BY 2;", "PT_ALTER_SERIAL"),
+            ("DROP SERIAL absent_s;", "PT_DROP_SERIAL"),
+            ("SHOW TRACE;", "PT_SELECT"),
+            ("EVALUATE 1 / 0;", "PT_EVALUATE"),
+            ("UPDATE STATISTICS ON absent;", "PT_UPDATE_STATS"),
+            ("SET TRACE ON OUTPUT JSON;", "PT_QUERY_TRACE"),
+            ("SET SYSTEM PARAMETERS 'ansi_quotes=no';", "PT_SET_SYS_PARAMS"),
+            ("COMMIT WORK;", "PT_COMMIT_WORK"), ("ROLLBACK;", "PT_ROLLBACK_WORK"),
+            ("SAVEPOINT absent_point;", "PT_SAVEPOINT"),
+        ):
+            with self.subTest(text=text):
+                result = self.parse(text)
+                self.assertEqual(result["status"], "valid", result)
+                self.assertEqual(result["statementKinds"], [kind])
 
     def test_create_serial_is_checked_by_the_native_parser(self):
         valid = self.parse("CREATE SERIAL order_no START WITH 10 INCREMENT BY 2;")
@@ -127,7 +195,7 @@ class NativeWorkerTests(unittest.TestCase):
     def test_unaudited_query_forms_never_enter_native_parser(self):
         for text in ("SELECT sleep(1);", "WITH RECURSIVE x AS (SELECT 1) SELECT 1;",
                      "SELECT CURRENT_DATE;", "SELECT a.next_value FROM absent a;",
-                     "SELECT /*+ RECOMPILE */ 1;", "DROP TABLE never_execute;"):
+                     "SELECT /*+ RECOMPILE */ 1;", "DROP USER never_execute;"):
             with self.subTest(text=text):
                 result = self.parse(text)
                 self.assertEqual(result["status"], "unsupported")
@@ -140,7 +208,7 @@ class NativeWorkerTests(unittest.TestCase):
             ("SELECT 1; CREATE SERIAL s START WITH 10;", "valid", ["PT_SELECT", "PT_CREATE_SERIAL"]),
             ("SELECT", "syntax-error", []), ("SELECT 1,", "syntax-error", []),
             ("SELECT 'unfinished", "syntax-error", []),
-            ("SELECT 1,; DROP TABLE never_execute;", "syntax-error", []),
+            ("SELECT 1,; DROP USER never_execute;", "syntax-error", []),
         ):
             with self.subTest(text=text):
                 result = self.parse(text)
