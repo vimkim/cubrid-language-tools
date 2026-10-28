@@ -85,7 +85,7 @@
       "cleanup": "Merged task worktree removed and central/ticket-02 deleted without force; original native build, dist, qualification evidence, rebased review logs, and final combined native/dist outputs preserved and SHA-256 verified"
     },
     "03": {
-      "status": "approved-for-integration",
+      "status": "integrated",
       "dependsOn": [
         "01",
         "02"
@@ -95,17 +95,45 @@
       "base": "504541aaa08508f1fc096c2a44c661376e32136c",
       "branch": "central/ticket-03",
       "worktree": "/home/vimkim/gh/cubrid-language-tools-03",
-      "commit": "2e01a9e3c3e672d59ff65e890d350c98b3729fa3",
-      "implementationCommit": "f842f2f503c3c7f4b445b048161994618d30dd6c",
+      "commit": "37845e63c3b5f2f02315272a205e27852a715a3d",
+      "implementationCommit": "6c0590685919e320d7e33b65088e3dcc8d635780",
       "checks": [
         "Coordinator:20 focused config/validator/CLI tests passed",
         "Coordinator:7 actual native/CLI tests passed",
         "Agent:87 default tests pass on Python3.10/3.14 and with ignored native build absent",
         "Agent:24 mandatory native plus16 independent tests passed",
         "Isolated wheel87 plus7 native console tests and extracted-sdist87 passed",
-        "CLI metadata retains zero mandatory dependencies; Korean/English guides included"
+        "CLI metadata retains zero mandatory dependencies; Korean/English guides included",
+        "Integration: conflict-free rebase onto 10c6a60; git range-diff confirms both reviewed patches unchanged",
+        "Integration: production source, tests, native inputs and packaging exactly match the approved ticket result after rebase",
+        "Integration: 6 configuration, 5 validator and 9 CLI focused public tests pass after rebase",
+        "Integration: 7 actual native/CLI checks pass after rebase and again in combined destination",
+        "Integration: just test passes all 87 combined default tests; just build creates wheel and sdist",
+        "Integration: distribution metadata confirms cubrid-lint console entry point and zero mandatory Requires-Dist; required library/native sources and tests are included; generated native outputs excluded",
+        "Integration: unchanged destination worker and manifest match qualified SHA-256; existing native qualification retained without needless backend rebuild",
+        "Integration: git diff --check passes; destination contains rebased ticket tip; original/final preserved artifacts are SHA-256 verified"
       ],
-      "report": "/home/vimkim/gh/cubrid-language-tools-03/docs/tickets/reports/03.md"
+      "report": "docs/tickets/reports/03.md",
+      "originalImplementationCommit": "f842f2f503c3c7f4b445b048161994618d30dd6c",
+      "approvedCommit": "2e01a9e3c3e672d59ff65e890d350c98b3729fa3",
+      "integrationBase": "10c6a60d286578ec096f9f5a2243bb7d167f698b",
+      "integrationMethod": "rebase then fast-forward",
+      "integrationAuthorization": "Standing user approval for all planned tickets, recorded 2026-10-28 in docs/execution.md",
+      "integratedAt": "2026-10-28T13:21:29.415550+00:00",
+      "artifactDirectory": "/mnt/nvme/data-5/tmp/central-language-572-ticket-03-artifacts",
+      "nativeManifestSha256": "ccd692fa5b39b3b36c3f76679167045bcb5bcf3e6f982b741da4e855e6e488d3",
+      "nativeWorkerSha256": "76770b96e7905e847d5e881b9032af418fa7b729df59717021204d00900a0d13",
+      "combinedVerificationSource": "37845e63c3b5f2f02315272a205e27852a715a3d",
+      "distributionSha256": {
+        "dist/cubrid_language_tools-0.1.0.dev0-py3-none-any.whl": "5f779eb9422bb950e036b0858fee38684a498f6989f8b0ea1f20eb41503c2b46",
+        "dist/cubrid_language_tools-0.1.0.dev0.tar.gz": "5515d56b167bec46884662a937f2c3cd650ad0c729205c5029cc559dc27c5017"
+      },
+      "cleanup": "Merged ticket 03 worktree removed and central/ticket-03 deleted without force; original dist/native build, named installed/without-native evidence, premerge destination artifacts, final combined dist/native outputs, logs and SHA-256 manifests preserved and verified",
+      "limitations": [
+        "Exact pinned Linux x86-64 native profile; literal SELECT and CREATE SERIAL coverage retained until ticket 06 is separately reviewed and integrated",
+        "Procedures and shell/include constructs remain unsupported; native process separation does not provide an OS sandbox",
+        "Existing setuptools project.license table deprecation warning"
+      ]
     },
     "04": {
       "status": "integrated",
@@ -150,11 +178,13 @@
       ]
     },
     "05": {
-      "status": "pending",
+      "status": "ready",
       "dependsOn": [
         "03",
         "04"
-      ]
+      ],
+      "readyAt": "2026-10-28T13:21:29.415550+00:00",
+      "readiness": "All ticket dependencies integrated; dispatch a fresh-context agent in an isolated worktree from an exact coordinator baseline"
     },
     "06": {
       "status": "dispatched",
@@ -203,27 +233,27 @@
   "transport": "Local child processes and stdin/stdout pipes; no TCP/localhost listener or shared daemon required",
   "lastIntegrationBatch": {
     "tickets": [
-      "02",
-      "04"
+      "03"
     ],
     "approvedCommits": {
-      "02": "e4745000a7165597b349097964ad24f36f538d11",
-      "04": "553c414e3e2d3610fc7203e8742329d0735061d4"
+      "03": "2e01a9e3c3e672d59ff65e890d350c98b3729fa3"
     },
-    "combinedSourceCommit": "ead192337b19f36d5b01f4fa63cda6ec75c07793",
-    "completedAt": "2026-10-28T12:48:40.829556+00:00",
+    "combinedSourceCommit": "37845e63c3b5f2f02315272a205e27852a715a3d",
+    "completedAt": "2026-10-28T13:21:29.415550+00:00",
     "checks": {
-      "project": 67,
-      "native": 17,
-      "independentValidation": 16,
-      "snapshotFocused": 16
+      "project": 87,
+      "configurationFocused": 6,
+      "validatorFocused": 5,
+      "cliFocused": 9,
+      "nativeCli": 7
     },
+    "nativeQualification": "Existing exact pinned manifest/worker hashes unchanged; prior 17 native plus 16 independent qualification remains applicable, and 7 new actual native CLI checks pass",
     "nextReadyTickets": [
-      "03",
-      "06"
+      "05"
     ],
-    "scope": "Approved local integration into implement/central-engine only; no main merge, push, publication, database, daemon, or pinned CUBRID source/runtime mutation",
-    "remoteState": "origin is configured by separate documentation/publication work; this batch performed no remote operations"
+    "scope": "Standing-approved local ticket 03 integration into implement/central-engine only; no ticket 06 integration, main merge, push, publication, database, daemon, or pinned source/runtime mutation",
+    "cleanup": "Only merged ticket 03 task worktree and branch removed without force; main/original checkpoints and ticket 06 preserved",
+    "artifactDirectory": "/mnt/nvme/data-5/tmp/central-language-572-ticket-03-artifacts"
   },
   "upstreamDocs": {
     "commit": "721b9bc",
