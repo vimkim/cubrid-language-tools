@@ -333,7 +333,8 @@ def _suggest(text: str, cursor: int, schema: Schema) -> _Suggestions:
       continue
     end = text.find('\n', token.end)
     end = len(text) if end < 0 else end
-    if text[start:end].strip() == ';' and start != line_start:
+    suffix = text[token.end:end]
+    if not re.match(r'[.\w]', suffix) and (start != line_start or suffix.strip()):
       continue
     commands[start] = end
   if line_start in commands:

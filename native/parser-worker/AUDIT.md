@@ -182,7 +182,7 @@ An unprocessed remainder becomes one nonempty contiguous rejected coverage decis
 A final-statement truncation adds no empty tail. No new parser call, symbol, grammar path, parameter, or supported feature is introduced.
 
 Structured truncation replies require private boolean `diagnosticsTruncated: true`, exactly 256 records before deduplication, tool-error status, and partial or none coverage.
-The adapter checks the count before accessing the final record. It verifies marker bounds and alignment, contiguous source accounting, native observations, kinds, manifest, and unchanged settings.
+The adapter checks the count before accessing the final record. It verifies marker bounds and alignment, ordinary trivia in source gaps, native observations, kinds, manifest, and unchanged settings.
 A rejected decision can omit its discarded diagnostic only when the marker covers that decision's entire original span.
 An uncovered rejected decision still fails. A lower caller limit applies after full response validation and retains its first limit-minus-one findings plus T1002.
 A limit of one necessarily retains only the tool error. Subsequent valid requests remain usable.

@@ -18,11 +18,11 @@ PREFIX = Path("/unused/explicit-runtime")
 
 
 class WorkerAdapterTests(unittest.TestCase):
-    def test_truncated_tail_must_cover_the_contiguous_unprocessed_original_source(self):
+    def test_truncated_source_allows_trivia_gaps_but_rejects_nontrivial_omissions(self):
         text = 'SELECT ,; CREATE PROCEDURE p;'
         syntax = {"code": "CUBRID-S1001", "category": "syntax", "severity": "error",
                   "message": "rejected", "span": {"start": 0, "end": 9}, "rangePrecision": "statement"}
-        for tail_start, marker_start in ((9, 9), (10, 10), (9, 0), (9, 1)):
+        for tail_start, marker_start in ((9, 9), (10, 10), (11, 11), (9, 0), (9, 1)):
             with self.subTest(tail_start=tail_start, marker_start=marker_start), tempfile.TemporaryDirectory() as directory:
                 marker = {**syntax, "code": "CUBRID-T1002", "category": "tool", "message": "result truncated",
                           "span": {"start": marker_start, "end": len(text)}}
@@ -35,7 +35,7 @@ class WorkerAdapterTests(unittest.TestCase):
                 executable = self.reply_worker(directory, response)
                 with NativeWorker(WorkerConfig(executable, PREFIX)) as worker:
                     result = worker.parse(text)
-                accepted = (tail_start, marker_start) in ((9, 9), (9, 0))
+                accepted = (tail_start, marker_start) in ((9, 9), (10, 10), (9, 0))
                 self.assertEqual(result.coverage, 'partial' if accepted else 'none')
                 self.assertEqual(len(result.diagnostics), 256 if accepted else 1)
         with tempfile.TemporaryDirectory() as directory:

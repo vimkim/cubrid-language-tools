@@ -46,7 +46,9 @@ class CompletionCoreTest(unittest.TestCase):
                          text[:result.replacement.start] + expected + text[result.replacement.end:])
     for text in ("SELECT 'x\n;he", '/* comment\n;he', ";schema 'x\nSEL"):
       self.assertFalse(complete(text, len(text), PROFILE).allowed)
-    for text in ('SELECT * FROM code\n;\nna', 'SELECT * FROM code;\nna'):
+    for text in ('SELECT * FROM code\n;\nna', 'SELECT * FROM code;\nna',
+                 'SELECT * FROM code\n; -- done\nna', 'SELECT * FROM code\n; /*done*/\nna',
+                 'SELECT * FROM code\n;--done\nna', 'SELECT * FROM code\n;/*done*/\nna'):
       self.assertNotIn('name', [item.text for item in complete(text, len(text), PROFILE, SCHEMA).items])
     self.assertIn(';help', [item.text for item in complete(';', 1, PROFILE).items])
 

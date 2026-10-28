@@ -78,5 +78,6 @@ Final public-interface review identified missing CUBRID `//` comments and backsl
 The tokenizer now protects those lexical regions under the qualified profile settings.
 Session completion now selects the current command line and preserves full-document offsets.
 Earlier command arguments no longer enter later SQL context, while quoted lexical blocks still span lines.
+Bare SQL terminators and terminators followed by ordinary comments preserve their statement boundary.
 Public library and framed LSP regressions record these intentional corrections separately from the historical parity corpus.
 The public completion value also handles empty or incomplete display details without changing existing kinds or constructor arguments.

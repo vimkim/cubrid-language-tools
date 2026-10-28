@@ -25,6 +25,15 @@ class NativeAdapterTests(unittest.TestCase):
                     self.assertEqual([(d.code, d.span.start, d.span.end) for d in result.diagnostics[:2]],
                                      [('CUBRID-S1001', 0, 9), ('CUBRID-U1002', 9, 28)])
                 self.assertEqual(worker.parse('SELECT 1;').status, 'valid')
+        for text in (';;CREATE SERIAL s START WITH 1' + ' START WITH 1' * 270 + ';',
+                     'SELECT ,;' * 255 + ';;CREATE PROCEDURE p;;;SELECT ,;'):
+            with self.subTest(empty_statements=text[:12]), NativeWorker(self.config()) as worker:
+                result = worker.parse(text)
+                self.assertEqual((result.status, result.coverage), ('tool-error', 'partial'))
+                self.assertGreater(len(result.diagnostics), 1)
+                self.assertTrue(any(d.code == 'CUBRID-S1001' for d in result.diagnostics))
+                self.assertTrue(any(d.code == 'CUBRID-T1002' for d in result.diagnostics))
+                self.assertEqual(worker.parse('SELECT 1;').status, 'valid')
 
     def test_retained_query_dml_corpus_preserves_status_kinds_and_original_spans(self):
         corpus = json.loads((BUILD.parent / "qualification/corpus.json").read_text())

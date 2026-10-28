@@ -311,8 +311,7 @@ class NativeWorker:
             for decision in decisions:
                 span = Span(decision["start"], decision["end"])
                 if (span.start < last_end or span.start == span.end or span.end > len(text)
-                        or not _trivia_only(text[last_end:span.start]) or type(decision["admitted"]) is not bool
-                        or (marker and span.start >= marker.span.start and span.start != last_end)):
+                        or not _trivia_only(text[last_end:span.start]) or type(decision["admitted"]) is not bool):
                     raise ValueError("invalid coverage decision")
                 last_end = span.end
                 if decision["admitted"]:
