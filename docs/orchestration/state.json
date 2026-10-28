@@ -178,7 +178,7 @@
       ]
     },
     "05": {
-      "status": "verified-approved-for-integration",
+      "status": "integrated",
       "dependsOn": [
         "03",
         "04"
@@ -188,16 +188,48 @@
       "base": "75d550026bddb9b3022263cc99820c4c015e3e65",
       "branch": "central/ticket-05",
       "worktree": "/home/vimkim/gh/cubrid-language-tools-05",
-      "commit": "503bd495c4167e02467c4fbfb479d63b788f0887",
-      "implementationCommit": "473cb9e9287b8e2ec7ce578d91f6020a94f07930",
+      "commit": "34ebde9954825c63f50ad332a2875976e77e76c4",
+      "implementationCommit": "2c8dfdd309f61fb1341e3d25c850e5523ce25edd",
       "checks": [
         "Coordinator:26 framed stdio and3 actual native LSP tests passed",
         "Agent Python3.10/3.14:90 default+26protocol+3nativeLSP passed",
         "Full native30+17independent baseline passed",
         "Core-only/optional wheel and extracted-sdist qualification passed",
-        "Strict wire primitives reject coerced positions/text/versions; stale/cancel/EOF/close scenarios covered"
+        "Strict wire primitives reject coerced positions/text/versions; stale/cancel/EOF/close scenarios covered",
+        "Integration: conflict-free rebase onto 3705163; git range-diff confirms all four approved patches unchanged (473cb9e/8f69aa2/f2e0dcb/503bd49 to 2c8dfdd/80c8474/73f8dd1/34ebde9)",
+        "Integration: all 18 task files are byte-identical to approved source; production native V2 source and qualified worker/manifest remain unchanged",
+        "Integration: rebased source passes 26 framed stdio tests and 3 actual-native LSP tests before ff-only merge",
+        "Integration: combined destination just test passes 90 default tests in a separate core-only environment containing only cubrid-language-tools",
+        "Integration: combined destination just test-lsp and just test-lsp-native use the lsp extra and pass 26 framed protocol plus 3 actual-native LSP tests",
+        "Integration: just build creates wheel/sdist; metadata confirms both console entry points and all six Requires-Dist entries are conditional on lsp",
+        "Integration: archive inspection confirms byte-identical Python package, protocol/native-LSP tests, native inputs, qualification manifest and 17 notices; generated native outputs and csql_future excluded",
+        "Integration: fresh Python 3.10 core-only wheel install contains only this distribution; isolated import, missing-extra stderr/exit 3, and lint T1001/exit 3 pass",
+        "Integration: unchanged V2 worker/manifest match qualified SHA-256; existing 30 native plus 17 independent qualification retained without repeating the unchanged backend suite",
+        "Integration: git diff --check passes; destination contains the rebased ticket tip; source and combined artifacts preserved with verified SHA-256, and only merged ticket 05 worktree/branch removed"
       ],
-      "report": "/home/vimkim/gh/cubrid-language-tools-05/docs/tickets/reports/05.md"
+      "report": "docs/tickets/reports/05.md",
+      "originalImplementationCommit": "473cb9e9287b8e2ec7ce578d91f6020a94f07930",
+      "approvedCommit": "503bd495c4167e02467c4fbfb479d63b788f0887",
+      "forwardFixtureCommit": "73f8dd147657aeef8053c7a69f65910318bb0449",
+      "strictWireTypeCommit": "34ebde9954825c63f50ad332a2875976e77e76c4",
+      "integrationBase": "370516361cc38e49225e547b901391c7864aa57f",
+      "integrationMethod": "rebase then fast-forward",
+      "integrationAuthorization": "Standing user approval for all planned tickets, recorded 2026-10-28 in docs/execution.md",
+      "integratedAt": "2026-10-28T14:15:26.529164+00:00",
+      "artifactDirectory": "/mnt/nvme/data-5/tmp/central-language-572-ticket-05-artifacts",
+      "nativeManifestSha256": "07f84eabef149f4954ac31d4d4d5a97c73b7f0ed8af760c34bdb158038aa0400",
+      "nativeWorkerSha256": "700397292c67b5e2d568a4c4722a83283672b022f99f96cf66adec5d00f8d864",
+      "combinedVerificationSource": "34ebde9954825c63f50ad332a2875976e77e76c4",
+      "distributionSha256": {
+        "dist/cubrid_language_tools-0.1.0.dev0-py3-none-any.whl": "5bc04410cc5728bf51ae152e4a2b31e135531fa880d66b301f04746bbbc6db4b",
+        "dist/cubrid_language_tools-0.1.0.dev0.tar.gz": "cd9e9780a649cc00a8a2694b03f3c3720d4ac92fd77c0e388e514ffe8b5bfd30"
+      },
+      "cleanup": "Only merged ticket 05 worktree removed and central/ticket-05 deleted without force; source dist/native build, complete named verification evidence, premerge destination artifacts, final combined dist/native outputs and review/check logs preserved with verified regular-file SHA-256 digests and recorded symlink targets",
+      "limitations": [
+        "Exact pinned Linux x86-64 native V2 profile and bounded query/DML/CREATE SERIAL coverage retained; ticket 07 remains separately qualified partial awaiting the user scope decision",
+        "Optional LSP dependencies are required only for cubrid-language-server; core and CLI retain zero mandatory runtime dependencies",
+        "Existing setuptools license-table deprecation and cross-filesystem copy warnings; process separation is not an OS sandbox"
+      ]
     },
     "06": {
       "status": "integrated",
@@ -271,11 +303,12 @@
       "report": "/home/vimkim/gh/cubrid-language-tools-07/docs/tickets/reports/07.md"
     },
     "08": {
-      "status": "pending",
+      "status": "blocked",
       "dependsOn": [
         "03",
         "07"
-      ]
+      ],
+      "blocker": "Ticket 07 remains qualified-partial-awaiting-scope-choice. User decision is pending between deferring SHOW COLUMNS/DESCRIBE/DESC/EXPLAIN class forms and expanding the parser-only backend scope; no ticket 07 integration or criterion change is authorized by ticket 05 integration."
     },
     "09": {
       "status": "pending",
@@ -300,31 +333,33 @@
   "transport": "Local child processes and stdin/stdout pipes; no TCP/localhost listener or shared daemon required",
   "lastIntegrationBatch": {
     "tickets": [
-      "06"
+      "05"
     ],
     "approvedCommits": {
-      "06": "3ee23cd99e48dd830afdff2305d3f6d0dc6ee2ef"
+      "05": "503bd495c4167e02467c4fbfb479d63b788f0887"
     },
-    "combinedSourceCommit": "67bb2b4a449bc382daafd715b1234827b732e88f",
-    "completedAt": "2026-10-28T13:38:30.281363+00:00",
+    "integrationBase": "370516361cc38e49225e547b901391c7864aa57f",
+    "combinedSourceCommit": "34ebde9954825c63f50ad332a2875976e77e76c4",
+    "completedAt": "2026-10-28T14:15:26.529164+00:00",
     "checks": {
-      "rebasedPublicCorpusTests": 2,
-      "retainedCorpusCases": 179,
-      "project": 88,
-      "nativeCli": 30,
-      "independentValidationPositions": 17,
-      "isolatedWheelCorpusCases": 179,
-      "isolatedCliFamilies": 9,
-      "installedCliSyntaxExit": 1,
-      "installedCliUnsupportedExit": 2
+      "rebasedProtocol": 26,
+      "rebasedNativeLsp": 3,
+      "projectCoreOnly": 90,
+      "protocol": 26,
+      "nativeLsp": 3,
+      "coreMandatoryDependencies": 0,
+      "optionalOnlyRequirements": 6,
+      "isolatedCoreWheelPython": "3.10"
     },
-    "nativeQualification": "Exact four pinned inputs rebuilt for bounded-query-dml-create-serial-v2; worker/manifest match approved outputs; 30 native/CLI plus 17 independent checks and 179-case public/installed corpus pass",
-    "nextReadyTickets": [
-      "07"
+    "nativeQualification": "Unchanged qualified bounded-query-dml-create-serial-v2 manifest and production worker match approved SHA-256; prior 30 native/CLI plus 17 independent evidence retained; 3 actual-native LSP tests pass before and after integration",
+    "nextReadyTickets": [],
+    "blockedTickets": [
+      "08"
     ],
-    "scope": "Standing-approved ticket06 local integration only; no main/push/publish/deploy/DB/daemon/shared source or runtime mutations",
-    "cleanup": "Only merged ticket 06 task worktree and branch removed without force; main, original checkpoints and dispatched ticket 05 preserved",
-    "artifactDirectory": "/mnt/nvme/data-5/tmp/central-language-572-ticket-06-artifacts"
+    "nextAction": "Resolve ticket 07 scope choice; keep its partial checkpoint unintegrated until acceptance criteria and review permit integration",
+    "scope": "Standing-approved ticket 05 local integration only; ticket 07 and its criteria unchanged, ticket 08 blocked by the pending scope choice; no main/push/publish/deploy/DB/daemon operations",
+    "cleanup": "Only merged ticket 05 worktree removed and central/ticket-05 deleted without force; source dist/native build, complete named verification evidence, premerge destination artifacts, final combined dist/native outputs and review/check logs preserved with verified regular-file SHA-256 digests and recorded symlink targets",
+    "artifactDirectory": "/mnt/nvme/data-5/tmp/central-language-572-ticket-05-artifacts"
   },
   "upstreamDocs": {
     "commit": "721b9bc",
