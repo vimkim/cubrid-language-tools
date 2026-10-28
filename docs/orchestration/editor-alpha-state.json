@@ -14,7 +14,7 @@
       "branch": "alpha/editor",
       "emptyBaseline": "14c23950ee9e0f372916e1409788a4e4e19fe4b5",
       "remote": null,
-      "status": "implementing",
+      "status": "installed-package-live-acceptance; multi-root/restart run pending",
       "dispatchCommit": "6c7c6edefe66d1cc9f03af838b5e7f738abfc451",
       "owner": "/root/vscode_alpha_owner"
     },
@@ -24,15 +24,28 @@
       "branch": "alpha/editor",
       "emptyBaseline": "14c23950ee9e0f372916e1409788a4e4e19fe4b5",
       "remote": null,
-      "status": "implementing",
+      "status": "installed-package-acceptance-passed; report pending",
       "dispatchCommit": "3b341bf57e7ebc90b65bbcdfe20e889b30d8b79a",
       "owner": "/root/neovim_alpha_owner"
     }
   },
   "ownership": "Coordinator writes central docs/tracker/decision log. Each implementer owns only its consumer worktree and evidence directory.",
   "authorization": "Local commits authorized. Integration requires review and approval. Consumer remote creation, pushes, publication and deployment are not authorized.",
-  "nextAction": "Drain fresh editor owners, inspect actual diffs and artifacts, then run independent real-editor and comment reviews at committed heads. Preserve integration/publication approval gates.",
+  "nextAction": "Independently review core fix and installed consumer artifacts; finish owner receipts; run comment and trail reviews before integration approval.",
   "design": "docs/orchestration/editor-alpha-design.md",
   "designReview": "/home/vimkim/temp/cubrid-editor-alpha-aiYISe/architecture-verdict.md",
-  "designLimitation": "One completed runner package containing two structural alternatives; Astra sketch runner dropped out. Independent judge selected the instance session with correspondence corrections."
+  "designLimitation": "One completed runner package containing two structural alternatives; Astra sketch runner dropped out. Independent judge selected the instance session with correspondence corrections.",
+  "coreFix": {
+    "status": "committed-awaiting-independent-review",
+    "worktree": "/home/vimkim/gh/cubrid-language-tools-lsp-enums",
+    "branch": "fix/lsp-wire-enums",
+    "dispatchCommit": "7654d343394e2e8474f47811747ec96dba5b4e07",
+    "fixCommit": "d5a571eb03d543af1438b85933fcad3aed60f9f0",
+    "server": "/home/vimkim/temp/cubrid-lsp-enums-venv/bin/cubrid-language-server",
+    "reason": "Both real editor clients exposed legal LSP str/int enums being rejected by strict_converter",
+    "checks": "109 core and 30 LSP tests; actual captured payloads and live Neovim initialize/completion pass",
+    "report": "docs/tickets/reports/editor-lsp-wire-enums.md",
+    "limitations": "Pre-existing malformed capabilities-object and permissive enum-or-int union acceptance remain separate findings."
+  },
+  "acceptanceEngine": "d5a571eb03d543af1438b85933fcad3aed60f9f0"
 }
