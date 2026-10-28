@@ -557,5 +557,30 @@
     "remote": "origin https://github.com/vimkim/cubrid-language-tools.git",
     "pushAuthorized": true,
     "publicationEvidence": "Work-tracker 572 records remote push and final verification."
+  },
+  "formalVerification": {
+    "workItem": 579,
+    "status": "committed-awaiting-main-approval",
+    "sourceBaseline": "1e3be4e8a1c07a52479b16a10aa1e523ef04ca7b",
+    "dispatchCommit": "e4607ec60bd13f31b5aa4e9357f59013ee009ca5",
+    "implementationCommit": "e6e5d7dd2e8bca17d3db28fc9183bb084195f496",
+    "branch": "verify/lsp-cancellation",
+    "checkout": "/home/vimkim/gh/cubrid-language-tools-verify-lsp",
+    "skill": ".agents/skills/verify-lsp-cancellation/SKILL.md",
+    "report": "docs/tickets/reports/formal-lsp-cancellation.md",
+    "tool": "TLA+/TLC v1.7.4; checksum verified on every run",
+    "bounds": "Three jobs, one validation slot, one bulk cancellation batch; no multi-slot, native-process, or liveness proof",
+    "checks": [
+      "TLC: 271 generated states, 143 distinct, queue exhausted, depth 14; both invariants pass",
+      "Scratch real-code mutation: both early cleanup and queued Validator.validate reproduced",
+      "Both model invariant mutations fail; restored baseline passes",
+      "Statechart interprets passing model and two shortest counterexamples",
+      "28 framed LSP tests pass independently and in task checkout",
+      "Cold-cache download, skill frontmatter validation, and diff checks pass"
+    ],
+    "review": "Coordinator reviewed model/source correspondence, actual mutation replay, reproducibility and scope; no open actionable findings",
+    "reviewEvidence": "/tmp/cubrid-language-formal-579-review-iuNJOm",
+    "productSourceChanged": false,
+    "mainIntegrationApproved": false
   }
 }
