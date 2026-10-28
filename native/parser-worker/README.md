@@ -1,17 +1,30 @@
 # Qualified offline parser worker
 
 This separately built Linux x86-64 executable qualifies only
-**cubrid-11.5.0.2704-cc94778**, initially for literal SELECT and CREATE SERIAL.
+**cubrid-11.5.0.2704-cc94778**, with coverage revision
+**bounded-query-dml-create-serial-v2**.
 It checks parser-stage syntax without a database connection or submitted-SQL
-execution. Tables, CTEs, subqueries, functions, arithmetic, hints and unknown
-forms return unsupported coverage before native parsing. An admitted token
+execution. Bounded SELECT, joins, integer arithmetic/comparisons, nonrecursive
+CTEs/subqueries, INSERT, UPDATE, DELETE, MERGE and the original CREATE SERIAL
+subset are qualified. Functions, hints and unknown features return unsupported
+coverage before native parsing. An admitted token
 sequence must still pass the native parser, error flags and tree checks.
 
 Read [AUDIT.md](AUDIT.md) for the pinned-source reachable-action/settings review,
+[QUERY_DML_AUDIT.md](QUERY_DML_AUDIT.md) for the exact expanded limits and reductions,
 [notices/README.md](notices/README.md) for retained licenses and runtime inventory,
 and [qualification/results.json](qualification/results.json) for actual fixtures
 and trace limits. The Python distribution contains the adapter; native binaries
 and CUBRID runtime assets remain separately supplied trusted inputs.
+
+Names and relations are syntactic references only. Nonexistent tables can pass;
+object existence, types, privileges and row effects require later server stages.
+The profile admits simple quoted names, but excludes embedded quote/escape/dot
+spellings, CTE column lists and table-alias column lists. ORDER/GROUP/LIMIT,
+set operations, recursive CTEs, INSERT SET/default/duplicate-key clauses, MERGE
+DELETE clauses, functions, serial values, host/session parameters and DBLINK
+remain unsupported. `SET (` is excluded, including a tuple assignment directly
+after SET. See the audit for the complete token/adjacency boundary.
 
 ## Reproduce this host qualification
 
@@ -68,6 +81,13 @@ from source cc947788d3b7dc402f46192d0f3299ddcc8563ba. Current develop source
 is newer and must not supply substitute source headers. Other 11.5 builds,
 11.4, Windows and macOS need separate qualification. An existing manifest is
 host-specific: copying it does not qualify another library, path or installation.
+
+A worker built for an earlier coverage revision can share this profile/version
+name and still fail the adapter's identity check with **CUBRID-U1001 unsupported**.
+Rebuild the trusted worker and its manifest from the same current checkout with
+the four exact inputs above, then rerun the native recipe and qualification
+corpus. Keep the binary and its embedded-digest manifest together. Do not edit an
+old manifest, select a nearby version, or suppress the identity mismatch.
 
 ## Install and use
 

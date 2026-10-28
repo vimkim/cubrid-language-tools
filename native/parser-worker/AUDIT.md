@@ -1,14 +1,17 @@
 # Reachable-action and settings audit
 
-This audit qualifies profile **cubrid-11.5.0.2704-cc94778**, coverage revision
-**literal-select-create-serial-v1**, on Linux x86-64. Every upstream line below
+This audit records the common lifecycle and the original literal SELECT / CREATE
+SERIAL predicates for profile **cubrid-11.5.0.2704-cc94778** on Linux x86-64.
+The current revision is **bounded-query-dml-create-serial-v2**; its expanded
+predicates and additional reachable actions are qualified in
+[QUERY_DML_AUDIT.md](QUERY_DML_AUDIT.md). Every upstream line below
 refers to commit **cc947788d3b7dc402f46192d0f3299ddcc8563ba** in the clean,
 read-only reference checkout. The source commit, source-header set, actual
 compiler inputs, generated headers, library, runtime assets, worker inputs,
 settings and platform are bound by [manifest.json](qualification/manifest.json)
 and [build-evidence.json](qualification/build-evidence.json).
 
-This is a source review of the reachable actions under the two predicates.
+This is a source review of the reachable actions under the original two predicates.
 It does not qualify all SELECT or CREATE SERIAL grammar, all grammar recovery
 states, SQL execution, or a portable CUBRID runtime. The retained process trace
 covers its named corpus; process separation and resource limits do not establish
@@ -147,12 +150,14 @@ ENABLE_UNUSED_FUNCTION-only single-byte comparison setting is absent from this
 build and is neither forced nor reported. System-parameter initialization still
 sets ordinary defaults; this does not qualify unrelated grammar depending on them.
 
-## Excluded catalog and execution paths
+## Original predicate exclusions and common execution exclusions
 
-FROM, table/column references, DBLINK, CTEs, nested queries, function calls,
+Under the original predicates, FROM, table/column references, DBLINK, CTEs, nested queries, function calls,
 procedural bodies, serial current/next-value expressions, INCLUDE/shell commands,
 prepared execution and all other statement families fail the predicate. Their
-native actions are not covered by this audit. The worker never calls the session
+native actions are not covered by this original audit. The additional bounded
+query/DML audit supersedes those coverage exclusions only where explicitly listed.
+The worker never calls the session
 API, name resolution/type checking, query compiler, optimizer, DB login/restart,
 network client, serial executor, schema/catalog accessor, db_compile_statement or
 db_execute_statement. CSQL performs those later stages explicitly

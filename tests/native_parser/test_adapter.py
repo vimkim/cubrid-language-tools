@@ -9,6 +9,21 @@ BUILD = Path(__file__).resolve().parents[2] / "native/parser-worker/build"
 
 
 class NativeAdapterTests(unittest.TestCase):
+    def test_retained_query_dml_corpus_preserves_status_kinds_and_original_spans(self):
+        corpus = json.loads((BUILD.parent / "qualification/corpus.json").read_text())
+        with NativeWorker(self.config()) as worker:
+            for case in corpus["cases"]:
+                with self.subTest(case=case["id"]):
+                    result = worker.parse(case["text"])
+                    self.assertEqual(result.status, case["expected"], result)
+                    self.assertEqual(list(result.statement_kinds), case["kinds"])
+                    for diagnostic in result.diagnostics:
+                        self.assertEqual(diagnostic.range_precision, "statement")
+                        self.assertGreaterEqual(diagnostic.span.start, 0)
+                        self.assertLessEqual(diagnostic.span.end, len(case["text"]))
+                        if len(case["admitted"]) == 1:
+                            self.assertEqual((diagnostic.span.start, diagnostic.span.end), (0, len(case["text"])))
+
     def config(self):
         manifest = json.loads((BUILD / "manifest.json").read_text())
         return WorkerConfig(BUILD / "parser-worker", Path(manifest["runtimePrefix"]))

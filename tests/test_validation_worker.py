@@ -76,6 +76,17 @@ class WorkerAdapterTests(unittest.TestCase):
                 self.assertEqual(result.status, "tool-error")
                 self.assertEqual(result.diagnostics[0].code, "CUBRID-T1002")
 
+    def test_prior_coverage_revision_and_unqualified_kinds_are_rejected(self):
+        for response, identity, expected in (({}, {"coverageRevision": "literal-select-create-serial-v1"}, "unsupported"),
+                                             ({}, {"supportedStatementKinds": ["PT_SELECT", "PT_CREATE_SERIAL"]}, "unsupported"),
+                                             ({"statementKinds": ["PT_DROP"]}, {}, "tool-error")):
+            with self.subTest(response=response, identity=identity), tempfile.TemporaryDirectory() as directory:
+                executable = self.reply_worker(directory, response, identity)
+                with NativeWorker(WorkerConfig(executable, PREFIX)) as worker:
+                    result = worker.parse("SELECT 1;")
+                self.assertEqual(result.status, expected)
+                self.assertEqual(result.diagnostics[0].code, "CUBRID-U1001" if expected == "unsupported" else "CUBRID-T1002")
+
     def test_ranges_coverage_status_and_native_observations_must_be_consistent(self):
         unsupported = {"code": "CUBRID-U1002", "category": "unsupported", "severity": "warning",
                        "message": "outside coverage", "span": {"start": 0, "end": 9}, "rangePrecision": "statement"}

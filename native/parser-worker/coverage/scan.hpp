@@ -4,7 +4,7 @@
 #include <vector>
 
 namespace coverage {
-struct Token { std::string text; char kind; };
+struct Token { std::string text; char kind; size_t begin = 0, end = 0; };
 struct Statement {
   size_t begin = 0, end = 0;
   std::vector<Token> tokens;
@@ -49,17 +49,24 @@ inline std::vector<Statement> scan(const std::string &text) {
         }
       }
       if (!closed) current.lexical_error = true;
-      current.tokens.push_back({text.substr(start, i-start), c == '\'' ? 's' : 'q'});
+      current.tokens.push_back({text.substr(start, i-start), c == '\'' ? 's' : 'q', start, i});
     } else if (std::isalpha(c) || c == '_' || c >= 0x80) {
       while (i < text.size() && (std::isalnum((unsigned char)text[i]) || text[i] == '_' || (unsigned char)text[i] >= 0x80)) ++i;
       std::string word = text.substr(start, i-start);
       for (char &ch : word) if ((unsigned char)ch < 0x80) ch = std::toupper((unsigned char)ch);
-      current.tokens.push_back({word, 'w'});
+      current.tokens.push_back({word, 'w', start, i});
     } else if (std::isdigit(c)) {
       while (i < text.size() && std::isdigit((unsigned char)text[i])) ++i;
       // Restrict this first profile to integer literals; other numeric forms stay unsupported.
-      current.tokens.push_back({text.substr(start, i-start), 'n'});
-    } else { ++i; current.tokens.push_back({std::string(1, c), 'p'}); }
+      current.tokens.push_back({text.substr(start, i-start), 'n', start, i});
+    } else {
+      // Preserve native compound tokens so e.g. -> cannot become arithmetic
+      // followed by a comparison, or << two audited comparison tokens.
+      size_t width = 1;
+      for (const char *op : {"->>", "<=>", "->", "||", "<>", ">=", "<=", "?:", "!=", "<<", ">>", "&&", ":="})
+        if (text.compare(i, std::char_traits<char>::length(op), op) == 0) { width = std::char_traits<char>::length(op); break; }
+      i += width; current.tokens.push_back({text.substr(start, width), 'p', start, i});
+    }
   }
   finish(text.size()); return result;
 }

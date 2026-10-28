@@ -1,0 +1,54 @@
+{
+  "python": "/home/vimkim/.local/share/uv/python/cpython-3.10.6-linux-x86_64-gnu/bin/python3.10",
+  "wheel": {
+    "path": "/home/vimkim/gh/cubrid-language-tools-06/dist/cubrid_language_tools-0.1.0.dev0-py3-none-any.whl",
+    "installedCorpusCases": 179
+  },
+  "sdist": {
+    "path": "/home/vimkim/gh/cubrid-language-tools-06/dist/cubrid_language_tools-0.1.0.dev0.tar.gz",
+    "sourceRoot": "/mnt/nvme/data-5/tmp/central-ticket-06-distribution-scsj2rtv/sdist/cubrid_language_tools-0.1.0.dev0",
+    "nativeRebuild": true,
+    "suiteTests": 68,
+    "corpusTests": 2
+  },
+  "evidenceDirectory": "/mnt/nvme/data-5/tmp/central-ticket-06-distribution-scsj2rtv",
+  "checks": [
+    {
+      "command": "just test-native-parser",
+      "nativeTests": 23,
+      "independentTests": 17,
+      "status": "passed"
+    },
+    {
+      "command": "just test",
+      "tests": 68,
+      "status": "passed"
+    },
+    {
+      "command": "just build",
+      "artifacts": [
+        "sdist",
+        "wheel"
+      ],
+      "status": "passed"
+    },
+    {
+      "command": "python3 native/parser-worker/qualify.py --build native/parser-worker/build --output native/parser-worker/qualification",
+      "cases": 179,
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    }
+  ],
+  "logs": {
+    "/mnt/nvme/data-5/tmp/central-ticket-06-distribution-scsj2rtv/central-ticket-06-build-final.log": "db2039a3caa4f7eca339194d9ef36ea4afa96ea3e2448e965efd8f013a6f658b",
+    "/mnt/nvme/data-5/tmp/central-ticket-06-distribution-scsj2rtv/central-ticket-06-native-final.log": "05952272c5872bbc67714efbcde0d85b085d6b982e0555ebc0108bdf254d7ca2",
+    "/mnt/nvme/data-5/tmp/central-ticket-06-distribution-scsj2rtv/central-ticket-06-suite-final.log": "70db0982e74c7eaee23e0e731122e90d43ccbc7aaabce4b52779516035d884c6",
+    "/mnt/nvme/data-5/tmp/central-ticket-06-distribution-scsj2rtv/central-ticket-06-validation.log": "abe0253de80eaca75ed78faeb339956c162951f2970a65fe999aea820954f9dc",
+    "/mnt/nvme/data-5/tmp/central-ticket-06-distribution-scsj2rtv/sdist-corpus.log": "dce772b6101bca78246058407029c0285a8a5e93eafff6f198eda276db4f72d0",
+    "/mnt/nvme/data-5/tmp/central-ticket-06-distribution-scsj2rtv/sdist-suite.log": "f7f159cfc10c48f85c6f0f0f5edf1eab150394bead30de5e1882d8532604646c"
+  },
+  "artifactHashPolicy": "Exact final artifact hashes are recorded in ticket report06 and external summary.json; omit them here to avoid a self-referential sdist digest."
+}

@@ -1,5 +1,5 @@
 {
-  "coverageRevision": "literal-select-create-serial-v1",
+  "coverageRevision": "bounded-query-dml-create-serial-v2",
   "files": {
     "/home/vimkim/.cub/install/develop/debug/lib/libcubrid_timezones.so.11.5": "a4021d944f3b1a2439a4010d5ca51e8fd327f3a0a462e1110f13bee223e58b36",
     "/home/vimkim/.cub/install/develop/debug/msg/en_US.utf8/csql.cat": "d55691c68fdaa483d92e633b8ec5ab2d044584d7c2021599b1a6b1e72700af40",
@@ -23,6 +23,15 @@
     "/home/vimkim/gh/cb/develop/build_preset_debug_gcc/3rdparty/Source/re2/re2/re2.h": "95d20e88ccb8cbbe3edd12a8b0c9c8e2d0f6b926a350b7762a8e859a16b08172",
     "/home/vimkim/gh/cb/develop/build_preset_debug_gcc/config.h": "9b07f27f3e2293eb5afa20aa8ba06097568f53338c017c2f260d23318e75e1fe",
     "/home/vimkim/gh/cb/develop/build_preset_debug_gcc/version.h": "4916edb4acd5ca03fe4de58d8cdaf4e075a6277783393360f758bbf92c959d48"
+  },
+  "grammarInputs": {
+    "/home/vimkim/gh/cubrid-rust/reference-cubrid-cc947788/src/parser/csql_grammar.y": "29ae75dd8cb2efbecf484ab118cf4812ca25bf4ae59d8fc73a438e71766608f2",
+    "/home/vimkim/gh/cubrid-rust/reference-cubrid-cc947788/src/parser/csql_lexer.l": "f1bb1fce3b355dc8cd85d12cc597e68cf006ec1291865408ae3cd1d53bdb1322",
+    "/home/vimkim/gh/cubrid-rust/reference-cubrid-cc947788/src/parser/keyword.c": "ab589cfc38e8f90abe123583f8cdb8a89b2ef96340a20a131350393706d81046",
+    "/home/vimkim/gh/cubrid-rust/reference-cubrid-cc947788/src/parser/name_resolution.c": "681551ae8b99ef23c1a974517fbc8a98890994bbe1fb15baab784e22c1e4eaab",
+    "/home/vimkim/gh/cubrid-rust/reference-cubrid-cc947788/src/parser/parse_tree.c": "602fee0eafbe850d4606e161f355a41a802ed8a9a7deed28dab3ddb4957eceef",
+    "/home/vimkim/gh/cubrid-rust/reference-cubrid-cc947788/src/parser/parse_tree_cl.c": "33f9d59527b6e9eb11e49e0d81b0f4a7cbcf1495c39e69c806674fae9d4c2a19",
+    "/home/vimkim/gh/cubrid-rust/reference-cubrid-cc947788/src/parser/parser_support.c": "1f248e686c0a3f383a0f817ac9d69470404a5a3ad97784ead752f739cea87abb"
   },
   "headerSetSha256": "2ca0b816b38ccdc43cd9ddf2c3efd6a95d41eb4edcd1b53da6bc35802fc1f1b7",
   "headers": {
@@ -682,15 +691,22 @@
   "sourceCommit": "cc947788d3b7dc402f46192d0f3299ddcc8563ba",
   "supportedStatementKinds": [
     "PT_SELECT",
+    "PT_INSERT",
+    "PT_UPDATE",
+    "PT_DELETE",
+    "PT_MERGE",
     "PT_CREATE_SERIAL"
   ],
   "testOnly": false,
   "workerInputs": {
-    "build.py": "fbe760204ef63bfe0457fca7154ea30c5bf7793b6c38ef7773efad352d532fd6",
+    "build.py": "f04fe0b8d89229bf599e0bdf4150e3974747d8bf4e86995e9e5a20526a741259",
     "coverage/create_serial.hpp": "fe237d5363b24723f8728e15d1c918950024249dd335525fac09a30b86f3d1aa",
+    "coverage/keywords.hpp": "41a58777a74930309b95a3678d78bd4d004f96f1f21c686a351d7636c90f33f2",
     "coverage/literal_select.hpp": "d141888c5dd22ab6eb7f8056c30300b66d76b2ec9e3a14e520f274f244ca3850",
-    "coverage/registry.hpp": "715b1bfba30ff1b102ed54b1961e3eecacfa9d007cd28593752971fd08244bd8",
-    "coverage/scan.hpp": "1a5a1ec6b8440d6bd152af9e47eaf75fb9a2cf0d28b8822fca7c3586cd8e8574",
+    "coverage/query_dml.hpp": "63d3abb63120bdcfc2b47f1b7887e126c03ae8aedb86c9fd6ebd48fb53b025a3",
+    "coverage/registry.hpp": "af7b92013d200a5e52cce8a024734db9d988f9ad75b57b69d479d7e43a46070e",
+    "coverage/scan.hpp": "dc959fba64994f10ba5734853460394c7664c28e6957c70e8b86d358e0ebce2b",
+    "coverage_keywords.py": "2811b618fffe0ac37f3e562fb60babf8b695e42bd2a2eb47a414a59c5c958ad0",
     "worker.cpp": "bf37d617d0652a51c4e24bea31df947f197fcc53124c517f320770d56dae71ae"
   }
 }

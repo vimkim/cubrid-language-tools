@@ -1,0 +1,1952 @@
+{
+  "schemaVersion": 1,
+  "coverageRevision": "bounded-query-dml-create-serial-v2",
+  "cases": [
+    {
+      "id": "serial-valid",
+      "family": "serial",
+      "text": "CREATE SERIAL order_no START WITH 10 INCREMENT BY 2;",
+      "expected": "valid",
+      "kinds": [
+        "PT_CREATE_SERIAL"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "serial-invalid",
+      "family": "serial",
+      "text": "CREATE SERIAL order_no START WITH ;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "serial-unicode-invalid",
+      "family": "serial",
+      "text": "-- 한글 😀\r\nCREATE SERIAL 주문 START WITH ;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "serial-partial-stack",
+      "family": "serial",
+      "text": "CREATE SERIAL s START WITH 1 START WITH 2;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "serial-options",
+      "family": "serial",
+      "text": "CREATE SERIAL s START WITH -10 INCREMENT BY +2 MINVALUE -20 MAXVALUE 100 CYCLE CACHE 8 COMMENT '가😀';",
+      "expected": "valid",
+      "kinds": [
+        "PT_CREATE_SERIAL"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "serial-disabled-options",
+      "family": "serial",
+      "text": "CREATE SERIAL s NOMINVALUE NOMAXVALUE NOCYCLE NOCACHE;",
+      "expected": "valid",
+      "kinds": [
+        "PT_CREATE_SERIAL"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "serial-cache-overflow",
+      "family": "serial",
+      "text": "CREATE SERIAL s CACHE 2147483648;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "serial-comment-concatenation",
+      "family": "serial",
+      "text": "CREATE SERIAL s COMMENT 'a' 'b';",
+      "expected": "valid",
+      "kinds": [
+        "PT_CREATE_SERIAL"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "literal-valid",
+      "family": "baseline",
+      "text": "SELECT '한글 😀', -10, NULL;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "literal-boundaries",
+      "family": "baseline",
+      "text": "SELECT 99999999999999999999999999999999999999, +2, -9223372036854775808, NULL, 'a''b', 'a\\n';",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "semicolon-optional",
+      "family": "baseline",
+      "text": "SELECT 1",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "unterminated-string",
+      "family": "baseline",
+      "text": "SELECT '가😀",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "unterminated-comment",
+      "family": "baseline",
+      "text": "SELECT 1 /* unfinished",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "syntax-and-unsupported",
+      "family": "baseline",
+      "text": "SELECT 1,; DROP TABLE never_execute;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "literal-invalid",
+      "family": "baseline",
+      "text": "SELECT 1 2;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "incomplete",
+      "family": "baseline",
+      "text": "SELECT 1,",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "empty",
+      "family": "baseline",
+      "text": "",
+      "expected": "valid",
+      "kinds": [],
+      "admitted": []
+    },
+    {
+      "id": "multiple",
+      "family": "baseline",
+      "text": "SELECT 1; CREATE SERIAL order_no START WITH 10;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT",
+        "PT_CREATE_SERIAL"
+      ],
+      "admitted": [
+        true,
+        true
+      ]
+    },
+    {
+      "id": "korean-coordinate",
+      "family": "baseline",
+      "text": "SELECT '가', ;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "emoji-coordinate",
+      "family": "baseline",
+      "text": "SELECT '😀', ;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "crlf-coordinate",
+      "family": "baseline",
+      "text": "SELECT '가😀'\r\n, ;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "catalog-query-qualified",
+      "family": "baseline",
+      "text": "SELECT * FROM missing_table;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "cte-qualified",
+      "family": "baseline",
+      "text": "WITH x AS (SELECT 1) SELECT 1;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "subquery-qualified",
+      "family": "baseline",
+      "text": "SELECT (SELECT 1);",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "destructive-text-blocked",
+      "family": "baseline",
+      "text": "DROP TABLE must_never_be_executed;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "query-names",
+      "family": "select",
+      "text": "SELECT a.id, a.* FROM never_exists a;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "query-distinct",
+      "family": "select",
+      "text": "SELECT DISTINCT id FROM never_exists;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "query-qualified-table",
+      "family": "select",
+      "text": "SELECT id FROM owner_name.never_exists;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "query-invalid",
+      "family": "select",
+      "text": "SELECT id FROM ;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "query-incomplete",
+      "family": "select",
+      "text": "SELECT id FROM",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "query-unicode",
+      "family": "select",
+      "text": "-- 한글 😀\r\nSELECT \"열\", [열], `열` FROM \"테이블\";",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "query-function",
+      "family": "select",
+      "text": "SELECT sleep(1) FROM never_exists;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "join-inner",
+      "family": "joins",
+      "text": "SELECT a.id FROM never_a a JOIN never_b b ON a.id=b.id;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "join-left",
+      "family": "joins",
+      "text": "SELECT a.id FROM never_a a LEFT OUTER JOIN never_b b ON a.id=b.id;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "join-right",
+      "family": "joins",
+      "text": "SELECT a.id FROM never_a a RIGHT JOIN never_b b ON a.id=b.id;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "join-cross",
+      "family": "joins",
+      "text": "SELECT a.id FROM never_a a CROSS JOIN never_b b;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "join-comma",
+      "family": "joins",
+      "text": "SELECT a.id FROM never_a a, never_b b;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "join-parenthesized",
+      "family": "joins",
+      "text": "SELECT a.id FROM (never_a) a INNER JOIN never_b b ON a.id=b.id;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "join-invalid",
+      "family": "joins",
+      "text": "SELECT a.id FROM never_a a LEFT JOIN never_b b;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "join-incomplete",
+      "family": "joins",
+      "text": "SELECT a.id FROM never_a a JOIN",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "join-unicode",
+      "family": "joins",
+      "text": "SELECT 가.열 FROM \"없는가\" 가 JOIN \"없는나\" 나 ON 가.열=나.열;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "join-unsupported",
+      "family": "joins",
+      "text": "SELECT * FROM a NATURAL JOIN b;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "expr-arithmetic",
+      "family": "expressions",
+      "text": "SELECT +(1+2)*3/4 - -5, 1/0, 'a' 'b';",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "expr-predicates",
+      "family": "expressions",
+      "text": "SELECT id FROM absent WHERE id != 2 AND id <= 3 OR NOT (id >= 5 AND id <> 7);",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "expr-null",
+      "family": "expressions",
+      "text": "SELECT id IS NULL, id IS NOT NULL FROM absent;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "expr-local-type-error",
+      "family": "expressions",
+      "text": "SELECT id FROM absent WHERE 1 AND 2;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "expr-invalid",
+      "family": "expressions",
+      "text": "SELECT 1 + * 2;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "expr-incomplete",
+      "family": "expressions",
+      "text": "SELECT 1+",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "expr-unicode",
+      "family": "expressions",
+      "text": "SELECT '가😀' AS 이름, 열+1 FROM 없는표 WHERE 열=2;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "expr-function",
+      "family": "expressions",
+      "text": "SELECT abs(1);",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "cte-valid",
+      "family": "cte",
+      "text": "WITH x AS (SELECT 1 AS id) SELECT id FROM x;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "cte-multiple",
+      "family": "cte",
+      "text": "WITH x AS (SELECT 1 AS id), y AS (SELECT id FROM x) SELECT id FROM y;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "cte-nested",
+      "family": "cte",
+      "text": "WITH x AS (WITH y AS (SELECT 1 AS id) SELECT id FROM y) SELECT id FROM x;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "cte-invalid",
+      "family": "cte",
+      "text": "WITH x AS (SELECT FROM) SELECT 1;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "cte-incomplete",
+      "family": "cte",
+      "text": "WITH x AS (SELECT 1)",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "cte-unicode",
+      "family": "cte",
+      "text": "WITH 한글 AS (SELECT '😀' AS 열) SELECT 열 FROM 한글;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "cte-recursive",
+      "family": "cte",
+      "text": "WITH RECURSIVE x AS (SELECT 1) SELECT 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "cte-columns",
+      "family": "cte",
+      "text": "WITH x(id) AS (SELECT 1) SELECT id FROM x;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "subquery-scalar",
+      "family": "subqueries",
+      "text": "SELECT (SELECT 1);",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "subquery-derived",
+      "family": "subqueries",
+      "text": "SELECT q.id FROM (SELECT id FROM absent) q;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "subquery-dummy-derived",
+      "family": "subqueries",
+      "text": "SELECT * FROM (SELECT * FROM absent) q;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "subquery-correlated",
+      "family": "subqueries",
+      "text": "SELECT a.id FROM absent a WHERE EXISTS (SELECT 1 FROM other_absent b WHERE b.id=a.id);",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "subquery-comparison",
+      "family": "subqueries",
+      "text": "SELECT id FROM absent WHERE id=(SELECT 1);",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "subquery-row-comparison",
+      "family": "subqueries",
+      "text": "SELECT id FROM absent WHERE (id,other_id)=(SELECT 1,2);",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "subquery-invalid",
+      "family": "subqueries",
+      "text": "SELECT (SELECT 1, 2);",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "subquery-join-error",
+      "family": "subqueries",
+      "text": "SELECT a.id FROM a JOIN b ON a.id=(SELECT 1);",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "subquery-incomplete",
+      "family": "subqueries",
+      "text": "SELECT (SELECT 1",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "subquery-unicode",
+      "family": "subqueries",
+      "text": "SELECT (SELECT '가😀') FROM 없는표;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "subquery-unsupported",
+      "family": "subqueries",
+      "text": "SELECT (SELECT sleep(1));",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "insert-values",
+      "family": "insert",
+      "text": "INSERT INTO absent(id,label) VALUES (1,'가😀'), (2,NULL);",
+      "expected": "valid",
+      "kinds": [
+        "PT_INSERT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "insert-select",
+      "family": "insert",
+      "text": "INSERT INTO absent(id) SELECT id FROM other_absent;",
+      "expected": "valid",
+      "kinds": [
+        "PT_INSERT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "insert-cte",
+      "family": "insert",
+      "text": "INSERT INTO absent(id) WITH x AS (SELECT 1 AS id) SELECT id FROM x;",
+      "expected": "valid",
+      "kinds": [
+        "PT_INSERT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "insert-empty-row",
+      "family": "insert",
+      "text": "INSERT INTO absent VALUES ();",
+      "expected": "valid",
+      "kinds": [
+        "PT_INSERT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "insert-subquery",
+      "family": "insert",
+      "text": "INSERT INTO absent(id) VALUES ((SELECT 1));",
+      "expected": "valid",
+      "kinds": [
+        "PT_INSERT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "insert-invalid",
+      "family": "insert",
+      "text": "INSERT INTO absent(id) VALUES (,1);",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "insert-incomplete",
+      "family": "insert",
+      "text": "INSERT INTO absent(id) VALUES (",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "insert-unicode",
+      "family": "insert",
+      "text": "INSERT INTO \"없는표\"(\"열\") VALUES ('가😀');",
+      "expected": "valid",
+      "kinds": [
+        "PT_INSERT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "insert-unsupported",
+      "family": "insert",
+      "text": "INSERT INTO absent VALUES (sleep(1));",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "update-valid",
+      "family": "update",
+      "text": "UPDATE absent SET id=id+1, label='가😀' WHERE id=1;",
+      "expected": "valid",
+      "kinds": [
+        "PT_UPDATE"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "update-subquery",
+      "family": "update",
+      "text": "UPDATE absent SET id=(SELECT 1) WHERE EXISTS (SELECT 1 FROM other_absent);",
+      "expected": "valid",
+      "kinds": [
+        "PT_UPDATE"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "update-join",
+      "family": "update",
+      "text": "UPDATE absent a JOIN other_absent b ON a.id=b.id SET a.id=b.id;",
+      "expected": "valid",
+      "kinds": [
+        "PT_UPDATE"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "update-row",
+      "family": "update",
+      "text": "UPDATE absent SET (id,label)=(1,2);",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "update-invalid",
+      "family": "update",
+      "text": "UPDATE absent SET id= WHERE id=1;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "update-incomplete",
+      "family": "update",
+      "text": "UPDATE absent SET",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "update-unicode",
+      "family": "update",
+      "text": "UPDATE \"없는표\" SET \"열\"='가😀';",
+      "expected": "valid",
+      "kinds": [
+        "PT_UPDATE"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "update-unsupported",
+      "family": "update",
+      "text": "UPDATE absent SET id=NEXT_VALUE(s);",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "delete-valid",
+      "family": "delete",
+      "text": "DELETE FROM absent WHERE id=1;",
+      "expected": "valid",
+      "kinds": [
+        "PT_DELETE"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "delete-subquery",
+      "family": "delete",
+      "text": "DELETE FROM absent WHERE EXISTS (SELECT 1 FROM other_absent);",
+      "expected": "valid",
+      "kinds": [
+        "PT_DELETE"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "delete-multi",
+      "family": "delete",
+      "text": "DELETE a FROM absent a JOIN other_absent b ON a.id=b.id;",
+      "expected": "valid",
+      "kinds": [
+        "PT_DELETE"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "delete-duplicate-alias",
+      "family": "delete",
+      "text": "DELETE a FROM absent a, other_absent a;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "delete-invalid",
+      "family": "delete",
+      "text": "DELETE FROM WHERE id=1;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "delete-incomplete",
+      "family": "delete",
+      "text": "DELETE FROM absent WHERE",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "delete-unicode",
+      "family": "delete",
+      "text": "DELETE FROM \"없는표\" WHERE \"열\"='가😀';",
+      "expected": "valid",
+      "kinds": [
+        "PT_DELETE"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "delete-unsupported",
+      "family": "delete",
+      "text": "DELETE FROM absent WHERE id=1 LIMIT 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "merge-both",
+      "family": "merge",
+      "text": "MERGE INTO absent a USING other_absent b ON a.id=b.id WHEN MATCHED THEN UPDATE SET a.id=b.id WHEN NOT MATCHED THEN INSERT (id) VALUES (b.id);",
+      "expected": "valid",
+      "kinds": [
+        "PT_MERGE"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "merge-update",
+      "family": "merge",
+      "text": "MERGE INTO absent a USING other_absent b ON a.id=b.id WHEN MATCHED THEN UPDATE SET a.id=b.id WHERE b.id>0;",
+      "expected": "valid",
+      "kinds": [
+        "PT_MERGE"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "merge-insert",
+      "family": "merge",
+      "text": "MERGE INTO absent a USING (SELECT 1 AS id) b ON a.id=b.id WHEN NOT MATCHED THEN INSERT (id) VALUES (b.id) WHERE b.id>0;",
+      "expected": "valid",
+      "kinds": [
+        "PT_MERGE"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "merge-reverse-clauses",
+      "family": "merge",
+      "text": "MERGE INTO a USING b ON a.id=b.id WHEN NOT MATCHED THEN INSERT (id) VALUES (b.id) WHEN MATCHED THEN UPDATE SET a.id=b.id;",
+      "expected": "valid",
+      "kinds": [
+        "PT_MERGE"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "merge-invalid",
+      "family": "merge",
+      "text": "MERGE INTO a USING b ON a.id=b.id WHEN MATCHED THEN UPDATE SET id=;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "merge-incomplete",
+      "family": "merge",
+      "text": "MERGE INTO a USING b ON a.id=b.id WHEN MATCHED THEN",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "merge-unicode",
+      "family": "merge",
+      "text": "MERGE INTO \"없는표\" 가 USING \"다른표\" 나 ON 가.열=나.열 WHEN MATCHED THEN UPDATE SET 가.열=나.열;",
+      "expected": "valid",
+      "kinds": [
+        "PT_MERGE"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "merge-unsupported",
+      "family": "merge",
+      "text": "MERGE INTO a USING b ON a.id=b.id WHEN MATCHED THEN UPDATE SET a.id=sleep(1);",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-01",
+      "family": "negative-features",
+      "text": "SELECT a. /* hidden */ next_value FROM absent a;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-02",
+      "family": "negative-features",
+      "text": "SELECT a.\"nextval\" FROM absent a;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-03",
+      "family": "negative-features",
+      "text": "SELECT a.[currval] FROM absent a;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-04",
+      "family": "negative-features",
+      "text": "SELECT a.`current_value` FROM absent a;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-05",
+      "family": "negative-features",
+      "text": "SELECT missing /* hidden */ (1);",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-06",
+      "family": "negative-features",
+      "text": "SELECT \"sleep\"(1);",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-07",
+      "family": "negative-features",
+      "text": "SELECT [sleep] (1);",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-08",
+      "family": "negative-features",
+      "text": "SELECT 1e2;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-09",
+      "family": "negative-features",
+      "text": "SELECT .5;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-10",
+      "family": "negative-features",
+      "text": "SELECT 1.;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-11",
+      "family": "negative-features",
+      "text": "SELECT 0xFF;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-12",
+      "family": "negative-features",
+      "text": "SELECT N'한글';",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-13",
+      "family": "negative-features",
+      "text": "SELECT _utf8'한글';",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-14",
+      "family": "negative-features",
+      "text": "SELECT a->b FROM absent;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-15",
+      "family": "negative-features",
+      "text": "SELECT 1 << 2;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-16",
+      "family": "negative-features",
+      "text": "SELECT 1 || 2;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-17",
+      "family": "negative-features",
+      "text": "SELECT 1 <=> 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-18",
+      "family": "negative-features",
+      "text": "SELECT 1 & 2;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-19",
+      "family": "negative-features",
+      "text": "SELECT @x;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-20",
+      "family": "negative-features",
+      "text": "SELECT ?;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-21",
+      "family": "negative-features",
+      "text": "SELECT :x;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-22",
+      "family": "negative-features",
+      "text": "SELECT a FROM absent@remote;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-23",
+      "family": "negative-features",
+      "text": "SELECT 1 INTO x;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-24",
+      "family": "negative-features",
+      "text": "SELECT a FROM absent a(id);",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-25",
+      "family": "negative-features",
+      "text": "SELECT * FROM DBLINK('secret', 'select 1') t;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-26",
+      "family": "negative-features",
+      "text": "SELECT 1 UNION SELECT 2;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-27",
+      "family": "negative-features",
+      "text": "SELECT --+ RECOMPILE\n1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-28",
+      "family": "negative-features",
+      "text": "SELECT //+ RECOMPILE\n1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-29",
+      "family": "negative-features",
+      "text": "SELECT /* outer /* inner */ 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-30",
+      "family": "negative-features",
+      "text": "SELECT /*! executable */ 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-31",
+      "family": "negative-features",
+      "text": "SELECT CURRENT_DATE;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-32",
+      "family": "negative-features",
+      "text": "SELECT a(1);",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-33",
+      "family": "negative-features",
+      "text": "SELECT (INSERT INTO t VALUES (1));",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-34",
+      "family": "negative-features",
+      "text": "SELECT 1 ORDER BY 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-35",
+      "family": "negative-features",
+      "text": "SELECT 1.2;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-36",
+      "family": "negative-features",
+      "text": "SELECT 999999999999999999999999999999999999999;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-37",
+      "family": "negative-features",
+      "text": "SELECT a.\"x.y\" FROM absent a;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-38",
+      "family": "negative-features",
+      "text": "SELECT \"a\"\"b\" FROM absent;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "feature-denied-39",
+      "family": "negative-features",
+      "text": "SELECT a FROM a WHERE a.id(+)=1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "comment-string-isolation",
+      "family": "boundaries",
+      "text": "SELECT '/*+ DROP TABLE x; */ --+ 😀' AS \"SELECT\" FROM \"DROP\" /* sleep(1); */;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "mixed-family-status",
+      "family": "mixed",
+      "text": "SELECT 1; INSERT INTO t VALUES (1); UPDATE t SET id=; DELETE FROM t; MERGE INTO a USING b ON a.id=b.id WHEN NOT MATCHED THEN INSERT (id) VALUES (b.id); SELECT sleep(1);",
+      "expected": "syntax-error",
+      "kinds": [
+        "PT_SELECT",
+        "PT_INSERT",
+        "PT_DELETE",
+        "PT_MERGE"
+      ],
+      "admitted": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ]
+    },
+    {
+      "id": "select-unicode-incomplete",
+      "family": "select",
+      "text": "-- 가😀\r\nSELECT id FROM",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "joins-unicode-incomplete",
+      "family": "joins",
+      "text": "-- 가😀\r\nSELECT a.id FROM a JOIN",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "expressions-unicode-incomplete",
+      "family": "expressions",
+      "text": "-- 가😀\r\nSELECT 1+",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "cte-unicode-incomplete",
+      "family": "cte",
+      "text": "-- 가😀\r\nWITH x AS (SELECT",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "subqueries-unicode-incomplete",
+      "family": "subqueries",
+      "text": "-- 가😀\r\nSELECT (SELECT",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "insert-unicode-incomplete",
+      "family": "insert",
+      "text": "-- 가😀\r\nINSERT INTO t VALUES (",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "update-unicode-incomplete",
+      "family": "update",
+      "text": "-- 가😀\r\nUPDATE t SET id=",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "delete-unicode-incomplete",
+      "family": "delete",
+      "text": "-- 가😀\r\nDELETE FROM t WHERE",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "merge-unicode-incomplete",
+      "family": "merge",
+      "text": "-- 가😀\r\nMERGE INTO a USING b ON",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "select-mixed-unsupported",
+      "family": "select",
+      "text": "SELECT a.id, a.* FROM never_exists a; SELECT sleep(1);",
+      "expected": "unsupported",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "joins-mixed-unsupported",
+      "family": "joins",
+      "text": "SELECT a.id FROM never_a a JOIN never_b b ON a.id=b.id; SELECT sleep(1);",
+      "expected": "unsupported",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "expressions-mixed-unsupported",
+      "family": "expressions",
+      "text": "SELECT +(1+2)*3/4 - -5, 1/0, 'a' 'b'; SELECT sleep(1);",
+      "expected": "unsupported",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "cte-mixed-unsupported",
+      "family": "cte",
+      "text": "WITH x AS (SELECT 1 AS id) SELECT id FROM x; SELECT sleep(1);",
+      "expected": "unsupported",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "subqueries-mixed-unsupported",
+      "family": "subqueries",
+      "text": "SELECT (SELECT 1); SELECT sleep(1);",
+      "expected": "unsupported",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "insert-mixed-unsupported",
+      "family": "insert",
+      "text": "INSERT INTO absent(id,label) VALUES (1,'가😀'), (2,NULL); SELECT sleep(1);",
+      "expected": "unsupported",
+      "kinds": [
+        "PT_INSERT"
+      ],
+      "admitted": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "update-mixed-unsupported",
+      "family": "update",
+      "text": "UPDATE absent SET id=id+1, label='가😀' WHERE id=1; SELECT sleep(1);",
+      "expected": "unsupported",
+      "kinds": [
+        "PT_UPDATE"
+      ],
+      "admitted": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "delete-mixed-unsupported",
+      "family": "delete",
+      "text": "DELETE FROM absent WHERE id=1; SELECT sleep(1);",
+      "expected": "unsupported",
+      "kinds": [
+        "PT_DELETE"
+      ],
+      "admitted": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "merge-mixed-unsupported",
+      "family": "merge",
+      "text": "MERGE INTO absent a USING other_absent b ON a.id=b.id WHEN MATCHED THEN UPDATE SET a.id=b.id WHEN NOT MATCHED THEN INSERT (id) VALUES (b.id); SELECT sleep(1);",
+      "expected": "unsupported",
+      "kinds": [
+        "PT_MERGE"
+      ],
+      "admitted": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "closure-extra-01",
+      "family": "negative-features",
+      "text": "SELECT LEFT('abc',1);",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "closure-extra-02",
+      "family": "negative-features",
+      "text": "SELECT RIGHT('abc',1);",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "closure-extra-03",
+      "family": "negative-features",
+      "text": "UPDATE absent SET id=SET(SELECT 1);",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "closure-extra-04",
+      "family": "negative-features",
+      "text": "MERGE INTO a USING b ON a.id=b.id WHEN MATCHED THEN UPDATE SET a.id=LEFT('a',1);",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "closure-extra-05",
+      "family": "negative-features",
+      "text": "SELECT B'101';",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "closure-extra-06",
+      "family": "negative-features",
+      "text": "SELECT X'FF';",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "closure-extra-07",
+      "family": "negative-features",
+      "text": "SELECT _euckr'가';",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "closure-extra-08",
+      "family": "negative-features",
+      "text": "SELECT _iso88591'a';",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "closure-extra-09",
+      "family": "negative-features",
+      "text": "SELECT _binary'a';",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "closure-extra-10",
+      "family": "negative-features",
+      "text": "SELECT a.\"CuRrVaL\" FROM absent a;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "closure-extra-11",
+      "family": "negative-features",
+      "text": "SELECT a.[NeXt_VaLuE] FROM absent a;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "closure-extra-12",
+      "family": "negative-features",
+      "text": "SELECT a.`CuRrEnT_VaLuE` FROM absent a;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "closure-extra-13",
+      "family": "negative-features",
+      "text": "SELECT a.nextval FROM absent a;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "closure-extra-14",
+      "family": "negative-features",
+      "text": "SELECT [sleep]/* hidden */(1);",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "closure-extra-15",
+      "family": "negative-features",
+      "text": "SELECT `sleep`(1);",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "merge-nonreserved-function-denied",
+      "family": "negative-features",
+      "text": "MERGE INTO a USING b ON a.id=b.id WHEN MATCHED THEN UPDATE SET a.id=MATCHED(1);",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "insert-values-query",
+      "family": "insert",
+      "text": "INSERT INTO a VALUES ((VALUES (1)));",
+      "expected": "valid",
+      "kinds": [
+        "PT_INSERT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "merge-values-query",
+      "family": "merge",
+      "text": "MERGE INTO a USING (VALUES (1)) b ON 1=1 WHEN NOT MATCHED THEN INSERT (id) VALUES (1);",
+      "expected": "valid",
+      "kinds": [
+        "PT_MERGE"
+      ],
+      "admitted": [
+        true
+      ]
+    }
+  ]
+}

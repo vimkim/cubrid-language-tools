@@ -6,7 +6,8 @@ from .models import PROFILE
 
 SOURCE_COMMIT = "cc947788d3b7dc402f46192d0f3299ddcc8563ba"
 NATIVE_VERSION = "11.5.0.2704-cc94778"
-COVERAGE_REVISION = "literal-select-create-serial-v1"
+COVERAGE_REVISION = "bounded-query-dml-create-serial-v2"
+SUPPORTED_STATEMENT_KINDS = ("PT_SELECT", "PT_INSERT", "PT_UPDATE", "PT_DELETE", "PT_MERGE", "PT_CREATE_SERIAL")
 SETTINGS = MappingProxyType({
     "charset": "en_US.utf8", "strings_have_no_escapes": False,
     "ansi_quotes": True, "no_backslash_escapes": False, "pipes_as_concat": True,
@@ -21,4 +22,4 @@ def qualified_identity(profile, runtime_prefix):
     return {"profile": profile, "testOnly": False, "nativeVersion": NATIVE_VERSION, "sourceCommit": SOURCE_COMMIT,
             "platform": "linux-x86_64", "coverageRevision": COVERAGE_REVISION,
             "runtimePrefix": str(runtime_prefix), "settings": dict(SETTINGS),
-            "supportedStatementKinds": ["PT_SELECT", "PT_CREATE_SERIAL"]}
+            "supportedStatementKinds": list(SUPPORTED_STATEMENT_KINDS)}

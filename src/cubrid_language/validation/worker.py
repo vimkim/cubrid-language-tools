@@ -16,7 +16,7 @@ import threading
 import time
 
 from .models import PROFILE, Diagnostic, Span, ValidationResult
-from .profiles import qualified_identity
+from .profiles import SUPPORTED_STATEMENT_KINDS, qualified_identity
 
 DIAGNOSTIC_KINDS = {
     "CUBRID-S1001": ("syntax", "error"),
@@ -290,7 +290,7 @@ class NativeWorker:
                     raise ValueError("diagnostic code contradicts category/severity")
                 diagnostics.append(Diagnostic(value["code"], value["severity"], value["message"], span,
                                               value["rangePrecision"], value["category"]))
-            if any(kind not in ("PT_SELECT", "PT_CREATE_SERIAL") for kind in response["statementKinds"]):
+            if any(kind not in SUPPORTED_STATEMENT_KINDS for kind in response["statementKinds"]):
                 raise ValueError("unqualified statement kind")
             decisions, observations = response["coverageDecisions"], response["nativeObservations"]
             if not isinstance(decisions, list) or not isinstance(observations, list):

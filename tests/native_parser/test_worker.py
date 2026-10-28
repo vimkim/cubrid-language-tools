@@ -14,6 +14,22 @@ PROFILE = "cubrid-11.5.0.2704-cc94778"
 
 
 class NativeWorkerTests(unittest.TestCase):
+    def test_retained_query_dml_qualification_corpus(self):
+        corpus = json.loads((ROOT / "native/parser-worker/qualification/corpus.json").read_text())
+        requests = [{"protocolVersion": 1, "id": 1, "method": "initialize", "profile": PROFILE}]
+        requests += [{"protocolVersion": 1, "id": i + 2, "method": "parse", "text": case["text"]}
+                     for i, case in enumerate(corpus["cases"])]
+        requests.append({"protocolVersion": 1, "id": len(requests) + 1, "method": "shutdown"})
+        responses = self.exchange(requests)
+        self.assertEqual(responses[0]["coverageRevision"], corpus["coverageRevision"])
+        self.assertEqual(len(responses), len(requests))
+        for case, result in zip(corpus["cases"], responses[1:]):
+            with self.subTest(case=case["id"]):
+                self.assertEqual(result["status"], case["expected"], result)
+                self.assertEqual(result["statementKinds"], case["kinds"])
+                self.assertEqual([d["admitted"] for d in result["coverageDecisions"]], case["admitted"])
+                self.assertEqual(len(result["nativeObservations"]), sum(case["admitted"]))
+
     def parse(self, text):
         return self.exchange([
             {"protocolVersion": 1, "id": 1, "method": "initialize", "profile": PROFILE},
@@ -36,7 +52,8 @@ class NativeWorkerTests(unittest.TestCase):
         self.assertEqual(result["profile"], PROFILE)
         self.assertEqual(result["nativeVersion"], "11.5.0.2704-cc94778")
         self.assertEqual(result["sourceCommit"], "cc947788d3b7dc402f46192d0f3299ddcc8563ba")
-        self.assertEqual(result["supportedStatementKinds"], ["PT_SELECT", "PT_CREATE_SERIAL"])
+        self.assertEqual(result["coverageRevision"], "bounded-query-dml-create-serial-v2")
+        self.assertEqual(result["supportedStatementKinds"], ["PT_SELECT", "PT_INSERT", "PT_UPDATE", "PT_DELETE", "PT_MERGE", "PT_CREATE_SERIAL"])
 
     def test_create_serial_is_checked_by_the_native_parser(self):
         valid = self.parse("CREATE SERIAL order_no START WITH 10 INCREMENT BY 2;")
@@ -49,9 +66,67 @@ class NativeWorkerTests(unittest.TestCase):
         self.assertEqual(korean["status"], "syntax-error")
         self.assertTrue(korean["coverageDecisions"][0]["admitted"])
 
+    def test_bounded_queries_use_native_syntax_without_a_catalog(self):
+        for text in (
+            "SELECT a.id + 2 * (a.id - 1), '가😀' AS label FROM absent_a a LEFT JOIN absent_b b ON a.id = b.id WHERE NOT (a.id < 1 OR b.id IS NULL);",
+            "WITH x AS (SELECT 1 AS id) SELECT x.id FROM x;",
+            "SELECT (SELECT 1), q.id FROM (SELECT id FROM absent) q WHERE EXISTS (SELECT 1 FROM other_absent);",
+        ):
+            with self.subTest(text=text):
+                result = self.parse(text)
+                self.assertEqual(result["status"], "valid", result)
+                self.assertEqual(result["statementKinds"], ["PT_SELECT"])
+                self.assertEqual(len(result["nativeObservations"]), 1)
+
+    def test_basic_dml_builds_only_parser_trees(self):
+        for text, kind in (
+            ("INSERT INTO absent (id, label) VALUES (1, '가😀'), (2, NULL);", "PT_INSERT"),
+            ("INSERT INTO absent (id) SELECT id FROM other_absent WHERE id > 0;", "PT_INSERT"),
+            ("UPDATE absent SET id = id + 1, label = '가😀' WHERE id = 1;", "PT_UPDATE"),
+            ("DELETE FROM absent WHERE id = (SELECT 1);", "PT_DELETE"),
+            ("MERGE INTO absent a USING other_absent b ON a.id = b.id WHEN MATCHED THEN UPDATE SET a.id = b.id WHEN NOT MATCHED THEN INSERT (id) VALUES (b.id);", "PT_MERGE"),
+        ):
+            with self.subTest(text=text):
+                result = self.parse(text)
+                self.assertEqual(result["status"], "valid", result)
+                self.assertEqual(result["statementKinds"], [kind])
+
+    def test_feature_closure_blocks_native_calls_even_behind_comments_and_quotes(self):
+        for text in (
+            "SELECT a. /* hidden */ next_value FROM absent a;",
+            'SELECT a."nextval" FROM absent a;', "SELECT a.[currval] FROM absent a;",
+            "SELECT a.`current_value` FROM absent a;", "SELECT missing /* hidden */ (1);",
+            'SELECT "sleep"(1);', "SELECT [sleep] (1);", "SELECT 1e2;", "SELECT .5;",
+            "SELECT 1.;", "SELECT 0xFF;", "SELECT N'한글';", "SELECT _utf8'한글';",
+            "SELECT a->b FROM absent;", "SELECT 1 << 2;", "SELECT 1 || 2;",
+            "SELECT 1 <=> 1;", "SELECT 1 & 2;", "SELECT @x;", "SELECT ?;",
+            "SELECT :x;", "SELECT a FROM absent@remote;", "SELECT 1 INTO x;",
+            "WITH x(id) AS (SELECT 1) SELECT id FROM x;", "SELECT a FROM absent a(id);",
+            "SELECT * FROM DBLINK('secret', 'select 1') t;", "SELECT 1 UNION SELECT 2;",
+            "SELECT /*+ RECOMPILE */ 1;", "SELECT --+ RECOMPILE\n1;", "SELECT //+ RECOMPILE\n1;",
+            "SELECT /* outer /* inner */ 1;", "SELECT /*! executable */ 1;",
+            "INSERT INTO absent VALUES (sleep(1));", "UPDATE absent SET id = sleep(1);",
+            "DELETE FROM absent WHERE id = sleep(1);",
+            "MERGE INTO a USING b ON a.id=b.id WHEN MATCHED THEN UPDATE SET a.id=sleep(1);",
+        ):
+            with self.subTest(text=text):
+                result = self.parse(text)
+                self.assertEqual(result["status"], "unsupported", result)
+                self.assertEqual(result["nativeObservations"], [])
+
+    def test_join_and_assignment_keywords_cannot_enable_reserved_functions(self):
+        for text in ("SELECT LEFT('abc',1);", "SELECT RIGHT('abc',1);",
+                     "UPDATE absent SET id=SET(SELECT 1);",
+                     "MERGE INTO a USING b ON a.id=b.id WHEN MATCHED THEN UPDATE SET a.id=LEFT('a',1);",
+                     "MERGE INTO a USING b ON a.id=b.id WHEN MATCHED THEN UPDATE SET a.id=MATCHED(1);"):
+            with self.subTest(text=text):
+                result = self.parse(text)
+                self.assertEqual(result["status"], "unsupported", result)
+                self.assertEqual(result["nativeObservations"], [])
+
     def test_unaudited_query_forms_never_enter_native_parser(self):
-        for text in ("SELECT * FROM missing_table;", "WITH x AS (SELECT 1) SELECT 1;",
-                     "SELECT (SELECT 1);", "SELECT sleep(1);", "SELECT 1+2;",
+        for text in ("SELECT sleep(1);", "WITH RECURSIVE x AS (SELECT 1) SELECT 1;",
+                     "SELECT CURRENT_DATE;", "SELECT a.next_value FROM absent a;",
                      "SELECT /*+ RECOMPILE */ 1;", "DROP TABLE never_execute;"):
             with self.subTest(text=text):
                 result = self.parse(text)

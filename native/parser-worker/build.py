@@ -9,6 +9,8 @@ import re
 import shlex
 import subprocess
 
+from coverage_keywords import keyword_header
+
 SOURCE = "cc947788d3b7dc402f46192d0f3299ddcc8563ba"
 VERSION = "11.5.0.2704-cc94778"
 LIBRARY_SHA = "56eb36e9a46e3b6f5258974b25085b81d1679430618041343e4d979704822b33"
@@ -41,6 +43,8 @@ def main():
         parser.error("source commit differs from the qualified profile")
     if run("git", "-C", str(source), "status", "--porcelain", "--untracked-files=no"):
         parser.error("qualified source has tracked modifications")
+    if (HERE / "coverage/keywords.hpp").read_text() != keyword_header(source):
+        parser.error("coverage keyword inventory differs from the pinned lexer/table")
     if sha(library) != LIBRARY_SHA:
         parser.error("library SHA-256 differs from the qualified profile")
     if f'#define VERSION_STRING "{VERSION}"' not in (generated / "version.h").read_text():
@@ -70,15 +74,17 @@ def main():
     headers = sorted([*source.joinpath("src").rglob("*.h"), *source.joinpath("src").rglob("*.hpp"),
                       *source.joinpath("include").rglob("*.h")])
     header_records = {str(p.relative_to(source)): sha(p) for p in headers}
-    worker_inputs = [HERE / "worker.cpp", HERE / "build.py", *sorted((HERE / "coverage").glob("*.hpp"))]
+    worker_inputs = [HERE / "worker.cpp", HERE / "build.py", HERE / "coverage_keywords.py", *sorted((HERE / "coverage").glob("*.hpp"))]
     manifest = {"profile": "cubrid-" + VERSION, "testOnly": args.test_internal_error,
                 "workerInputs": {str(p.relative_to(HERE)): sha(p) for p in worker_inputs},
                 "limits": {"addressSpaceBytes": 512 * 1024 * 1024, "documentBytes": 8 * 1024 * 1024,
                            "frameBytes": 64 * 1024 * 1024, "diagnostics": 256}, "sourceCommit": SOURCE,
                 "nativeVersion": VERSION, "platform": "linux-x86_64", "settings": settings,
                 "host": {"platform": platform.platform(), "libc": platform.libc_ver()},
-                "coverageRevision": "literal-select-create-serial-v1",
-                "supportedStatementKinds": ["PT_SELECT", "PT_CREATE_SERIAL"],
+                "coverageRevision": "bounded-query-dml-create-serial-v2",
+                "supportedStatementKinds": ["PT_SELECT", "PT_INSERT", "PT_UPDATE", "PT_DELETE", "PT_MERGE", "PT_CREATE_SERIAL"],
+                "grammarInputs": {str(p): sha(p) for p in (source / "src/parser" / name for name in
+                    ("csql_grammar.y", "csql_lexer.l", "keyword.c", "parse_tree.c", "parse_tree_cl.c", "parser_support.c", "name_resolution.c"))},
                 "source": str(source), "library": str(library), "runtimePrefix": str(prefix),
                 "files": {str(p.resolve(strict=True)): sha(p) for p in files},
                 "generatedHeaders": {str(p): sha(p) for p in build_headers},
