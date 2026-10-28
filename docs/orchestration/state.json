@@ -303,12 +303,15 @@
       "report": "/home/vimkim/gh/cubrid-language-tools-07/docs/tickets/reports/07.md"
     },
     "08": {
-      "status": "ready",
+      "status": "dispatched",
       "dependsOn": [
         "03",
         "05"
       ],
-      "blocker": "Ticket 07 remains qualified-partial-awaiting-scope-choice. User decision is pending between deferring SHOW COLUMNS/DESCRIBE/DESC/EXPLAIN class forms and expanding the parser-only backend scope; no ticket 07 integration or criterion change is authorized by ticket 05 integration."
+      "blocker": "Ticket 07 remains qualified-partial-awaiting-scope-choice. User decision is pending between deferring SHOW COLUMNS/DESCRIBE/DESC/EXPLAIN class forms and expanding the parser-only backend scope; no ticket 07 integration or criterion change is authorized by ticket 05 integration.",
+      "base": "925c90ac9dcf555dde2fee5b15357d1a4f7f088a",
+      "branch": "central/ticket-08",
+      "worktree": "/home/vimkim/gh/cubrid-language-tools-08"
     },
     "09": {
       "status": "pending",
