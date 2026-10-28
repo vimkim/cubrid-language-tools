@@ -37,7 +37,7 @@ After approval, inspect a clean expected destination, rebase, check, and merge w
 The approved squash fallback applies when rebase and fast-forward are impractical.
 Main integration approval includes a main push through its configured remote.
 Other pushes, remote repository creation, publication, and deployment need separate authorization.
-No remote exists at bootstrap. Report that fact rather than inventing a remote.
+Bootstrap was local. Inspect live remotes before publication and report their current state.
 Preserve valuable artifacts before removing only merged task worktrees and branches without force.
 
 This is a remote Linux host. Use headless automation and disable browser auto-opening.
