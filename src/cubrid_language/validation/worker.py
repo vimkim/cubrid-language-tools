@@ -281,6 +281,8 @@ class NativeWorker:
         truncated = response.get("diagnosticsTruncated", False)
         if type(truncated) is not bool:
             raise WorkerFailure("CUBRID-T1002", "invalid native truncation marker")
+        if truncated and len(response["diagnostics"]) != 256:
+            raise WorkerFailure("CUBRID-T1002", "invalid native truncated diagnostic count")
         diagnostics = []
         try:
             for value in response["diagnostics"]:
@@ -300,30 +302,31 @@ class NativeWorker:
             decisions, observations = response["coverageDecisions"], response["nativeObservations"]
             if not isinstance(decisions, list) or not isinstance(observations, list):
                 raise ValueError("invalid native coverage observations")
+            marker = diagnostics[-1] if truncated else None
+            if marker and (status != "tool-error" or marker.code != "CUBRID-T1002"
+                    or marker.range_precision != "statement" or marker.span.start == marker.span.end
+                    or marker.span.end != len(text)):
+                raise ValueError("contradictory native truncation marker")
             admitted, unsupported, last_end = 0, 0, 0
             for decision in decisions:
                 span = Span(decision["start"], decision["end"])
                 if (span.start < last_end or span.start == span.end or span.end > len(text)
-                        or not _trivia_only(text[last_end:span.start]) or type(decision["admitted"]) is not bool):
+                        or not _trivia_only(text[last_end:span.start]) or type(decision["admitted"]) is not bool
+                        or (marker and span.start >= marker.span.start and span.start != last_end)):
                     raise ValueError("invalid coverage decision")
                 last_end = span.end
                 if decision["admitted"]:
                     admitted += 1
                 else:
                     categories = {d.category for d in diagnostics if d.span == span}
-                    if not categories:
+                    if not categories and not (marker and marker.span.start <= span.start < span.end <= marker.span.end):
                         raise ValueError("rejected coverage has no diagnostic")
                     unsupported += "unsupported" in categories
             if not _trivia_only(text[last_end:]):
                 raise ValueError("coverage omitted nontrivial source text")
             if truncated:
-                marker = diagnostics[-1]
-                if (len(diagnostics) != 256 or status != "tool-error" or marker.code != "CUBRID-T1002"
-                        or marker.range_precision != "statement" or not decisions
-                        or marker.span != Span(decisions[-1]["start"], decisions[-1]["end"])
-                        or marker.span.start == marker.span.end or marker.span.end != len(text)
-                        or (not decisions[-1]["admitted"] and marker.span.start !=
-                            (decisions[-2]["end"] if len(decisions) > 1 else 0))):
+                if (not any(decision["start"] == marker.span.start for decision in decisions)
+                        or last_end != len(text)):
                     raise ValueError("contradictory native truncation marker")
             expected_coverage = ("partial" if admitted else "none") if truncated else (
                 "partial" if unsupported and admitted else "none" if unsupported else "complete")

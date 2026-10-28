@@ -14,6 +14,17 @@ PROFILE = "cubrid-11.5.0.2704-cc94778"
 
 
 class NativeWorkerTests(unittest.TestCase):
+    def test_diagnostic_boundary_accepts_255_plus_valid_and_exactly_256_findings(self):
+        for count, suffix in ((255, 'SELECT 1;'), (256, ''), (256, 'SELECT 1;'), (257, '')):
+            with self.subTest(count=count):
+                result = self.parse('SELECT ,;' * count + suffix)
+                self.assertEqual(result['status'], 'tool-error' if count > 256 else 'syntax-error')
+                self.assertEqual(result['coverage'], 'partial' if count > 256 else 'complete')
+                self.assertEqual(len(result['diagnostics']), min(count, 256))
+                self.assertEqual(result.get('diagnosticsTruncated', False), count > 256)
+                if suffix:
+                    self.assertEqual(result['statementKinds'], ['PT_SELECT'])
+
     def test_truncation_inside_final_statement_counts_errors_without_empty_tail(self):
         text = 'CREATE SERIAL s START WITH 1' + ' START WITH 1' * 270 + ';'
         results = self.exchange([
@@ -41,7 +52,10 @@ class NativeWorkerTests(unittest.TestCase):
         self.assertIs(tail['admitted'], False)
         self.assertEqual(tail['start'], result['coverageDecisions'][-2]['end'])
         self.assertEqual(tail['end'], len(text))
-        self.assertEqual(result['diagnostics'][-1]['span'], {'start': tail['start'], 'end': tail['end']})
+        self.assertLessEqual(result['diagnostics'][-1]['span']['start'], tail['start'])
+        self.assertEqual(result['diagnostics'][-1]['span']['end'], tail['end'])
+        self.assertEqual(result['diagnostics'][-1]['span']['start'], result['coverageDecisions'][255]['start'])
+        self.assertIs(result['coverageDecisions'][255]['admitted'], False)
 
     def test_retained_query_dml_qualification_corpus(self):
         corpus = json.loads((ROOT / "native/parser-worker/qualification/corpus.json").read_text())

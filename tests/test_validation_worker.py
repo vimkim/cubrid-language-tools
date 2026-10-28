@@ -22,7 +22,7 @@ class WorkerAdapterTests(unittest.TestCase):
         text = 'SELECT ,; CREATE PROCEDURE p;'
         syntax = {"code": "CUBRID-S1001", "category": "syntax", "severity": "error",
                   "message": "rejected", "span": {"start": 0, "end": 9}, "rangePrecision": "statement"}
-        for tail_start, marker_start in ((9, 9), (10, 10), (9, 0)):
+        for tail_start, marker_start in ((9, 9), (10, 10), (9, 0), (9, 1)):
             with self.subTest(tail_start=tail_start, marker_start=marker_start), tempfile.TemporaryDirectory() as directory:
                 marker = {**syntax, "code": "CUBRID-T1002", "category": "tool", "message": "result truncated",
                           "span": {"start": marker_start, "end": len(text)}}
@@ -31,12 +31,27 @@ class WorkerAdapterTests(unittest.TestCase):
                     "statementKinds": [], "coverageDecisions": [{"start": 0, "end": 9, "admitted": True},
                         {"start": tail_start, "end": len(text), "admitted": False}],
                     "nativeObservations": [{"hasTree": False, "treeCount": 0, "hasError": True,
-                        "hasInternalError": False, "errorCount": 300, "nativeErrorId": 0, "partialStackCount": 0}]}
+                        "hasInternalError": False, "errorCount": 255, "nativeErrorId": 0, "partialStackCount": 0}]}
                 executable = self.reply_worker(directory, response)
                 with NativeWorker(WorkerConfig(executable, PREFIX)) as worker:
                     result = worker.parse(text)
-                self.assertEqual(result.coverage, 'partial' if (tail_start, marker_start) == (9, 9) else 'none')
-                self.assertEqual(len(result.diagnostics), 256 if (tail_start, marker_start) == (9, 9) else 1)
+                accepted = (tail_start, marker_start) in ((9, 9), (9, 0))
+                self.assertEqual(result.coverage, 'partial' if accepted else 'none')
+                self.assertEqual(len(result.diagnostics), 256 if accepted else 1)
+        with tempfile.TemporaryDirectory() as directory:
+            marker = {**syntax, "code": "CUBRID-T1002", "category": "tool", "message": "result truncated",
+                      "span": {"start": 9, "end": len(text)}}
+            response = {"status": "tool-error", "coverage": "partial", "diagnosticsTruncated": True,
+                "diagnostics": [{**syntax, "message": str(index), "span": {"start": 9, "end": len(text)}}
+                                for index in range(255)] + [marker], "statementKinds": [],
+                "coverageDecisions": [{"start": 0, "end": 9, "admitted": False},
+                                      {"start": 9, "end": len(text), "admitted": True}],
+                "nativeObservations": [{"hasTree": False, "treeCount": 0, "hasError": True,
+                    "hasInternalError": False, "errorCount": 300, "nativeErrorId": 0, "partialStackCount": 0}]}
+            executable = self.reply_worker(directory, response)
+            with NativeWorker(WorkerConfig(executable, PREFIX)) as worker:
+                result = worker.parse(text)
+            self.assertEqual((result.status, result.coverage, len(result.diagnostics)), ('tool-error', 'none', 1))
 
     def test_native_truncation_marker_requires_consistent_bounded_unsuccessful_result(self):
         syntax = {"code": "CUBRID-S1001", "category": "syntax", "severity": "error",
@@ -50,7 +65,7 @@ class WorkerAdapterTests(unittest.TestCase):
         for changes in ({}, {"diagnosticsTruncated": 1}, {"diagnosticsTruncated": "true"},
                         {"diagnosticsTruncated": None}, {"diagnosticsTruncated": False},
                         {"coverage": "complete"}, {"status": "valid"},
-                        {"diagnostics": diagnostics[:-1]}, {"diagnostics": diagnostics + [marker]},
+                        {"diagnostics": []}, {"diagnostics": diagnostics[:-1]}, {"diagnostics": diagnostics + [marker]},
                         {"diagnostics": diagnostics[:-1] + [{**marker, "span": {"start": 0, "end": 8}}]}):
             with self.subTest(changes=list(changes)), tempfile.TemporaryDirectory() as directory:
                 executable = self.reply_worker(directory, {**base, **changes})

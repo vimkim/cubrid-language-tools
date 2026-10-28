@@ -140,13 +140,15 @@ static void parse(Runtime &runtime, const std::string &text, Json &response) {
   int priority = 0; size_t admitted = 0, unsupported = 0;
   bool truncated = false; size_t truncated_begin = 0, processed_end = 0;
   auto append_diagnostic = [&](Value value) {
-    if (diagnostics.Size() < 255) diagnostics.PushBack(value, a);
-    else truncated = true;
+    if (truncated) return;
+    if (diagnostics.Size() < 256) diagnostics.PushBack(value, a);
+    else {
+      truncated = true; truncated_begin = diagnostics[255]["span"]["start"].GetUint64();
+      diagnostics.PopBack();
+    }
   };
   for (const auto &statement : coverage::scan(text)) {
-    if (diagnostics.Size() >= 255) {
-      truncated = true; truncated_begin = processed_end; break;
-    }
+    if (truncated) break;
     size_t begin = coverage::codepoints(text, statement.begin), end = coverage::codepoints(text, statement.end);
     processed_end = end;
     const auto *family = coverage::admit(statement);
@@ -204,10 +206,7 @@ static void parse(Runtime &runtime, const std::string &text, Json &response) {
     else if (trees != 1 || !tree[0] || tree[0]->node_type != family->native_kind) {
       priority = 3; append_diagnostic(diagnostic("CUBRID-T1002", "tool", "Missing, partial or unexpected native statement tree", begin, end, a));
     } else kinds.PushBack(str(kind, a), a);
-    if (truncated) {
-      truncated_begin = statement.end < text.size() ? end : begin;
-      break;
-    }
+    if (truncated) break;
   }
   if (truncated) {
     const size_t end = coverage::codepoints(text, text.size());

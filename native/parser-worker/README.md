@@ -158,7 +158,8 @@ Defaults are 5 seconds per request, 8 MiB UTF-8 documents, 16 MiB replies and
 deadline up to 300 seconds; byte/diagnostic overrides cannot exceed the defaults.
 The native frame bound is 64 MiB to allow JSON escaping, and its address space is
 limited to 512 MiB. Hitting a limit yields a tool failure or owned-process failure,
-never a truncated pass. Native truncation preserves up to 255 prior findings plus T1002,
+never a truncated pass. Up to 256 ordinary findings fit without truncation. An actual
+257th finding causes native truncation, preserving 255 prior findings plus T1002,
 with incomplete coverage and an original tail or final-statement span. Lower trusted Python
 diagnostic limits apply only after response validation and retain prior findings within the cap.
 Diagnostic ranges use original code points. Observed

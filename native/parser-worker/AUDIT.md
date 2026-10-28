@@ -174,13 +174,15 @@ actions and parameters, update its revision/manifest and add qualification cases
 
 ## Diagnostic-bound delivery correction
 
-The worker retains up to 255 earlier findings and reserves one of its 256 slots for an explicit T1002 truncation diagnostic.
-At the next statement boundary, it stops parsing and represents the unprocessed original tail as one nonempty rejected coverage decision.
-The tool diagnostic covers that exact tail. When one statement exhausts the bound, error collection still drains and counts its entire native error list.
-Its admitted observation remains truthful. A final-statement truncation uses that original statement span and adds no empty tail decision.
-No new parser call, symbol, grammar path, parameter, or supported feature is introduced.
+The worker retains up to 256 ordinary findings when the request fits that bound.
+Only an actual 257th finding triggers truncation. It then retains the first 255 findings and T1002.
+The marker starts at the discarded 256th finding's statement boundary and covers through original EOF.
+Every already-parsed decision, observation, successful kind, and full native error count remains truthful.
+An unprocessed remainder becomes one nonempty contiguous rejected coverage decision.
+A final-statement truncation adds no empty tail. No new parser call, symbol, grammar path, parameter, or supported feature is introduced.
 
-Structured truncation replies include private boolean `diagnosticsTruncated: true`, tool-error status, and partial or none coverage.
-The adapter verifies the bounded diagnostics, source coverage, tail span, native observations, kinds, manifest, and unchanged settings before applying a lower caller limit.
-That lower limit retains its first limit-minus-one validated findings and a T1002 diagnostic. A limit of one necessarily retains only the tool error.
-Malformed or contradictory markers fail the existing tool-response boundary. Subsequent valid requests remain usable.
+Structured truncation replies require private boolean `diagnosticsTruncated: true`, exactly 256 records before deduplication, tool-error status, and partial or none coverage.
+The adapter checks the count before accessing the final record. It verifies marker bounds and alignment, contiguous source accounting, native observations, kinds, manifest, and unchanged settings.
+A rejected decision can omit its discarded diagnostic only when the marker covers that decision's entire original span.
+An uncovered rejected decision still fails. A lower caller limit applies after full response validation and retains its first limit-minus-one findings plus T1002.
+A limit of one necessarily retains only the tool error. Subsequent valid requests remain usable.

@@ -324,6 +324,7 @@ def session_suggestions(text: str, cursor: int, schema: Schema) -> _Suggestions:
 def _suggest(text: str, cursor: int, schema: Schema) -> _Suggestions:
   tokens = tokenize(text)
   commands = {}
+  line_start = text.rfind('\n', 0, cursor) + 1
   for token in tokens:
     if token.kind != 'symbol' or token.text != ';':
       continue
@@ -331,8 +332,10 @@ def _suggest(text: str, cursor: int, schema: Schema) -> _Suggestions:
     if text[start:token.start].strip():
       continue
     end = text.find('\n', token.end)
-    commands[start] = len(text) if end < 0 else end
-  line_start = text.rfind('\n', 0, cursor) + 1
+    end = len(text) if end < 0 else end
+    if text[start:end].strip() == ';' and start != line_start:
+      continue
+    commands[start] = end
   if line_start in commands:
     result = session_suggestions(text[line_start:commands[line_start]], cursor - line_start, schema)
     return _Suggestions(result.start + line_start, result.end + line_start, result.candidates, result.allowed)

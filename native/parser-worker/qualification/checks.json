@@ -398,7 +398,7 @@
     "artifactCheckScriptSha256": "725ea80b57f14223c060b0efd5f928fdfff6cdc1dae9cbaf5ee4a09aebceae26"
   },
   "ticket09ReviewCorrection": {
-    "status": "fresh native qualification passed; corrected distribution qualification and targeted re-review pending",
+    "status": "historical checkpoint; superseded by follow-up cap-boundary corrections, fresh full qualification pending targeted review",
     "coverageRevision": "bounded-query-dml-schema-engineer-v3",
     "fixtureCount": 325,
     "nativeTests": 44,
@@ -415,6 +415,7 @@
       "native/parser-worker/build",
       "--output",
       "native/parser-worker/qualification"
-    ]
+    ],
+    "qualifiedCommit": "b9c165aca6f7cbba614f9b9f6dfb58cfb161a46d"
   }
 }

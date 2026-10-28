@@ -46,6 +46,9 @@ class CompletionCoreTest(unittest.TestCase):
                          text[:result.replacement.start] + expected + text[result.replacement.end:])
     for text in ("SELECT 'x\n;he", '/* comment\n;he', ";schema 'x\nSEL"):
       self.assertFalse(complete(text, len(text), PROFILE).allowed)
+    for text in ('SELECT * FROM code\n;\nna', 'SELECT * FROM code;\nna'):
+      self.assertNotIn('name', [item.text for item in complete(text, len(text), PROFILE, SCHEMA).items])
+    self.assertIn(';help', [item.text for item in complete(';', 1, PROFILE).items])
 
   def test_completion_kind_handles_empty_and_incomplete_display_detail(self):
     for detail, expected in (('', 'keyword'), ('  ', 'keyword'), ('catalog', 'catalog'),
