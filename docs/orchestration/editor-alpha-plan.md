@@ -39,6 +39,23 @@ Check installable artifacts, completion edits with Korean/emoji/CRLF, valid/synt
 Use the exact existing native worker and runtime as read-only trusted test inputs. A native parse baseline already returned valid, syntax-error and unsupported as expected.
 Keep the core's accepted grammar/platform limits visible. Editor integration does not expand them.
 
+## Architecture and arena checkpoints
+
+- [x] Ground. Read the actual engine contract and current implementation.
+- [ ] Sketch. Compare independent Astra and Terra packages.
+- [ ] Agree. skip: default architect workflow proceeds after synthesis without a user checkpoint.
+- [ ] Implement. Dispatch one fresh owner per consumer at exact commits.
+- [ ] Scrap. skip: apply only if implementation demonstrates the selected shape is wrong.
+
+- [x] Frame. Two consumer packages and a real-editor acceptance contract.
+- [ ] Fan out. Independent candidate packages in `design-astra` and `design-terra`.
+- [ ] Cross-judge. Read-only independent scoring after both packages finish.
+- [ ] Pick. Score the whole designs against the consumer and maintainer criteria.
+- [ ] Graft. Preserve useful evidence and remove unnecessary client policy.
+- [ ] Verify. Confirm selected behavior against real editors before integration.
+
+The real headless VS Code host prerequisite passed. OpenVSCode Server 1.109.5 ran a Node v22.21.1 extension host and a contributed command through headless Chromium. Evidence is `headless-host/result.json` and `headless-host/workbench.png` under the evidence directory. This proves the host, not the unfinished CUBRID extension.
+
 ## Durable records
 
 - Architecture grounding and raw evidence live in `/home/vimkim/temp/cubrid-editor-alpha-aiYISe`.
