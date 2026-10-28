@@ -11,7 +11,8 @@ Explore the [interactive architecture](docs/architecture.html), [specification](
 
 ## Current state
 
-Implementation is in progress. These commands and interfaces are delivery targets until their tickets pass.
+The pure completion library is implemented and verified. Native validation, lint CLI, and LSP remain in progress.
+Commands and interfaces in the specification become available when their tickets pass.
 The first parser target is the exact CUBRID 11.5 development build `11.5.0.2704-cc94778` on Linux x86-64.
 Other builds and platforms require separate qualification.
 Completion remains available for unfinished SQL and when strict parsing is unavailable.
@@ -22,6 +23,22 @@ The Python import package is `cubrid_language`. Core and CLI require Python 3.10
 Strict checking also requires a separately qualified native runtime.
 The language server will use optional LSP dependencies.
 This repository currently exists locally and has no configured remote.
+
+## Completion library
+
+Install the local project in your Python environment, or use `uv sync` for development.
+Then call the pure interface:
+
+```python
+from cubrid_language import complete
+
+result = complete("sel", 3, "cubrid-11.5.0.2704-cc94778")
+print(result.replacement)  # Span(start=0, end=3)
+print([item.text for item in result.items])  # ["SELECT"]
+```
+
+The explicit profile is caller context for completion. Suggestions retain the inherited vocabulary and do not certify parser support.
+Optional immutable `Schema` and `Relation` values supply catalog names without database access.
 
 ## Local processes
 
