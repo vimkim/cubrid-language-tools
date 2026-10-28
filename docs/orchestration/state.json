@@ -190,7 +190,7 @@
       "worktree": "/home/vimkim/gh/cubrid-language-tools-05"
     },
     "06": {
-      "status": "dispatched",
+      "status": "verified-approved-for-integration",
       "dependsOn": [
         "02"
       ],
@@ -198,7 +198,22 @@
       "readiness": "All ticket dependencies integrated; dispatch a fresh-context agent in an isolated worktree from an exact coordinator baseline",
       "base": "504541aaa08508f1fc096c2a44c661376e32136c",
       "branch": "central/ticket-06",
-      "worktree": "/home/vimkim/gh/cubrid-language-tools-06"
+      "worktree": "/home/vimkim/gh/cubrid-language-tools-06",
+      "commit": "3ee23cd99e48dd830afdff2305d3f6d0dc6ee2ef",
+      "implementationCommit": "6e8151c68643b8492982b690bc348f603bbe3bef",
+      "checks": [
+        "Coordinator:both public corpus tests passed for179 fixed cases",
+        "Agent:30 native/CLI plus17 independent checks and88 project tests passed",
+        "179 retained cases:60 valid,43 syntax,76 unsupported",
+        "Trace:one workerexec, zero network/descendants/external writable opens",
+        "Manual action/helper/settings audit plus251 conservative reduction candidates retained",
+        "Isolated Python3.10 installed/extracted-sdist rebuild and corpus checks passed"
+      ],
+      "limitations": [
+        "Exact pinned profile and bounded documented predicates only",
+        "Functions,recursive CTEs,ordering/grouping and other published exclusions remain unsupported"
+      ],
+      "report": "/home/vimkim/gh/cubrid-language-tools-06/docs/tickets/reports/06.md"
     },
     "07": {
       "status": "pending",
