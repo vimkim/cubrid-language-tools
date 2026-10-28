@@ -242,12 +242,15 @@
       "cleanup": "Merged ticket 06 worktree removed and central/ticket-06 deleted without force; original build/dist, both named distribution evidence directories, premerge destination outputs, final combined build/dist and logs preserved with 627 verified regular-file SHA-256 digests"
     },
     "07": {
-      "status": "ready",
+      "status": "dispatched",
       "dependsOn": [
         "06"
       ],
       "readyAt": "2026-10-28T13:38:30.281363+00:00",
-      "readiness": "All ticket dependencies integrated; dispatch a fresh-context agent in an isolated worktree from an exact coordinator baseline"
+      "readiness": "All ticket dependencies integrated; dispatch a fresh-context agent in an isolated worktree from an exact coordinator baseline",
+      "base": "3653199a6ddd5e91982c736d576be2b481d205c0",
+      "branch": "central/ticket-07",
+      "worktree": "/home/vimkim/gh/cubrid-language-tools-07"
     },
     "08": {
       "status": "pending",
