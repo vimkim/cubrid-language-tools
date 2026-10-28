@@ -74,7 +74,8 @@ The [batch reference](scripts.en.md) defines lexical protection and source range
 
 ## Results and positions
 
-Library and CLI expose `valid`, `syntax-error`, `unsupported`, and `tool-error`, with priority in the reverse order shown.
+Library and CLI expose `valid`, `syntax-error`, `unsupported`, and `tool-error`.
+Status priority is `tool-error > syntax-error > unsupported > valid`.
 Coverage is `complete`, `partial`, or `none`. Unsupported warnings still fail linting.
 CLI exits are 0, 1, 2, and 3 for these statuses respectively.
 LSP publishes shared diagnostic codes, severity, precision, and document version. It does not expose a separate status or coverage field.

@@ -74,7 +74,8 @@ autocommit과 인자 사이나 명령 뒤에는 ASCII 공백·탭을 허용합�
 
 ## 결과와 위치
 
-라이브러리·CLI 상태는 `valid`, `syntax-error`, `unsupported`, `tool-error`이며 우선순위는 기재 순서의 역순입니다.
+라이브러리·CLI 상태는 `valid`, `syntax-error`, `unsupported`, `tool-error`입니다.
+상태 우선순위는 `tool-error > syntax-error > unsupported > valid`입니다.
 검사 범위는 `complete`, `partial`, `none`입니다. 미지원 경고도 린트 성공이 아닙니다.
 각 상태의 CLI 종료 코드는 순서대로 0·1·2·3입니다.
 LSP는 공통 진단 코드·심각도·정밀도·문서 버전을 전달하며 상태·검사 범위 필드를 별도로 제공하지 않습니다.
