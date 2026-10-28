@@ -23,3 +23,21 @@ Audit the actual helper path and record the supported spelling/limits.
 The [EVALUATE reduction](https://github.com/CUBRID/cubrid/blob/cc947788d3b7dc402f46192d0f3299ddcc8563ba/src/parser/csql_grammar.y#L11055-L11069) allocates a PT_EVALUATE and attaches expression/target nodes.
 That reduction alone does not evaluate the expression.
 Qualification still needs its admitted expression paths, shared helper audit, fixtures and trace.
+
+## Measured connection-guard barrier
+
+Ticket07's transitive review found that class-description helpers call
+[pt_dbval_to_value](https://github.com/CUBRID/cubrid/blob/cc947788d3b7dc402f46192d0f3299ddcc8563ba/src/parser/parse_dbi.c#L583-L598).
+It ignores the return of db_value_clone.
+That [clone wrapper](https://github.com/CUBRID/cubrid/blob/cc947788d3b7dc402f46192d0f3299ddcc8563ba/src/compat/db_macro.c#L1460-L1471) applies
+[CHECK_CONNECT_ERROR](https://github.com/CUBRID/cubrid/blob/cc947788d3b7dc402f46192d0f3299ddcc8563ba/src/compat/db.h#L79-L90) before local cloning.
+
+Probes of SHOW COLUMNS, DESCRIBE, DESC and EXPLAIN returned a tree with no ordinary/internal parser-list errors,
+but er_errid reported ER_OBJ_NO_CONNECT (-224). These are rejected candidates, not qualified coverage.
+The production extension clears error state before parsing and observes the native error manager afterward.
+Unreported native failures cannot become passes. The four known forms are denied before native parsing.
+The prior query/DML corpus and other admitted new forms report zero native error id under this guard.
+
+The user was asked whether to defer these forms or expand to a separately qualified parser-only backend.
+Until that decision, the original describe-family acceptance criterion remains incomplete.
+Do not set connection/user state or ignore the error to force success.
