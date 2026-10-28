@@ -284,7 +284,7 @@
       "cleanup": "Merged ticket 06 worktree removed and central/ticket-06 deleted without force; original build/dist, both named distribution evidence directories, premerge destination outputs, final combined build/dist and logs preserved with 627 verified regular-file SHA-256 digests"
     },
     "07": {
-      "status": "scope-accepted-finalizing",
+      "status": "integrated",
       "dependsOn": [
         "06"
       ],
@@ -293,15 +293,50 @@
       "base": "3653199a6ddd5e91982c736d576be2b481d205c0",
       "branch": "central/ticket-07",
       "worktree": "/home/vimkim/gh/cubrid-language-tools-07",
-      "commit": "fd5eecf870739e88f568131573eb9480e8e89f8f",
+      "commit": "ba54a801c534ad329731d5a80103f78ed87ab54c",
       "checks": [
         "Agent:325 corpus (99valid,80syntax,146unsupported),33native+18independent,89project passed",
         "Trace:no network/descendants/external writable opens; admitted error-manager observations0",
         "Python3.10 isolated wheel and extracted-sdist rebuild/corpus checks passed",
-        "Coordinator:both325-case public corpus tests passed; exact-true settings marker guard reviewed/refined"
+        "Coordinator:both325-case public corpus tests passed; exact-true settings marker guard reviewed/refined",
+        "Agent combined Python 3.10/3.14: 104 default, 40 native/CLI, 18 independent validation/position, 26 framed LSP and 6 native LSP tests pass; isolated core/optional wheel and extracted-sdist qualification retained",
+        "Integration: conflict-free rebase onto 115e77a; four range-diff patches unchanged (54327b9/fd5eecf/6ae9b3b/3dfc789 to a146c87/eeaae35/9eb7ee9/ba54a80); all 23 ticket files byte-identical to approved source",
+        "Integration: 18 independent validation/position checks pass after rebase before fast-forward merge",
+        "Integration: destination V3 worker rebuilt from exact four native README inputs; manifest a427fe19 and production worker 06e76de4 match approved hashes",
+        "Integration: all 16 runtime, 4 generated headers, 8 grammar, 7 helper, 618 source headers, 12 worker and 86 compiler inputs rehashed; pinned source exact and clean; combined production/tests/native/packaging/spec unchanged",
+        "Integration: just test-native-parser passes 40 mandatory native/CLI and 18 independent tests on Python 3.14.6; just test passes 104 default tests in separate core-only Python 3.14.0 environment; just test-lsp-native passes 6 in separate optional Python 3.14.0 environment",
+        "Integration: just build succeeds; 17 package, 46 native and 25 test/fixture files byte-identical in archives; both commands, 17 notices, Python >=3.10 and optional-only dependencies retained; generated native outputs excluded",
+        "Integration: existing 26 framed LSP and isolated installed-wheel/extracted-sdist checks remain valid because all combined source/test/native/packaging inputs match the approved source",
+        "Integration: git diff --check passes; destination contains rebased ticket tip and unique Korean main-doc merge 504541a; main 721b9bc and original csql-future checkpoints preserved; no unrelated destination dirt",
+        "Integration: artifact manifest verifies 1741 regular-file hashes and 32 symlink targets; only merged ticket 07 worktree/branch removed without force"
       ],
-      "report": "/home/vimkim/gh/cubrid-language-tools-07/docs/tickets/reports/07.md",
-      "scopeDecision": "User accepted explicit unsupported SHOW COLUMNS/DESCRIBE/DESC/class-description EXPLAIN on 2026-10-29. Parser-only backend deferred; native error guards retained."
+      "report": "docs/tickets/reports/07.md",
+      "scopeDecision": "User accepted explicit unsupported SHOW COLUMNS/DESCRIBE/DESC/class-description EXPLAIN on 2026-10-29. Parser-only backend deferred; native error guards retained.",
+      "implementationCommit": "a146c87fb5eac9071e4d6d4704050bfc7040254e",
+      "hardeningCommit": "eeaae3515c85d5a846806c3808b99c11619ac489",
+      "originalImplementationCommit": "54327b9d1ec67dcd1095adecc5550067670bec79",
+      "originalHardeningCommit": "fd5eecf870739e88f568131573eb9480e8e89f8f",
+      "approvedCommit": "3dfc789f4f47e741c7648b13ac3777f633afdec1",
+      "integrationBase": "115e77a27c72c49b4f7586d973c76741f969cba5",
+      "integrationMethod": "rebase then fast-forward",
+      "integrationAuthorization": "Standing user approval for all planned tickets, recorded 2026-10-28 in docs/execution.md",
+      "integratedAt": "2026-10-28T15:19:25.220414+00:00",
+      "artifactDirectory": "/mnt/nvme/data-5/tmp/central-language-572-ticket-07-artifacts",
+      "artifactManifestSha256": "a37a555f495ab68fb7d6619e260e1ed51a1044b368c0f1b8e03912027e22b5ee",
+      "nativeManifestSha256": "a427fe199b557e28330b4361fc39db2ea1ada635d2adc82b3a6f614119387da7",
+      "nativeWorkerSha256": "06e76de4ec0d072ccffc9d5dcbccf3a1760205869bf3d8bd205a9d79ec2c4bc8",
+      "combinedVerificationSource": "ba54a801c534ad329731d5a80103f78ed87ab54c",
+      "distributionSha256": {
+        "dist/cubrid_language_tools-0.1.0.dev0-py3-none-any.whl": "9653987551ad95c82777ab7401883773b175707e9e7ecb71a75597b55f563c77",
+        "dist/cubrid_language_tools-0.1.0.dev0.tar.gz": "6f531d2c8259ee7a412821ea1127d38469cacafb964a97ddd6f725c5b58ab0b1"
+      },
+      "cleanup": "Merged ticket 07 worktree removed and central/ticket-07 deleted without force; original source native/build and dist, both named checkpoint distribution directories, full combined evidence, premerge/final destination native/build and dist, verification scripts and logs preserved with 1741 verified regular-file SHA-256 digests and 32 symlink targets",
+      "limitations": [
+        "Exact pinned Linux x86-64 V3 profile and documented conservative predicates only; syntax passes do not prove server semantics or object validity",
+        "Original description-qualification criterion did not pass; user accepted explicit unsupported SHOW COLUMNS/DESCRIBE/DESC/class-description EXPLAIN on 2026-10-29; parser-only backend remains later work",
+        "Process separation and corpus traces do not establish an operating-system sandbox; abrupt native termination can leave a private scratch directory",
+        "Existing setuptools license-table deprecation warning remains for ticket 09 delivery metadata follow-up"
+      ]
     },
     "08": {
       "status": "integrated",
@@ -353,12 +388,21 @@
       "cleanup": "Merged ticket 08 worktree removed and central/ticket-08 deleted without force; original source native/build, dist, full named verification evidence, premerge/final destination artifacts, scripts and logs preserved with 1523 verified regular-file SHA-256 digests and 28 symlink targets"
     },
     "09": {
-      "status": "pending",
+      "status": "final-qualification",
       "dependsOn": [
         "05",
         "07",
         "08"
-      ]
+      ],
+      "readyAt": "2026-10-28T15:19:25.220414+00:00",
+      "readiness": "All dependencies integrated and ticket07 final destination checks passed; fresh ticket09 worktree already dispatched from the verified merged source baseline",
+      "base": "ba54a801c534ad329731d5a80103f78ed87ab54c",
+      "branch": "central/ticket-09",
+      "worktree": "/home/vimkim/gh/cubrid-language-tools-09",
+      "dispatchCommit": "2a777d3027e25b89d968e88767b7df63bc5e43ac",
+      "dispatchRecord": "docs/orchestration/dispatch-09.md",
+      "reviewedCommit": "c7f6c4d9ba096989ecfb2ce55eee59faceb884cc",
+      "sourceReviewCommit": "96d6fb5e85ce656f9fd1516ba1ce4a3922d02c44"
     }
   },
   "checkpoints": {
@@ -421,5 +465,30 @@
     "bytes": 94617396,
     "purpose": "Verified immutable copy of exact runtime/generated/compiler inputs for cross-session resumption. Live sources/runtime unchanged."
   },
-  "nextAction": "Integrate reviewed08; finalize07 under accepted first-profile limit, then dispatch09."
+  "nextAction": "Finish fresh native/corpus/trace and corrected installed-artifact checks, commit report, integrate09 under standing approval.",
+  "finalReview": {
+    "base": "721b9bca96d91951ea81f95be755a9e30ca5a20b",
+    "candidate": "c7f6c4d9ba096989ecfb2ce55eee59faceb884cc",
+    "status": "passed-source-review-awaiting-qualification",
+    "standards": [
+      "P2 completion lexical suppression",
+      "P2 diagnostic truncation loses earlier findings"
+    ],
+    "spec": [
+      "P2 completion lexical suppression",
+      "P2 mixed-document completion boundaries"
+    ],
+    "judgmentCalls": [
+      "P3 CompletionItem.kind derives kind from detail; defensive fallback under review"
+    ],
+    "coordinatorFinding": "Coverage priority wording corrected in a32b4d2de9309123e346f164538cc4a8d6fb1fad; final artifact refresh required",
+    "releaseEvidence": "All eight pre-review-fix isolated environments passed; final changed source must be requalified",
+    "nextAction": "Finish fresh native/corpus/trace and corrected installed-artifact checks, commit report, integrate09 under standing approval.",
+    "resolvedCommit": "96d6fb5e85ce656f9fd1516ba1ce4a3922d02c44",
+    "openActionableStandards": 0,
+    "openSpecFindings": 0,
+    "judgmentCallDisposition": "Safe kind fallback closes the crash; explicit-kind redesign remains optional and nonblocking.",
+    "followUpCases": "Bare/comment-annotated SQL delimiters, empty malformed marker list, native255/256/257 boundaries, legitimate empty-statement gaps, and rejection of nontrivial source omissions.",
+    "report": "docs/reviews/central-engine-2026-10-29.md"
+  }
 }
