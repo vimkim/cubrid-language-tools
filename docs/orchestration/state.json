@@ -85,13 +85,16 @@
       "cleanup": "Merged task worktree removed and central/ticket-02 deleted without force; original native build, dist, qualification evidence, rebased review logs, and final combined native/dist outputs preserved and SHA-256 verified"
     },
     "03": {
-      "status": "ready",
+      "status": "dispatched",
       "dependsOn": [
         "01",
         "02"
       ],
       "readyAt": "2026-10-28T12:48:40.829556+00:00",
-      "readiness": "All ticket dependencies integrated; dispatch a fresh-context agent in an isolated worktree from an exact coordinator baseline"
+      "readiness": "All ticket dependencies integrated; dispatch a fresh-context agent in an isolated worktree from an exact coordinator baseline",
+      "base": "504541aaa08508f1fc096c2a44c661376e32136c",
+      "branch": "central/ticket-03",
+      "worktree": "/home/vimkim/gh/cubrid-language-tools-03"
     },
     "04": {
       "status": "integrated",
@@ -143,12 +146,15 @@
       ]
     },
     "06": {
-      "status": "ready",
+      "status": "dispatched",
       "dependsOn": [
         "02"
       ],
       "readyAt": "2026-10-28T12:48:40.829556+00:00",
-      "readiness": "All ticket dependencies integrated; dispatch a fresh-context agent in an isolated worktree from an exact coordinator baseline"
+      "readiness": "All ticket dependencies integrated; dispatch a fresh-context agent in an isolated worktree from an exact coordinator baseline",
+      "base": "504541aaa08508f1fc096c2a44c661376e32136c",
+      "branch": "central/ticket-06",
+      "worktree": "/home/vimkim/gh/cubrid-language-tools-06"
     },
     "07": {
       "status": "pending",
