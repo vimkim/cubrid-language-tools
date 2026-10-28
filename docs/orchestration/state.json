@@ -388,7 +388,7 @@
       "cleanup": "Merged ticket 08 worktree removed and central/ticket-08 deleted without force; original source native/build, dist, full named verification evidence, premerge/final destination artifacts, scripts and logs preserved with 1523 verified regular-file SHA-256 digests and 28 symlink targets"
     },
     "09": {
-      "status": "dispatched",
+      "status": "review-fixes-in-progress",
       "dependsOn": [
         "05",
         "07",
@@ -400,7 +400,8 @@
       "branch": "central/ticket-09",
       "worktree": "/home/vimkim/gh/cubrid-language-tools-09",
       "dispatchCommit": "2a777d3027e25b89d968e88767b7df63bc5e43ac",
-      "dispatchRecord": "docs/orchestration/dispatch-09.md"
+      "dispatchRecord": "docs/orchestration/dispatch-09.md",
+      "reviewedCommit": "c7f6c4d9ba096989ecfb2ce55eee59faceb884cc"
     }
   },
   "checkpoints": {
@@ -463,5 +464,24 @@
     "bytes": 94617396,
     "purpose": "Verified immutable copy of exact runtime/generated/compiler inputs for cross-session resumption. Live sources/runtime unchanged."
   },
-  "nextAction": "Integrate reviewed08; finalize07 under accepted first-profile limit, then dispatch09."
+  "nextAction": "Integrate reviewed08; finalize07 under accepted first-profile limit, then dispatch09.",
+  "finalReview": {
+    "base": "721b9bca96d91951ea81f95be755a9e30ca5a20b",
+    "candidate": "c7f6c4d9ba096989ecfb2ce55eee59faceb884cc",
+    "status": "fixes-in-progress",
+    "standards": [
+      "P2 completion lexical suppression",
+      "P2 diagnostic truncation loses earlier findings"
+    ],
+    "spec": [
+      "P2 completion lexical suppression",
+      "P2 mixed-document completion boundaries"
+    ],
+    "judgmentCalls": [
+      "P3 CompletionItem.kind derives kind from detail; defensive fallback under review"
+    ],
+    "coordinatorFinding": "Coverage priority wording corrected in a32b4d2de9309123e346f164538cc4a8d6fb1fad; final artifact refresh required",
+    "releaseEvidence": "All eight pre-review-fix isolated environments passed; final changed source must be requalified",
+    "nextAction": "Same ticket09 implementer resolves concrete findings; targeted re-review and corrected artifact qualification before integration."
+  }
 }
