@@ -66,7 +66,10 @@ The research evidence establishes feasibility, not a release claim.
 
 Each expanded grammar family requires a reachable-action audit, explicit settings, positive and negative fixtures, and observed no-execution behavior.
 Unsupported PL/CSQL, includes, shell commands, and other unaudited forms remain explicit unsupported results.
-Engineer statements include SHOW, DESCRIBE/DESC, release-valid EXPLAIN, EVALUATE, statistics, tracing, transactions, and settings.
+Engineer coverage includes qualified offline subsets of SHOW, EVALUATE, statistics, tracing, transactions, and settings.
+The first profile explicitly rejects SHOW COLUMNS, DESCRIBE, DESC, and class-description EXPLAIN before native parsing.
+The user accepted this limit on 2026-10-29 because the pinned client helpers require connection state.
+A separately qualified parser-only backend is later work.
 The pinned source determines the valid spellings and safe parse paths.
 
 ## Interfaces and distribution

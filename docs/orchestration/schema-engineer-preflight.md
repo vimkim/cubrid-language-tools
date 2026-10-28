@@ -38,6 +38,7 @@ The production extension clears error state before parsing and observes the nati
 Unreported native failures cannot become passes. The four known forms are denied before native parsing.
 The prior query/DML corpus and other admitted new forms report zero native error id under this guard.
 
-The user was asked whether to defer these forms or expand to a separately qualified parser-only backend.
-Until that decision, the original describe-family acceptance criterion remains incomplete.
+On 2026-10-29, the user chose to keep these forms unsupported in the first offline implementation.
+The revised specification and ticket07 criterion record that accepted limit.
+A separately qualified parser-only backend remains a roadmap task.
 Do not set connection/user state or ignore the error to force success.

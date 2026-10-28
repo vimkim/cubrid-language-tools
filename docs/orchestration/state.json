@@ -284,7 +284,7 @@
       "cleanup": "Merged ticket 06 worktree removed and central/ticket-06 deleted without force; original build/dist, both named distribution evidence directories, premerge destination outputs, final combined build/dist and logs preserved with 627 verified regular-file SHA-256 digests"
     },
     "07": {
-      "status": "qualified-partial-awaiting-scope-choice",
+      "status": "scope-accepted-finalizing",
       "dependsOn": [
         "06"
       ],
@@ -300,8 +300,8 @@
         "Python3.10 isolated wheel and extracted-sdist rebuild/corpus checks passed",
         "Coordinator:both325-case public corpus tests passed; exact-true settings marker guard reviewed/refined"
       ],
-      "blocker": "Describe-alias criterion incomplete:SHOW COLUMNS/DESCRIBE/DESC/EXPLAIN helpers return trees but er_errid=-224 due connection-checked db_value_clone. Forms pre-denied. User scope choice pending.",
-      "report": "/home/vimkim/gh/cubrid-language-tools-07/docs/tickets/reports/07.md"
+      "report": "/home/vimkim/gh/cubrid-language-tools-07/docs/tickets/reports/07.md",
+      "scopeDecision": "User accepted explicit unsupported SHOW COLUMNS/DESCRIBE/DESC/class-description EXPLAIN on 2026-10-29. Parser-only backend deferred; native error guards retained."
     },
     "08": {
       "status": "verified-approved-for-integration",
@@ -309,7 +309,6 @@
         "03",
         "05"
       ],
-      "blocker": "Ticket 07 remains qualified-partial-awaiting-scope-choice. User decision is pending between deferring SHOW COLUMNS/DESCRIBE/DESC/EXPLAIN class forms and expanding the parser-only backend scope; no ticket 07 integration or criterion change is authorized by ticket 05 integration.",
       "base": "925c90ac9dcf555dde2fee5b15357d1a4f7f088a",
       "branch": "central/ticket-08",
       "worktree": "/home/vimkim/gh/cubrid-language-tools-08",
@@ -397,5 +396,6 @@
     "files": 101,
     "bytes": 94617396,
     "purpose": "Verified immutable copy of exact runtime/generated/compiler inputs for cross-session resumption. Live sources/runtime unchanged."
-  }
+  },
+  "nextAction": "Integrate reviewed08; finalize07 under accepted first-profile limit, then dispatch09."
 }

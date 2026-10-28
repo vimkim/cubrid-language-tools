@@ -32,6 +32,8 @@ Each consumer owns packaging and releases independently.
 
 ## Language depth
 
+- Qualify a parser-only backend for SHOW COLUMNS, DESCRIBE, DESC, and class-description EXPLAIN without connection state.
+
 - Add explicit semantic rules using optional metadata, with separate codes and clear limits.
 - Add configurable style rules and deterministic fixes after rule contracts exist.
 - Extend completion scope inference for CTEs, derived tables, correlated queries, and synonyms.
