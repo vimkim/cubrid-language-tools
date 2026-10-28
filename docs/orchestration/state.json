@@ -9,11 +9,24 @@
   "scope": "Nine central tickets; separate consumers later",
   "tickets": {
     "01": {
-      "status": "dispatched",
+      "status": "verified-awaiting-integration-approval",
       "dependsOn": [],
       "base": "f2fb5c72b687b133627dcccc7ced398d5a0dbbf6",
       "worktree": "/home/vimkim/gh/cubrid-language-tools-01",
-      "branch": "central/ticket-01"
+      "branch": "central/ticket-01",
+      "commit": "d51c6585765e31eb7f472cde9b23ee0cfd080473",
+      "implementationCommit": "3b75f98634c5c9a92783217095f9e528537b94b1",
+      "checks": [
+        "Agent: 35 tests pass on Python 3.10 and 3.14",
+        "Coordinator: just test-language-core, 35 tests passed",
+        "230 golden observations match checkpoint values and ranges",
+        "Wheel and sdist build; extracted sdist passes all 35 tests",
+        "No-I/O determinism checks pass; csql_future absent in isolated install"
+      ],
+      "limitations": [
+        "Existing setuptools project.license table deprecation warning; delivery metadata follow-up"
+      ],
+      "report": "/home/vimkim/gh/cubrid-language-tools-01/docs/tickets/reports/01.md"
     },
     "02": {
       "status": "dispatched",
@@ -80,5 +93,6 @@
       "commit": "4a7f996b1d1b9f9c57b438856135f45218e2c5ab",
       "status": "incomplete; full qualification required"
     }
-  }
+  },
+  "transport": "Local child processes and stdin/stdout pipes; no TCP/localhost listener or shared daemon required"
 }
