@@ -21,7 +21,7 @@ Integration follows the user's existing approval rule after concrete results are
 - [x] Read the Principles section of poteto-mode.
 - [x] Phase A: Frame. Confirm core delivery, user milestone, tools, and native baseline.
 - [x] Phase B: Design the workflow. Ground editor integration and compare two architecture sketches before dispatch.
-- [ ] Phase C: Run the loop. Implement each independent consumer with public-interface TDD and real editor evidence.
+- [x] Phase C: Run the loop. Implement each independent consumer with public-interface TDD and real editor evidence.
 - [ ] Phase D: Keep the audit trail. Record decisions and exact evidence as they occur.
 - [ ] Phase E: Verify and hand back. Independently review packages and editor behavior before requesting integration.
 
@@ -44,7 +44,7 @@ Keep the core's accepted grammar/platform limits visible. Editor integration doe
 - [x] Ground. Read the actual engine contract and current implementation.
 - [x] Sketch. Compare independent Astra and Terra packages.
 - [x] Agree. skip: default architect workflow proceeds after synthesis without a user checkpoint.
-- [ ] Implement. Dispatch one fresh owner per consumer at exact commits.
+- [x] Implement. Dispatch one fresh owner per consumer at exact commits.
 - [x] Scrap. skip: apply only if implementation demonstrates the selected shape is wrong.
 
 - [x] Frame. Two consumer packages and a real-editor acceptance contract.
@@ -52,7 +52,7 @@ Keep the core's accepted grammar/platform limits visible. Editor integration doe
 - [x] Cross-judge. Read-only independent scoring after both packages finish.
 - [x] Pick. Score the whole designs against the consumer and maintainer criteria.
 - [x] Graft. Preserve useful evidence and remove unnecessary client policy.
-- [ ] Verify. Confirm selected behavior against real editors before integration.
+- [x] Verify. Confirm selected behavior against real editors before integration.
 
 The real headless VS Code host prerequisite passed. OpenVSCode Server 1.109.5 ran a Node v22.21.1 extension host and a contributed command through headless Chromium. Evidence is `headless-host/result.json` and `headless-host/workbench.png` under the evidence directory. This proves the host, not the unfinished CUBRID extension.
 
@@ -65,3 +65,5 @@ The real headless VS Code host prerequisite passed. OpenVSCode Server 1.109.5 ra
 - Ticket definitions and exact dispatch commits will be recorded before fresh implementers start.
 
 The selected architecture is recorded in `editor-alpha-design.md`. The independent judge selected the instance session after correcting untitled metadata and CRLF expectations. One runner completed a package containing both structural alternatives; the other returned only partial notes and was stopped. Fresh implementation owners have exact dispatch commits in `editor-alpha-state.json`.
+
+All independent product checks passed on the final artifacts. Core109/LSP30 and the unchanged143-state cancellation check pass. Final source/artifact commits and precise limits are in `editor-alpha-state.json` and `docs/tickets/reports/editor-alpha.md`. The decision-trail audit and explicit integration gate remain.

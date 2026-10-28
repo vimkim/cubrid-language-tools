@@ -1,6 +1,6 @@
 {
   "workItem": 582,
-  "status": "final-independent-review",
+  "status": "verified-awaiting-trail-audit",
   "coreBaseline": "3bb70e492efe7bcb7de58a801281f7a088a9c39e",
   "coordinatorBranch": "editor/alpha",
   "coordinatorCheckout": "/home/vimkim/gh/cubrid-language-tools-editor-alpha",
@@ -14,7 +14,7 @@
       "branch": "alpha/editor",
       "emptyBaseline": "14c23950ee9e0f372916e1409788a4e4e19fe4b5",
       "remote": null,
-      "status": "final-independent-review",
+      "status": "verified-local-candidate",
       "dispatchCommit": "6c7c6edefe66d1cc9f03af838b5e7f738abfc451",
       "owner": "/root/vscode_alpha_owner",
       "commit": "fcf74ec38c62be865876b6e9c8fa9febffda1abb",
@@ -31,7 +31,8 @@
       "finalBranch": "fix/startup-retirement",
       "finalCommit": "c6b2aeaaf837f15d26298f925ca0ee23e1e2f2a2",
       "artifactSHA256": "621a757ddce1c33b7e9c624d312e66e4faddf21cbca11969720154f358b5f39b",
-      "finalReview": "/home/vimkim/temp/cubrid-editor-alpha-aiYISe/vscode-retirement-independent/report.md"
+      "finalReview": "/home/vimkim/temp/cubrid-editor-alpha-aiYISe/vscode-retirement-independent/report.md",
+      "independentChecks": "15 standard installed-host runs and 3 additional public-provider adversarial runs, wire checks, source/archive correspondence, all recorded PIDs absent"
     },
     "neovim": {
       "checkout": "/home/vimkim/gh/cubrid.nvim",
@@ -54,12 +55,13 @@
       "finalWorktree": "/home/vimkim/gh/cubrid.nvim-cancel",
       "finalBranch": "fix/menu-ownership",
       "finalCommit": "4b4c4d9e486f0b02c146d21cb8452b3c45bad754",
-      "finalReview": "/home/vimkim/temp/cubrid-editor-alpha-aiYISe/neovim-final-independent/report.md"
+      "finalReview": "/home/vimkim/temp/cubrid-editor-alpha-aiYISe/neovim-final-independent/report.md",
+      "independentChecks": "Original foreign and Ctrl-Y probes, old-owned and mixed cases, complete extracted suite and 24-file source correspondence pass"
     }
   },
   "ownership": "Coordinator writes central docs/tracker/decision log. Each implementer owns only its consumer worktree and evidence directory.",
   "authorization": "Local commits authorized. Integration requires review and approval. Consumer remote creation, pushes, publication and deployment are not authorized.",
-  "nextAction": "Drain final VSIX independent review; complete consolidated report and decision-trail audit; review diffs/checks and request one concrete integration approval.",
+  "nextAction": "Complete the decision-trail audit, commit final handoff and ask for explicit integration approval. Consumer publication remains a separate gate.",
   "design": "docs/orchestration/editor-alpha-design.md",
   "designReview": "/home/vimkim/temp/cubrid-editor-alpha-aiYISe/architecture-verdict.md",
   "designLimitation": "One completed runner package containing two structural alternatives; Astra sketch runner dropped out. Independent judge selected the instance session with correspondence corrections.",
