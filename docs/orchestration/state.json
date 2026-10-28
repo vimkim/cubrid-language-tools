@@ -178,7 +178,7 @@
       ]
     },
     "05": {
-      "status": "dispatched",
+      "status": "verified-approved-for-integration",
       "dependsOn": [
         "03",
         "04"
@@ -187,7 +187,17 @@
       "readiness": "All ticket dependencies integrated; dispatch a fresh-context agent in an isolated worktree from an exact coordinator baseline",
       "base": "75d550026bddb9b3022263cc99820c4c015e3e65",
       "branch": "central/ticket-05",
-      "worktree": "/home/vimkim/gh/cubrid-language-tools-05"
+      "worktree": "/home/vimkim/gh/cubrid-language-tools-05",
+      "commit": "503bd495c4167e02467c4fbfb479d63b788f0887",
+      "implementationCommit": "473cb9e9287b8e2ec7ce578d91f6020a94f07930",
+      "checks": [
+        "Coordinator:26 framed stdio and3 actual native LSP tests passed",
+        "Agent Python3.10/3.14:90 default+26protocol+3nativeLSP passed",
+        "Full native30+17independent baseline passed",
+        "Core-only/optional wheel and extracted-sdist qualification passed",
+        "Strict wire primitives reject coerced positions/text/versions; stale/cancel/EOF/close scenarios covered"
+      ],
+      "report": "/home/vimkim/gh/cubrid-language-tools-05/docs/tickets/reports/05.md"
     },
     "06": {
       "status": "integrated",
@@ -242,7 +252,7 @@
       "cleanup": "Merged ticket 06 worktree removed and central/ticket-06 deleted without force; original build/dist, both named distribution evidence directories, premerge destination outputs, final combined build/dist and logs preserved with 627 verified regular-file SHA-256 digests"
     },
     "07": {
-      "status": "dispatched",
+      "status": "qualified-partial-awaiting-scope-choice",
       "dependsOn": [
         "06"
       ],
@@ -250,7 +260,15 @@
       "readiness": "All ticket dependencies integrated; dispatch a fresh-context agent in an isolated worktree from an exact coordinator baseline",
       "base": "3653199a6ddd5e91982c736d576be2b481d205c0",
       "branch": "central/ticket-07",
-      "worktree": "/home/vimkim/gh/cubrid-language-tools-07"
+      "worktree": "/home/vimkim/gh/cubrid-language-tools-07",
+      "commit": "54327b9d1ec67dcd1095adecc5550067670bec79",
+      "checks": [
+        "Agent:325 corpus (99valid,80syntax,146unsupported),33native+18independent,89project passed",
+        "Trace:no network/descendants/external writable opens; admitted error-manager observations0",
+        "Python3.10 isolated wheel and extracted-sdist rebuild/corpus checks passed"
+      ],
+      "blocker": "Describe-alias criterion incomplete:SHOW COLUMNS/DESCRIBE/DESC/EXPLAIN helpers return trees but er_errid=-224 due connection-checked db_value_clone. Forms pre-denied. User scope choice pending.",
+      "report": "/home/vimkim/gh/cubrid-language-tools-07/docs/tickets/reports/07.md"
     },
     "08": {
       "status": "pending",
