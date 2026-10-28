@@ -62,7 +62,7 @@ Comment/suppression reviews found no deletion candidates or open flags in the re
 - The tested VS Code-compatible host is OpenVSCode Server 1.109.5. Microsoft VS Code desktop and the declared 1.109.0 minimum were not exercised.
 - Neovim 0.12.5 was exercised. Lower versions and other platforms remain unverified.
 - Neovim's supported full-span acceptance key is Ctrl-Y. Space/Escape are native discard exits and may retain preview suffix text. Multiline edits, snippets, insert/replace edits, commands, additional edits and resolution-dependent items are visibly rejected. An unclosed quote at EOF can produce an unsupported multiline edit.
-- Normal owned server/native-worker cleanup was observed. A direct forced kill does not establish arbitrary descendant cleanup.
+- Normal owned server/native-worker cleanup was observed. A direct forced kill does not establish arbitrary descendant cleanup. Complete VS Code window/host shutdown ordering remains outside the tested deactivation and restart paths.
 - Native syntax qualification remains the exact Linux x86-64 V3 CUBRID profile and its existing grammar limits. This work adds no semantic analysis or formatting.
 - The original core also accepts an empty capabilities array and permissive values in an enum-or-integer union. These pre-existing boundary-validation cases remain a separate follow-up. Unknown numeric values in open integer unions need protocol interpretation before any stricter policy.
 - Both consumer repositories and all artifacts are local. No marketplace, package-index, GitHub repository creation, consumer push or deployment occurred.
@@ -85,4 +85,6 @@ Paths below are relative to `/home/vimkim/temp/cubrid-editor-alpha-aiYISe`:
 - `neovim-final-independent/report.md`, `neovim-menu-independent/report.md`, root menu observations, final ownership receipts, and the final archive.
 - `comment-review-neovim-core.md`, `comment-review-vscode.md`, `comment-review-menu.md`, and `comment-review-final.md`.
 
-The canonical append-only decision trail is `docs/orchestration/editor-alpha-decisions.tsv`. Exact worktree/branch/commit and artifact state is in `docs/orchestration/editor-alpha-state.json`. The trail audit will be recorded before requesting integration approval.
+The canonical append-only decision trail is `docs/orchestration/editor-alpha-decisions.tsv`. Exact worktree/branch/commit and artifact state is in `docs/orchestration/editor-alpha-state.json`.
+
+The independent `gpt-6-astra` trail audit passed after five append-only corrections. It reviewed all 21 frozen rows against the scoped session and supporting files. Two rows add omitted repair design choices; three supersede incomplete evidence pointers without changing the supported outcomes. No unresolved trail flags remain. The audit report is `/home/vimkim/temp/cubrid-editor-alpha-aiYISe/audit/report.md`; `corrected-scope.json` records the frozen log and transcript hashes. This was independent agent judgment using the available GPT models, without cross-provider review. The product limits above remain unchanged by the audit.

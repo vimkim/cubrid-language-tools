@@ -602,7 +602,7 @@
   },
   "editorAlpha": {
     "workItem": 582,
-    "status": "verified-awaiting-trail-audit",
+    "status": "verified-awaiting-integration-approval",
     "state": "docs/orchestration/editor-alpha-state.json",
     "report": "docs/tickets/reports/editor-alpha.md",
     "mainIntegrationApproved": false,

@@ -1,6 +1,6 @@
 {
   "workItem": 582,
-  "status": "verified-awaiting-trail-audit",
+  "status": "verified-awaiting-integration-approval",
   "coreBaseline": "3bb70e492efe7bcb7de58a801281f7a088a9c39e",
   "coordinatorBranch": "editor/alpha",
   "coordinatorCheckout": "/home/vimkim/gh/cubrid-language-tools-editor-alpha",
@@ -61,7 +61,7 @@
   },
   "ownership": "Coordinator writes central docs/tracker/decision log. Each implementer owns only its consumer worktree and evidence directory.",
   "authorization": "Local commits authorized. Integration requires review and approval. Consumer remote creation, pushes, publication and deployment are not authorized.",
-  "nextAction": "Complete the decision-trail audit, commit final handoff and ask for explicit integration approval. Consumer publication remains a separate gate.",
+  "nextAction": "Request explicit approval to integrate the core fix and coordinator into core main, and final consumer branches into their local main branches; push the existing core origin/main. Consumer publication remains separate.",
   "design": "docs/orchestration/editor-alpha-design.md",
   "designReview": "/home/vimkim/temp/cubrid-editor-alpha-aiYISe/architecture-verdict.md",
   "designLimitation": "One completed runner package containing two structural alternatives; Astra sketch runner dropped out. Independent judge selected the instance session with correspondence corrections.",
@@ -80,5 +80,17 @@
     "independentChecks": "Root framed trace=off request, 109 core tests and 30 LSP tests pass",
     "formalCheck": "Unchanged covered cancellation behavior reran: 143 distinct states, both invariants pass; no modeled-method edits"
   },
-  "acceptanceEngine": "d5a571eb03d543af1438b85933fcad3aed60f9f0"
+  "acceptanceEngine": "d5a571eb03d543af1438b85933fcad3aed60f9f0",
+  "trailAudit": {
+    "status": "PASS after five append-only corrections",
+    "reviewer": "gpt-6-astra",
+    "reviewedRows": 21,
+    "logSHA256": "61a4212de1f458069db7789023b28db90b91d410aa8b626621ca8d608ff9717a",
+    "report": "/home/vimkim/temp/cubrid-editor-alpha-aiYISe/audit/report.md",
+    "snapshotMetadata": "/home/vimkim/temp/cubrid-editor-alpha-aiYISe/audit/corrected-scope.json",
+    "openTrailFlags": [],
+    "modelLimit": "Independent GPT-agent review; no cross-provider diversity"
+  },
+  "mainIntegrationApproved": false,
+  "consumerPublicationApproved": false
 }

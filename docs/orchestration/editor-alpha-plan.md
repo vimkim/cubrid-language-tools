@@ -22,8 +22,8 @@ Integration follows the user's existing approval rule after concrete results are
 - [x] Phase A: Frame. Confirm core delivery, user milestone, tools, and native baseline.
 - [x] Phase B: Design the workflow. Ground editor integration and compare two architecture sketches before dispatch.
 - [x] Phase C: Run the loop. Implement each independent consumer with public-interface TDD and real editor evidence.
-- [ ] Phase D: Keep the audit trail. Record decisions and exact evidence as they occur.
-- [ ] Phase E: Verify and hand back. Independently review packages and editor behavior before requesting integration.
+- [x] Phase D: Keep the audit trail. Record decisions and exact evidence as they occur.
+- [x] Phase E: Verify and hand back. Independently review packages and editor behavior before requesting integration.
 
 ## Throughput checkpoint
 
@@ -66,4 +66,4 @@ The real headless VS Code host prerequisite passed. OpenVSCode Server 1.109.5 ra
 
 The selected architecture is recorded in `editor-alpha-design.md`. The independent judge selected the instance session after correcting untitled metadata and CRLF expectations. One runner completed a package containing both structural alternatives; the other returned only partial notes and was stopped. Fresh implementation owners have exact dispatch commits in `editor-alpha-state.json`.
 
-All independent product checks passed on the final artifacts. Core109/LSP30 and the unchanged143-state cancellation check pass. Final source/artifact commits and precise limits are in `editor-alpha-state.json` and `docs/tickets/reports/editor-alpha.md`. The decision-trail audit and explicit integration gate remain.
+All independent product checks passed on the final artifacts. Core109/LSP30 and the unchanged143-state cancellation check pass. Final source/artifact commits and precise limits are in `editor-alpha-state.json` and `docs/tickets/reports/editor-alpha.md`. The independent trail audit passed after five append-only corrections. Explicit integration approval remains required.
