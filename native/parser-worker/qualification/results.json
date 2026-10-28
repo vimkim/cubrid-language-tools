@@ -15479,21 +15479,21 @@
     "coverage_keywords.py": "2811b618fffe0ac37f3e562fb60babf8b695e42bd2a2eb47a414a59c5c958ad0",
     "AUDIT.md": "07c1c6e5b7dd373df4aacba8e753b6f55f2b5a7f8684e89a74f3fe76d7655dbf",
     "QUERY_DML_AUDIT.md": "3a2d676ca9b5c02cf6703f1b26dbad02b638117a811d630ac34900533fc74f09",
-    "SCHEMA_ENGINEER_AUDIT.md": "2f9f30335a5baa50fdcedc7812897f1e08a9c33f314c9fd4b6f953f2d8c28182"
+    "SCHEMA_ENGINEER_AUDIT.md": "428a4e00be74dce0d2519d1df939e146b9ec5ca0c3f791a6c6ca5be1f5f6876e"
   },
   "trace": {
-    "sha256": "f5858ceab3925790481bb68195fc269ddd517c78174947db63835238eca9ad92",
+    "sha256": "ade71dcbbea3c7ee7baaf1f4a1611a3c8ed28362d543e682dc324e908a4edad7",
     "networkCalls": [],
     "executions": [
-      "2314612 execve(\"/home/vimkim/gh/cubrid-language-tools-07/native/parser-worker/build/parser-worker\", [\"/home/vimkim/gh/cubrid-language-\"..., \"--manifest\", \"/home/vimkim/gh/cubrid-language-\"...], 0x7ffdeed0e978 /* 5 vars */) = 0"
+      "2342216 execve(\"/home/vimkim/gh/cubrid-language-tools-07/native/parser-worker/build/parser-worker\", [\"/home/vimkim/gh/cubrid-language-\"..., \"--manifest\", \"/home/vimkim/gh/cubrid-language-\"...], 0x7ffde857d0a8 /* 5 vars */) = 0"
     ],
     "descendants": [],
     "writableOpens": [
-      "2314612 openat(AT_FDCWD, \"/tmp/cubrid-parser-worker-dX7TOi/conf/cubrid_locales.txt\", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 3",
-      "2314612 openat(AT_FDCWD, \"/tmp/cubrid-parser-worker-dX7TOi/cubrid.conf\", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 3",
-      "2314612 openat(AT_FDCWD, \"/tmp/cubrid-parser-worker-dX7TOi/databases.txt\", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 3",
-      "2314612 openat(AT_FDCWD, \"/tmp/cubrid-parser-worker-dX7TOi/parser.err\", O_RDWR) = -1 ENOENT (No such file or directory)",
-      "2314612 openat(AT_FDCWD, \"/tmp/cubrid-parser-worker-dX7TOi/parser.err\", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 3"
+      "2342216 openat(AT_FDCWD, \"/tmp/cubrid-parser-worker-qzZMsK/conf/cubrid_locales.txt\", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 3",
+      "2342216 openat(AT_FDCWD, \"/tmp/cubrid-parser-worker-qzZMsK/cubrid.conf\", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 3",
+      "2342216 openat(AT_FDCWD, \"/tmp/cubrid-parser-worker-qzZMsK/databases.txt\", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 3",
+      "2342216 openat(AT_FDCWD, \"/tmp/cubrid-parser-worker-qzZMsK/parser.err\", O_RDWR) = -1 ENOENT (No such file or directory)",
+      "2342216 openat(AT_FDCWD, \"/tmp/cubrid-parser-worker-qzZMsK/parser.err\", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 3"
     ],
     "externalWritableOpens": []
   },
