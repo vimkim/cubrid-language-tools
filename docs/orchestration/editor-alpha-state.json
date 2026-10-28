@@ -1,6 +1,6 @@
 {
   "workItem": 582,
-  "status": "menu-verified-and-startup-recovery",
+  "status": "final-independent-review",
   "coreBaseline": "3bb70e492efe7bcb7de58a801281f7a088a9c39e",
   "coordinatorBranch": "editor/alpha",
   "coordinatorCheckout": "/home/vimkim/gh/cubrid-language-tools-editor-alpha",
@@ -14,11 +14,11 @@
       "branch": "alpha/editor",
       "emptyBaseline": "14c23950ee9e0f372916e1409788a4e4e19fe4b5",
       "remote": null,
-      "status": "P2-unresponsive-startup-repair",
+      "status": "final-independent-review",
       "dispatchCommit": "6c7c6edefe66d1cc9f03af838b5e7f738abfc451",
       "owner": "/root/vscode_alpha_owner",
       "commit": "fcf74ec38c62be865876b6e9c8fa9febffda1abb",
-      "artifact": "/home/vimkim/temp/cubrid-editor-alpha-aiYISe/vscode/cubrid-language-0.1.0.vsix",
+      "artifact": "/home/vimkim/temp/cubrid-editor-alpha-aiYISe/vscode-retirement/cubrid-language-0.1.0.vsix",
       "independentReview": "/home/vimkim/temp/cubrid-editor-alpha-aiYISe/vscode-independent/report.md",
       "startupWorktree": "/home/vimkim/gh/cubrid-vscode-startup",
       "startupRedCommit": "9b69573271b52ac08adadf922f66fdcf39515edb",
@@ -26,7 +26,12 @@
       "retirementBranch": "fix/startup-retirement",
       "retirementDispatch": "805416ea248e495ab5fd04e0adf0d139e9280fa3",
       "retirementOwner": "/root/vscode_retirement_owner",
-      "positiveFeasibility": "/home/vimkim/temp/cubrid-editor-alpha-aiYISe/vscode-retirement/sdk4/result.json"
+      "positiveFeasibility": "/home/vimkim/temp/cubrid-editor-alpha-aiYISe/vscode-retirement/sdk4/result.json",
+      "finalWorktree": "/home/vimkim/gh/cubrid-vscode-retirement",
+      "finalBranch": "fix/startup-retirement",
+      "finalCommit": "c6b2aeaaf837f15d26298f925ca0ee23e1e2f2a2",
+      "artifactSHA256": "621a757ddce1c33b7e9c624d312e66e4faddf21cbca11969720154f358b5f39b",
+      "finalReview": "/home/vimkim/temp/cubrid-editor-alpha-aiYISe/vscode-retirement-independent/report.md"
     },
     "neovim": {
       "checkout": "/home/vimkim/gh/cubrid.nvim",
@@ -34,7 +39,7 @@
       "branch": "alpha/editor",
       "emptyBaseline": "14c23950ee9e0f372916e1409788a4e4e19fe4b5",
       "remote": null,
-      "status": "documented-CTRL-Y-menu-path-verified",
+      "status": "verified-local-candidate",
       "dispatchCommit": "3b341bf57e7ebc90b65bbcdfe20e889b30d8b79a",
       "owner": "/root/neovim_alpha_owner",
       "commit": "453c091e102b3d7c6649d37c55983ace06067bd5",
@@ -42,15 +47,19 @@
       "menuFixWorktree": "/home/vimkim/gh/cubrid.nvim-menu",
       "menuFixBranch": "fix/completion-span",
       "menuFixCommit": "b02e13e0a5aa8996bef435f91f4f3d7ad8cdd7cb",
-      "artifact": "/home/vimkim/temp/cubrid-editor-alpha-aiYISe/neovim-menu/artifact/cubrid.nvim-menu-release.tar.gz",
-      "artifactSHA256": "fb8e0eb4443d37e960913fe278883251485dd35d5a39d8e05478de971df27b01",
+      "artifact": "/home/vimkim/temp/cubrid-editor-alpha-aiYISe/neovim-ownership/artifact/cubrid.nvim-final.tar.gz",
+      "artifactSHA256": "94ea53e891e261693f1c1472cb8929cb8dbb3190fbb3c18ee55f110ef140f824",
       "postFixReview": "/home/vimkim/temp/cubrid-editor-alpha-aiYISe/neovim-menu-independent/report.md",
-      "limits": "Plain single-line Ctrl-Y acceptance verified; multiline edit forms refused; Space/Escape discard retains native preview suffix. Lower versions/forced descendant cleanup unverified."
+      "limits": "Plain single-line Ctrl-Y acceptance verified; multiline edit forms refused; Space/Escape discard retains native preview suffix. Lower versions/forced descendant cleanup unverified.",
+      "finalWorktree": "/home/vimkim/gh/cubrid.nvim-cancel",
+      "finalBranch": "fix/menu-ownership",
+      "finalCommit": "4b4c4d9e486f0b02c146d21cb8452b3c45bad754",
+      "finalReview": "/home/vimkim/temp/cubrid-editor-alpha-aiYISe/neovim-final-independent/report.md"
     }
   },
   "ownership": "Coordinator writes central docs/tracker/decision log. Each implementer owns only its consumer worktree and evidence directory.",
   "authorization": "Local commits authorized. Integration requires review and approval. Consumer remote creation, pushes, publication and deployment are not authorized.",
-  "nextAction": "Finish bounded VS Code startup recovery and independent rerun; finish Neovim scoped ownership review/docs; audit trail and present committed artifacts for integration approval.",
+  "nextAction": "Drain final VSIX independent review; complete consolidated report and decision-trail audit; review diffs/checks and request one concrete integration approval.",
   "design": "docs/orchestration/editor-alpha-design.md",
   "designReview": "/home/vimkim/temp/cubrid-editor-alpha-aiYISe/architecture-verdict.md",
   "designLimitation": "One completed runner package containing two structural alternatives; Astra sketch runner dropped out. Independent judge selected the instance session with correspondence corrections.",
@@ -66,7 +75,8 @@
     "report": "docs/tickets/reports/editor-lsp-wire-enums.md",
     "limitations": "Pre-existing malformed capabilities-object and permissive enum-or-int union acceptance remain separate findings.",
     "reportCommit": "3efe03b49a037041fe6e667acb990fc8403c3ab0",
-    "independentChecks": "Root framed trace=off request, 109 core tests and 30 LSP tests pass"
+    "independentChecks": "Root framed trace=off request, 109 core tests and 30 LSP tests pass",
+    "formalCheck": "Unchanged covered cancellation behavior reran: 143 distinct states, both invariants pass; no modeled-method edits"
   },
   "acceptanceEngine": "d5a571eb03d543af1438b85933fcad3aed60f9f0"
 }
