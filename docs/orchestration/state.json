@@ -85,7 +85,7 @@
       "cleanup": "Merged task worktree removed and central/ticket-02 deleted without force; original native build, dist, qualification evidence, rebased review logs, and final combined native/dist outputs preserved and SHA-256 verified"
     },
     "03": {
-      "status": "verified-awaiting-integration-approval",
+      "status": "approved-for-integration",
       "dependsOn": [
         "01",
         "02"
@@ -229,5 +229,10 @@
     "commit": "721b9bc",
     "direction": "Korean-first public docs with English companions; Python PoC then gradual Rust migration",
     "integration": "Accepted main docs synchronized without changing implementation scope"
+  },
+  "authorization": {
+    "ticketIntegration": "Standing user approval for all planned tickets, granted 2026-10-28. No further ticket-merge prompts. Committed results/checks/review remain mandatory.",
+    "finalMain": "Separate final review and approval; configured main push follows user Git policy after that approval.",
+    "deployment": "Requires separate explicit request."
   }
 }

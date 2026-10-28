@@ -20,9 +20,11 @@ Do not reuse an implementer agent for another ticket.
 
 ## Integration and publication
 
-Request user approval before integrating ticket branches into `implement/central-engine`.
+The user gave standing approval for all planned ticket integrations on 2026-10-28.
+Integrate verified ticket results into `implement/central-engine` under that authorization.
+Do not request ticket-merge approval again.
 Present committed results and checks so approval is concrete.
-One approval can cover an explicitly named batch of ready ticket commits.
+Each ticket must still have committed results, criterion evidence, checks, and review before integration.
 After approval, verify the destination is clean, rebase onto its current tip, check, and merge with `--ff-only`.
 Use the authorized squash fallback only when needed.
 Final integration into local main requires approval too.
