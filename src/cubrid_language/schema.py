@@ -55,6 +55,10 @@ def refresh_snapshot(path: str | Path | None, previous: SchemaSnapshot) -> Schem
 def _string(value: object, field: str) -> str:
     if not isinstance(value, str):
         raise ValueError(f'{field} must be a string')
+    try:
+        value.encode('utf-8')
+    except UnicodeEncodeError as error:
+        raise ValueError(f'{field} must contain valid Unicode') from error
     return value
 
 
@@ -66,8 +70,8 @@ def _list(value: object, field: str) -> list:
 
 def _string_list(value: object, field: str) -> list[str]:
     values = _list(value, field)
-    if any(not isinstance(item, str) for item in values):
-        raise ValueError(f'{field} must contain only strings')
+    for index, item in enumerate(values):
+        _string(item, f'{field}[{index}]')
     return values
 
 

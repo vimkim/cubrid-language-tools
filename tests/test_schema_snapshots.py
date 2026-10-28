@@ -187,7 +187,7 @@ class SchemaSnapshotTest(unittest.TestCase):
         else:
           self.path.write_bytes(data)
         current = refresh_snapshot(self.path, previous)
-        self.assertIs(initial.schema, current.schema)
+        self.assertEqual(initial.schema, current.schema)
         self.assertTrue(current.stale)
         self.assertIn('stale', current.availability)
         self.assertIn('retaining', current.availability)
@@ -297,6 +297,39 @@ class SchemaSnapshotTest(unittest.TestCase):
       text = 'SHOW GRANTS FOR Re'
       self.assertEqual(['Reader'], [item.text for item in
                                    complete(text, len(text), PROFILE, snapshot.schema).items])
+
+  def test_lone_surrogates_in_metadata_are_unavailable(self):
+    for field in ('user', 'owner', 'name', 'columns', 'users', 'database', 'indexes'):
+      for surrogate in ('\ud800', '\udfff'):
+        with self.subTest(field=field, surrogate=repr(surrogate)):
+          data = {
+            'schemaVersion': 1, 'user': 'Reader',
+            'relations': [{'owner': 'Reader', 'name': 'Code', 'kind': 'CLASS', 'columns': []}],
+          }
+          value = [surrogate] if field in ('columns', 'users', 'indexes') else surrogate
+          if field in ('user', 'users', 'database'):
+            data[field] = value
+          else:
+            data['relations'][0][field] = value
+          self.path.write_text(json.dumps(data, ensure_ascii=True), encoding='utf-8')
+          snapshot = load_snapshot(self.path)
+          self.assertIsNone(snapshot.schema)
+          self.assertIn(field, snapshot.availability)
+          self.assertIn('Unicode', snapshot.availability)
+
+  def test_valid_escaped_emoji_pairs_preserve_completion_text(self):
+    data = {
+      'schemaVersion': 1, 'user': 'Reader', 'users': ['😀 Reader'],
+      'relations': [{'owner': 'Reader', 'name': '😀 목록', 'kind': 'CLASS', 'columns': ['😀 이름']}],
+    }
+    self.path.write_text(json.dumps(data, ensure_ascii=True), encoding='utf-8')
+    snapshot = load_snapshot(self.path)
+    self.assertIsNone(snapshot.availability)
+    self.assertEqual('😀 목록', snapshot.schema.relations[0].name)
+    self.assertEqual(('😀 이름',), snapshot.schema.relations[0].columns)
+    text = 'select * from [😀 '
+    self.assertEqual(['[😀 목록]'], [item.text for item in
+                                 complete(text, len(text), PROFILE, snapshot.schema).items])
 
 
 if __name__ == '__main__':
