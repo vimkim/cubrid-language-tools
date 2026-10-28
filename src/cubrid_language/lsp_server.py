@@ -3,6 +3,7 @@
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
+from enum import Enum
 import threading
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
@@ -273,9 +274,10 @@ def strict_converter():
     converter = default_converter()
 
     def primitive(value, expected):
-        if type(value) is not expected:
-            raise ValueError(f'expected {expected.__name__}, received {type(value).__name__}')
-        return value
+        wire_type = (int if issubclass(expected, int) else str) if issubclass(expected, Enum) else expected
+        if type(value) is not wire_type:
+            raise ValueError(f'expected {wire_type.__name__}, received {type(value).__name__}')
+        return expected(value) if issubclass(expected, Enum) else value
 
     converter.register_structure_hook(int, primitive)
     converter.register_structure_hook(str, primitive)

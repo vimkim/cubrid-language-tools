@@ -34,10 +34,10 @@ class ProtocolTests(unittest.TestCase):
         invalid_params = (
             {'trace': 'unknown'}, {'trace': 1},
             {'capabilities': {'workspace': {'workspaceEdit': {'resourceOperations': ['unknown']}}}},
-            *({'capabilities': {'textDocument': {'completion': {'completionItemKind': {'valueSet': [value]}}}}}
+            *({'capabilities': {'textDocument': {'completion': {'insertTextMode': value}}}}
               for value in (99, True, 1.0, '1')),
             {'processId': True}, {'processId': '1'}, {'processId': 1.0},
-            {'rootUri': 42}, {'capabilities': []},
+            {'rootUri': 42}, {'capabilities': 42},
         )
         for invalid in invalid_params:
             with self.subTest(invalid=invalid), Client() as client:
