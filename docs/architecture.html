@@ -18,7 +18,7 @@
 <nav class="toc" aria-label="Architecture sections"><a href="#design">Architecture</a><a href="#ownership">Ownership</a><a href="#contracts">Interfaces</a><a href="#rollout">Delivery order</a></nav>
 <main>
 <header>
-<div class="eyebrow">ARCHITECTURE PROPOSAL · CUBRID 11.5 FIRST · 28 OCT 2026</div>
+<div class="eyebrow">ARCHITECTURE DECISION · CUBRID 11.5 FIRST · 28 OCT 2026</div>
 <h1>One language engine.<br>Independent tools.</h1>
 <p>Maintain CUBRID completion, syntax checking, and lint diagnostics in a central project. Let editor, agent, and terminal projects consume a versioned interface.</p>
 <div class="note"><strong>Selected:</strong> an independent <code>cubrid-language-tools</code> project containing the core, LSP adapter, and lint CLI. Its Python library gives <code>csql-future</code> a small migration path.</div>
