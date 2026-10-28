@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A central CUBRID language engine — architecture decision</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%231e1e2e'/%3E%3Cpath d='M15 20h34v24H15zM24 12v8m16-8v8M24 44v8m16-8v8' fill='none' stroke='%2389b4fa' stroke-width='4'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#eff1f5;--surface:#fff;--surface2:#e6e9ef;--border:#c8cedb;--text:#34394b;--text-dim:#626a83;--blue:#1e66f5;--teal:#179299;--tint:#e6f3f0;--gold:#9c650f;--body:'DejaVu Sans','Verdana',sans-serif;--mono:'DejaVu Sans Mono','Liberation Mono',monospace}
+@media(prefers-color-scheme:dark){:root{--bg:#1e1e2e;--surface:#252537;--surface2:#313244;--border:#45475a;--text:#cdd6f4;--text-dim:#a6adc8;--blue:#89b4fa;--teal:#94e2d5;--tint:#223c3c;--gold:#f9e2af}}
+*{box-sizing:border-box}html{font-size:16px;scroll-behavior:smooth}body{margin:0;color:var(--text);background:var(--bg);font-family:var(--body);line-height:1.65}a{color:var(--blue)}button,a{touch-action:manipulation}button:focus-visible,a:focus-visible{outline:3px solid var(--blue);outline-offset:4px}button{font:inherit}code,.eyebrow,.label{font-family:var(--mono)}code{font-size:.875rem;overflow-wrap:anywhere}.wrap{display:grid;grid-template-columns:10.5rem minmax(0,1fr);gap:2.5rem;max-width:1460px;margin:auto;padding:2.5rem}.toc{position:sticky;top:2rem;align-self:start;display:grid;gap:.6rem;font-size:.875rem}.toc a{text-decoration:none;color:var(--text-dim);padding:.3rem 0}.toc a:hover,.toc a[aria-current=true]{color:var(--blue)}main{min-width:0}header{padding:.5rem 0 2.2rem;border-bottom:1px solid var(--border)}.eyebrow{font-size:.75rem;color:var(--teal);letter-spacing:.07em}h1{font-size:clamp(2.1rem,4vw,3.7rem);line-height:1.1;letter-spacing:-.05em;max-width:19ch;text-wrap:balance;margin:1rem 0 1.3rem}h2{font-size:1.65rem;line-height:1.25;margin:0 0 1rem;text-wrap:balance}h3{font-size:1.1rem;line-height:1.4;margin:0 0 .6rem}p{max-width:75ch;margin:.65rem 0}header>p{font-size:1.05rem;max-width:68ch}.note{padding:1rem 1.2rem;background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--teal);margin-top:1.5rem;font-size:.9rem}.muted{color:var(--text-dim)}section{padding:2.3rem 0;scroll-margin-top:5rem;border-bottom:1px solid var(--border)}.section-intro{display:flex;justify-content:space-between;gap:1rem;align-items:flex-start}.pill{display:inline-block;padding:.2rem .55rem;border:1px solid var(--border);border-radius:4px;font-family:var(--mono);font-size:.75rem;white-space:nowrap;color:var(--teal)}.tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin:1.3rem 0}.tabs button{border:1px solid var(--border);padding:.6rem .85rem;background:var(--surface);color:var(--text);border-radius:5px;cursor:pointer;font-size:.9rem}.tabs button[aria-selected=true]{color:var(--teal);border-color:var(--teal);background:var(--tint)}[hidden]{display:none!important}.diagram-shell{border:1px solid var(--border);background:var(--surface);border-radius:7px;overflow:hidden}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:.8rem;flex-wrap:wrap;padding:.6rem .85rem;background:var(--surface2);font-size:.75rem;color:var(--text-dim)}.toolbar button{background:var(--surface);border:1px solid var(--border);color:var(--text);border-radius:4px;cursor:pointer;padding:.25rem .6rem;font-size:.875rem}.diagram-viewport{overflow:auto;max-height:52rem}.diagram-viewport svg{width:100%;height:auto;display:block;min-width:980px;transition:none}.art-bg,.art-edge-label{fill:var(--surface)}.art-project{fill:var(--tint);stroke:var(--teal)}.art-card{fill:var(--surface);stroke:var(--border)}.art-core{fill:var(--surface);stroke:var(--teal)}.art-text{fill:var(--text)}.art-muted{fill:var(--text-dim)}.art-blue{fill:var(--blue)}.art-teal{fill:var(--teal)}.art-edge{stroke:var(--blue)}marker path{fill:var(--blue)}figure{margin:0}figcaption{font-size:.875rem;color:var(--text-dim);padding:.9rem 1rem;border-top:1px solid var(--border)}.panel-summary{padding:.8rem 0 0;color:var(--text-dim);font-size:.9rem}.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:6px;margin-top:1rem}table{width:100%;border-collapse:collapse;font-size:.9rem}th,td{text-align:left;vertical-align:top;padding:.85rem 1rem;border-bottom:1px solid var(--border);min-width:10rem;overflow-wrap:break-word}th{background:var(--surface2);font-size:.8rem}tr:last-child td{border-bottom:0}td:first-child{font-weight:700}.contract-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:1.4rem}.contract{background:var(--surface);padding:1.2rem;border:1px solid var(--border);border-radius:6px}.contract code{display:block;color:var(--teal);white-space:normal}.contract p{font-size:.875rem;color:var(--text-dim)}.sequence{list-style:none;counter-reset:phase;display:grid;gap:0;margin:1.4rem 0;padding:0}.sequence li{counter-increment:phase;position:relative;padding:.9rem .5rem 1rem 3.2rem;border-top:1px solid var(--border)}.sequence li::before{content:counter(phase,decimal-leading-zero);position:absolute;left:0;top:1rem;font-family:var(--mono);color:var(--blue);font-size:.875rem}.sequence p{font-size:.9rem;color:var(--text-dim);margin:.2rem 0}footer{font-size:.8rem;color:var(--text-dim);padding:1.6rem 0 2rem;display:grid;gap:.4rem}.status{color:var(--gold)}
+@media(max-width:1000px){.wrap{grid-template-columns:minmax(0,1fr);gap:1rem;padding:0 1.1rem}.toc{display:flex;overflow-x:auto;gap:1.2rem;top:0;padding:.8rem 0;background:var(--bg);z-index:3;border-bottom:1px solid var(--border);white-space:nowrap}.toc a{flex-shrink:0}header{padding-top:.8rem}.contract-grid{grid-template-columns:1fr}.section-intro{display:block}.pill{margin-bottom:.8rem}th,td{padding:.7rem}.diagram-viewport svg{min-width:980px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="toc" aria-label="Architecture sections"><a href="#design">Architecture</a><a href="#ownership">Ownership</a><a href="#contracts">Interfaces</a><a href="#rollout">Delivery order</a></nav>
+<main>
+<header>
+<div class="eyebrow">ARCHITECTURE PROPOSAL · CUBRID 11.5 FIRST · 28 OCT 2026</div>
+<h1>One language engine.<br>Independent tools.</h1>
+<p>Maintain CUBRID completion, syntax checking, and lint diagnostics in a central project. Let editor, agent, and terminal projects consume a versioned interface.</p>
+<div class="note"><strong>Selected:</strong> an independent <code>cubrid-language-tools</code> project containing the core, LSP adapter, and lint CLI. Its Python library gives <code>csql-future</code> a small migration path.</div>
+<p class="muted" style="font-size:.875rem">Accepted 2026-10-28: Option A, shared library plus LSP and CLI adapters. The independent local cubrid-language-tools repository is initialized. Consumer projects remain separate future work.</p>
+</header>
+<section id="design">
+<div class="section-intro"><div><h2>Compare the request paths</h2><p>Each diagram shows where language decisions live and which interface each consumer uses. The shaded area is the central project.</p></div><span class="pill">A is selected</span></div>
+<div class="tabs" role="tablist" aria-label="Architecture alternatives">
+<button id="tab-library" role="tab" aria-selected="true" aria-controls="panel-library">A · Library + adapters</button>
+<button id="tab-server" role="tab" aria-selected="false" aria-controls="panel-server" tabindex="-1">B · Local server first</button>
+<button id="tab-hosted" role="tab" aria-selected="false" aria-controls="panel-hosted" tabindex="-1">C · Hosted engine</button>
+</div>
+<div id="panel-library" role="tabpanel" aria-labelledby="tab-library">
+<figure class="diagram-shell" role="img" aria-label="All consumers share one language implementation. Each adapter translates requests and results for its client.">
+<div class="toolbar"><span>Requests flow toward the core. Scroll or adjust the zoom.</span><div><button type="button" data-zoom="out" aria-label="Zoom diagram out">−</button> <button type="button" data-zoom="in" aria-label="Zoom diagram in">+</button> <button type="button" data-zoom="reset">Reset</button> <button type="button" data-expand>Expand</button></div></div>
+<div class="diagram-viewport"><svg xmlns="http://www.w3.org/2000/svg" width="1240" height="830" viewBox="0 0 1240 830" role="img" aria-labelledby="library-title library-desc">
+<title id="library-title">Selected library with LSP and CLI adapters</title>
+<desc id="library-desc">Four independently released consumers send requests through shared adapters to a centrally maintained CUBRID language core. The shaded area is one central project.</desc>
+<defs><marker id="library-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 Z" fill="#1e66f5"/></marker></defs>
+<rect class="art-bg" width="1240" height="830" fill="#eff1f5"/>
+<g font-family="DejaVu Sans, Verdana, sans-serif" fill="#34394b">
+<text class="art-muted" x="48" y="32" font-size="15" font-weight="700" text-anchor="start" fill="#626a83">INDEPENDENT CONSUMER PROJECTS</text>
+<rect class="art-card" x="48" y="60" width="250" height="88" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
+<text class="art-text" x="173" y="96" font-size="19" font-weight="700" text-anchor="middle" fill="#34394b">VS Code extension</text>
+<text class="art-muted" x="173" y="123" font-size="15" font-weight="400" text-anchor="middle" fill="#626a83">editor integration</text>
+<rect class="art-card" x="342" y="60" width="250" height="88" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
+<text class="art-text" x="467" y="96" font-size="19" font-weight="700" text-anchor="middle" fill="#34394b">Neovim plugin</text>
+<text class="art-muted" x="467" y="123" font-size="15" font-weight="400" text-anchor="middle" fill="#626a83">editor integration</text>
+<rect class="art-card" x="636" y="60" width="250" height="88" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
+<text class="art-text" x="761" y="96" font-size="19" font-weight="700" text-anchor="middle" fill="#34394b">AI checker / CI</text>
+<text class="art-muted" x="761" y="123" font-size="15" font-weight="400" text-anchor="middle" fill="#626a83">agent workflow</text>
+<rect class="art-card" x="930" y="60" width="250" height="88" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
+<text class="art-text" x="1055" y="96" font-size="19" font-weight="700" text-anchor="middle" fill="#34394b">csql-future TUI</text>
+<text class="art-muted" x="1055" y="123" font-size="15" font-weight="400" text-anchor="middle" fill="#626a83">later migration</text>
+<rect class="art-project" x="24" y="250" width="1180" height="550" rx="8" fill="#e6f3f0" stroke="#179299" stroke-width="2"/>
+<path class="art-edge" d="M173 148 V215 H246 V300" fill="none" stroke="#1e66f5" stroke-width="2.3" marker-end="url(#library-arrow)"/>
+<rect class="art-edge-label" x="120.1" y="172" width="105.8" height="27" rx="4" fill="#eff1f5"/>
+<text class="art-blue" x="173" y="191" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">LSP / stdio</text>
+<path class="art-edge" d="M467 148 V235 H344 V300" fill="none" stroke="#1e66f5" stroke-width="2.3" marker-end="url(#library-arrow)"/>
+<rect class="art-edge-label" x="414.1" y="172" width="105.8" height="27" rx="4" fill="#eff1f5"/>
+<text class="art-blue" x="467" y="191" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">LSP / stdio</text>
+<path class="art-edge" d="M761 148 V215 H626 V300" fill="none" stroke="#1e66f5" stroke-width="2.3" marker-end="url(#library-arrow)"/>
+<rect class="art-edge-label" x="704.2" y="172" width="113.6" height="27" rx="4" fill="#eff1f5"/>
+<text class="art-blue" x="761" y="191" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">stdin + JSON</text>
+<path class="art-edge" d="M1055 148 V215 H1006 V300" fill="none" stroke="#1e66f5" stroke-width="2.3" marker-end="url(#library-arrow)"/>
+<rect class="art-edge-label" x="998.2" y="172" width="113.6" height="27" rx="4" fill="#eff1f5"/>
+<text class="art-blue" x="1055" y="191" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">library call</text>
+<rect class="art-card" x="70" y="300" width="352" height="94" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
+<text class="art-text" x="246" y="339" font-size="20" font-weight="700" text-anchor="middle" fill="#34394b">LSP adapter</text>
+<text class="art-muted" x="246" y="368" font-size="16" font-weight="400" text-anchor="middle" fill="#626a83">shared editor protocol</text>
+<path class="art-edge" d="M246 394 V500" fill="none" stroke="#1e66f5" stroke-width="2.3" marker-end="url(#library-arrow)"/>
+<rect class="art-edge-label" x="161.9" y="434" width="168.2" height="27" rx="4" fill="#eff1f5"/>
+<text class="art-blue" x="246" y="453" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">complete / diagnose</text>
+<rect class="art-card" x="450" y="300" width="352" height="94" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
+<text class="art-text" x="626" y="339" font-size="20" font-weight="700" text-anchor="middle" fill="#34394b">Lint CLI adapter</text>
+<text class="art-muted" x="626" y="368" font-size="16" font-weight="400" text-anchor="middle" fill="#626a83">structured batch diagnostics</text>
+<path class="art-edge" d="M626 394 V500" fill="none" stroke="#1e66f5" stroke-width="2.3" marker-end="url(#library-arrow)"/>
+<rect class="art-edge-label" x="581.0" y="434" width="90" height="27" rx="4" fill="#eff1f5"/>
+<text class="art-blue" x="626" y="453" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">diagnose</text>
+<rect class="art-card" x="830" y="300" width="352" height="94" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
+<text class="art-text" x="1006" y="339" font-size="20" font-weight="700" text-anchor="middle" fill="#34394b">Library interface</text>
+<text class="art-muted" x="1006" y="368" font-size="16" font-weight="400" text-anchor="middle" fill="#626a83">direct Python use initially</text>
+<path class="art-edge" d="M1006 394 V500" fill="none" stroke="#1e66f5" stroke-width="2.3" marker-end="url(#library-arrow)"/>
+<rect class="art-edge-label" x="921.9" y="434" width="168.2" height="27" rx="4" fill="#eff1f5"/>
+<text class="art-blue" x="1006" y="453" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">complete / diagnose</text>
+<rect class="art-core" x="70" y="500" width="1112" height="140" rx="8" fill="#ffffff" stroke="#179299" stroke-width="2"/>
+<text class="art-teal" x="94" y="533" font-size="24" font-weight="700" text-anchor="start" fill="#179299">Language core</text>
+<text class="art-text" x="94" y="578" font-size="20" font-weight="700" text-anchor="start" fill="#34394b">Completion</text>
+<text class="art-muted" x="94" y="608" font-size="14" font-weight="400" text-anchor="start" fill="#626a83">context · candidates · replacement spans</text>
+<text class="art-text" x="484" y="578" font-size="20" font-weight="700" text-anchor="start" fill="#34394b">Syntax checking</text>
+<text class="art-muted" x="484" y="608" font-size="14" font-weight="400" text-anchor="start" fill="#626a83">version-qualified parser backend</text>
+<text class="art-text" x="876" y="578" font-size="20" font-weight="700" text-anchor="start" fill="#34394b">Lint diagnostics</text>
+<text class="art-muted" x="876" y="608" font-size="14" font-weight="400" text-anchor="start" fill="#626a83">rules · codes · severity</text>
+<rect class="art-card" x="70" y="660" width="1112" height="70" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
+<text class="art-text" x="94" y="688" font-size="17" font-weight="700" text-anchor="start" fill="#34394b">Shared contracts</text>
+<text class="art-muted" x="94" y="714" font-size="16" font-weight="400" text-anchor="start" fill="#626a83">document spans · dialect profiles · schema snapshots · positive / negative / incomplete corpus</text>
+<text class="art-teal" x="49" y="771" font-size="22" font-weight="700" text-anchor="start" fill="#179299">cubrid-language-tools</text>
+<text class="art-muted" x="346" y="771" font-size="16" font-weight="400" text-anchor="start" fill="#626a83">independent language project</text>
+<text class="art-text" x="1176" y="771" font-size="16" font-weight="700" text-anchor="end" fill="#34394b">One maintained release</text>
+</g></svg></div><figcaption>All consumers share one language implementation. Each adapter translates requests and results for its client.</figcaption></figure>
+<p class="panel-summary">Best fit for the current Python TUI and offline workflows. Keep the library small and put transport, process scheduling, and UI behavior in adapters.</p></div>
+<div id="panel-server" role="tabpanel" aria-labelledby="tab-server" hidden>
+<figure class="diagram-shell" role="img" aria-label="Every consumer reaches the same core through a local language server. The public Python library surface is removed.">
+<div class="toolbar"><span>Requests flow toward the core. Scroll or adjust the zoom.</span><div><button type="button" data-zoom="out" aria-label="Zoom diagram out">−</button> <button type="button" data-zoom="in" aria-label="Zoom diagram in">+</button> <button type="button" data-zoom="reset">Reset</button> <button type="button" data-expand>Expand</button></div></div>
+<div class="diagram-viewport"><svg xmlns="http://www.w3.org/2000/svg" width="1240" height="830" viewBox="0 0 1240 830" role="img" aria-labelledby="server-title server-desc">
+<title id="server-title">Server-first alternative</title>
+<desc id="server-desc">Four independently released consumers send requests through shared adapters to a centrally maintained CUBRID language core. The shaded area is one central project.</desc>
+<defs><marker id="server-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 Z" fill="#1e66f5"/></marker></defs>
+<rect class="art-bg" width="1240" height="830" fill="#eff1f5"/>
+<g font-family="DejaVu Sans, Verdana, sans-serif" fill="#34394b">
+<text class="art-muted" x="48" y="32" font-size="15" font-weight="700" text-anchor="start" fill="#626a83">INDEPENDENT CONSUMER PROJECTS</text>
+<rect class="art-card" x="48" y="60" width="250" height="88" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
+<text class="art-text" x="173" y="96" font-size="19" font-weight="700" text-anchor="middle" fill="#34394b">VS Code extension</text>
+<text class="art-muted" x="173" y="123" font-size="15" font-weight="400" text-anchor="middle" fill="#626a83">editor integration</text>
+<rect class="art-card" x="342" y="60" width="250" height="88" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
+<text class="art-text" x="467" y="96" font-size="19" font-weight="700" text-anchor="middle" fill="#34394b">Neovim plugin</text>
+<text class="art-muted" x="467" y="123" font-size="15" font-weight="400" text-anchor="middle" fill="#626a83">editor integration</text>
+<rect class="art-card" x="636" y="60" width="250" height="88" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
+<text class="art-text" x="761" y="96" font-size="19" font-weight="700" text-anchor="middle" fill="#34394b">AI checker / CI</text>
+<text class="art-muted" x="761" y="123" font-size="15" font-weight="400" text-anchor="middle" fill="#626a83">agent workflow</text>
+<rect class="art-card" x="930" y="60" width="250" height="88" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
+<text class="art-text" x="1055" y="96" font-size="19" font-weight="700" text-anchor="middle" fill="#34394b">csql-future TUI</text>
+<text class="art-muted" x="1055" y="123" font-size="15" font-weight="400" text-anchor="middle" fill="#626a83">later migration</text>
+<rect class="art-project" x="24" y="250" width="1180" height="550" rx="8" fill="#e6f3f0" stroke="#179299" stroke-width="2"/>
+<path class="art-edge" d="M173 148 V215 H170 V300" fill="none" stroke="#1e66f5" stroke-width="2.3" marker-end="url(#server-arrow)"/>
+<rect class="art-edge-label" x="120.1" y="172" width="105.8" height="27" rx="4" fill="#eff1f5"/>
+<text class="art-blue" x="173" y="191" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">LSP / stdio</text>
+<path class="art-edge" d="M467 148 V215 H465 V300" fill="none" stroke="#1e66f5" stroke-width="2.3" marker-end="url(#server-arrow)"/>
+<rect class="art-edge-label" x="414.1" y="172" width="105.8" height="27" rx="4" fill="#eff1f5"/>
+<text class="art-blue" x="467" y="191" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">LSP / stdio</text>
+<path class="art-edge" d="M761 148 V215 H760 V300" fill="none" stroke="#1e66f5" stroke-width="2.3" marker-end="url(#server-arrow)"/>
+<rect class="art-edge-label" x="708.1" y="172" width="105.8" height="27" rx="4" fill="#eff1f5"/>
+<text class="art-blue" x="761" y="191" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">LSP / stdio</text>
+<path class="art-edge" d="M1055 148 V215 H1055 V300" fill="none" stroke="#1e66f5" stroke-width="2.3" marker-end="url(#server-arrow)"/>
+<rect class="art-edge-label" x="1002.1" y="172" width="105.8" height="27" rx="4" fill="#eff1f5"/>
+<text class="art-blue" x="1055" y="191" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">LSP / stdio</text>
+<rect class="art-card" x="70" y="300" width="1112" height="94" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
+<text class="art-text" x="626" y="339" font-size="22" font-weight="700" text-anchor="middle" fill="#34394b">Local language server</text>
+<text class="art-muted" x="626" y="368" font-size="16" font-weight="400" text-anchor="middle" fill="#626a83">Every consumer implements an LSP client</text>
+<path class="art-edge" d="M626 394 V500" fill="none" stroke="#1e66f5" stroke-width="2.3" marker-end="url(#server-arrow)"/>
+<rect class="art-edge-label" x="534.1" y="434" width="183.79999999999998" height="27" rx="4" fill="#eff1f5"/>
+<text class="art-blue" x="626" y="453" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">all language requests</text>
+<rect class="art-core" x="70" y="500" width="1112" height="140" rx="8" fill="#ffffff" stroke="#179299" stroke-width="2"/>
+<text class="art-teal" x="94" y="533" font-size="24" font-weight="700" text-anchor="start" fill="#179299">Language core</text>
+<text class="art-text" x="94" y="578" font-size="20" font-weight="700" text-anchor="start" fill="#34394b">Completion</text>
+<text class="art-muted" x="94" y="608" font-size="14" font-weight="400" text-anchor="start" fill="#626a83">context · candidates · replacement spans</text>
+<text class="art-text" x="484" y="578" font-size="20" font-weight="700" text-anchor="start" fill="#34394b">Syntax checking</text>
+<text class="art-muted" x="484" y="608" font-size="14" font-weight="400" text-anchor="start" fill="#626a83">version-qualified parser backend</text>
+<text class="art-text" x="876" y="578" font-size="20" font-weight="700" text-anchor="start" fill="#34394b">Lint diagnostics</text>
+<text class="art-muted" x="876" y="608" font-size="14" font-weight="400" text-anchor="start" fill="#626a83">rules · codes · severity</text>
+<rect class="art-card" x="70" y="660" width="1112" height="70" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
+<text class="art-text" x="94" y="688" font-size="17" font-weight="700" text-anchor="start" fill="#34394b">Shared contracts</text>
+<text class="art-muted" x="94" y="714" font-size="16" font-weight="400" text-anchor="start" fill="#626a83">document spans · dialect profiles · schema snapshots · positive / negative / incomplete corpus</text>
+<text class="art-teal" x="49" y="771" font-size="22" font-weight="700" text-anchor="start" fill="#179299">cubrid-language-tools</text>
+<text class="art-muted" x="346" y="771" font-size="16" font-weight="400" text-anchor="start" fill="#626a83">independent language project</text>
+<text class="art-text" x="1176" y="771" font-size="16" font-weight="700" text-anchor="end" fill="#34394b">One maintained release</text>
+</g></svg></div><figcaption>Every consumer reaches the same core through a local language server. The public Python library surface is removed.</figcaption></figure>
+<p class="panel-summary">Choose this when one process protocol matters more than direct embedding. The TUI and AI checker need LSP clients, including document lifecycle and cancellation handling.</p></div>
+<div id="panel-hosted" role="tabpanel" aria-labelledby="tab-hosted" hidden>
+<figure class="diagram-shell" role="img" aria-label="The request path crosses a network before reaching the shared language engine.">
+<div class="toolbar"><span>Requests flow toward the core. Scroll or adjust the zoom.</span><div><button type="button" data-zoom="out" aria-label="Zoom diagram out">−</button> <button type="button" data-zoom="in" aria-label="Zoom diagram in">+</button> <button type="button" data-zoom="reset">Reset</button> <button type="button" data-expand>Expand</button></div></div>
+<div class="diagram-viewport"><svg xmlns="http://www.w3.org/2000/svg" width="1240" height="830" viewBox="0 0 1240 830" role="img" aria-labelledby="hosted-title hosted-desc">
+<title id="hosted-title">Hosted engine alternative</title>
+<desc id="hosted-desc">Four independently released consumers send requests through shared adapters to a centrally maintained CUBRID language core. The shaded area is one central project.</desc>
+<defs><marker id="hosted-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 Z" fill="#1e66f5"/></marker></defs>
+<rect class="art-bg" width="1240" height="830" fill="#eff1f5"/>
+<g font-family="DejaVu Sans, Verdana, sans-serif" fill="#34394b">
+<text class="art-muted" x="48" y="32" font-size="15" font-weight="700" text-anchor="start" fill="#626a83">INDEPENDENT CONSUMER PROJECTS</text>
+<rect class="art-card" x="48" y="60" width="250" height="88" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
+<text class="art-text" x="173" y="96" font-size="19" font-weight="700" text-anchor="middle" fill="#34394b">VS Code extension</text>
+<text class="art-muted" x="173" y="123" font-size="15" font-weight="400" text-anchor="middle" fill="#626a83">editor integration</text>
+<rect class="art-card" x="342" y="60" width="250" height="88" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
+<text class="art-text" x="467" y="96" font-size="19" font-weight="700" text-anchor="middle" fill="#34394b">Neovim plugin</text>
+<text class="art-muted" x="467" y="123" font-size="15" font-weight="400" text-anchor="middle" fill="#626a83">editor integration</text>
+<rect class="art-card" x="636" y="60" width="250" height="88" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
+<text class="art-text" x="761" y="96" font-size="19" font-weight="700" text-anchor="middle" fill="#34394b">AI checker / CI</text>
+<text class="art-muted" x="761" y="123" font-size="15" font-weight="400" text-anchor="middle" fill="#626a83">agent workflow</text>
+<rect class="art-card" x="930" y="60" width="250" height="88" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
+<text class="art-text" x="1055" y="96" font-size="19" font-weight="700" text-anchor="middle" fill="#34394b">csql-future TUI</text>
+<text class="art-muted" x="1055" y="123" font-size="15" font-weight="400" text-anchor="middle" fill="#626a83">later migration</text>
+<rect class="art-project" x="24" y="250" width="1180" height="550" rx="8" fill="#e6f3f0" stroke="#179299" stroke-width="2"/>
+<path class="art-edge" d="M173 148 V215 H170 V300" fill="none" stroke="#1e66f5" stroke-width="2.3" marker-end="url(#hosted-arrow)"/>
+<rect class="art-edge-label" x="104.5" y="172" width="137.0" height="27" rx="4" fill="#eff1f5"/>
+<text class="art-blue" x="173" y="191" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">network request</text>
+<path class="art-edge" d="M467 148 V215 H465 V300" fill="none" stroke="#1e66f5" stroke-width="2.3" marker-end="url(#hosted-arrow)"/>
+<rect class="art-edge-label" x="398.5" y="172" width="137.0" height="27" rx="4" fill="#eff1f5"/>
+<text class="art-blue" x="467" y="191" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">network request</text>
+<path class="art-edge" d="M761 148 V215 H760 V300" fill="none" stroke="#1e66f5" stroke-width="2.3" marker-end="url(#hosted-arrow)"/>
+<rect class="art-edge-label" x="692.5" y="172" width="137.0" height="27" rx="4" fill="#eff1f5"/>
+<text class="art-blue" x="761" y="191" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">network request</text>
+<path class="art-edge" d="M1055 148 V215 H1055 V300" fill="none" stroke="#1e66f5" stroke-width="2.3" marker-end="url(#hosted-arrow)"/>
+<rect class="art-edge-label" x="986.5" y="172" width="137.0" height="27" rx="4" fill="#eff1f5"/>
+<text class="art-blue" x="1055" y="191" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">network request</text>
+<rect class="art-card" x="70" y="300" width="1112" height="94" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
+<text class="art-text" x="626" y="339" font-size="22" font-weight="700" text-anchor="middle" fill="#34394b">Hosted language interface</text>
+<text class="art-muted" x="626" y="368" font-size="16" font-weight="400" text-anchor="middle" fill="#626a83">Clients depend on one deployed runtime</text>
+<path class="art-edge" d="M626 394 V500" fill="none" stroke="#1e66f5" stroke-width="2.3" marker-end="url(#hosted-arrow)"/>
+<rect class="art-edge-label" x="534.1" y="434" width="183.79999999999998" height="27" rx="4" fill="#eff1f5"/>
+<text class="art-blue" x="626" y="453" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">all language requests</text>
+<rect class="art-core" x="70" y="500" width="1112" height="140" rx="8" fill="#ffffff" stroke="#179299" stroke-width="2"/>
+<text class="art-teal" x="94" y="533" font-size="24" font-weight="700" text-anchor="start" fill="#179299">Language core</text>
+<text class="art-text" x="94" y="578" font-size="20" font-weight="700" text-anchor="start" fill="#34394b">Completion</text>
+<text class="art-muted" x="94" y="608" font-size="14" font-weight="400" text-anchor="start" fill="#626a83">context · candidates · replacement spans</text>
+<text class="art-text" x="484" y="578" font-size="20" font-weight="700" text-anchor="start" fill="#34394b">Syntax checking</text>
+<text class="art-muted" x="484" y="608" font-size="14" font-weight="400" text-anchor="start" fill="#626a83">version-qualified parser backend</text>
+<text class="art-text" x="876" y="578" font-size="20" font-weight="700" text-anchor="start" fill="#34394b">Lint diagnostics</text>
+<text class="art-muted" x="876" y="608" font-size="14" font-weight="400" text-anchor="start" fill="#626a83">rules · codes · severity</text>
+<rect class="art-card" x="70" y="660" width="1112" height="70" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
+<text class="art-text" x="94" y="688" font-size="17" font-weight="700" text-anchor="start" fill="#34394b">Shared contracts</text>
+<text class="art-muted" x="94" y="714" font-size="16" font-weight="400" text-anchor="start" fill="#626a83">document spans · dialect profiles · schema snapshots · positive / negative / incomplete corpus</text>
+<text class="art-teal" x="49" y="771" font-size="22" font-weight="700" text-anchor="start" fill="#179299">cubrid-language-tools</text>
+<text class="art-muted" x="346" y="771" font-size="16" font-weight="400" text-anchor="start" fill="#626a83">independent language project</text>
+<text class="art-text" x="1176" y="771" font-size="16" font-weight="700" text-anchor="end" fill="#34394b">One deployed runtime</text>
+</g></svg></div><figcaption>The request path crosses a network before reaching the shared language engine.</figcaption></figure>
+<p class="panel-summary">Choose this for a centrally operated team runtime. It introduces deployment, availability, network, and document-data handling decisions. It is a different operating model from the initial offline tools.</p></div>
+<div class="table-wrap"><table><thead><tr><th>Choice</th><th>Maintain centrally</th><th>Consumer work / tradeoff</th></tr></thead><tbody>
+<tr><td>A · Library + adapters</td><td>One core and its library, LSP, and CLI interfaces.</td><td>Native editor LSP integration; direct TUI library calls. Library and protocol compatibility both need versioning.</td></tr>
+<tr><td>B · Local server first</td><td>One core with a public LSP interface.</td><td>Every consumer manages an LSP client and process. Less public library surface, more client lifecycle work.</td></tr>
+<tr><td>C · Hosted engine</td><td>One deployed engine and hosted interface.</td><td>Consumers need network access; the maintainer operates the runtime and its access/deployment policy.</td></tr>
+</tbody></table></div>
+<p class="muted" style="font-size:.875rem">The local-server design follows the purpose of <a href="https://microsoft.github.io/language-server-protocol/">LSP</a>: sharing language features across development tools. Option A adds a direct library interface for the Python TUI and a batch interface for agents.</p>
+</section>
+<section id="ownership">
+<h2>Maintain language behavior once</h2>
+<p>The core accepts documents, a dialect profile, and optional schema snapshots. It returns candidates and diagnostics. Consumers supply their own interaction and connection lifecycle.</p>
+<div class="table-wrap"><table><thead><tr><th>Owner</th><th>Responsibilities</th><th>Release relationship</th></tr></thead><tbody>
+<tr><td>Central language core</td><td>Tolerant completion, strict syntax checking, lint-rule execution, diagnostic codes, replacement spans, dialect/version coverage, and shared fixtures.</td><td>Versioned independently of all consumer projects.</td></tr>
+<tr><td>Central adapters</td><td>LSP document positions and scheduling; CLI stdin/files, JSON output, and exit status; library-facing immutable values.</td><td>Initially released together with the core to reduce compatibility combinations.</td></tr>
+<tr><td>VS Code / Neovim</td><td>File associations, server startup settings, editor presentation, completion menus, and optional local highlighting fallback.</td><td>Declare compatible engine/protocol versions.</td></tr>
+<tr><td>AI checker / CI</td><td>Invoke the central CLI, interpret stable diagnostic codes and exits, and present results in the agent workflow.</td><td>Pin or constrain a tested engine version.</td></tr>
+<tr><td>csql-future</td><td>History, terminal editing, menu rendering, CSQL process ownership, and live catalog acquisition. Supply schema snapshots to the shared core after migration.</td><td>Migrate after the central engine is usable and qualified.</td></tr>
+</tbody></table></div>
+<div class="note"><strong>Repository shape:</strong> one central repository for the core and its standard adapters; independent repositories for consumer products when they are created. Shared diagnostic/schema types belong to the central project. The local cubrid-language-tools repository is initialized. No remote is configured and no publication has occurred.</div>
+</section>
+<section id="contracts">
+<h2>A small maintained interface</h2>
+<p>Keep parser details and native globals behind the core. Both operations use explicit, versioned input and immutable results.</p>
+<div class="contract-grid">
+<div class="contract"><h3>Completion</h3><code>complete(document, cursor, profile, schema?) → suggestions</code><p>Works on unfinished SQL. Returns candidate text, kind/detail, and an exact replacement span in the original document.</p></div>
+<div class="contract"><h3>Diagnostics</h3><code>diagnose(document, profile, scriptMode) → diagnosticResult</code><p>Runs qualified syntax checks and selected lint rules. Reports syntax errors, unsupported coverage, and tool failures distinctly.</p></div>
+<div class="contract"><h3>Shared data</h3><code>Document · Span · Profile · SchemaSnapshot · Diagnostic</code><p>One range convention, stable codes, and explicit conversions for parser bytes and editor positions. Snapshots contain metadata, with credentials owned by consumers.</p></div>
+<div class="contract"><h3>Parser implementation</h3><code>qualified backend behind the diagnostic interface</code><p>The current native-worker checkpoint can be reused. Each supported CUBRID build needs qualification. The first target remains the pinned 11.5 build.</p></div>
+</div>
+<p class="muted">Python is a practical first implementation because the existing completion code already uses it. The parser worker remains internal. A future runtime change can preserve the LSP and CLI contracts, while library consumers would need a migration.</p>
+<p class="muted">A shared engine can use tolerant analysis for completion and strict parsing for validation. A parser rejection during typing must still allow useful suggestions. Additional semantic/style rules can grow behind the diagnostic interface with explicit coverage.</p>
+</section>
+<section id="rollout">
+<h2>Build the central project first</h2>
+<ol class="sequence">
+<li><strong>Set ownership and the public interfaces.</strong><p>Completed: Option A accepted and local cubrid-language-tools initialized. The central ticket graph replaces the old monorepo plan.</p></li>
+<li><strong>Move reusable logic into the central engine.</strong><p>Port the verified completion extraction and reusable native-worker checkpoint. Keep their existing evidence and unresolved qualification work.</p></li>
+<li><strong>Prove the engine through its lint CLI.</strong><p>Check valid, invalid, incomplete, Unicode, and unsupported input. Establish deterministic machine output without executing submitted SQL.</p></li>
+<li><strong>Add the shared LSP adapter.</strong><p>Verify completion and diagnostics through the same core with document versions, cancellation, and correct position conversion.</p></li>
+<li><strong>Build independent consumers and migrate the TUI.</strong><p>Implement editor clients, connect agent workflows, then migrate csql-future under its regression suite.</p></li>
+</ol>
+<div class="note"><strong>Preserved work:</strong> ticket 01 is verified in an isolated branch with 141 tests passing. Ticket 02 is an incomplete native-worker checkpoint with focused checks. Neither branch is integrated. The original 11-ticket plan is historical until it is revised for this ownership model.</div>
+</section>
+<footer>
+<div>Suggested architecture, not a claim that the central project or consumer integrations already exist.</div>
+<div>Evidence: <a href="research/parser-research.md">parser research</a> · <a href="research/feasibility.md">native feasibility</a> · <a href="orchestration/state.json">current execution state</a></div>
+<div>Protocol background: <a href="https://microsoft.github.io/language-server-protocol/">LSP</a> · <a href="https://code.visualstudio.com/api/language-extensions/language-server-extension-guide">VS Code language-server guide</a></div>
+</footer>
+</main></div>
+<script>
+const tabs=[...document.querySelectorAll('[role=tab]')];
+function activate(tab){for(const button of tabs){const chosen=button===tab;button.setAttribute('aria-selected',String(chosen));button.tabIndex=chosen?0:-1;document.getElementById(button.getAttribute('aria-controls')).hidden=!chosen}}
+for(const tab of tabs){tab.addEventListener('click',()=>activate(tab));tab.addEventListener('keydown',event=>{let next;if(event.key==='ArrowRight')next=(tabs.indexOf(tab)+1)%tabs.length;if(event.key==='ArrowLeft')next=(tabs.indexOf(tab)+tabs.length-1)%tabs.length;if(event.key==='Home')next=0;if(event.key==='End')next=tabs.length-1;if(next!==undefined){event.preventDefault();activate(tabs[next]);tabs[next].focus()}})}
+for(const figure of document.querySelectorAll('.diagram-shell')){const viewport=figure.querySelector('.diagram-viewport'),svg=viewport.querySelector('svg');let scale=1;function zoom(next){scale=Math.max(1,Math.min(3,next));svg.style.width=(scale*100)+'%';svg.style.minWidth=scale===1?'980px':(980*scale)+'px'}for(const button of figure.querySelectorAll('[data-zoom]'))button.addEventListener('click',()=>zoom(button.dataset.zoom==='reset'?1:scale+(button.dataset.zoom==='in'?.25:-.25)));figure.querySelector('[data-expand]').addEventListener('click',()=>{const expanded=figure.dataset.expanded==='true';figure.dataset.expanded=String(!expanded);viewport.style.maxHeight=expanded?'52rem':'none';figure.querySelector('[data-expand]').textContent=expanded?'Expand':'Collapse'});viewport.addEventListener('wheel',event=>{if(event.ctrlKey||event.metaKey){event.preventDefault();zoom(scale+(event.deltaY<0?.1:-.1))}},{passive:false})}
+const sections=[...document.querySelectorAll('main section[id]')];if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting)for(const link of document.querySelectorAll('.toc a'))link.setAttribute('aria-current',String(link.hash==='#'+entry.target.id))},{rootMargin:'-15% 0px -65% 0px'});sections.forEach(section=>observer.observe(section))}
+window.addEventListener('load',()=>{document.documentElement.dataset.layoutStatus=document.documentElement.scrollWidth<=innerWidth?'no-page-overflow':'page-overflow';document.documentElement.dataset.diagramCount=String(document.querySelectorAll('figure svg').length)});
+</script>
+</body></html>

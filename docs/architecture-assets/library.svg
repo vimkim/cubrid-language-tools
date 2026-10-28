@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="830" viewBox="0 0 1240 830" role="img" aria-labelledby="library-title library-desc">
+<title id="library-title">Recommended library with LSP and CLI adapters</title>
+<desc id="library-desc">Four independently released consumers send requests through shared adapters to a centrally maintained CUBRID language core. The shaded area is one central project.</desc>
+<defs><marker id="library-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 Z" fill="#1e66f5"/></marker></defs>
+<rect class="art-bg" width="1240" height="830" fill="#eff1f5"/>
+<g font-family="DejaVu Sans, Verdana, sans-serif" fill="#34394b">
+<text class="art-muted" x="48" y="32" font-size="15" font-weight="700" text-anchor="start" fill="#626a83">INDEPENDENT CONSUMER PROJECTS</text>
+<rect class="art-card" x="48" y="60" width="250" height="88" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
+<text class="art-text" x="173" y="96" font-size="19" font-weight="700" text-anchor="middle" fill="#34394b">VS Code extension</text>
+<text class="art-muted" x="173" y="123" font-size="15" font-weight="400" text-anchor="middle" fill="#626a83">editor integration</text>
+<rect class="art-card" x="342" y="60" width="250" height="88" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
+<text class="art-text" x="467" y="96" font-size="19" font-weight="700" text-anchor="middle" fill="#34394b">Neovim plugin</text>
+<text class="art-muted" x="467" y="123" font-size="15" font-weight="400" text-anchor="middle" fill="#626a83">editor integration</text>
+<rect class="art-card" x="636" y="60" width="250" height="88" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
+<text class="art-text" x="761" y="96" font-size="19" font-weight="700" text-anchor="middle" fill="#34394b">AI checker / CI</text>
+<text class="art-muted" x="761" y="123" font-size="15" font-weight="400" text-anchor="middle" fill="#626a83">agent workflow</text>
+<rect class="art-card" x="930" y="60" width="250" height="88" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
+<text class="art-text" x="1055" y="96" font-size="19" font-weight="700" text-anchor="middle" fill="#34394b">csql-future TUI</text>
+<text class="art-muted" x="1055" y="123" font-size="15" font-weight="400" text-anchor="middle" fill="#626a83">later migration</text>
+<rect class="art-project" x="24" y="250" width="1180" height="550" rx="8" fill="#e6f3f0" stroke="#179299" stroke-width="2"/>
+<path class="art-edge" d="M173 148 V215 H246 V300" fill="none" stroke="#1e66f5" stroke-width="2.3" marker-end="url(#library-arrow)"/>
+<rect class="art-edge-label" x="120.1" y="172" width="105.8" height="27" rx="4" fill="#eff1f5"/>
+<text class="art-blue" x="173" y="191" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">LSP / stdio</text>
+<path class="art-edge" d="M467 148 V235 H344 V300" fill="none" stroke="#1e66f5" stroke-width="2.3" marker-end="url(#library-arrow)"/>
+<rect class="art-edge-label" x="414.1" y="172" width="105.8" height="27" rx="4" fill="#eff1f5"/>
+<text class="art-blue" x="467" y="191" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">LSP / stdio</text>
+<path class="art-edge" d="M761 148 V215 H626 V300" fill="none" stroke="#1e66f5" stroke-width="2.3" marker-end="url(#library-arrow)"/>
+<rect class="art-edge-label" x="704.2" y="172" width="113.6" height="27" rx="4" fill="#eff1f5"/>
+<text class="art-blue" x="761" y="191" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">stdin + JSON</text>
+<path class="art-edge" d="M1055 148 V215 H1006 V300" fill="none" stroke="#1e66f5" stroke-width="2.3" marker-end="url(#library-arrow)"/>
+<rect class="art-edge-label" x="998.2" y="172" width="113.6" height="27" rx="4" fill="#eff1f5"/>
+<text class="art-blue" x="1055" y="191" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">library call</text>
+<rect class="art-card" x="70" y="300" width="352" height="94" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
+<text class="art-text" x="246" y="339" font-size="20" font-weight="700" text-anchor="middle" fill="#34394b">LSP adapter</text>
+<text class="art-muted" x="246" y="368" font-size="16" font-weight="400" text-anchor="middle" fill="#626a83">shared editor protocol</text>
+<path class="art-edge" d="M246 394 V500" fill="none" stroke="#1e66f5" stroke-width="2.3" marker-end="url(#library-arrow)"/>
+<rect class="art-edge-label" x="161.9" y="434" width="168.2" height="27" rx="4" fill="#eff1f5"/>
+<text class="art-blue" x="246" y="453" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">complete / diagnose</text>
+<rect class="art-card" x="450" y="300" width="352" height="94" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
+<text class="art-text" x="626" y="339" font-size="20" font-weight="700" text-anchor="middle" fill="#34394b">Lint CLI adapter</text>
+<text class="art-muted" x="626" y="368" font-size="16" font-weight="400" text-anchor="middle" fill="#626a83">structured batch diagnostics</text>
+<path class="art-edge" d="M626 394 V500" fill="none" stroke="#1e66f5" stroke-width="2.3" marker-end="url(#library-arrow)"/>
+<rect class="art-edge-label" x="581.0" y="434" width="90" height="27" rx="4" fill="#eff1f5"/>
+<text class="art-blue" x="626" y="453" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">diagnose</text>
+<rect class="art-card" x="830" y="300" width="352" height="94" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
+<text class="art-text" x="1006" y="339" font-size="20" font-weight="700" text-anchor="middle" fill="#34394b">Library interface</text>
+<text class="art-muted" x="1006" y="368" font-size="16" font-weight="400" text-anchor="middle" fill="#626a83">direct Python use initially</text>
+<path class="art-edge" d="M1006 394 V500" fill="none" stroke="#1e66f5" stroke-width="2.3" marker-end="url(#library-arrow)"/>
+<rect class="art-edge-label" x="921.9" y="434" width="168.2" height="27" rx="4" fill="#eff1f5"/>
+<text class="art-blue" x="1006" y="453" font-size="14" font-weight="400" text-anchor="middle" fill="#1e66f5">complete / diagnose</text>
+<rect class="art-core" x="70" y="500" width="1112" height="140" rx="8" fill="#ffffff" stroke="#179299" stroke-width="2"/>
+<text class="art-teal" x="94" y="533" font-size="24" font-weight="700" text-anchor="start" fill="#179299">Language core</text>
+<text class="art-text" x="94" y="578" font-size="20" font-weight="700" text-anchor="start" fill="#34394b">Completion</text>
+<text class="art-muted" x="94" y="608" font-size="14" font-weight="400" text-anchor="start" fill="#626a83">context · candidates · replacement spans</text>
+<text class="art-text" x="484" y="578" font-size="20" font-weight="700" text-anchor="start" fill="#34394b">Syntax checking</text>
+<text class="art-muted" x="484" y="608" font-size="14" font-weight="400" text-anchor="start" fill="#626a83">version-qualified parser backend</text>
+<text class="art-text" x="876" y="578" font-size="20" font-weight="700" text-anchor="start" fill="#34394b">Lint diagnostics</text>
+<text class="art-muted" x="876" y="608" font-size="14" font-weight="400" text-anchor="start" fill="#626a83">rules · codes · severity</text>
+<rect class="art-card" x="70" y="660" width="1112" height="70" rx="8" fill="#ffffff" stroke="#c8cedb" stroke-width="1.5"/>
+<text class="art-text" x="94" y="688" font-size="17" font-weight="700" text-anchor="start" fill="#34394b">Shared contracts</text>
+<text class="art-muted" x="94" y="714" font-size="16" font-weight="400" text-anchor="start" fill="#626a83">document spans · dialect profiles · schema snapshots · positive / negative / incomplete corpus</text>
+<text class="art-teal" x="49" y="771" font-size="22" font-weight="700" text-anchor="start" fill="#179299">cubrid-language-tools</text>
+<text class="art-muted" x="346" y="771" font-size="16" font-weight="400" text-anchor="start" fill="#626a83">independent language project</text>
+<text class="art-text" x="1176" y="771" font-size="16" font-weight="700" text-anchor="end" fill="#34394b">One maintained release</text>
+</g></svg>

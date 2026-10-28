@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 2,
+  "workItem": 572,
+  "architecture": "A: shared library plus LSP and CLI",
+  "accepted": "2026-10-28",
+  "integrationBranch": "implement/central-engine",
+  "integrationCheckout": "/home/vimkim/gh/cubrid-language-tools-build",
+  "finalDestination": "local main; no remote configured",
+  "scope": "Nine central tickets; separate consumers later",
+  "tickets": {
+    "01": {
+      "status": "ready",
+      "dependsOn": []
+    },
+    "02": {
+      "status": "ready",
+      "dependsOn": []
+    },
+    "03": {
+      "status": "pending",
+      "dependsOn": [
+        "01",
+        "02"
+      ]
+    },
+    "04": {
+      "status": "pending",
+      "dependsOn": [
+        "01"
+      ]
+    },
+    "05": {
+      "status": "pending",
+      "dependsOn": [
+        "03",
+        "04"
+      ]
+    },
+    "06": {
+      "status": "pending",
+      "dependsOn": [
+        "02"
+      ]
+    },
+    "07": {
+      "status": "pending",
+      "dependsOn": [
+        "06"
+      ]
+    },
+    "08": {
+      "status": "pending",
+      "dependsOn": [
+        "03",
+        "07"
+      ]
+    },
+    "09": {
+      "status": "pending",
+      "dependsOn": [
+        "05",
+        "08"
+      ]
+    }
+  },
+  "checkpoints": {
+    "completion": {
+      "checkout": "/home/vimkim/gh/csql-future-language-01",
+      "commit": "ea796ad6611fa0090003f9698e6d635b8978591a",
+      "status": "preserved; central port required"
+    },
+    "native": {
+      "checkout": "/home/vimkim/gh/csql-future-language-02",
+      "commit": "4a7f996b1d1b9f9c57b438856135f45218e2c5ab",
+      "status": "incomplete; full qualification required"
+    }
+  }
+}

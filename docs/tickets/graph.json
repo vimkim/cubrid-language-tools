@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 2,
+  "scope": "independent central engine",
+  "tickets": [
+    {
+      "id": "01",
+      "file": "01-completion-core.md",
+      "dependsOn": [],
+      "title": "Independent completion library"
+    },
+    {
+      "id": "02",
+      "file": "02-native-worker.md",
+      "dependsOn": [],
+      "title": "Qualified native worker"
+    },
+    {
+      "id": "03",
+      "file": "03-lint-cli.md",
+      "dependsOn": [
+        "01",
+        "02"
+      ],
+      "title": "Shared validation and lint CLI"
+    },
+    {
+      "id": "04",
+      "file": "04-schema-snapshots.md",
+      "dependsOn": [
+        "01"
+      ],
+      "title": "Offline schema snapshots"
+    },
+    {
+      "id": "05",
+      "file": "05-lsp.md",
+      "dependsOn": [
+        "03",
+        "04"
+      ],
+      "title": "Shared LSP adapter"
+    },
+    {
+      "id": "06",
+      "file": "06-query-dml.md",
+      "dependsOn": [
+        "02"
+      ],
+      "title": "Query and DML coverage"
+    },
+    {
+      "id": "07",
+      "file": "07-schema-engineer.md",
+      "dependsOn": [
+        "06"
+      ],
+      "title": "Schema and engineer coverage"
+    },
+    {
+      "id": "08",
+      "file": "08-script-boundaries.md",
+      "dependsOn": [
+        "03",
+        "07"
+      ],
+      "title": "CSQL script classification"
+    },
+    {
+      "id": "09",
+      "file": "09-delivery.md",
+      "dependsOn": [
+        "05",
+        "08"
+      ],
+      "title": "Distribution and final qualification"
+    }
+  ]
+}
