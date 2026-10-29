@@ -21,3 +21,7 @@ Read current VS Code test/host scripts and Neovim tests/run.sh and identify port
 ## Core documentation review correction
 
 The independent documentation review identified current publication-status contradictions in docs/roadmap.md and three prose locations in docs/architecture.html. A fresh correction owner may edit only those two files on the existing clean core documentation topic. The HTML scope is text-only status/link correction; CSS, scripts, diagrams and the dated architecture decision stay unchanged. Preserve AI and csql-future migration as future work. This is a current-status correction within the public documentation job, not an architecture redesign.
+
+## Concurrent Neovim baseline refresh
+
+After initial dispatch, another session integrated Neovim SQL-default behavior and related tests. Current main at inspection is 9a8b068, including ac9cf68 and 0f60ec9. Preserve that work and its missing-default.lua/sql-defaults.lua tests. Neovim now defaults both SQL and CSQL to cubrid; sql=false opts out. VS Code remains .sql opt-in. New Neovim documentation and CI are prepared from a fresh current-main worktree, without reverting the newer product behavior. Original 72379ba remains historical evidence, not the final merge candidate. The real Neovim config's independent 3071756 update is out of scope and must not be altered.
