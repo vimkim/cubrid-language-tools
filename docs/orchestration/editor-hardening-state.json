@@ -206,5 +206,26 @@
     "evidence": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/integration-core/docs-check.txt",
     "cleanup": "Only docs/editor-installation branch and core-docs WT removed withoutforce; coordinator/show-hints preserved",
     "rootVerification": "ls-remote matches3780dbf; bothREADMEline13 links and justsync/update-shell docs inspected"
+  },
+  "neovimIntegration": {
+    "status": "merged-pushed-hosted-pass-clean",
+    "main": "8e9f200e881f82241ced6dd01735b104ede0d203",
+    "run": "https://github.com/vimkim/cubrid.nvim/actions/runs/40834798245",
+    "artifactId": 12880013088,
+    "checks": "Hosted17portable,34sourcefiles,official0.12.5; local17portableplus4native; laterdiscoverycasespreserved",
+    "rootReceipt": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/integration-neovim/root-verified.json",
+    "cleanup": "Only three merged task WTs/branches removed withoutforce; historical72379ba ancestor preserved; unrelatedstandardLSP WT untouched"
+  },
+  "vscodeIntegration": {
+    "status": "merged-pushed; first hosted run failed before probes; bounded repair active",
+    "main": "c3719ebdee7883dd68af5efba54589a880ad2fe3",
+    "run": "https://github.com/vimkim/cubrid-vscode/actions/runs/40834804424",
+    "evidence": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/integration-vscode/run-40834804424",
+    "failures": [
+      "Blanket validation rejects historical suffixed entries in official stable release list",
+      "Strict installed inventory omits .vsixmanifest generated exactly from VSIXrootmanifest"
+    ],
+    "repairOwner": "fix_vscode_hosted_boundaries",
+    "productDefectObserved": false
   }
 }
