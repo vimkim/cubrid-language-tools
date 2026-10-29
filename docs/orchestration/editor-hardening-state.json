@@ -1,6 +1,6 @@
 {
   "workItem": 595,
-  "status": "approved integration and hosted qualification in progress",
+  "status": "all requested source changes and hosted qualification verified; closing audit and metadata publication",
   "evidenceDirectory": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j",
   "plan": "docs/orchestration/editor-hardening-plan.md",
   "dispatch": [
@@ -217,9 +217,9 @@
     "cleanup": "Only three merged task WTs/branches removed withoutforce; historical72379ba ancestor preserved; unrelatedstandardLSP WT untouched"
   },
   "vscodeIntegration": {
-    "status": "actual hosted desktop qualified; narrow status docs refresh pending",
-    "main": "eb4cc3266a801b431be9bd21f417cd4e2fec2c1b",
-    "run": "https://github.com/vimkim/cubrid-vscode/actions/runs/40836324028",
+    "status": "final source and status docs integrated; exact final hosted artifact verified",
+    "main": "afd459b7eb9a9a42164f0aa9ed191967c56a6e95",
+    "run": "https://github.com/vimkim/cubrid-vscode/actions/runs/40837432286",
     "evidence": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/integration-vscode/run-40834804424",
     "failures": [
       "Blanket validation rejects historical suffixed entries in official stable release list",
@@ -232,15 +232,16 @@
     "repairEvidence": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/vscode-hosted-boundary-fix/report.md",
     "testEnvEvidence": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/vscode-ci-test-env-fix/report.md",
     "checks": "12 local tests pass including fake-hosted environment tripwire; saved real artifacts replay GREEN; second hosted package job passed; desktop jobs running",
-    "qualifiedSourceCommit": "eb4cc3266a801b431be9bd21f417cd4e2fec2c1b",
+    "qualifiedSourceCommit": "afd459b7eb9a9a42164f0aa9ed191967c56a6e95",
     "qualifiedVersions": [
       "1.109.0",
       "1.144.0"
     ],
     "coverage": "trusted Linux desktop with native inputs absent; realT1001; fourmandatorycasesperversion",
-    "artifactVsixSha256": "4113089fce0aed92a9c77f3674bf81f597afbb35a0bd7531f97c5deccca992f4",
-    "rootReceipt": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/integration-vscode/run-40836324028/root-verified.json",
-    "inspection": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/integration-vscode/run-40836324028/inspection.json",
-    "finalDocsOwner": "refresh_vscode_qualification_docs"
+    "artifactVsixSha256": "a3d29145bfda1979b14a91aa4b275d7b2c03104d90b42e62e6223bedca076c3e",
+    "rootReceipt": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/integration-vscode/run-40837432286/root-verified.json",
+    "inspection": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/integration-vscode/run-40837432286/inspection.json",
+    "finalDocsOwner": "completed; both installation guides and acceptance record published",
+    "cleanup": "Integration owner checking and removing only four merged task WTs/branches withoutforce"
   }
 }

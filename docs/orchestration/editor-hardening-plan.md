@@ -15,7 +15,7 @@ The user approved jobs 1 through 3 and excluded csql-future migration. The core 
 - [x] Read the Principles section of poteto-mode.
 - [x] Phase A: Frame. Inspect four repository states, the live Neovim deployment, published artifacts and official desktop testing guidance.
 - [x] Phase B: Design the workflow. Ground the existing host harness, compare two desktop CI shapes and select a small artifact-based runner before implementation.
-- [ ] Phase C: Run the loop. Finish each bounded unit against its acceptance predicate.
+- [x] Phase C: Run the loop. Finish each bounded unit against its acceptance predicate.
 - [x] Phase D: Keep the audit trail. Append decisions and evidence as each checkpoint completes.
 - [ ] Phase E: Verify and hand back. Review real artifacts and hosted outcomes, with unresolved coverage kept explicit.
 
