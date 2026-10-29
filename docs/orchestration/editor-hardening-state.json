@@ -193,7 +193,8 @@
   "approval": {
     "userMessage": "yes",
     "scope": "Rebase preserve check integrate push reviewed docs/CI; include eight existing Neovim main commits; run hosted CI",
-    "time": "2026-10-29T07:15:58.336029+00:00"
+    "time": "2026-10-29T07:15:58.336029+00:00",
+    "transcript": "/home/vimkim/.codex/sessions/2026/10/29/rollout-2026-10-29T02-26-02-01a1838c-2489-7cb1-b286-690d6e483e15.jsonl:4485"
   },
   "coreIntegration": {
     "status": "merged-pushed-clean",
@@ -242,6 +243,7 @@
     "rootReceipt": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/integration-vscode/run-40837432286/root-verified.json",
     "inspection": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/integration-vscode/run-40837432286/inspection.json",
     "finalDocsOwner": "completed; both installation guides and acceptance record published",
-    "cleanup": "Integration owner checking and removing only four merged task WTs/branches withoutforce"
-  }
+    "cleanup": "All four merged task WTs and branches removed withoutforce; only disposable node_modules/out removed; oldalpha copies preserved; main/remoteafd459b clean"
+  },
+  "finalCommentReview": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/final-comment-review.md"
 }

@@ -51,7 +51,7 @@ Production extension code, lifecycle behavior, languageclient 9.0.1 and all eigh
 
 The approved rebase preserved Neovim's independently added SQL defaults, `file_extensions`, runtime discovery, doctor commands, new tests, acceptance records and generated-help-index ignore. The old documentation commit `72379ba` remains an ancestor. Core PATH installation recipes and guidance were preserved. Native inputs, original checkpoints, unrelated feature worktrees and the real user configuration were not changed by this integration.
 
-Core documentation and all three merged Neovim task worktrees/branches were removed without force after checking preservation. VS Code and coordinator cleanup are being completed after the final run and record publication. No remote branch deletion, Marketplace publication, new alpha release or csql-future migration is included.
+Core documentation and all three merged Neovim task worktrees/branches were removed without force after checking preservation. All four merged VS Code task worktrees/branches were also removed without force after preserving artifacts. Only the coordinator task worktree remains until this record is published. No remote branch deletion, Marketplace publication, new alpha release or csql-future migration is included.
 
 Prove It Works required inspecting real archives, installed artifacts, saved bytes and hosted receipts. Separate Before Serializing Shared State kept each writer and repository integration isolated.
 
@@ -66,5 +66,7 @@ The evidence directory is `/home/vimkim/temp/cubrid-editor-hardening-c57_w98j`.
 - `vscode-hosted-boundary-fix/report.md` and `vscode-ci-test-env-fix/report.md` record RED/GREEN repairs.
 - `vscode-qualification-docs/report.md` records the narrowly scoped status refresh.
 - `docs/orchestration/editor-hardening-decisions.tsv` is the canonical append-only decision trail. `trail-audit.md` covers the earlier preparation handoff; a final available-model audit checks the approved integration and hosted evidence.
+
+The final repair/status diff has no added code comments or suppressions; the fresh comment review reported no findings.
 
 Review uses available GPT models. It does not claim cross-provider or different-model-family independence.
