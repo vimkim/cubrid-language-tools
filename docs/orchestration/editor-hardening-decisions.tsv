@@ -1,0 +1,2 @@
+ts	phase	decision	why	evidence	result
+2026-10-29T05:51:13Z	frame	Complete approved editor onboarding and CI jobs while excluding csql-future migration	The user approved the first three jobs and requested explicit editor repository links in this project README	docs/orchestration/editor-hardening-plan.md	Four repository scopes framed; concrete Neovim integration approved; new source integration gate retained
