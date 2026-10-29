@@ -1,9 +1,11 @@
 # Bounded query and DML qualification
 
 Profile: **cubrid-11.5.0.2704-cc94778**. Coverage revision:
-**bounded-query-dml-schema-engineer-v3**, which reuses the original v2 query/DML
+**bounded-query-dml-schema-engineer-ordered-v4**, which reuses the original v2 query/DML
 feature predicates. [SCHEMA_ENGINEER_AUDIT.md](SCHEMA_ENGINEER_AUDIT.md) adds
 the native error-manager guard and records newly qualified and rejected forms.
+[ORDERED_HINT_AUDIT.md](ORDERED_HINT_AUDIT.md) adds one block ORDERED hint to
+literal SELECT in v4. The broader query and DML families below still exclude hints.
 All source links refer to the exact
 read-only commit **cc947788d3b7dc402f46192d0f3299ddcc8563ba**. The generated
 headers, library, runtime assets, settings, platform and production inputs stay
@@ -72,8 +74,9 @@ The scanner preserves compound operator identities before feature checking:
 single-character operations. Numeric-dot and adjacent numeric-word sequences
 are denied so native real/exponent/bit/hex lexing cannot bypass the integer
 limit. Name/string introducers are denied. Comments disappear only from feature
-tokens; the original comments remain in native text. All three hint prefixes,
-executable-style block comments and nested block comments deny coverage.
+tokens; the original comments remain in native text. Closed block hints remain
+explicit tokens and the registry confines them to the separately audited literal
+SELECT predicate. Line hints, executable-style block comments and nested block comments deny coverage.
 Strings retain their contents, semicolons and comment markers. Unterminated
 quoted tokens/comments receive S1001 without a native call.
 

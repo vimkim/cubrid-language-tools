@@ -2,7 +2,7 @@
 
 This audit records the common lifecycle and the original literal SELECT / CREATE
 SERIAL predicates for profile **cubrid-11.5.0.2704-cc94778** on Linux x86-64.
-The current revision is **bounded-query-dml-schema-engineer-v3**. Expanded
+The current revision is **bounded-query-dml-schema-engineer-ordered-v4**. Expanded
 query/DML paths are qualified in [QUERY_DML_AUDIT.md](QUERY_DML_AUDIT.md).
 [SCHEMA_ENGINEER_AUDIT.md](SCHEMA_ENGINEER_AUDIT.md) records bounded DDL and
 engineer coverage, settings/error guards, and rejected description paths. Every upstream line below
@@ -11,6 +11,8 @@ read-only reference checkout. The source commit, source-header set, actual
 compiler inputs, generated headers, library, runtime assets, worker inputs,
 settings and platform are bound by [manifest.json](qualification/manifest.json)
 and [build-evidence.json](qualification/build-evidence.json).
+[ORDERED_HINT_AUDIT.md](ORDERED_HINT_AUDIT.md) qualifies the single argument-free
+block ORDERED exception on literal SELECT in revision v4.
 
 This is a source review of the reachable actions under the original two predicates.
 It does not qualify all SELECT or CREATE SERIAL grammar, all grammar recovery
@@ -25,8 +27,9 @@ native parse call. It separates statements outside strings and comments, keeps
 original byte spans, and counts code points only when constructing diagnostics.
 Its accepted punctuation is further limited by each family. Unterminated quotes
 or comments produce a syntax diagnostic without calling native code. Ordinary
-comments are retained in the native source text; hint prefixes, executable-style
-comments and nested block comments deny coverage.
+comments are retained in the native source text. Executable-style comments and
+nested block comments deny coverage. The original predicates below exclude hints,
+apart from the separately audited v4 literal SELECT ORDERED exception.
 
 | Family | Token alphabet allowed before parsing | Explicit exclusions |
 | --- | --- | --- |
@@ -103,7 +106,8 @@ Its ordinary single-quote path, doubled quotes, newlines and escapes
 [1297–1416](https://github.com/CUBRID/cubrid/blob/cc947788d3b7dc402f46192d0f3299ddcc8563ba/src/parser/csql_lexer.l#L1297-L1416))
 append bytes only. Hint states are separated from ordinary comment states
 ([1419–1493](https://github.com/CUBRID/cubrid/blob/cc947788d3b7dc402f46192d0f3299ddcc8563ba/src/parser/csql_lexer.l#L1419-L1493));
-the predicate denies all three hint prefixes before calling the lexer. PL/CSQL
+the original predicates deny all three hint prefixes before calling the lexer.
+Revision v4 admits only the separately audited literal SELECT ORDERED block. PL/CSQL
 states are unreachable because the admitted CREATE branch is SERIAL.
 
 Malformed admitted token sequences can reach

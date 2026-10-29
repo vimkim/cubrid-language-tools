@@ -4,7 +4,7 @@
 
 This reference describes the bounded Python development release, `0.1.0.dev0`.
 The exact native profile is `cubrid-11.5.0.2704-cc94778` on Linux x86-64.
-Its source commit is `cc947788d3b7dc402f46192d0f3299ddcc8563ba` and coverage revision is `bounded-query-dml-schema-engineer-v3`.
+Its source commit is `cc947788d3b7dc402f46192d0f3299ddcc8563ba` and coverage revision is `bounded-query-dml-schema-engineer-ordered-v4`.
 Other builds, including other 11.5 builds, need separate qualification.
 The Python wheel contains no native worker, CUBRID library, or runtime assets.
 
@@ -27,6 +27,7 @@ Malformed input within the admitted features produces a syntax error. Ambiguous 
 | Family | Example | Qualified features and limits |
 | --- | --- | --- |
 | SELECT | `SELECT a.id FROM absent a WHERE a.id >= 3;` | Names, qualified names, stars, aliases, DISTINCT, FROM, WHERE. No ORDER, GROUP, HAVING, LIMIT, set operations, INTO, or hints |
+| Literal SELECT with ORDERED | `SELECT /*+ ORDERED */ '가😀', -10, NULL;` | One argument-free block ORDERED immediately after top-level SELECT. Only integers, ordinary strings, NULL, commas, and literal signs. No names, FROM, modifiers, expressions, nested queries, or other hint forms |
 | Joins | `SELECT a.id FROM a LEFT JOIN b ON a.id=b.id;` | Comma, INNER, default, LEFT, RIGHT, CROSS, ON, and table parentheses. No NATURAL, FULL, USING columns, or DBLINK |
 | Expressions | `SELECT (1+2)*3, '가😀', NULL;` | Integers up to 38 digits, ordinary strings, names, parentheses, arithmetic, comparisons, IS NULL, AND, OR, NOT, EXISTS. No functions, noninteger numeric literals, casts, IN, BETWEEN, LIKE, CASE, variables, or serial values |
 | CTEs and subqueries | `WITH c AS (SELECT 1 AS n) SELECT n FROM c;` | Nonrecursive nested or multiple CTEs, scalar and derived queries, EXISTS and correlated names. No CTE or table-alias column lists |
@@ -50,8 +51,11 @@ Malformed input within the admitted features produces a syntax error. Ambiguous 
 Simple quoted identifiers exclude embedded delimiters, escapes, dots, and control characters.
 Functions, generic SHOW, prepared SQL, PL/CSQL, host/session variables, and other unlisted constructs remain unsupported.
 The authoritative predicate details are in the [query/DML audit](../native/parser-worker/QUERY_DML_AUDIT.md),
-[schema/engineer audit](../native/parser-worker/SCHEMA_ENGINEER_AUDIT.md), and [original audit](../native/parser-worker/AUDIT.md).
-The retained [native corpus](../native/parser-worker/qualification/corpus.json) has 325 cases: 99 valid, 80 syntax-error, and 146 unsupported.
+[schema/engineer audit](../native/parser-worker/SCHEMA_ENGINEER_AUDIT.md), [ORDERED audit](../native/parser-worker/ORDERED_HINT_AUDIT.md), and [original audit](../native/parser-worker/AUDIT.md).
+ORDERED is ASCII case-insensitive. Space, tab, CR, and LF may surround its name and separate SELECT from the hint.
+Ordinary comments between SELECT and the hint, hint arguments, duplicate hints, closed malformed hints, nested comments, `--+`, and `//+` remain unsupported.
+An unterminated comment or quote remains a scanner syntax error without a native call.
+The retained [native corpus](../native/parser-worker/qualification/corpus.json) has 393 cases: 110 valid, 89 syntax-error, and 194 unsupported.
 Its no-execution trace applies to that corpus. Process separation is not an operating-system sandbox.
 
 ## Four accepted exclusions

@@ -2,7 +2,7 @@
 
 This separately built Linux x86-64 executable qualifies only
 **cubrid-11.5.0.2704-cc94778**, with coverage revision
-**bounded-query-dml-schema-engineer-v3**.
+**bounded-query-dml-schema-engineer-ordered-v4**.
 It checks parser-stage syntax without a database connection or submitted-SQL
 execution. Bounded SELECT, joins, integer arithmetic/comparisons, nonrecursive
 CTEs/subqueries, INSERT, UPDATE, DELETE, MERGE and the original CREATE SERIAL
@@ -13,7 +13,8 @@ DESCRIBE/DESC/EXPLAIN and SHOW COLUMNS remain unsupported: their shared helper
 reports a native not-connected error in this exact offline runtime.
 The user accepted these exclusions for the first offline profile on 2026-10-29.
 A separately qualified parser-only backend remains later work.
-Functions, hints and unknown features return unsupported
+One argument-free block ORDERED hint immediately after a top-level literal
+SELECT is also qualified. Other hints, functions and unknown features return unsupported
 coverage before native parsing. An admitted token
 sequence must still pass the native parser, error flags and tree checks.
 
@@ -21,6 +22,7 @@ Read [AUDIT.md](AUDIT.md) for the pinned-source reachable-action/settings review
 [QUERY_DML_AUDIT.md](QUERY_DML_AUDIT.md) for query/DML limits,
 [SCHEMA_ENGINEER_AUDIT.md](SCHEMA_ENGINEER_AUDIT.md) for schema/engineer bounds
 and the concrete description blocker,
+[ORDERED_HINT_AUDIT.md](ORDERED_HINT_AUDIT.md) for the exact literal SELECT hint boundary,
 [notices/README.md](notices/README.md) for retained licenses and runtime inventory,
 and [qualification/results.json](qualification/results.json) for actual fixtures
 and trace limits. The Python distribution contains the adapter; native binaries
@@ -175,7 +177,7 @@ cancellation or active close uses kill/reap of the owned PID only. Abrupt native
 termination can leave its private temporary directory; the client never sweeps
 /tmp or signals descendants/unrelated processes.
 
-The retained strace covers network/process/openat calls for 325 listed fixtures:
+The retained strace covers network/process/openat calls for 393 listed fixtures:
 one worker execution, no descendants, no network calls and no external writable
 opens. Ordinary system library/locale files can be read. This observation is
 corpus-specific and is not an operating-system sandbox or a proof for other SQL.

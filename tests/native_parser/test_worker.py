@@ -14,6 +14,29 @@ PROFILE = "cubrid-11.5.0.2704-cc94778"
 
 
 class NativeWorkerTests(unittest.TestCase):
+    def test_ordered_literal_select_checks_native_errors_and_recovers(self):
+        texts = ["SELECT /*+ ORDERED */ '가😀', -10, +2, NULL;",
+                 "SELECT /*+ ORDERED */ ,;", "SELECT /*+ ORDERED */ 1,;",
+                 "SELECT /*+ ORDERED */;", "SELECT /*+ ORDERED */ -;",
+                 "SELECT /*+ ORDERED */ 1;", "SELECT 1;"]
+        requests = [{"protocolVersion": 1, "id": 1, "method": "initialize", "profile": PROFILE}]
+        requests += [{"protocolVersion": 1, "id": i + 2, "method": "parse", "text": text}
+                     for i, text in enumerate(texts)]
+        responses = self.exchange(requests)
+        for index, result in enumerate(responses[1:]):
+            with self.subTest(text=texts[index]):
+                valid = index in (0, len(texts) - 2, len(texts) - 1)
+                self.assertEqual(result['status'], 'valid' if valid else 'syntax-error', result)
+                self.assertEqual(result['coverage'], 'complete')
+                self.assertTrue(result['syntaxSettingsUnchanged'])
+                self.assertEqual([d['admitted'] for d in result['coverageDecisions']], [True])
+                observation, = result['nativeObservations']
+                self.assertEqual(observation['nativeErrorId'], 0)
+                self.assertFalse(observation['hasInternalError'])
+                self.assertEqual(observation['hasError'], not valid)
+                self.assertEqual(observation['errorCount'] == 0, valid)
+                self.assertEqual(result['statementKinds'], ['PT_SELECT'] if valid else [])
+
     def test_diagnostic_boundary_accepts_255_plus_valid_and_exactly_256_findings(self):
         for count, suffix in ((255, 'SELECT 1;'), (256, ''), (256, 'SELECT 1;'), (257, '')):
             with self.subTest(count=count):
@@ -95,7 +118,7 @@ class NativeWorkerTests(unittest.TestCase):
         self.assertEqual(result["profile"], PROFILE)
         self.assertEqual(result["nativeVersion"], "11.5.0.2704-cc94778")
         self.assertEqual(result["sourceCommit"], "cc947788d3b7dc402f46192d0f3299ddcc8563ba")
-        self.assertEqual(result["coverageRevision"], "bounded-query-dml-schema-engineer-v3")
+        self.assertEqual(result["coverageRevision"], "bounded-query-dml-schema-engineer-ordered-v4")
         from cubrid_language.validation.profiles import SUPPORTED_STATEMENT_KINDS
         self.assertEqual(result["supportedStatementKinds"], list(SUPPORTED_STATEMENT_KINDS))
 

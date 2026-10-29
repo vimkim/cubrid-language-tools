@@ -65,6 +65,21 @@ class NativeHintAuthoringProtocolTests(unittest.TestCase):
         cls.settings = {'cubrid': {'parserWorker': str(BUILD / 'parser-worker'),
                                    'runtimePrefix': manifest['runtimePrefix']}}
 
+    def test_ordered_native_diagnostics_update_and_clear_with_original_utf16_ranges(self):
+        with Client() as client:
+            client.initialize(self.settings)
+            uri = client.open("SELECT /*+ ORDERED */ '가😀';\r\nSELECT /*+ ORDERED */ ,;\r\nSELECT /*+ ORDERED(t) */ 1;")
+            findings = client.diagnostics(uri, 1)['diagnostics']
+            self.assertEqual([d['code'] for d in findings], ['CUBRID-S1001', 'CUBRID-U1002'])
+            self.assertEqual(findings[0]['range'], {'start': {'line': 0, 'character': 28},
+                                                    'end': {'line': 1, 'character': 24}})
+            self.assertEqual(findings[1]['range'], {'start': {'line': 1, 'character': 24},
+                                                    'end': {'line': 2, 'character': 27}})
+            self.assertEqual([d['severity'] for d in findings], [1, 2])
+            self.assertEqual(findings[0]['data'], {'category': 'syntax', 'rangePrecision': 'statement'})
+            client.change(uri, "SELECT /*+ ORDERED */ '가😀';", 2)
+            self.assertEqual(client.diagnostics(uri, 2)['diagnostics'], [])
+
     def test_warning_and_unsupported_are_published_and_cleared(self):
         with Client() as client:
             client.initialize(self.settings)
