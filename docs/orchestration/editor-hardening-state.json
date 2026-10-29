@@ -245,5 +245,6 @@
     "finalDocsOwner": "completed; both installation guides and acceptance record published",
     "cleanup": "All four merged task WTs and branches removed withoutforce; only disposable node_modules/out removed; oldalpha copies preserved; main/remoteafd459b clean"
   },
-  "finalCommentReview": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/final-comment-review.md"
+  "finalCommentReview": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/final-comment-review.md",
+  "cleanupSnapshot": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/final-cleanup-snapshot.json"
 }
