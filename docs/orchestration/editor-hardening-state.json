@@ -194,5 +194,17 @@
     "userMessage": "yes",
     "scope": "Rebase preserve check integrate push reviewed docs/CI; include eight existing Neovim main commits; run hosted CI",
     "time": "2026-10-29T07:15:58.336029+00:00"
+  },
+  "coreIntegration": {
+    "status": "merged-pushed-clean",
+    "main": "3780dbf147fad956147df29700ac718159147f68",
+    "docsOriginal": "7c2e723856320f2d57d6b95f2445178c90dd2115",
+    "docsRebased": [
+      "8f5b10f",
+      "3780dbf"
+    ],
+    "evidence": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/integration-core/docs-check.txt",
+    "cleanup": "Only docs/editor-installation branch and core-docs WT removed withoutforce; coordinator/show-hints preserved",
+    "rootVerification": "ls-remote matches3780dbf; bothREADMEline13 links and justsync/update-shell docs inspected"
   }
 }
