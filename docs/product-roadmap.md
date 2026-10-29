@@ -53,11 +53,11 @@ Rust로 바뀌어도 CLI·LSP 프로토콜과 관찰 가능한 결과를 유지�
 
 검증된 Python 인터페이스부터 사용할 수 있으며 모든 모듈의 Rust 전환을 기다릴 필요는 없습니다.
 
-| 제품 | 예정 기능·연동 |
+| 제품 | 현재 기능 또는 예정 연동 |
 | --- | --- |
 | csql-future | 공통 완성 라이브러리 사용. 히스토리·메뉴·접속·카탈로그 조회는 터미널에 유지 |
-| VS Code 확장 | 전용 `cubrid` 언어 ID, LSP 완성·진단, 구문 강조, 들여쓰기, 선택적 `.sql` 연결 |
-| Neovim 플러그인 | filetype·내장 LSP, 완성·진단, 구문 강조·들여쓰기·스냅샷 재로드 |
+| [VS Code 확장](https://github.com/vimkim/cubrid-vscode) 알파 | 전용 `cubrid` 언어 ID, LSP 완성·진단, 구문 강조, 들여쓰기, 선택적 `.sql` 연결 |
+| [Neovim 플러그인](https://github.com/vimkim/cubrid.nvim) 알파 | filetype·내장 LSP, 완성·진단, 구문 강조·들여쓰기·스냅샷 재로드 |
 | AI·CI 도구 | 구조화된 린트 결과와 실패 상태를 작업 흐름에 연결 |
 
 터미널 전환은 후보·Unicode 편집·메타데이터의 동등성과 기존 PTY 검사를 통과해야 합니다.
@@ -73,5 +73,5 @@ Rust로 바뀌어도 CLI·LSP 프로토콜과 관찰 가능한 결과를 유지�
 - **객체 설명:** 2026-10-29에 수용한 SHOW COLUMNS·DESCRIBE·DESC·클래스 설명용 EXPLAIN 제외를 유지하고 별도 parser-only backend를 검증합니다. 원래 객체 설명 검증 기준은 통과하지 않았습니다.
 - **문법·플랫폼:** PL/CSQL, 다른 11.5 빌드·11.4, 추가 운영체제를 각각 검증합니다.
 
-포매팅·의미·스타일 린트와 각 편집기 패키지는 현재 제공 기능으로 안내하지 않습니다.
+포매팅·의미·스타일 린트는 아직 제공하지 않습니다.
 지금 사용할 수 있는 터미널 기능은 [csql-future 저장소](https://github.com/vimkim/csql-future)에 있습니다.

@@ -2,8 +2,7 @@
 
 One maintained language engine for CUBRID completion, syntax checking, and lint diagnostics.
 This independent project owns the Python library, native parser worker, lint CLI, and optional LSP adapter.
-Separate VS Code and Neovim alpha consumers are implemented and locally verified. They have not been published.
-See the [editor alpha report](tickets/reports/editor-alpha.md). AI checkers and csql-future migration remain future work.
+The [VS Code extension](https://github.com/vimkim/cubrid-vscode) and [Neovim plugin](https://github.com/vimkim/cubrid.nvim) are public alphas. AI checkers and csql-future migration remain future work.
 
 ![A shared library serves the LSP adapter, CLI, and future Python TUI](architecture-assets/library.svg)
 

@@ -24,7 +24,12 @@ cubrid-lint --help
 
 ## 코어·CLI 설치
 
-checkout에서 전용 환경을 만들고 설치합니다.
+공개 저장소를 복제하고 전용 환경에 설치합니다.
+
+```sh
+git clone https://github.com/vimkim/cubrid-language-tools.git
+cd cubrid-language-tools
+```
 
 ```sh
 uv venv --python 3.10 .venv
@@ -61,8 +66,8 @@ uv pip install --python .venv/bin/python '.[lsp]'
 Python 3.10에서는 exceptiongroup 1.3.1도 사용합니다.
 편집기가 `.venv/bin/cubrid-language-server`를 인자 없이 stdio 자식 프로세스로 실행하도록 설정합니다.
 문서는 `cubrid` 언어 ID로 엽니다. [LSP 설정 안내](lsp.md)를 참조합니다.
-별도 VS Code·Neovim 알파 패키지는 로컬 검증을 마쳤으며 아직 공개하지 않았습니다.
-설치 산출물·선행 조건·지원 범위는 [편집기 알파 보고서](tickets/reports/editor-alpha.md)에 기록했습니다.
+[VS Code 확장](https://github.com/vimkim/cubrid-vscode)과 [Neovim 플러그인](https://github.com/vimkim/cubrid.nvim)의 설치 안내를 확인합니다.
+두 패키지에 Python 서버와 네이티브 런타임은 포함되지 않으며 자동으로 다운로드하지 않습니다. 키워드 완성에는 서버가 필요하지만 네이티브 파서는 필요하지 않습니다.
 
 ## 검증된 네이티브 워커 준비
 

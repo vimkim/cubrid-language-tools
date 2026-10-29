@@ -24,7 +24,14 @@ Completion works immediately. Strict diagnostics also require the separate nativ
 
 ## Install the core and CLI
 
-From a checkout, create a dedicated environment and install the package:
+Clone the public repository and create a dedicated environment:
+
+```sh
+git clone https://github.com/vimkim/cubrid-language-tools.git
+cd cubrid-language-tools
+```
+
+Install the package:
 
 ```sh
 uv venv --python 3.10 .venv
@@ -61,8 +68,8 @@ The extra pins pygls 2.1.1, lsprotocol 2025.0.0, attrs 25.4.0, cattrs 25.3.0, an
 Python 3.10 also uses exceptiongroup 1.3.1.
 Configure an editor to spawn `.venv/bin/cubrid-language-server` with no arguments and stdio transport.
 Open documents with language ID `cubrid`. See the [LSP settings guide](lsp.en.md).
-Separate VS Code and Neovim alpha packages are locally verified. They have not been published.
-The [editor alpha report](tickets/reports/editor-alpha.md) records artifacts, prerequisites, and supported behavior.
+See the installation instructions for the [VS Code extension](https://github.com/vimkim/cubrid-vscode) and [Neovim plugin](https://github.com/vimkim/cubrid.nvim).
+Neither package bundles or automatically downloads the Python server or native runtime. Keyword completion needs the server but not the native parser.
 
 ## Supply the qualified native worker
 

@@ -53,11 +53,11 @@ Record actual compatibility and performance evidence instead of attributing impr
 
 Consumers can use qualified Python interfaces before the entire Rust migration finishes.
 
-| Product | Planned integration/features |
+| Product | Current features or planned integration |
 | --- | --- |
 | csql-future | Use the shared completion library. Keep history, menus, connections, and catalogs in the terminal |
-| VS Code extension | Dedicated `cubrid` identity, LSP completion/diagnostics, highlighting, indentation, opt-in `.sql` association |
-| Neovim plugin | Filetype, built-in LSP, completion/diagnostics, highlighting, indentation, snapshot reload |
+| [VS Code extension](https://github.com/vimkim/cubrid-vscode) alpha | Dedicated `cubrid` identity, LSP completion/diagnostics, highlighting, indentation, opt-in `.sql` association |
+| [Neovim plugin](https://github.com/vimkim/cubrid.nvim) alpha | Filetype, built-in LSP, completion/diagnostics, highlighting, indentation, snapshot reload |
 | AI / CI tools | Integrate structured lint results and failure states into workflows |
 
 Terminal migration requires candidate, Unicode edit, and metadata parity plus
@@ -73,5 +73,4 @@ Automatic live editor connections are later work.
 - **Class descriptions:** retain the accepted 2026-10-29 exclusions for SHOW COLUMNS, DESCRIBE, DESC, and class-description EXPLAIN. Qualify a separate parser-only backend. The original description criterion did not pass.
 - **Syntax/platforms:** qualify PL/CSQL, other 11.5 builds, 11.4, and additional operating systems separately.
 
-Formatting, semantic/style lint, and editor packages are not current delivered
-features. See the [csql-future repository](https://github.com/vimkim/csql-future) for terminal features available today.
+Formatting and semantic/style lint are not current delivered features. See the [csql-future repository](https://github.com/vimkim/csql-future) for terminal features available today.

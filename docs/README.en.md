@@ -14,7 +14,7 @@ Code, commands, and protocol identifiers remain consistent across languages.
 | [CSQL batch scripts](scripts.en.md) | Check command boundaries, original spans, and conservative recovery limits |
 | [Stdio LSP](lsp.en.md) | Install the optional server, configure editors, and use snapshots, completion, and diagnostics |
 | [Architecture](architecture.en.md) | Understand the library, CLI, LSP, native parser, and separate consumers |
-| [Development and product roadmap](product-roadmap.en.md) | Follow Python PoC, gradual Rust migration, and editor plans |
+| [Development and product roadmap](product-roadmap.en.md) | Follow Python PoC, gradual Rust migration, and consumer status |
 
 The development release implements the library, CLI, optional LSP, and bounded V3 syntax checks. `csql-future` is a
 separate project and has not migrated to this engine. These documents distinguish planned central/editor features from available terminal features.

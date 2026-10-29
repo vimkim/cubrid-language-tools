@@ -10,8 +10,8 @@
 
 **Python으로 PoC를 검증한 뒤, 모듈별로 Rust로 전환합니다.**
 개발 버전은 완성 라이브러리·CLI·선택적 LSP와 제한된 V3 오프라인 문법 검사를 제공합니다.
-로컬 개발 버전입니다. 별도 VS Code·Neovim 알파 패키지는 로컬에서 구현·검증했으며 아직 공개하지 않았습니다.
-[편집기 알파 검증 보고서](docs/tickets/reports/editor-alpha.md)에서 설치 산출물과 지원 범위를 확인합니다.
+[VS Code 확장](https://github.com/vimkim/cubrid-vscode)과 [Neovim 플러그인](https://github.com/vimkim/cubrid.nvim)은 공개 알파입니다.
+편집기 설치와 설정은 각 저장소를 확인합니다. 공통 Python 서버는 별도로 설치합니다.
 
 [설치·릴리스 검증](docs/install.md) · [지원 범위](docs/coverage.md) · [아키텍처](docs/architecture.md) · [개발·제품 로드맵](docs/product-roadmap.md) ·
 [CLI·검증 API](docs/lint-cli.md) · [stdio LSP](docs/lsp.md) · [문서 목차](docs/README.md)
@@ -71,7 +71,7 @@ LSP는 선택 의존성, 엄격한 파싱은 별도로 검증한 네이티브 �
 현재 **stdio LSP·오프라인 문법 린팅**을 제공합니다. SHOW COLUMNS·DESCRIBE·DESC·클래스 설명용 EXPLAIN은 미지원입니다.
 완성 어휘의 11.4 출처와 엄격한 11.5 파서 검증은 구분합니다.
 별도 **VS Code·Neovim 알파**는 완성·문법 진단·구문 강조·들여쓰기를 로컬에서 검증했습니다.
-편집기 패키지 공개와 csql-future·AI 소비 제품 연동은 후속 작업입니다.
+csql-future·AI 소비 제품 연동은 후속 작업입니다.
 이후 **포매팅·편집기 포매팅 연동**, 의미·스타일 린트와 문법·완성 범위 확대를 검토합니다.
 초기 린팅은 문법 진단입니다. 상세 범위는 [로드맵](docs/product-roadmap.md)에 있습니다.
 

@@ -20,8 +20,8 @@ uv pip install --python .venv/bin/python '.[lsp]'
 편집기에 실행 명령 `cubrid-language-server`, 빈 인자 목록, stdio 전송을 지정합니다.
 문서를 열 때 정확한 언어 ID `cubrid`를 사용합니다.
 일반 `sql` 문서에는 완성·진단을 제공하지 않습니다.
-별도 VS Code·Neovim 알파는 로컬 검증을 마쳤으며 아직 공개하지 않았습니다.
-[편집기 알파 보고서](tickets/reports/editor-alpha.md)에서 설치 산출물과 지원 범위를 확인합니다.
+[VS Code 확장](https://github.com/vimkim/cubrid-vscode)과 [Neovim 플러그인](https://github.com/vimkim/cubrid.nvim)은 공개 알파입니다. 각 저장소에서 설치와 설정을 확인합니다.
+편집기 패키지는 Python 서버와 네이티브 런타임을 포함하거나 자동 다운로드하지 않습니다. 키워드 완성에는 서버가 필요하지만 네이티브 파서는 필요하지 않습니다. 엄격한 오프라인 문법 진단에는 검증된 워커, 일치하는 런타임과 정확한 프로파일이 필요합니다.
 
 코어와 `cubrid-lint`의 필수 Python 런타임 의존성은 0개입니다.
 LSP extra는 pygls 2.1.1, lsprotocol 2025.0.0, attrs 25.4.0, cattrs 25.3.0, typing-extensions 4.15.0을 고정합니다.
