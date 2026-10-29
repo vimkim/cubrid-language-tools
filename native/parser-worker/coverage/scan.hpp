@@ -30,10 +30,16 @@ inline std::vector<Statement> scan(const std::string &text) {
       i = text.find('\n', i); if (i == std::string::npos) i = text.size(); continue;
     }
     if (text.compare(i, 2, "/*") == 0) {
-      if (i + 2 < text.size() && (text[i+2] == '+' || text[i+2] == '!')) current.unsafe = true;
+      if (i + 2 < text.size() && text[i+2] == '!') current.unsafe = true;
       size_t end = text.find("*/", i + 2);
       if (end == std::string::npos) { current.lexical_error = true; i = text.size(); break; }
       if (text.find("/*", i + 2) < end) current.unsafe = true;
+      if (text.compare(i, 3, "/*+") == 0) {
+        if (!current.tokens.empty() &&
+            text.substr(current.tokens.back().end, i - current.tokens.back().end).find_first_not_of(" \t\r\n") != std::string::npos)
+          current.unsafe = true;
+        current.tokens.push_back({text.substr(i, end + 2 - i), 'h', i, end + 2});
+      }
       i = end + 2; continue;
     }
     if (c == ';') { ++i; finish(i); continue; }

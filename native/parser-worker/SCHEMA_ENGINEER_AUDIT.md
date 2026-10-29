@@ -1,7 +1,7 @@
 # Bounded schema and engineer qualification checkpoint
 
 Profile: **cubrid-11.5.0.2704-cc94778**. Current coverage revision:
-**bounded-query-dml-schema-engineer-v3**. Source commit:
+**bounded-query-dml-schema-engineer-ordered-v4**. Source commit:
 **cc947788d3b7dc402f46192d0f3299ddcc8563ba**.
 
 The user accepted the first-profile exclusions on **2026-10-29**. The disconnected
@@ -11,6 +11,8 @@ qualified parser-only backend remains later work. The original description
 criterion did not pass. This audit qualifies the revised bounded scope below.
 It extends [AUDIT.md](AUDIT.md) and [QUERY_DML_AUDIT.md](QUERY_DML_AUDIT.md).
 It preserves their query/DML and CREATE SERIAL limits.
+Revision v4 adds only the separately audited [literal SELECT ORDERED](ORDERED_HINT_AUDIT.md)
+path. The registry rejects hints before any schema or engineer predicate runs.
 
 ## Admission boundary and exact supported features
 

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "coverageRevision": "bounded-query-dml-schema-engineer-v3",
+  "coverageRevision": "bounded-query-dml-schema-engineer-ordered-v4",
   "cases": [
     {
       "id": "serial-valid",
@@ -3545,6 +3545,709 @@
       "text": "CREATE VIEW v AS SELECT AS(1);",
       "expected": "syntax-error",
       "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "ordered-basic",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED */ 1;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "ordered-adjacent",
+      "family": "ordered-literal-select",
+      "text": "SELECT/*+ORDERED*/1;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "ordered-lower",
+      "family": "ordered-literal-select",
+      "text": "select /*+ ordered */ 1;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "ordered-case-whitespace",
+      "family": "ordered-literal-select",
+      "text": "select \t\r\n/*+\tOrDeReD\r\n*/ -10, +2, NULL, '가😀';",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "ordered-leading-trivia",
+      "family": "ordered-literal-select",
+      "text": "-- 한글 😀\r\n/* ordinary */ SELECT /*+ ORDERED */ 1;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "ordered-body-trivia",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED */ /* ordinary */ 1;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "ordered-quoted-hints",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED */ '/*+ ORDERED(t) */', '--+ RECOMPILE', '//+ ORDERED';",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "ordered-integer-limit",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED */ 99999999999999999999999999999999999999;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "ordered-string-concat",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED */ '가' '😀';",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "ordered-eof",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED */ NULL",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "ordered-missing",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED */;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "ordered-comma",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED */ ,;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "ordered-trailing-comma",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED */ 1,;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "ordered-double-comma",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED */ 1,,2;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "ordered-missing-sign-value",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED */ -;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "ordered-adjacent-integers",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED */ 1 2;",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        true
+      ]
+    },
+    {
+      "id": "ordered-unknown",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ BOGUS */ 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-partial-name",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORD */ 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-suffix",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDEREDX */ 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-empty",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ */ 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-empty-args",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED() */ 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-table-args",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED(t) */ 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-open-args",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED( */ 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-nested-args",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED((t)) */ 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-space-args",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED (t) */ 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-duplicate-name",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED ORDERED */ 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-duplicate-block",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED */ /*+ ORDERED */ 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-other-name",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED RECOMPILE */ 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-nested-block",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED /* nested */ 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-before-select",
+      "family": "ordered-literal-select",
+      "text": "/*+ ORDERED */ SELECT 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-after-value",
+      "family": "ordered-literal-select",
+      "text": "SELECT 1 /*+ ORDERED */;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-after-distinct",
+      "family": "ordered-literal-select",
+      "text": "SELECT DISTINCT /*+ ORDERED */ 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-after-all",
+      "family": "ordered-literal-select",
+      "text": "SELECT ALL /*+ ORDERED */ 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-dash-line",
+      "family": "ordered-literal-select",
+      "text": "SELECT --+ ORDERED\n1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-slash-line",
+      "family": "ordered-literal-select",
+      "text": "SELECT //+ ORDERED\r\n1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-line-and-block",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED */ --+ ORDERED\n1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-block-gap",
+      "family": "ordered-literal-select",
+      "text": "SELECT /* ordinary */ /*+ ORDERED */ 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-line-gap",
+      "family": "ordered-literal-select",
+      "text": "SELECT -- ordinary\n/*+ ORDERED */ 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-form-feed-gap",
+      "family": "ordered-literal-select",
+      "text": "SELECT\f/*+ ORDERED */ 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-vertical-tab-hint",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+\u000bORDERED */ 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-non-ascii-space",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED */ 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-extra-plus",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*++ ORDERED */ 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-punctuation",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED, */ 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-from",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED */ 1 FROM absent;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-name",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED */ id;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-star",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED */ *;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-arithmetic",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED */ 1+2;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-parentheses",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED */ (1);",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-function",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED */ sleep(1);",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-serial-value",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED */ s.nextval;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-cte",
+      "family": "ordered-literal-select",
+      "text": "WITH c AS (SELECT /*+ ORDERED */ 1) SELECT 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-subquery",
+      "family": "ordered-literal-select",
+      "text": "SELECT (SELECT /*+ ORDERED */ 1);",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-hinted-subquery",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED */ (SELECT 1);",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-view",
+      "family": "ordered-literal-select",
+      "text": "CREATE VIEW v AS SELECT /*+ ORDERED */ 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-insert",
+      "family": "ordered-literal-select",
+      "text": "INSERT INTO absent SELECT /*+ ORDERED */ 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-update",
+      "family": "ordered-literal-select",
+      "text": "UPDATE /*+ ORDERED */ absent SET id=1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-delete",
+      "family": "ordered-literal-select",
+      "text": "DELETE /*+ ORDERED */ FROM absent;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-merge",
+      "family": "ordered-literal-select",
+      "text": "MERGE /*+ ORDERED */ INTO a USING b ON a.id=b.id WHEN MATCHED THEN UPDATE SET a.id=b.id;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-show",
+      "family": "ordered-literal-select",
+      "text": "SHOW /*+ ORDERED */ TRACE;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-serial",
+      "family": "ordered-literal-select",
+      "text": "CREATE SERIAL /*+ ORDERED */ s;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-procedure",
+      "family": "ordered-literal-select",
+      "text": "CREATE PROCEDURE p() AS BEGIN SELECT /*+ ORDERED */ 1; END;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false,
+        false
+      ]
+    },
+    {
+      "id": "ordered-hint-only",
+      "family": "ordered-literal-select",
+      "text": "/*+ ORDERED */",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-executable",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED */ /*! x */ 1;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-integer-overflow",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED */ 999999999999999999999999999999999999999;",
+      "expected": "unsupported",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-truncated",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-truncated-name",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORD",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-unterminated-string",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED */ '가😀",
+      "expected": "syntax-error",
+      "kinds": [],
+      "admitted": [
+        false
+      ]
+    },
+    {
+      "id": "ordered-recovery",
+      "family": "ordered-literal-select",
+      "text": "SELECT /*+ ORDERED */ 1;",
+      "expected": "valid",
+      "kinds": [
+        "PT_SELECT"
+      ],
       "admitted": [
         true
       ]

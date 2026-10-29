@@ -9,6 +9,9 @@ struct Family {
   bool (*admits)(const Statement &);
 };
 inline const Family *admit(const Statement &statement) {
+  static const Family ordered = {"PT_SELECT", PT_SELECT, literal_select};
+  for (const auto &token : statement.tokens)
+    if (token.kind == 'h') return ordered.admits(statement) ? &ordered : nullptr;
   static const Family families[] = {
     {"PT_SELECT", PT_SELECT, literal_select},
     {"PT_SELECT", PT_SELECT, bounded_query},

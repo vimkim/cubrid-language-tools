@@ -81,10 +81,10 @@ def main():
                            "frameBytes": 64 * 1024 * 1024, "diagnostics": 256}, "sourceCommit": SOURCE,
                 "nativeVersion": VERSION, "platform": "linux-x86_64", "settings": settings,
                 "host": {"platform": platform.platform(), "libc": platform.libc_ver()},
-                "coverageRevision": "bounded-query-dml-schema-engineer-v3",
+                "coverageRevision": "bounded-query-dml-schema-engineer-ordered-v4",
                 "supportedStatementKinds": ["PT_SELECT", "PT_INSERT", "PT_UPDATE", "PT_DELETE", "PT_MERGE", "PT_CREATE_SERIAL", "PT_CREATE_ENTITY", "PT_ALTER", "PT_DROP", "PT_CREATE_INDEX", "PT_ALTER_INDEX", "PT_DROP_INDEX", "PT_ALTER_SERIAL", "PT_DROP_SERIAL", "PT_EVALUATE", "PT_UPDATE_STATS", "PT_SET_SYS_PARAMS", "PT_QUERY_TRACE", "PT_COMMIT_WORK", "PT_ROLLBACK_WORK", "PT_SAVEPOINT"],
                 "grammarInputs": {str(p): sha(p) for p in (source / "src/parser" / name for name in
-                    ("csql_grammar.y", "csql_lexer.l", "keyword.c", "parse_tree.c", "parse_tree_cl.c", "parser_support.c", "name_resolution.c", "parse_dbi.c"))},
+                    ("csql_grammar.y", "csql_lexer.l", "scanner_support.c", "keyword.c", "parse_tree.c", "parse_tree_cl.c", "parser_support.c", "name_resolution.c", "parse_dbi.c"))},
                 "helperInputs": {str(source / name): sha(source / name) for name in
                     ("src/compat/db_macro.c", "src/compat/db.h", "src/object/schema_manager.c",
                      "src/object/object_primitive.c", "src/base/error_manager.c",

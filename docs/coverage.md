@@ -4,7 +4,7 @@
 
 이 문서는 Python 개발 버전 `0.1.0.dev0`의 제한된 지원 범위를 설명합니다.
 네이티브 프로파일은 Linux x86-64의 정확한 `cubrid-11.5.0.2704-cc94778` 빌드입니다.
-소스 커밋은 `cc947788d3b7dc402f46192d0f3299ddcc8563ba`, 범위 리비전은 `bounded-query-dml-schema-engineer-v3`입니다.
+소스 커밋은 `cc947788d3b7dc402f46192d0f3299ddcc8563ba`, 범위 리비전은 `bounded-query-dml-schema-engineer-ordered-v4`입니다.
 다른 11.5 빌드를 포함한 다른 빌드는 별도 검증이 필요합니다.
 Python wheel에는 네이티브 워커·CUBRID 라이브러리·런타임 파일이 포함되지 않습니다.
 
@@ -27,6 +27,7 @@ Python wheel에는 네이티브 워커·CUBRID 라이브러리·런타임 파일
 | 계열 | 예시 | 검증 기능과 제한 |
 | --- | --- | --- |
 | SELECT | `SELECT a.id FROM absent a WHERE a.id >= 3;` | 이름·한정 이름·별표·별칭·DISTINCT·FROM·WHERE. ORDER·GROUP·HAVING·LIMIT·집합 연산·INTO·힌트 제외 |
+| ORDERED 리터럴 SELECT | `SELECT /*+ ORDERED */ '가😀', -10, NULL;` | 최상위 SELECT 바로 뒤의 인자 없는 블록 ORDERED 하나만 허용. 정수·일반 문자열·NULL·쉼표·리터럴 부호만 허용. 이름·FROM·수식어·표현식·중첩 쿼리·다른 힌트 형식 제외 |
 | 조인 | `SELECT a.id FROM a LEFT JOIN b ON a.id=b.id;` | 쉼표·INNER·기본 JOIN·LEFT·RIGHT·CROSS·ON·테이블 괄호. NATURAL·FULL·USING 컬럼·DBLINK 제외 |
 | 표현식 | `SELECT (1+2)*3, '가😀', NULL;` | 최대 38자리 정수·일반 문자열·이름·괄호·산술·비교·IS NULL·AND·OR·NOT·EXISTS. 함수·정수 외 수치·캐스트·IN·BETWEEN·LIKE·CASE·변수·시리얼 값 제외 |
 | CTE·서브쿼리 | `WITH c AS (SELECT 1 AS n) SELECT n FROM c;` | 비재귀 중첩·복수 CTE, 스칼라·파생 쿼리, EXISTS·상관 이름. CTE·테이블 별칭 컬럼 목록 제외 |
@@ -50,8 +51,11 @@ Python wheel에는 네이티브 워커·CUBRID 라이브러리·런타임 파일
 단순 인용 식별자는 내부 구분자·이스케이프·점·제어 문자를 제외합니다.
 함수·일반 SHOW·준비된 SQL·PL/CSQL·호스트 및 세션 변수와 기재되지 않은 구문은 미지원입니다.
 정확한 predicate 조건은 [쿼리·DML 감사](../native/parser-worker/QUERY_DML_AUDIT.md),
-[스키마·엔지니어 감사](../native/parser-worker/SCHEMA_ENGINEER_AUDIT.md), [원래 감사](../native/parser-worker/AUDIT.md)에 있습니다.
-[네이티브 코퍼스](../native/parser-worker/qualification/corpus.json)는 정상 99건·문법 오류 80건·미지원 146건, 총 325건입니다.
+[스키마·엔지니어 감사](../native/parser-worker/SCHEMA_ENGINEER_AUDIT.md), [ORDERED 감사](../native/parser-worker/ORDERED_HINT_AUDIT.md), [원래 감사](../native/parser-worker/AUDIT.md)에 있습니다.
+ORDERED는 ASCII 대소문자를 구분하지 않습니다. 이름 앞뒤와 SELECT·힌트 사이에 공백·탭·CR·LF를 허용합니다.
+SELECT·힌트 사이의 일반 주석, 힌트 인자·중복·닫힌 잘못된 힌트·중첩 주석·`--+`·`//+`는 미지원입니다.
+닫히지 않은 주석·인용 토큰은 네이티브 호출 없이 스캐너 문법 오류를 반환합니다.
+[네이티브 코퍼스](../native/parser-worker/qualification/corpus.json)는 정상 110건·문법 오류 89건·미지원 194건, 총 393건입니다.
 미실행 trace 근거는 해당 코퍼스에 한정됩니다. 프로세스 분리는 운영체제 sandbox가 아닙니다.
 
 ## 수용된 네 가지 제외 항목

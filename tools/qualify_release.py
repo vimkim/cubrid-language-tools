@@ -1,6 +1,6 @@
 """Build and qualify local archives in isolated Python 3.10 and 3.14 installs.
 
-Requires uv and an already built, qualified V3 worker. No runtime download,
+Requires uv and an already built, qualified V4 worker. No runtime download,
 database, daemon, destination merge, or publication is performed.
 """
 
@@ -36,7 +36,7 @@ def qualify(root, build, output):
         print(name, 'passed', flush=True)
 
     manifest = json.loads((build / 'manifest.json').read_bytes())
-    assert manifest['coverageRevision'] == 'bounded-query-dml-schema-engineer-v3'
+    assert manifest['coverageRevision'] == 'bounded-query-dml-schema-engineer-ordered-v4'
     assert (build / 'parser-worker').is_file()
     runtime = manifest['runtimePrefix']
     constraints = output / 'build-constraints.txt'

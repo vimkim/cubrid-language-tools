@@ -1,5 +1,5 @@
 {
-  "coverageRevision": "bounded-query-dml-schema-engineer-v3",
+  "coverageRevision": "bounded-query-dml-schema-engineer-ordered-v4",
   "files": {
     "/home/vimkim/.cub/install/develop/debug/lib/libcubrid_timezones.so.11.5": "a4021d944f3b1a2439a4010d5ca51e8fd327f3a0a462e1110f13bee223e58b36",
     "/home/vimkim/.cub/install/develop/debug/msg/en_US.utf8/csql.cat": "d55691c68fdaa483d92e633b8ec5ab2d044584d7c2021599b1a6b1e72700af40",
@@ -32,7 +32,8 @@
     "/home/vimkim/gh/cubrid-rust/reference-cubrid-cc947788/src/parser/parse_dbi.c": "3989ec0807bccb80d922e2d5d6ed977fdc2896aa87ce4f58964c5d96ad0e5317",
     "/home/vimkim/gh/cubrid-rust/reference-cubrid-cc947788/src/parser/parse_tree.c": "602fee0eafbe850d4606e161f355a41a802ed8a9a7deed28dab3ddb4957eceef",
     "/home/vimkim/gh/cubrid-rust/reference-cubrid-cc947788/src/parser/parse_tree_cl.c": "33f9d59527b6e9eb11e49e0d81b0f4a7cbcf1495c39e69c806674fae9d4c2a19",
-    "/home/vimkim/gh/cubrid-rust/reference-cubrid-cc947788/src/parser/parser_support.c": "1f248e686c0a3f383a0f817ac9d69470404a5a3ad97784ead752f739cea87abb"
+    "/home/vimkim/gh/cubrid-rust/reference-cubrid-cc947788/src/parser/parser_support.c": "1f248e686c0a3f383a0f817ac9d69470404a5a3ad97784ead752f739cea87abb",
+    "/home/vimkim/gh/cubrid-rust/reference-cubrid-cc947788/src/parser/scanner_support.c": "b58ad8fe45c975e2282c3eb26ef7a1fe40fe2bd37416442a11e7488a4b03a5fb"
   },
   "headerSetSha256": "2ca0b816b38ccdc43cd9ddf2c3efd6a95d41eb4edcd1b53da6bc35802fc1f1b7",
   "headers": {
@@ -726,13 +727,13 @@
   "workerInputs": {
     "audit_query_dml.py": "c7a26cae2cec1f162a036e827a732c89369a17ca156f4a78f8df39d4e4843cec",
     "audit_schema_engineer.py": "9ed5b978c102d09da7ba551bc4aef722cf830e1bd14f30fb820e4263dbe6fffb",
-    "build.py": "fb832c44fd85805cde61be0ca6d13b6239882611abe5a4905b295072f70409ff",
+    "build.py": "32e22bc83c5724937904c4aef03b70863979ec105f4e1f8cbc3db0d03ae841f1",
     "coverage/create_serial.hpp": "fe237d5363b24723f8728e15d1c918950024249dd335525fac09a30b86f3d1aa",
     "coverage/keywords.hpp": "41a58777a74930309b95a3678d78bd4d004f96f1f21c686a351d7636c90f33f2",
-    "coverage/literal_select.hpp": "d141888c5dd22ab6eb7f8056c30300b66d76b2ec9e3a14e520f274f244ca3850",
+    "coverage/literal_select.hpp": "c9e429cc5601081724c6d5a67339aa395f1c058ab99c97348d8be4895791e62b",
     "coverage/query_dml.hpp": "63d3abb63120bdcfc2b47f1b7887e126c03ae8aedb86c9fd6ebd48fb53b025a3",
-    "coverage/registry.hpp": "5b38fa1874e526d2f233f704a48b1c5c43d44335da7d2d971b481a8cfab4146e",
-    "coverage/scan.hpp": "dc959fba64994f10ba5734853460394c7664c28e6957c70e8b86d358e0ebce2b",
+    "coverage/registry.hpp": "e5b01423c4b7855ca8e3c12a3deeda0e3a4e75f835fcf8809c7202c512f23573",
+    "coverage/scan.hpp": "65079e902c8c9c10626b0a03627fffc0d1545a32a8a2164f98cdd0ea26da93d4",
     "coverage/schema_engineer.hpp": "68da5ef7a835bb755be6e5c6880665ad9fe3e00e62b179cb047ab495a920f278",
     "coverage_keywords.py": "2811b618fffe0ac37f3e562fb60babf8b695e42bd2a2eb47a414a59c5c958ad0",
     "worker.cpp": "4947209889639ed3aedf672f21893d40376accb75b83929df77dc6a6febc6315"
