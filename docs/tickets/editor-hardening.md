@@ -17,3 +17,7 @@ Use the existing clean install-cubrid-nvim topic worktree. The user explicitly a
 ## CI grounding and design
 
 Read current VS Code test/host scripts and Neovim tests/run.sh and identify portable versus qualified-native checks. Design real Microsoft desktop verification on GitHub-hosted Linux, including minimum1.109.0 and stable with observed version receipts. Do not run Electron locally. Prefer an actual installed VSIX and public editor commands with a separate test probe; compare a concrete alternative and explain the tradeoff. Preserve original alpha artifacts. Full native syntax qualification is not available on hosted runners; explicitly test missing-runtime diagnostic behavior and label scope. Only the future CI owner edits package/recipe/harness files.
+
+## Core documentation review correction
+
+The independent documentation review identified current publication-status contradictions in docs/roadmap.md and three prose locations in docs/architecture.html. A fresh correction owner may edit only those two files on the existing clean core documentation topic. The HTML scope is text-only status/link correction; CSS, scripts, diagrams and the dated architecture decision stay unchanged. Preserve AI and csql-future migration as future work. This is a current-status correction within the public documentation job, not an architecture redesign.
