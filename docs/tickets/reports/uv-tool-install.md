@@ -90,10 +90,22 @@ python3 /home/vimkim/temp/cubrid-uv-install-597.1gIuLT/smoke.py \
 This ticket verified isolated tool installation on Linux with Python 3.14.0.
 It did not rerun the existing release qualification across Python versions or
 build native parser artifacts. Strict diagnostics still require a separately
-qualified native worker and runtime. This ticket did not install tools globally,
+qualified native worker and runtime. The ticket agent did not install tools globally,
 change shell configuration, rebase, merge, push, or alter other worktrees.
 
 The initial checkout had only the parent-created ticket as an untracked file.
 The committed scope consists of that ticket, this report, the justfile, and the
 two installation guides. Preserve the external evidence directory for review
 and the later user-install smoke check.
+
+## Coordinator user installation
+
+The coordinator ran `just sync` from committed source `b73fa4e` in the ticket
+worktree. The installation succeeded and placed both commands in
+`/home/vimkim/.local/bin`, which is already on the user's PATH.
+The same standalone smoke script passed with `--bin-dir /home/vimkim/.local/bin`
+and output directory `user-install` under the preserved evidence directory.
+It verified CLI help, real LSP initialization, Unicode completion, and clean
+shutdown outside the checkout. Imports came from the installed uv tool's
+`site-packages`, and all optional dependency versions matched their pins.
+The destination `main` remained clean at `2a8842c`; integration awaits approval.
