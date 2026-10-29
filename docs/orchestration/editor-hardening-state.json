@@ -217,15 +217,20 @@
     "cleanup": "Only three merged task WTs/branches removed withoutforce; historical72379ba ancestor preserved; unrelatedstandardLSP WT untouched"
   },
   "vscodeIntegration": {
-    "status": "merged-pushed; first hosted run failed before probes; bounded repair active",
-    "main": "c3719ebdee7883dd68af5efba54589a880ad2fe3",
-    "run": "https://github.com/vimkim/cubrid-vscode/actions/runs/40834804424",
+    "status": "boundary repairs integrated; second actual hosted run active",
+    "main": "eb4cc3266a801b431be9bd21f417cd4e2fec2c1b",
+    "run": "https://github.com/vimkim/cubrid-vscode/actions/runs/40836324028",
     "evidence": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/integration-vscode/run-40834804424",
     "failures": [
       "Blanket validation rejects historical suffixed entries in official stable release list",
       "Strict installed inventory omits .vsixmanifest generated exactly from VSIXrootmanifest"
     ],
     "repairOwner": "fix_vscode_hosted_boundaries",
-    "productDefectObserved": false
+    "productDefectObserved": false,
+    "repairCommit": "e880d4633260024cac6988cee8268b3b35d21567",
+    "testEnvCommit": "eb4cc3266a801b431be9bd21f417cd4e2fec2c1b",
+    "repairEvidence": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/vscode-hosted-boundary-fix/report.md",
+    "testEnvEvidence": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/vscode-ci-test-env-fix/report.md",
+    "checks": "12 local tests pass including fake-hosted environment tripwire; saved real artifacts replay GREEN; second hosted package job passed; desktop jobs running"
   }
 }
