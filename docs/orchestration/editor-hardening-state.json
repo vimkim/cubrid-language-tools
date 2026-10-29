@@ -1,6 +1,6 @@
 {
   "workItem": 595,
-  "status": "local-review-complete; awaiting concrete source integration approval",
+  "status": "approved integration and hosted qualification in progress",
   "evidenceDirectory": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j",
   "plan": "docs/orchestration/editor-hardening-plan.md",
   "dispatch": [
@@ -33,7 +33,7 @@
   "vscodeBaseline": "c6b2aeaaf837f15d26298f925ca0ee23e1e2f2a2",
   "neovimBaseline": "4b4c4d9e486f0b02c146d21cb8452b3c45bad754",
   "nvimConfigApprovedCommit": "b51be9af678750d9c30fcc6173c894475aafaf42",
-  "newSourceIntegrationApproved": false,
+  "newSourceIntegrationApproved": true,
   "csqlFutureMigration": false,
   "owner": "root only writes state/tracker/decision log; each worker owns its separate scope",
   "nvimConfig": {
@@ -189,5 +189,10 @@
       "Hosted workflows and Microsoft desktop1.109.0/stable unrun",
       "Original Neo negatives were postimplementation; only deadline correction has RED/GREEN"
     ]
+  },
+  "approval": {
+    "userMessage": "yes",
+    "scope": "Rebase preserve check integrate push reviewed docs/CI; include eight existing Neovim main commits; run hosted CI",
+    "time": "2026-10-29T07:15:58.336029+00:00"
   }
 }
