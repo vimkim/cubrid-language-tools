@@ -80,3 +80,9 @@ Independent behavior review identified the repaired identifier and escaping issu
 The isolated integration used LazyVim commit `999700997f72227187d49d8b92667183dc7fc809` and Blink commit `78336bc89ee5365633bcf754d93df01678b5c08f`. Their source checkouts had no tracked changes after verification.
 
 [The committed decision trail](show-hint-decisions.tsv) is a review-ready snapshot of the canonical local `decisions.tsv` in the coordinator task directory.
+
+## Approved integration verification
+
+The user approved rebasing, merging into both `main` branches, and pushing both configured origins. The engine rebased onto `3aff3ff00bc6dbfd76c93949b6476b5df5e4e455`. Its `src` tree matches the previously reviewed `489198e` tree exactly. The complete post-rebase checks passed 120 core tests, 34 framed LSP tests, 46 native-parser tests, and seven actual-native LSP tests. The pinned source inventory still matches 50 hint names and 25 SHOW first words.
+
+The rebased Neovim package preserves concurrent portable CI and passes 21 portable and six native editor cases with this engine. The same 21 portable cases pass with the older core server pinned by that CI workflow. Exact logs, process-exit receipts, package hash and test-case receipts are in the coordinator's `evidence/integration` directory. Independent integration review recorded PASS with notes and confirmed unchanged runtime files. Hosted CI is separate evidence and is not claimed by these local checks.
