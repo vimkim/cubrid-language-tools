@@ -1,6 +1,11 @@
 default:
     @just --list
 
+sync:
+    uv tool install --reinstall '.[lsp]'
+
+alias install := sync
+
 test:
     uv run python -m unittest discover -s tests -v
 

@@ -6,6 +6,22 @@ Use Python 3.10 or later. This local development release is `0.1.0.dev0`.
 The commands below install a local checkout or built artifact. They do not assume publication to a package index.
 See [qualified coverage](coverage.en.md) before interpreting a syntax pass.
 
+## Install commands on PATH
+
+With uv and just available, run from the checkout:
+
+```sh
+just sync
+cubrid-lint --help
+```
+
+`just install` is an alias for `just sync`.
+Both run `uv tool install --reinstall '.[lsp]'` to install the CLI, LSP, and pinned optional dependencies in a uv tool environment.
+Run either command again to reinstall the current checkout.
+If your shell cannot find the commands, run `uv tool update-shell` and restart the shell.
+Configure your editor to spawn `cubrid-language-server` from PATH with no arguments and stdio transport.
+Completion works immediately. Strict diagnostics also require the separate native worker and runtime described below.
+
 ## Install the core and CLI
 
 From a checkout, create a dedicated environment and install the package:

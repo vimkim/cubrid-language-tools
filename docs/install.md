@@ -6,6 +6,22 @@ Python 3.10 이상을 사용합니다. 이 로컬 개발 버전은 `0.1.0.dev0`�
 아래 명령은 로컬 checkout 또는 빌드 산출물을 설치하며 패키지 인덱스 게시를 가정하지 않습니다.
 문법 통과를 해석하기 전에 [검증된 지원 범위](coverage.md)를 확인합니다.
 
+## PATH에 CLI·LSP 설치
+
+uv와 just를 준비한 뒤 checkout에서 실행합니다.
+
+```sh
+just sync
+cubrid-lint --help
+```
+
+`just install`은 `just sync`의 별칭입니다.
+두 명령은 `uv tool install --reinstall '.[lsp]'`로 CLI·LSP와 고정된 선택 의존성을 uv 도구 환경에 설치합니다.
+다시 실행하면 현재 checkout으로 재설치합니다.
+셸에서 명령을 찾지 못하면 `uv tool update-shell`을 실행한 뒤 셸을 다시 시작합니다.
+편집기가 PATH의 `cubrid-language-server`를 인자 없이 stdio 자식 프로세스로 실행하도록 설정합니다.
+완성은 바로 사용할 수 있습니다. 엄격한 진단에는 아래의 네이티브 워커·런타임을 별도로 준비합니다.
+
 ## 코어·CLI 설치
 
 checkout에서 전용 환경을 만들고 설치합니다.
