@@ -237,6 +237,31 @@ class HintAuthoringProtocolTests(unittest.TestCase):
             client.send('textDocument/didClose', {'textDocument': {'uri': uri}})
             self.assertEqual(client.diagnostics(uri)['diagnostics'], [])
 
+    def test_hint_argument_edits_and_escape_over_framed_lsp(self):
+        cases = (
+            ('SELECT /*+ USE_NL([ord|er]) */ * FROM t [order];', '[order]', 18, 25),
+            ('SELECT /*+ USE_NL(가|나) */ * FROM t 가나;', '가나', 18, 20),
+            ('SELECT /*+ USE_NL(a|) */ * FROM dba.account a;', 'a', 18, 19),
+        )
+        with Client() as client:
+            client.initialize()
+            for index, (marked, label, start, end) in enumerate(cases):
+                with self.subTest(marked=marked):
+                    cursor = marked.index('|')
+                    text = '-- 😀\r\n' + marked.replace('|', '')
+                    uri = client.open(text, uri=f'untitled:hint-edit-{index}')
+                    item = next((i for i in client.completion(uri, 1, cursor)['result']['items']
+                                 if i['label'] == label), None)
+                    self.assertIsNotNone(item)
+                    self.assertEqual(item['textEdit']['range'], {'start': {'line': 1, 'character': start},
+                                                                'end': {'line': 1, 'character': end}})
+                    edit = item['textEdit']['newText']
+                    line = text.split('\r\n')[1]
+                    self.assertEqual(line[:start] + edit + line[end:], marked.replace('|', ''))
+            text = r'SELECT /*+ USE_NL("a\\"(b)") */ 1;'
+            uri = client.open(text, uri='untitled:hint-escape')
+            self.assertEqual([d['code'] for d in client.diagnostics(uri, 1)['diagnostics']], ['CUBRID-T1001'])
+
     def test_hint_completion_edit_uses_utf16(self):
         with Client() as client:
             client.initialize()

@@ -39,6 +39,29 @@ class AuthoringCoverageTests(unittest.TestCase):
         self.assertIn('a', [item.text for item in result.items])
         self.assertEqual(result.replacement.end - result.replacement.start, 4)
 
+    def test_hint_argument_completion_applies_whole_identifier(self):
+        cases = (
+            ('SELECT /*+ USE_NL([ord|er]) */ * FROM t [order];', '[order]',
+             'SELECT /*+ USE_NL([order]) */ * FROM t [order];'),
+            ('SELECT /*+ USE_NL(가|나) */ * FROM t 가나;', '가나',
+             'SELECT /*+ USE_NL(가나) */ * FROM t 가나;'),
+            ('SELECT /*+ USE_NL(a|) */ * FROM dba.account a;', 'a',
+             'SELECT /*+ USE_NL(a) */ * FROM dba.account a;'),
+        )
+        for marked, candidate, expected in cases:
+            with self.subTest(marked=marked):
+                cursor = marked.index('|')
+                text = marked.replace('|', '')
+                result = complete(text, cursor, PROFILE)
+                item = next((item for item in result.items if item.text == candidate), None)
+                self.assertIsNotNone(item)
+                self.assertEqual(text[:result.replacement.start] + item.text + text[result.replacement.end:], expected)
+
+    def test_native_delimiter_escape_counterexample(self):
+        from cubrid_language import authoring_diagnostics
+        text = r'SELECT /*+ USE_NL("a\\"(b)") */ 1;'
+        self.assertEqual(authoring_diagnostics(text, PROFILE), ())
+
     def test_suppression_and_incomplete_input(self):
         from cubrid_language import authoring_diagnostics
         for text in ("SELECT '/*+ BOGUS */';", 'SELECT /* BOGUS */ 1;',
