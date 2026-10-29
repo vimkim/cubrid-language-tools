@@ -35,5 +35,17 @@
   "nvimConfigApprovedCommit": "b51be9af678750d9c30fcc6173c894475aafaf42",
   "newSourceIntegrationApproved": false,
   "csqlFutureMigration": false,
-  "owner": "root only writes state/tracker/decision log; each worker owns its separate scope"
+  "owner": "root only writes state/tracker/decision log; each worker owns its separate scope",
+  "nvimConfig": {
+    "status": "integrated-and-pushed",
+    "commit": "b51be9af678750d9c30fcc6173c894475aafaf42",
+    "preservedUnrelatedDirt": "lazyvim.json bytes and unstaged state unchanged",
+    "evidence": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/nvim-integration/result.json",
+    "rootCheck": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/nvim-integration/root-check.json"
+  },
+  "documentationCandidates": {
+    "core": "5e185cb401fd4340368b0119af8c11973a7c2968",
+    "vscode": "5f905c7876fc5fb1736e94c32f57e2254dccd9fb",
+    "neovim": "72379ba81cbc6ac0f32c222cd68831c884f02b58"
+  }
 }
