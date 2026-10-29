@@ -110,11 +110,21 @@
     "publishedRemote": "origin https://github.com/vimkim/cubrid-language-tools.git",
     "cleanupReceipt": "/home/vimkim/temp/cubrid-editor-alpha-integration-9y5pl_7z/cleanup-seven.json",
     "finalReceipt": "/home/vimkim/temp/cubrid-editor-alpha-integration-9y5pl_7z/final.json",
-    "remainingCoordinatorCleanup": "Performed after the final audit record is merged and pushed; final receipt records the outcome."
+    "cleanupPolicy": "Remove only clean merged task worktrees and branches without force; preserve artifacts. The final receipt records the exact outcome."
   },
   "coordinatorTask": {
     "branch": "editor/alpha",
     "checkout": "/home/vimkim/gh/cubrid-language-tools-editor-alpha",
     "approvedCommit": "dc7d7ea87f6f727159df1b3b79b07d3ee7fcf4f3"
+  },
+  "integrationAudit": {
+    "status": "PASS",
+    "reviewer": "gpt-6-astra",
+    "reviewedRows": "23 through29",
+    "logSHA256": "02496baa32d79aa944e63960d385f34b06745b69de2e8a594fb31d681f313824",
+    "report": "/home/vimkim/temp/cubrid-editor-alpha-integration-9y5pl_7z/audit/report.md",
+    "snapshotMetadata": "/home/vimkim/temp/cubrid-editor-alpha-integration-9y5pl_7z/audit/scope.json",
+    "openTrailCorrections": [],
+    "scope": "Approved integration, first core push and seven worktree removals. Final record push and coordinator cleanup use the same approval; final receipt records their outcome."
   }
 }
