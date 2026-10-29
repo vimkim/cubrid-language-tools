@@ -81,3 +81,9 @@ Earlier command arguments no longer enter later SQL context, while quoted lexica
 Bare SQL terminators and terminators followed by ordinary comments preserve their statement boundary.
 Public library and framed LSP regressions record these intentional corrections separately from the historical parity corpus.
 The public completion value also handles empty or incomplete display details without changing existing kinds or constructor arguments.
+
+## Qualified hint inventory
+
+Optimizer hint names and aliases come from `src/parser/csql_grammar.y` at CUBRID commit `cc947788d3b7dc402f46192d0f3299ddcc8563ba`. The generated inventory also records SHOW productions and first words. Run `python tools/check_show_hint_inventory.py PATH/TO/csql_grammar.y` to compare the packaged inventory to that source. Pass `--write-fixture PATH` to regenerate the portable grammar fixture from that source. The fixture exercises the checker without a source checkout. Runtime completion and warnings do not read the source tree.
+
+Hint completion applies only to the exact qualified profile. It recognizes `/*+`, `--+`, and `//+` comments and offers table aliases for selected join hints. This inventory does not change the 11.4 provenance of the older completion vocabulary.

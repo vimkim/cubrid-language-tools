@@ -128,3 +128,16 @@ class ResponsivenessTests(unittest.TestCase):
             client.send('workspace/didChangeConfiguration', {'settings': {'cubrid': {}}})
             self.assertEqual(client.diagnostics(uri)['diagnostics'][0]['code'], 'CUBRID-T1001')
             wait_reaped(pid)
+
+class HintCancellationTests(unittest.TestCase):
+    def test_superseded_warning_never_publishes(self):
+        with tempfile.TemporaryDirectory() as directory, Client() as client:
+            settings, log = worker(directory, parse_delay=.7)
+            client.initialize(settings)
+            uri = client.open('SELECT /*+ BOGUS */ 1;')
+            pid = event(log, 'parse')['pid']
+            client.change(uri, 'SELECT 1;', 2)
+            wait_reaped(pid)
+            self.assertEqual(client.diagnostics(uri, 2)['diagnostics'], [])
+            with self.assertRaises(queue.Empty):
+                client.diagnostics(uri, 1, timeout=.4)

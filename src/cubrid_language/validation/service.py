@@ -56,20 +56,36 @@ class Validator:
         limit = self.config.max_document_bytes if self.config is not None else 8 * 1024 * 1024
         if b'\0' in encoded or len(encoded) > limit:
             return failure('CUBRID-T1003', 'input contains NUL or exceeds the document byte limit')
+        from cubrid_language.authoring import authoring_diagnostics
+        findings = authoring_diagnostics(text, profile, script_mode)
         with self._ownership:
             if self._closed:
-                return failure('CUBRID-T1002', 'validator has been closed')
+                return self._combine(failure('CUBRID-T1002', 'validator has been closed'), findings, text)
             if self.config is None:
-                return failure('CUBRID-T1001', 'trusted parser worker/runtime configuration is required')
+                return self._combine(failure('CUBRID-T1001', 'trusted parser worker/runtime configuration is required'), findings, text)
             if self._worker is None or self._worker.profile != profile:
                 if self._worker is not None:
                     self._worker.close()
                 self._worker = NativeWorker(self.config, profile)
             worker = self._worker
         result = self._script(worker, text, profile) if script_mode == 'csql' else worker.parse(text)
-        diagnostics = tuple(sorted(dict.fromkeys(result.diagnostics), key=lambda d:
-            (d.span.start, d.span.end, d.code, d.message, d.severity, d.range_precision, d.category)))
-        return ValidationResult(result.status, result.coverage, result.profile, diagnostics, result.statement_kinds)
+        return self._combine(result, findings, text)
+
+    def _combine(self, result, findings, text):
+        key = lambda d: (d.span.start, d.span.end, d.code, d.message, d.severity, d.range_precision, d.category)
+        diagnostics = sorted(set((*result.diagnostics, *findings)), key=key)
+        limit = self.config.max_diagnostics if self.config is not None else 256
+        if len(diagnostics) > limit:
+            native = sorted(set(result.diagnostics), key=lambda d: (d.category != 'tool', d.category != 'syntax', key(d)))
+            retained = (native + [d for d in diagnostics if d not in native])[:limit - 1]
+            context = '; '.join(f'{d.code}: {d.message}' for d in native)
+            message = 'Document diagnostic limit exceeded; result truncated'
+            if limit == 1 and context:
+                message += '; ' + context
+            marker = Diagnostic('CUBRID-T1002', 'error', message, Span(0, len(text)), 'statement', 'tool')
+            return ValidationResult('tool-error', result.coverage, result.profile,
+                                    tuple(sorted((*retained, marker), key=key)), result.statement_kinds)
+        return ValidationResult(result.status, result.coverage, result.profile, tuple(diagnostics), result.statement_kinds)
 
     def _script(self, worker, text, profile):
         diagnostics, kinds = [], []

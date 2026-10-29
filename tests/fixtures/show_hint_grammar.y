@@ -1,0 +1,279 @@
+show_stmt
+	: SHOW
+	  opt_full
+	  TABLES
+
+	| SHOW
+	  opt_full
+	  TABLES
+	  LIKE
+	  expression_
+
+	| SHOW
+	  opt_full
+	  TABLES
+	  WHERE
+	  search_condition
+
+	| SHOW
+	  opt_full
+	  COLUMNS
+	  of_from_in
+	  class_name
+
+	| SHOW
+	  opt_full
+	  COLUMNS
+	  of_from_in
+	  class_name
+	  LIKE
+	  expression_
+
+	| SHOW
+	  opt_full
+	  COLUMNS
+	  of_from_in
+	  class_name
+	  WHERE
+	  search_condition
+
+	| of_describe_desc_explain
+	  class_name
+
+	| of_describe_desc_explain
+	  class_name
+	  identifier
+
+	| of_describe_desc_explain
+	  class_name
+	  char_string_literal
+
+	| SHOW
+	  COLLATION
+
+	| SHOW
+	  COLLATION
+	  LIKE
+	  expression_
+
+	| SHOW
+	  COLLATION
+	  WHERE
+	  search_condition
+
+	| SHOW
+	  CREATE
+	  TABLE
+	  class_name
+
+	| SHOW
+	  CREATE
+	  VIEW
+	  class_name
+
+	| SHOW
+	  GRANTS
+	  For
+	  identifier
+
+	| SHOW
+	  GRANTS
+	  opt_for_current_user
+
+	| SHOW
+	  of_index_indexes_keys
+	  of_from_in
+	  class_name
+
+	| SHOW EXEC STATISTICS ALL
+
+	| SHOW EXEC STATISTICS
+
+	| SHOW TRACE
+
+	| SHOW show_type
+
+	| SHOW show_type_of_like LIKE expression_
+
+	| SHOW show_type_of_where WHERE search_condition
+
+	| SHOW show_type_arg1 OF arg_value
+
+	| SHOW show_type_arg1_opt opt_arg_value
+
+	| SHOW show_type_arg_named of_or_where named_args
+
+	| SHOW show_type_id OF class_name
+
+	| SHOW show_heap_type_id OF class_name opt_show_scan_mode
+
+	| SHOW show_type_id_dot_id OF class_name DOT identifier
+
+	;
+
+show_type
+	: ACCESS STATUS
+
+	| CRITICAL SECTIONS
+
+	| JOB QUEUES
+
+	| PAGE BUFFER STATUS
+
+	| TIMEZONES
+
+	| FULL TIMEZONES
+
+	| TRANSACTION TABLES
+
+	| TRAN TABLES
+
+	| THREADS
+
+	;
+
+show_type_of_like
+	: ACCESS STATUS
+
+	| TIMEZONES
+
+	| FULL TIMEZONES
+
+	;
+
+show_type_of_where
+	: ACCESS STATUS
+
+	| TIMEZONES
+
+	| FULL TIMEZONES
+
+	| TRANSACTION TABLES
+
+	| TRAN TABLES
+
+	| THREADS
+
+	;
+
+show_type_arg1
+	: VOLUME HEADER
+
+	| ARCHIVE LOG HEADER
+
+	;
+
+show_type_arg1_opt
+	: LOG HEADER
+
+	;
+
+show_type_arg_named
+	: SLOTTED PAGE HEADER
+
+	| SLOTTED PAGE SLOTS
+
+	;
+
+show_heap_type_id
+	: HEAP HEADER
+
+	| ALL HEAP HEADER
+
+	| HEAP CAPACITY
+
+	| ALL HEAP CAPACITY
+
+	;
+
+show_type_id
+	: ALL INDEXES HEADER
+
+	| ALL INDEXES CAPACITY
+
+	;
+
+show_type_id_dot_id
+	: INDEX HEADER
+
+	| INDEX CAPACITY
+
+	;
+
+of_index_indexes_keys
+	: INDEX
+	| INDEXES
+	| KEYS
+	;
+
+opt_full
+	: /* empty */
+
+	| FULL
+
+	;
+
+of_from_in
+	: FROM
+	| IN_
+	;
+
+opt_for_current_user
+	: /* empty */
+	| For CURRENT_USER
+	| For CURRENT_USER '(' ')'
+	;
+
+PT_HINT parser_hint_table[] = {
+  INIT_PT_HINT("ORDERED", PT_HINT_ORDERED),
+  INIT_PT_HINT("LEADING", PT_HINT_LEADING),
+  INIT_PT_HINT("NO_INDEX_SS", PT_HINT_NO_INDEX_SS),
+  INIT_PT_HINT("INDEX_SS", PT_HINT_INDEX_SS),
+  INIT_PT_HINT("USE_NL", PT_HINT_USE_NL),
+  INIT_PT_HINT("USE_IDX", PT_HINT_USE_IDX),
+  INIT_PT_HINT("USE_MERGE", PT_HINT_USE_MERGE),
+  INIT_PT_HINT("RECOMPILE", PT_HINT_RECOMPILE),
+  INIT_PT_HINT("LOCK_TIMEOUT", PT_HINT_LK_TIMEOUT),
+  INIT_PT_HINT("NO_LOGGING", PT_HINT_NO_LOGGING),
+  INIT_PT_HINT("QUERY_CACHE", PT_HINT_QUERY_CACHE),
+  INIT_PT_HINT("SQL_CACHE", PT_HINT_QUERY_CACHE),
+  INIT_PT_HINT("QUERY_NO_CACHE", PT_HINT_QUERY_NO_CACHE),
+  INIT_PT_HINT("SQL_NO_CACHE", PT_HINT_QUERY_NO_CACHE),
+  INIT_PT_HINT("REEXECUTE", PT_HINT_REEXECUTE),
+  INIT_PT_HINT("JDBC_CACHE", PT_HINT_JDBC_CACHE),
+  INIT_PT_HINT("USE_DESC_IDX", PT_HINT_USE_IDX_DESC),
+  INIT_PT_HINT("NO_COVERING_IDX", PT_HINT_NO_COVERING_IDX),
+  INIT_PT_HINT("INSERT_EXECUTION_MODE", PT_HINT_INSERT_MODE),
+  INIT_PT_HINT("NO_DESC_IDX", PT_HINT_NO_IDX_DESC),
+  INIT_PT_HINT("NO_MULTI_RANGE_OPT", PT_HINT_NO_MULTI_RANGE_OPT),
+  INIT_PT_HINT("USE_UPDATE_IDX", PT_HINT_USE_UPDATE_IDX),
+  INIT_PT_HINT("USE_INSERT_IDX", PT_HINT_USE_INSERT_IDX),
+  INIT_PT_HINT("NO_SORT_LIMIT", PT_HINT_NO_SORT_LIMIT),
+  INIT_PT_HINT("NO_HASH_AGGREGATE", PT_HINT_NO_HASH_AGGREGATE),
+  INIT_PT_HINT("NO_HASH_LIST_SCAN", PT_HINT_NO_HASH_LIST_SCAN),
+  INIT_PT_HINT("NO_PUSH_PRED", PT_HINT_NO_PUSH_PRED),
+  INIT_PT_HINT("NO_MERGE", PT_HINT_NO_MERGE),
+  INIT_PT_HINT("NO_UNNEST", PT_HINT_NO_UNNEST),
+  INIT_PT_HINT("NO_SUBQUERY_CACHE", PT_HINT_NO_SUBQUERY_CACHE),
+  INIT_PT_HINT("NO_PARALLEL_SCAN", PT_HINT_NO_PARALLEL_SCAN),
+  INIT_PT_HINT("NO_PARALLEL_SUBQUERY", PT_HINT_NO_PARALLEL_SUBQUERY),
+  INIT_PT_HINT("NO_PARALLEL_HASH_JOIN", PT_HINT_NO_PARALLEL_HASH_JOIN),
+  INIT_PT_HINT("PARALLEL", PT_HINT_PARALLEL),
+  INIT_PT_HINT("DBLINK_NO_PUSH_DOWN_SUBQ", PT_HINT_DBLINK_NO_PUSH_DOWN_SUBQ),
+  INIT_PT_HINT("NO_ELIMINATE_JOIN", PT_HINT_NO_ELIMINATE_JOIN),
+  INIT_PT_HINT("SKIP_UPDATE_NULL", PT_HINT_SKIP_UPDATE_NULL),
+  INIT_PT_HINT("NO_INDEX_LS", PT_HINT_NO_INDEX_LS),
+  INIT_PT_HINT("INDEX_LS", PT_HINT_INDEX_LS),
+  INIT_PT_HINT("SELECT_RECORD_INFO", PT_HINT_SELECT_RECORD_INFO),
+  INIT_PT_HINT("SELECT_PAGE_INFO", PT_HINT_SELECT_PAGE_INFO),
+  INIT_PT_HINT("SELECT_KEY_INFO", PT_HINT_SELECT_KEY_INFO),
+  INIT_PT_HINT("SELECT_BTREE_NODE_INFO", PT_HINT_SELECT_BTREE_NODE_INFO),
+  INIT_PT_HINT("USE_SBR", PT_HINT_USE_SBR),
+  INIT_PT_HINT("NO_SUPPLEMENTAL_LOG", PT_HINT_NO_SUPPLEMENTAL_LOG),
+  INIT_PT_HINT("USE_HASH", PT_HINT_USE_HASH),
+  INIT_PT_HINT("NO_USE_HASH", PT_HINT_NO_USE_HASH),
+  INIT_PT_HINT("INLINE", PT_HINT_INLINE_CTE),
+  INIT_PT_HINT("MATERIALIZE", PT_HINT_MATERIALIZE_CTE),
+  INIT_PT_HINT("BIND_SENSITIVE", PT_HINT_BIND_SENSITIVE),
+  {NULL, NULL, -1, 0, false}		/* mark as end */
+};

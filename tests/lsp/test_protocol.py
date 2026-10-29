@@ -214,5 +214,37 @@ class ProtocolTests(unittest.TestCase):
                 self.assertEqual(diagnostic['code'], 'CUBRID-T1003')
 
 
+class HintAuthoringProtocolTests(unittest.TestCase):
+    def test_missing_runtime_utf16_correction_and_close(self):
+        with Client() as client:
+            capabilities = client.initialize()['result']['capabilities']
+            self.assertIn('+', capabilities['completionProvider']['triggerCharacters'])
+            uri = client.open("SELECT '😀', /*+ BOGUS */ 1;\r\n")
+            diagnostics = client.diagnostics(uri, 1)['diagnostics']
+            self.assertEqual([d['code'] for d in diagnostics], ['CUBRID-T1001', 'CUBRID-A1001'])
+            warning = diagnostics[1]
+            self.assertEqual(warning['severity'], 2)
+            self.assertEqual(warning['data']['category'], 'authoring')
+            self.assertEqual(warning['range'], {'start': {'line': 0, 'character': 17},
+                                               'end': {'line': 0, 'character': 22}})
+            client.change(uri, 'SELECT --+ USE_NL(a\r\n1;', 2)
+            malformed = client.diagnostics(uri, 2)['diagnostics']
+            self.assertEqual([d['code'] for d in malformed], ['CUBRID-T1001', 'CUBRID-A1002'])
+            self.assertEqual(malformed[1]['range'], {'start': {'line': 0, 'character': 17},
+                                                      'end': {'line': 0, 'character': 19}})
+            client.change(uri, 'SELECT /*+ ORDERED */ 1;', 3)
+            self.assertEqual([d['code'] for d in client.diagnostics(uri, 3)['diagnostics']], ['CUBRID-T1001'])
+            client.send('textDocument/didClose', {'textDocument': {'uri': uri}})
+            self.assertEqual(client.diagnostics(uri)['diagnostics'], [])
+
+    def test_hint_completion_edit_uses_utf16(self):
+        with Client() as client:
+            client.initialize()
+            uri = client.open("SELECT '😀', /*+ USE_NLbad */ 1;")
+            item = next(i for i in client.completion(uri, 0, 23)['result']['items'] if i['label'] == 'USE_NL')
+            self.assertEqual(item['textEdit']['range'], {'start': {'line': 0, 'character': 17},
+                                                        'end': {'line': 0, 'character': 26}})
+
+
 if __name__ == '__main__':
     unittest.main()

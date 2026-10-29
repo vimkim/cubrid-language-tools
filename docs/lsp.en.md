@@ -138,3 +138,5 @@ just build
 Missing prerequisites fail these mandatory checks. Default tests require neither pygls nor native artifacts.
 Both optional and native LSP suites pass on Python 3.10 and 3.14.
 Native grammar limits remain those of the [V3 coverage matrix](coverage.en.md).
+
+Optimizer hint comments offer names and selected table arguments. The server advertises `+` as a completion trigger. For the qualified profile, conservative SHOW and hint warnings use the `authoring` category. These warnings can accompany unsupported or unavailable native validation and do not certify syntax.

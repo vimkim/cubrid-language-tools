@@ -84,3 +84,9 @@ An empty LSP diagnostic list implies a checked document only when the caller con
 Spans use original Unicode code points. CRLF occupies two code points.
 Native errors use statement precision, and LSP converts the original spans to UTF-16.
 A parser pass does not prove object existence, types, privileges, affected rows, or server behavior.
+
+## Authoring warnings
+
+The exact `cubrid-11.5.0.2704-cc94778` profile adds conservative SHOW and optimizer-hint authoring warnings. They do not qualify native syntax or change native coverage. The checks cover unknown complete hint names, nested or unterminated hint arguments in closed comments, hints after SELECT modifiers, and unknown or selected malformed SHOW heads. Other argument and placement errors are not checked. Unknown profiles do not receive these closed-world warnings.
+
+A missing worker still produces its tool error alongside safely computed warnings. Ordinary comments, strings, incomplete hint comments, CSQL commands, and procedural bodies are excluded.

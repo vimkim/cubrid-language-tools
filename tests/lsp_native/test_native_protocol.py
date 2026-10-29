@@ -57,3 +57,21 @@ class NativeProtocolTests(unittest.TestCase):
             self.assertEqual(diagnostic['code'], 'CUBRID-S1001')
             self.assertEqual(diagnostic['range'], {'start': {'line': 0, 'character': 13},
                                                    'end': {'line': 0, 'character': 41}})
+
+class NativeHintAuthoringProtocolTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        manifest = json.loads((BUILD / 'manifest.json').read_bytes())
+        cls.settings = {'cubrid': {'parserWorker': str(BUILD / 'parser-worker'),
+                                   'runtimePrefix': manifest['runtimePrefix']}}
+
+    def test_warning_and_unsupported_are_published_and_cleared(self):
+        with Client() as client:
+            client.initialize(self.settings)
+            uri = client.open("SELECT '😀', /*+ BOGUS */ 1;")
+            findings = client.diagnostics(uri, 1)['diagnostics']
+            self.assertEqual([d['code'] for d in findings], ['CUBRID-U1002', 'CUBRID-A1001'])
+            self.assertEqual(findings[1]['range'], {'start': {'line': 0, 'character': 17},
+                                                    'end': {'line': 0, 'character': 22}})
+            client.change(uri, 'SELECT 1;', 2)
+            self.assertEqual(client.diagnostics(uri, 2)['diagnostics'], [])

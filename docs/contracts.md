@@ -50,7 +50,7 @@ Caller-supplied schema values preserve the integrated terminal schema, including
 Calls perform no filesystem, network, subprocess, environment, or terminal operations.
 The same inputs produce the same ordered output.
 Incomplete SQL remains eligible for completion.
-Comments and string contents suppress SQL completion.
+Ordinary comments and string contents suppress SQL completion. Recognized optimizer hint comments offer hint names and audited table argument suggestions.
 Session-command completion follows the integrated terminal baseline.
 Unknown schema data limits suggestions without inventing names.
 
@@ -106,7 +106,7 @@ Deduplicate only identical diagnostic values.
 | `CUBRID-T1003` | `tool` | `error` | Input/configuration/encoding/size failure |
 
 Warnings for unsupported coverage still prevent a successful lint exit.
-No semantic/style diagnostic category is enabled in v1.
+The `authoring` category contains warning-only, conservative SHOW and optimizer-hint findings for the exact qualified profile. These warnings do not alter native status or coverage. Unknown profiles receive no closed-world findings.
 Internal parser errors and catalog-dependent grammar failures cannot become ordinary syntax errors without a verified classification.
 Use tool failure or unsupported coverage when appropriate.
 
@@ -241,3 +241,11 @@ Choose default script mode from the document URI using the CLI's filename rules.
 
 These are project requirements based on the [LSP specification](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/).
 The project does not claim support for every LSP feature.
+
+## SHOW and optimizer-hint authoring
+
+`authoring_diagnostics(text, profile, script_mode="sql")` returns immutable warnings without I/O. It rejects invalid input and does not establish native validity. `Validator.validate` combines these findings with the unchanged native result. Missing native configuration remains a tool error.
+
+`CUBRID-A1001` identifies an unknown complete hint name. `CUBRID-A1002` identifies nested or unterminated hint arguments in a closed hint comment. `CUBRID-A1003` identifies unknown SHOW first words and audited malformed second words. `CUBRID-A1004` identifies a hint after a SELECT modifier. Incomplete hint comments and ambiguous constructs do not produce findings. Procedural bodies and CSQL commands remain opaque.
+
+The configured diagnostic limit covers combined findings. On overflow, the result is a tool error with an explicit truncation diagnostic. Native failures are retained first. At limit one, the truncation message contains the native failure context.

@@ -5,6 +5,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 import re
 
+from .authoring import HINTS, HINT_START, sql_parts
+from .validation.models import PROFILE
 from .completion_data import PARAMETERS
 from .models import CompletionItem, CompletionResult, Relation, Schema, Span
 from .syntax import SESSION_COMMANDS, contexts
@@ -321,7 +323,7 @@ def session_suggestions(text: str, cursor: int, schema: Schema) -> _Suggestions:
   return _complete_tokens(text, cursor, schema, tokens, session=True)
 
 
-def _suggest(text: str, cursor: int, schema: Schema) -> _Suggestions:
+def _suggest(text: str, cursor: int, schema: Schema, profile: str) -> _Suggestions:
   tokens = tokenize(text)
   commands = {}
   line_start = text.rfind('\n', 0, cursor) + 1
@@ -342,15 +344,52 @@ def _suggest(text: str, cursor: int, schema: Schema) -> _Suggestions:
     return _Suggestions(result.start + line_start, result.end + line_start, result.candidates, result.allowed)
   tokens = [token for token in tokens if not any(start <= token.start < end and token.end <= end
                                                 for start, end in commands.items())]
-  return _complete_tokens(text, cursor, schema, tokens)
+  return _complete_tokens(text, cursor, schema, tokens, hint_profile=profile == PROFILE)
 
 
-def _complete_tokens(text: str, cursor: int, schema: Schema, tokens: list[Token], session: bool = False) -> _Suggestions:
+def profile_hint_allowed(text: str, current: Token, cursor: int) -> bool:
+  return cursor >= current.start + 3 and any(span.start <= current.start < span.end for span in sql_parts(text))
+
+
+def hint_suggestions(text: str, cursor: int, schema: Schema, tokens: list[Token], current: Token) -> _Suggestions:
+  before = text[current.start + 3:cursor]
+  if before.startswith('+'):
+    before = before[1:]
+    body_start = current.start + 4
+  else:
+    body_start = current.start + 3
+  word = re.search(r'[A-Za-z_][A-Za-z_0-9]*$', before)
+  start = body_start + word.start() if word else cursor
+  suffix = re.match(r'[A-Za-z_0-9]*', text[cursor:current.end])
+  end = cursor + len(suffix.group())
+  prefix = text[start:cursor].casefold()
+  inside = re.search(r'([A-Za-z_][A-Za-z_0-9]*)\([^()]*$', before)
+  if inside:
+    if inside.group(1).upper() not in ('LEADING', 'USE_NL', 'USE_IDX', 'USE_MERGE', 'USE_HASH', 'NO_USE_HASH'):
+      return _Suggestions(start, end, ())
+    scoped = statement_scope(tokens, cursor)
+    names = {alias for alias, _ in referenced_relations(scoped, schema)}
+    for index, token in enumerate(scoped):
+      if table_position(scoped[:index]) and token.kind in ('word', 'identifier'):
+        names.add(token.name)
+        following = scoped[index + 1:index + 3]
+        if following and following[0].keyword == 'AS':
+          following = following[1:]
+        if following and following[0].kind in ('word', 'identifier') and following[0].keyword not in RESERVED:
+          names.add(following[0].name)
+    return ordered_suggestions(start, end, [CompletionItem(identifier(name), 'table') for name in names if name.casefold().startswith(prefix)])
+  return ordered_suggestions(start, end, [CompletionItem(name, 'hint') for name in HINTS if name.casefold().startswith(prefix)])
+
+
+def _complete_tokens(text: str, cursor: int, schema: Schema, tokens: list[Token], session: bool = False, hint_profile: bool = False) -> _Suggestions:
   current = next((t for t in tokens if t.start < cursor <= t.end and (
     t.kind in ('word', 'identifier') or t.kind in ('comment', 'string') and (
       cursor < t.end or not t.closed or t.text.startswith(('--', '//'))
     )
   )), None)
+  if hint_profile and current and current.kind == 'comment' and current.text.startswith(HINT_START):
+    if profile_hint_allowed(text, current, cursor):
+      return hint_suggestions(text, cursor, schema, tokens, current)
   if current and current.kind in ('comment', 'string'):
     preceding = [t.keyword for t in statement_scope(tokens, cursor) if t.end <= current.start]
     if current.kind == 'string' and preceding == ['SET', 'SYSTEM', 'PARAMETERS']:
@@ -420,6 +459,6 @@ def complete(text: str, cursor: int, profile: str, schema: Schema | None = None)
     raise TypeError('completion cursor must be an integer code-point offset')
   if not 0 <= cursor <= len(text):
     raise ValueError('completion cursor must be within the document')
-  result = _suggest(text, cursor, schema if schema is not None else Schema())
+  result = _suggest(text, cursor, schema if schema is not None else Schema(), profile)
   return CompletionResult(Span(result.start, result.end), result.candidates,
                           result.allowed)

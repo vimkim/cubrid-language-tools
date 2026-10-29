@@ -343,7 +343,7 @@ def create_server():
             server.text_document_publish_diagnostics(types.PublishDiagnosticsParams(
                 uri=params.text_document.uri, version=document.version, diagnostics=[]))
 
-    @server.feature(types.TEXT_DOCUMENT_COMPLETION)
+    @server.feature(types.TEXT_DOCUMENT_COMPLETION, types.CompletionOptions(trigger_characters=['+']))
     async def completion(params):
         await asyncio.sleep(0)
         document = documents.get(params.text_document.uri)
