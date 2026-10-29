@@ -1,0 +1,94 @@
+{
+  "implementationCommit": "27f29a45aa4de28fdd20ea4b5b326b666d2bb8bc",
+  "implementationTree": "a22fcaccad94b54ccbaca57166fb5b4722bbf142",
+  "dispatchBaseline": "49479b2d0a6cf39f71498834215346d8381b82c5",
+  "coverageRevision": "bounded-query-dml-schema-engineer-ordered-v4",
+  "evidenceDirectory": "/home/vimkim/temp/cubrid-followup-execution-6_7fcyif/native",
+  "qualifiedBuild": "/home/vimkim/temp/cubrid-followup-execution-6_7fcyif/native/qualified-build",
+  "finalArtifacts": {
+    "parser-worker": "c2b89a8f7d539934f0b68cf2af66199d3889baa541859d30809cca9c91ccabd3",
+    "manifest.json": "c93879150d6ecb4a62414876f097b029e2bec06725292bbe6673133c46bb7efc",
+    "build-evidence.json": "a66be45e7f88992afddbe3d6bc5602ffda4ec22b0ab6153adf6254090a6fab4b"
+  },
+  "preHelperBindingManifestSha256": "d552f10f4b39f51ac4ac10704ba82497a42bf4368d51caada50e9e70be8de25b",
+  "fixtureStatuses": {
+    "valid": 110,
+    "syntax-error": 89,
+    "unsupported": 194
+  },
+  "orderedFixtureStatuses": {
+    "valid": 11,
+    "syntax-error": 9,
+    "unsupported": 48
+  },
+  "trace": {
+    "executions": 1,
+    "networkCalls": 0,
+    "descendants": 0,
+    "externalWritableOpens": 0,
+    "writableOpens": 5
+  },
+  "traceSha256": "1045cdf1803771b7e5a72a469701b708aee9f1e97b7d875692a64d3286703529",
+  "receipts": {
+    "core-tests.log": {
+      "sha256": "10f17462eb82d2181772b39c85ec189c0b09de40a064358d6dd3e78b38e21081",
+      "manifestSha256": null,
+      "testCounts": [
+        124
+      ]
+    },
+    "lsp-tests.log": {
+      "sha256": "e26778d43b7d3caae1a9c04b3f28652bd2bdbab90c6ffe32c084291ff9004e67",
+      "manifestSha256": null,
+      "testCounts": [
+        34
+      ]
+    },
+    "native-tests.log": {
+      "sha256": "c6dbcd4d6f953a1171af1414db05c68ce2b4428ba4f94967b1946c6dc8bdef3b",
+      "manifestSha256": "d552f10f4b39f51ac4ac10704ba82497a42bf4368d51caada50e9e70be8de25b",
+      "testCounts": [
+        48,
+        20
+      ]
+    },
+    "final-identity-native-tests.log": {
+      "sha256": "d7f23f474a2cc5206cc9416a13a06ae00f1173c93d3bf17a48870a74ff194aa1",
+      "manifestSha256": "c93879150d6ecb4a62414876f097b029e2bec06725292bbe6673133c46bb7efc",
+      "testCounts": [
+        6
+      ]
+    },
+    "final-lsp-native-tests.log": {
+      "sha256": "9d6a641b6b3a9b93ec1650feb6dceae3812eb2115ab59ce2df9879626a7e0f5e",
+      "manifestSha256": "c93879150d6ecb4a62414876f097b029e2bec06725292bbe6673133c46bb7efc",
+      "testCounts": [
+        8
+      ]
+    },
+    "final-qualification.log": {
+      "sha256": "a2fc9d57f4efc5d7f2bed5575d758464247956de3edf44e8a8d92f102c956105",
+      "manifestSha256": "c93879150d6ecb4a62414876f097b029e2bec06725292bbe6673133c46bb7efc",
+      "testCounts": []
+    },
+    "final-package-build.log": {
+      "sha256": "893b34ee9707bd9b5b80eb3544d993cae9d8d3e09eb31a71afcf056d06a2a637",
+      "manifestSha256": null,
+      "testCounts": []
+    }
+  },
+  "preservedInputs": {
+    "files": 16,
+    "generatedHeaders": 4,
+    "grammarInputs": 8,
+    "helperInputs": 7,
+    "headers": 618,
+    "primaryBuildFiles": 5,
+    "pinnedSourceStatus": "",
+    "sourceCommit": "cc947788d3b7dc402f46192d0f3299ddcc8563ba",
+    "newlyBoundHintHelper": {
+      "/home/vimkim/gh/cubrid-rust/reference-cubrid-cc947788/src/parser/scanner_support.c": "b58ad8fe45c975e2282c3eb26ef7a1fe40fe2bd37416442a11e7488a4b03a5fb"
+    }
+  },
+  "limitations": "Exact Linux x86-64 profile and listed corpus only. No full release matrix, editor installation, publication, main integration, or push."
+}
