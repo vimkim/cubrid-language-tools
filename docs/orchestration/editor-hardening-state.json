@@ -1,6 +1,6 @@
 {
   "workItem": 595,
-  "status": "implementing",
+  "status": "local-review-complete; awaiting concrete source integration approval",
   "evidenceDirectory": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j",
   "plan": "docs/orchestration/editor-hardening-plan.md",
   "dispatch": [
@@ -81,7 +81,10 @@
       "tests/sql-defaults.lua",
       "tests/file-extensions.lua"
     ],
-    "rule": "Preserve concurrent main changes; do not restore obsolete defaults or mutate the live profile"
+    "rule": "Preserve concurrent main changes; do not restore obsolete defaults or mutate the live profile",
+    "latestReviewedMain": "90bd8994c349903779b8839dc7bf99e38ace0a06",
+    "laterChange": "Native installation discovery and CubridDoctor added after CI/docs dispatch; preserve and verify during approved rebase",
+    "unpublishedMainCommitsAtReview": 6
   },
   "coreConcurrentChange": {
     "main": "1829fb6730663d427aaa5c4fad0574838e392349",
@@ -105,5 +108,73 @@
     "deadlineFix": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/neovim-deadline-fix/report.md",
     "rootDeadlineReceipt": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/neovim-deadline-fix/root-check.txt",
     "reviewResult": "Only proven finding was TERM-only timeout; corrected with kill-after5s and RED/GREEN control; root recheck passes"
-  }
+  },
+  "vscodeCI": {
+    "candidate": "620f0696ebbf4425a7b41c704222ab859323a392",
+    "worktree": "/home/vimkim/gh/cubrid-vscode-ci",
+    "branch": "ci/desktop-qualification",
+    "report": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/evidence/vscode-ci/REPORT.md",
+    "independentReview": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/evidence/vscode-independent-verification.md",
+    "commentReview": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/vscode-comment-review.md",
+    "rootCheck": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/evidence/vscode-ci/root-check-9aduj49h",
+    "productionPreserved": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/evidence/vscode-ci/root-production-preserved.json",
+    "checks": "11 localtests; productionaudit0; Node/Python syntax; actionlint+shellcheck;323-file VSIX provenance; localdesktopguard rejected",
+    "hosted": "not run; min1.109.0 and freshly resolvedstable pending approved workflow main integration/push"
+  },
+  "remoteReview": {
+    "cubrid-language-tools": {
+      "path": "/home/vimkim/gh/cubrid-language-tools",
+      "capturedAt": "2026-10-29T06:55:07.793552+00:00",
+      "branch": "main",
+      "head": "1829fb6730663d427aaa5c4fad0574838e392349",
+      "status": "",
+      "origin": "https://github.com/vimkim/cubrid-language-tools.git",
+      "remoteMain": "1829fb6730663d427aaa5c4fad0574838e392349",
+      "trackingMain": "1829fb6730663d427aaa5c4fad0574838e392349",
+      "worktrees": "/home/vimkim/gh/cubrid-language-tools                  1829fb6 [main]\n/home/vimkim/gh/cubrid-language-tools-editor-delivery  5bc79df [delivery/editor-hardening]\n/home/vimkim/gh/cubrid-language-tools-editor-docs      7c2e723 [docs/editor-installation]",
+      "unpublishedMainCommits": "0"
+    },
+    "cubrid-vscode": {
+      "path": "/home/vimkim/gh/cubrid-vscode",
+      "capturedAt": "2026-10-29T06:55:07.930980+00:00",
+      "branch": "main",
+      "head": "c6b2aeaaf837f15d26298f925ca0ee23e1e2f2a2",
+      "status": "",
+      "origin": "https://github.com/vimkim/cubrid-vscode.git",
+      "remoteMain": "c6b2aeaaf837f15d26298f925ca0ee23e1e2f2a2",
+      "trackingMain": "c6b2aeaaf837f15d26298f925ca0ee23e1e2f2a2",
+      "worktrees": "/home/vimkim/gh/cubrid-vscode              c6b2aea [main]\n/home/vimkim/gh/cubrid-vscode-ci           620f069 [ci/desktop-qualification]\n/home/vimkim/gh/cubrid-vscode-editor-docs  5f905c7 [docs/public-installation]",
+      "unpublishedMainCommits": "0"
+    },
+    "cubrid.nvim": {
+      "path": "/home/vimkim/gh/cubrid.nvim",
+      "capturedAt": "2026-10-29T06:55:07.929849+00:00",
+      "branch": "main",
+      "head": "90bd8994c349903779b8839dc7bf99e38ace0a06",
+      "status": "",
+      "origin": "https://github.com/vimkim/cubrid.nvim.git",
+      "remoteMain": "4b4c4d9e486f0b02c146d21cb8452b3c45bad754",
+      "trackingMain": "4b4c4d9e486f0b02c146d21cb8452b3c45bad754",
+      "worktrees": "/home/vimkim/gh/cubrid.nvim                   90bd899 [main]\n/home/vimkim/gh/cubrid.nvim-ci                a94ea14 [ci/portable-editor-checks]\n/home/vimkim/gh/cubrid.nvim-current-docs      64e9115 [docs/current-installation]\n/home/vimkim/gh/cubrid.nvim-discovery-doctor  90bd899 [feat/discovery-doctor]\n/home/vimkim/gh/cubrid.nvim-editor-docs       72379ba [docs/lazyvim-installation]",
+      "unpublishedMainCommits": "6"
+    },
+    "nvim": {
+      "path": "/home/vimkim/.config/nvim",
+      "capturedAt": "2026-10-29T06:55:07.931219+00:00",
+      "branch": "main",
+      "head": "a872ae2e7295323cafbc01cf5f094e3beab0e484",
+      "status": "M lazyvim.json",
+      "origin": "https://github.com/vimkim/nvim",
+      "remoteMain": "90957f7d04744da5c7bd8a0af0a6179d15bae86d",
+      "trackingMain": "90957f7d04744da5c7bd8a0af0a6179d15bae86d",
+      "worktrees": "/home/vimkim/.config/nvim                   a872ae2 [main]\n/home/vimkim/.config/nvim-discovery-doctor  a872ae2 [feat/cubrid-discovery]",
+      "unpublishedMainCommits": "1"
+    }
+  },
+  "integrationPreservation": [
+    "Core1829fb6 PATH recipes and guide additions",
+    "Neovim90bd899 runtime discovery/CubridDoctor guidance and all3 newly added discovery/doctor tests plus modifiedmissing.lua",
+    "Real user profile a872ae2 and original lazyvim.json dirt are outside remaining integration scope",
+    "Old72379ba docs are ancestor of64e9115, allowing safe cleanup after integration"
+  ]
 }
