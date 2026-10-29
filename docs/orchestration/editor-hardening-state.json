@@ -66,20 +66,25 @@
       "repository": "/home/vimkim/gh/cubrid.nvim",
       "worktree": "/home/vimkim/gh/cubrid.nvim-ci",
       "branch": "ci/portable-editor-checks",
-      "baseline": "9a8b068cf67574022d6841c41e67b834f3526bc4"
+      "baseline": "b5c0c6483583ca5d609169cd1b52336040e1292f"
     }
   ],
   "neovimConcurrentChange": {
-    "main": "9a8b068cf67574022d6841c41e67b834f3526bc4",
+    "main": "b5c0c6483583ca5d609169cd1b52336040e1292f",
     "remoteTrackingMain": "4b4c4d9e486f0b02c146d21cb8452b3c45bad754",
     "newDocsWorktree": "/home/vimkim/gh/cubrid.nvim-current-docs",
     "newDocsBranch": "docs/current-installation",
     "oldDocsCandidate": "72379ba81cbc6ac0f32c222cd68831c884f02b58",
-    "currentBehavior": "SQL and CSQL enabled by default; sql=false opts out; missing-server and conflict notices preserved",
+    "currentBehavior": "SQL and CSQL enabled by default; file_extensions replacement list selects independently; old sql option rejected; missing-server/conflict notices preserved",
     "newTests": [
       "tests/missing-default.lua",
-      "tests/sql-defaults.lua"
+      "tests/sql-defaults.lua",
+      "tests/file-extensions.lua"
     ],
     "rule": "Preserve concurrent main changes; do not restore obsolete defaults or mutate the live profile"
+  },
+  "coreConcurrentChange": {
+    "main": "1829fb6730663d427aaa5c4fad0574838e392349",
+    "rule": "Preserve separately integrated uv tool PATH recipes and installation documentation"
   }
 }
