@@ -82,9 +82,10 @@
       "tests/file-extensions.lua"
     ],
     "rule": "Preserve concurrent main changes; do not restore obsolete defaults or mutate the live profile",
-    "latestReviewedMain": "90bd8994c349903779b8839dc7bf99e38ace0a06",
+    "latestReviewedMain": "6714657a0ea4ff19e2f54d61f6994aff1b7ec358",
     "laterChange": "Native installation discovery and CubridDoctor added after CI/docs dispatch; preserve and verify during approved rebase",
-    "unpublishedMainCommitsAtReview": 6
+    "unpublishedMainCommitsAtReview": 8,
+    "handoffSnapshot": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/review-state-cubrid.nvim-handoff.json"
   },
   "coreConcurrentChange": {
     "main": "1829fb6730663d427aaa5c4fad0574838e392349",
@@ -148,15 +149,14 @@
     },
     "cubrid.nvim": {
       "path": "/home/vimkim/gh/cubrid.nvim",
-      "capturedAt": "2026-10-29T06:55:07.929849+00:00",
+      "capturedAt": "2026-10-29T07:03:24.288861+00:00",
       "branch": "main",
-      "head": "90bd8994c349903779b8839dc7bf99e38ace0a06",
+      "head": "6714657a0ea4ff19e2f54d61f6994aff1b7ec358",
       "status": "",
       "origin": "https://github.com/vimkim/cubrid.nvim.git",
       "remoteMain": "4b4c4d9e486f0b02c146d21cb8452b3c45bad754",
-      "trackingMain": "4b4c4d9e486f0b02c146d21cb8452b3c45bad754",
-      "worktrees": "/home/vimkim/gh/cubrid.nvim                   90bd899 [main]\n/home/vimkim/gh/cubrid.nvim-ci                a94ea14 [ci/portable-editor-checks]\n/home/vimkim/gh/cubrid.nvim-current-docs      64e9115 [docs/current-installation]\n/home/vimkim/gh/cubrid.nvim-discovery-doctor  90bd899 [feat/discovery-doctor]\n/home/vimkim/gh/cubrid.nvim-editor-docs       72379ba [docs/lazyvim-installation]",
-      "unpublishedMainCommits": "6"
+      "unpublishedMainCommits": "8",
+      "laterThanDiscovery": "6714657 Ignore the generated Neovim help index\nadabf20 Record live discovery integration verification"
     },
     "nvim": {
       "path": "/home/vimkim/.config/nvim",
@@ -175,6 +175,7 @@
     "Core1829fb6 PATH recipes and guide additions",
     "Neovim90bd899 runtime discovery/CubridDoctor guidance and all3 newly added discovery/doctor tests plus modifiedmissing.lua",
     "Real user profile a872ae2 and original lazyvim.json dirt are outside remaining integration scope",
-    "Old72379ba docs are ancestor of64e9115, allowing safe cleanup after integration"
+    "Old72379ba docs are ancestor of64e9115, allowing safe cleanup after integration",
+    "Later Neovim adabf20 verification record and6714657 generated help index ignore;8 unpublished commits at07:03Z"
   ]
 }
