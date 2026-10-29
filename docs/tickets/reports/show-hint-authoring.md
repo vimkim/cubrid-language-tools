@@ -64,3 +64,19 @@ The core suite passed 120 tests, framed LSP passed 34, native parser passed 46, 
 A second independent review found that a hint argument token beginning exactly at the cursor was excluded from the replacement span. Accepting `a` at `USE_NL(|a)` duplicated the token. The same boundary affected quoted and Unicode identifiers. Commit `1f58e68` added API and framed-protocol regressions before the fix. The focused API run failed three edit-application assertions.
 
 Including the token's left boundary corrects the replacement without changing native status or diagnostics. The complete core suite passed 120 tests. The three focused framed hint tests passed, including the new ASCII, quoted and Unicode start-of-token cases and the previous UTF-16 and escaping cases. Logs are recorded under the coordinator's `evidence/boundary-*.log` artifacts. Native worker code and coverage are unchanged.
+
+## Installed editor acceptance
+
+The coordinator built source and wheel artifacts from product commit `8b1226c8f10686eb29d13d86cdda793df71d6645` and installed the wheel with its pinned LSP extra into a separate environment. All 19 packaged Python source files matched the implementation source. The source archive SHA-256 is `c62f5ed38610af015be386eb81afe906ab83384a3674aece16d0cfc294c91ac9`, and the wheel SHA-256 is `63cbf39164ce5fe09fb49a09163afdeac1b42d4ce15ceece58e246eb01031d64`. Later evidence-only commits do not alter those product files.
+
+The extracted Neovim artifact and installed server passed six completion edits through Blink's ordinary LSP source in default activation, explicit native activation, and an isolated LazyVim profile. Cases cover SHOW, hint names after supplementary Unicode, bracketed aliases, Unicode aliases, owner-qualified table aliases, and manual completion at the start of an existing token. Each run kept one client across buffers, checked exact UTF-16 authoring-warning ranges, cleared the warning after correction while preserving native unsupported coverage, and observed direct-child exit through the runner.
+
+The isolated LazyVim profile uses the installed LazyVim/Blink source plugins with separate XDG directories. Plugin updates, Mason and automatic parser installation are disabled in the successful run. It opens a real `.csql` file. It is not the user's full personal configuration. Neovim 0.12.5 on Linux is the exercised editor version. VS Code, lower editor versions, and broader native grammar qualification remain deferred.
+
+Reusable local evidence is under `/home/vimkim/temp/cubrid-show-hints-606-yszqo6t9/evidence/`. `editor-intelligence.lua` drives the real editor. `run-editor-acceptance.py` repeats an isolated mode with a fresh `--label`. `delivery-results.json` and the three `delivery-*-runner.log` files record successful exits and owned-child cleanup. `package-proof.json` records source comparisons and artifact hashes.
+
+Independent behavior review identified the repaired identifier and escaping issues and the later token-start regression. The final API and framed-LSP boundary reproducer passed independently at `8b1226c`. The independent decision-trail audit is recorded in `/home/vimkim/temp/cubrid-show-hints-606-yszqo6t9/trail-audit.txt`. Audit follow-ups in the committed decision log replace weak shorthand pointers, label startup-cause explanations as inference, and preserve revision-specific test scope. Full core and focused framed tests ran after the final boundary fix. Broader native and full protocol suites refer to the preceding repair revision.
+
+The isolated integration used LazyVim commit `999700997f72227187d49d8b92667183dc7fc809` and Blink commit `78336bc89ee5365633bcf754d93df01678b5c08f`. Their source checkouts had no tracked changes after verification.
+
+[The committed decision trail](show-hint-decisions.tsv) is a review-ready snapshot of the canonical local `decisions.tsv` in the coordinator task directory.
