@@ -4,7 +4,7 @@
 
 선택 설치하는 Python 서버가 공통 CUBRID 완성과 오프라인 문법 진단을 LSP 3.17로 제공합니다.
 편집기는 `cubrid-language-server` 자식 프로세스를 시작하고 표준 입력·출력으로 통신합니다.
-명령행 인자는 없습니다. TCP·WebSocket 수신 포트나 공유 daemon은 사용하지 않습니다.
+인자 없이 서버를 시작합니다. TCP·WebSocket 수신 포트나 공유 daemon은 사용하지 않습니다.
 
 ## 설치와 실행
 
@@ -26,7 +26,12 @@ uv pip install --python .venv/bin/python '.[lsp]'
 코어와 `cubrid-lint`의 필수 Python 런타임 의존성은 0개입니다.
 LSP extra는 pygls 2.1.1, lsprotocol 2025.0.0, attrs 25.4.0, cattrs 25.3.0, typing-extensions 4.15.0을 고정합니다.
 Python 3.10에서는 exceptiongroup 1.3.1도 사용합니다.
-선택 의존성이 없으면 설치된 서버 명령이 stderr에 설치 안내를 출력하고 상태 3으로 종료합니다.
+선택 의존성이 없으면 인자 없이 설치된 서버를 시작할 때 stderr에 설치 안내를 출력하고 상태 3으로 종료합니다.
+
+서버를 시작하지 않고 설치된 배포본의 버전을 확인하려면 `cubrid-language-server --version`을 실행합니다.
+사용법은 `cubrid-language-server --help` 또는 `-h`로 확인합니다. 각 옵션은 단독으로 사용합니다.
+이 옵션에는 선택 LSP 의존성과 네이티브 런타임이 필요하지 않습니다.
+설치된 배포 메타데이터가 없는 소스 실행에서는 버전을 확인할 수 없습니다. 먼저 패키지를 설치합니다.
 
 ## 신뢰하는 편집기 설정
 

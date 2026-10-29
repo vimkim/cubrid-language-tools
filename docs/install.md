@@ -13,6 +13,7 @@ uv와 just를 준비한 뒤 checkout에서 실행합니다.
 ```sh
 just sync
 cubrid-lint --help
+cubrid-language-server --version
 ```
 
 `just install`은 `just sync`의 별칭입니다.
@@ -40,7 +41,9 @@ uv pip install --python .venv/bin/python .
 
 코어·CLI의 필수 Python 런타임 의존성은 0개입니다.
 완성은 바로 사용할 수 있으며 엄격한 린트에는 아래의 신뢰된 네이티브 입력도 필요합니다.
-두 console 명령을 모두 설치합니다. 선택 의존성이 없으면 `cubrid-language-server`는 stderr 안내 후 3으로 종료합니다.
+두 console 명령을 모두 설치합니다. `cubrid-language-server --version`은 선택 의존성이나 네이티브 런타임 없이 설치된 배포본의 버전을 출력합니다.
+선택 의존성이 없으면 인자 없이 서버를 시작할 때 stderr에 안내를 출력하고 상태 3으로 종료합니다.
+설치된 배포 메타데이터가 없는 소스 실행에서는 버전을 확인할 수 없습니다. 먼저 패키지를 설치합니다.
 
 산출물을 설치하려면 빌드한 뒤 다음 입력을 사용합니다.
 

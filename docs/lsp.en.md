@@ -4,7 +4,7 @@
 
 The optional Python server supplies shared CUBRID completion and offline syntax diagnostics through LSP 3.17.
 Editors start one `cubrid-language-server` child process and communicate through standard input/output.
-The command accepts no arguments. The server opens no TCP or WebSocket listener.
+Start the server with no arguments. The server opens no TCP or WebSocket listener.
 
 ## Install and start
 
@@ -26,7 +26,12 @@ The editor packages do not bundle or automatically download the Python server or
 The core and `cubrid-lint` require no Python runtime dependencies.
 The server extra pins pygls 2.1.1, lsprotocol 2025.0.0, attrs 25.4.0, cattrs 25.3.0, and typing-extensions 4.15.0.
 Python 3.10 also uses exceptiongroup 1.3.1.
-Without the extra, the installed command prints installation guidance to stderr and exits with status 3.
+Without the extra, starting the installed server with no arguments prints installation guidance to stderr and exits with status 3.
+
+To check the installed distribution version without starting the server, run `cubrid-language-server --version`.
+Use `cubrid-language-server --help` or `-h` for usage. Each option must stand alone.
+These options require neither the optional LSP dependencies nor the native runtime.
+A source-only invocation without installed distribution metadata cannot report a version. Install the package first.
 
 ## Trusted editor settings
 

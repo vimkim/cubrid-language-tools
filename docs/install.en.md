@@ -13,6 +13,7 @@ With uv and just available, run from the checkout:
 ```sh
 just sync
 cubrid-lint --help
+cubrid-language-server --version
 ```
 
 `just install` is an alias for `just sync`.
@@ -42,7 +43,9 @@ uv pip install --python .venv/bin/python .
 
 Core and CLI have zero mandatory Python runtime dependencies.
 Completion works immediately. Strict linting also needs the trusted native inputs described below.
-The package installs both console commands. Without the optional extra, `cubrid-language-server` prints guidance to stderr and exits 3.
+The package installs both console commands. `cubrid-language-server --version` prints the installed distribution version without the optional extra or native runtime.
+Without the optional extra, starting the server with no arguments prints guidance to stderr and exits 3.
+A source-only invocation without installed distribution metadata cannot report a version. Install the package first.
 
 To install an artifact instead, build it and choose one of these inputs:
 
