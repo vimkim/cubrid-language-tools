@@ -44,8 +44,42 @@
     "rootCheck": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/nvim-integration/root-check.json"
   },
   "documentationCandidates": {
-    "core": "5e185cb401fd4340368b0119af8c11973a7c2968",
+    "core": "7c2e723856320f2d57d6b95f2445178c90dd2115",
     "vscode": "5f905c7876fc5fb1736e94c32f57e2254dccd9fb",
-    "neovim": "72379ba81cbc6ac0f32c222cd68831c884f02b58"
+    "neovim": "superseded: refresh72379ba installation docs onto current9a8b068 preserving SQL-default behavior"
+  },
+  "ciDesign": {
+    "base": "design-astra",
+    "judge": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/ci-design-verdict.md",
+    "grounding": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/ci-grounding.md",
+    "grafts": "Explicit coverage discriminator and first installed missing-runtime milestone",
+    "corrections": "Provenance sidecar input, supervised SDK subprocess, executable-only launcher environment, current Neovim defaults/tests, exact build-tool provenance"
+  },
+  "ciDispatch": [
+    {
+      "repository": "/home/vimkim/gh/cubrid-vscode",
+      "worktree": "/home/vimkim/gh/cubrid-vscode-ci",
+      "branch": "ci/desktop-qualification",
+      "baseline": "c6b2aeaaf837f15d26298f925ca0ee23e1e2f2a2"
+    },
+    {
+      "repository": "/home/vimkim/gh/cubrid.nvim",
+      "worktree": "/home/vimkim/gh/cubrid.nvim-ci",
+      "branch": "ci/portable-editor-checks",
+      "baseline": "9a8b068cf67574022d6841c41e67b834f3526bc4"
+    }
+  ],
+  "neovimConcurrentChange": {
+    "main": "9a8b068cf67574022d6841c41e67b834f3526bc4",
+    "remoteTrackingMain": "4b4c4d9e486f0b02c146d21cb8452b3c45bad754",
+    "newDocsWorktree": "/home/vimkim/gh/cubrid.nvim-current-docs",
+    "newDocsBranch": "docs/current-installation",
+    "oldDocsCandidate": "72379ba81cbc6ac0f32c222cd68831c884f02b58",
+    "currentBehavior": "SQL and CSQL enabled by default; sql=false opts out; missing-server and conflict notices preserved",
+    "newTests": [
+      "tests/missing-default.lua",
+      "tests/sql-defaults.lua"
+    ],
+    "rule": "Preserve concurrent main changes; do not restore obsolete defaults or mutate the live profile"
   }
 }
