@@ -17,7 +17,7 @@ The user approved jobs 1 through 3 and excluded csql-future migration. The core 
 - [x] Phase B: Design the workflow. Ground the existing host harness, compare two desktop CI shapes and select a small artifact-based runner before implementation.
 - [x] Phase C: Run the loop. Finish each bounded unit against its acceptance predicate.
 - [x] Phase D: Keep the audit trail. Append decisions and evidence as each checkpoint completes.
-- [ ] Phase E: Verify and hand back. Review real artifacts and hosted outcomes, with unresolved coverage kept explicit.
+- [x] Phase E: Verify and hand back. Review real artifacts and hosted outcomes, with unresolved coverage kept explicit.
 
 ## Throughput checkpoint
 
@@ -39,4 +39,4 @@ The user did not request csql-future migration, Marketplace publisher registrati
 
 ## Local review checkpoint
 
-Core documentation is published. The Neovim rebase preserved later runtime discovery, doctor tests, acceptance notes and the help-index ignore. Its hosted 17 portable and local four native cases passed. Microsoft desktop 1.109.0 and freshly resolved stable 1.144.0 passed all four mandatory cases each at the final published VSCode documentation tip. Actual archives and receipts were inspected. Final audit and coordination-record publication close work item 595.
+Core documentation is published. The Neovim rebase preserved later runtime discovery, doctor tests, acceptance notes and the help-index ignore. Its hosted 17 portable and local four native cases passed. Microsoft desktop 1.109.0 and freshly resolved stable 1.144.0 passed all four mandatory cases each at the final published VSCode documentation tip. Actual archives and receipts were inspected. The final audit found no unresolved material findings. The closing record is published under the existing approval, followed by its merged-worktree cleanup and work item 595 completion.

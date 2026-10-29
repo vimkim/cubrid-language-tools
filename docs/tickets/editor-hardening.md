@@ -37,3 +37,7 @@ Actual Microsoft desktop execution is only on hosted CI after concrete workflow 
 ## Latest concurrent extension-selection amendment
 
 Before implementation dispatch, Neovim main advanced again to b5c0c6483583ca5d609169cd1b52336040e1292f. Both new Neovim worktrees now start there. The file_extensions replacement list selects .sql and .csql independently; the old sql option is rejected with migration guidance. Preserve tests/file-extensions.lua and updated SQL tests. This amendment supersedes the older sql=false instructions above. Core main separately added uv tool PATH installation recipes and docs; preserve those additions during eventual approved integration. No real user configuration changes are in scope.
+
+## Approved delivery closure
+
+The later explicit yes approved the concrete reviewed packet, current-main rebases, fast-forward integration, configured main pushes including eight existing Neovim commits, and hosted qualification. Core docs, Neovim onboarding/CI and VS Code onboarding/CI are integrated and pushed. Actual final hosted artifacts passed, including Microsoft desktop 1.109.0 and fresh stable 1.144.0. The final audit found no unresolved material findings. The coordinator record is published last and its merged worktree/branch are removed without force under the same approval. Original preparation-stage no-integration text above is historical. Coverage limits remain explicit in the delivery report.
