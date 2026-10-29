@@ -50,4 +50,10 @@ The evidence root is `/home/vimkim/temp/cubrid-editor-hardening-c57_w98j`.
 - `evidence/vscode-ci/REPORT.md`, `evidence/vscode-independent-verification.md`, and `evidence/vscode-ci/root-check-9aduj49h` record the clean VSIX and local verification.
 - `ci-design-verdict.md` compares both complete sketches and records the selected design/corrections.
 - `review-state-*.json` records current branch, status, live remote heads and worktrees.
-- `docs/orchestration/editor-hardening-decisions.tsv` is the canonical append-only trail. A final available-model trail review will be recorded before handoff.
+- `docs/orchestration/editor-hardening-decisions.tsv` is the canonical append-only trail. The final available-model review is `trail-audit.md` under the evidence root. It confirmed every original decision/action, supplied companion receipt pointers, and prompted explicit append-only corrections. The current eight-commit Neovim snapshot and preservation requirements are saved. Review was fresh-context GPT-only; no cross-family independence is claimed.
+
+## Handoff audit
+
+The requested reviewer was gpt-6-astra and reported GPT-6 Codex with no exact deployment slug exposed. The audit found no false verification or unauthorized integration claim. The canonical trail now supplements the initial core/consumer documentation receipts, explicitly records `7c2e723`, and links the companion RED/GREEN, archive inventory, eleven-test and VSIX provenance receipts through the audit report.
+
+Remaining attention is the approval-gated rebase against later Neovim changes, the required post-rebase checks, and actual hosted execution. The original Neovim negative checks remain post-implementation evidence. The later deadline correction has separate RED/GREEN proof.

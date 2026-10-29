@@ -16,7 +16,7 @@ The user approved jobs 1 through 3 and excluded csql-future migration. The core 
 - [x] Phase A: Frame. Inspect four repository states, the live Neovim deployment, published artifacts and official desktop testing guidance.
 - [x] Phase B: Design the workflow. Ground the existing host harness, compare two desktop CI shapes and select a small artifact-based runner before implementation.
 - [ ] Phase C: Run the loop. Finish each bounded unit against its acceptance predicate.
-- [ ] Phase D: Keep the audit trail. Append decisions and evidence as each checkpoint completes.
+- [x] Phase D: Keep the audit trail. Append decisions and evidence as each checkpoint completes.
 - [ ] Phase E: Verify and hand back. Review real artifacts and hosted outcomes, with unresolved coverage kept explicit.
 
 ## Throughput checkpoint
@@ -36,3 +36,7 @@ Ground, Sketch, Agree, Implement and Scrap are the architecture phases. Agree ha
 The explicit user reply approves integration of the already reviewed Neovim configuration commit. New docs and CI changes are authorized to prepare, test and commit on isolated topic branches; their integration requires the normal concrete review approval. CI execution is part of job3, but no existing workflow exists on default branches. Record that dependency rather than claiming an unexecuted workflow passed.
 
 The user did not request csql-future migration, Marketplace publisher registration, Marketplace publication, deployment of new editor builds into the real user profile, or a new GitHub alpha release.
+
+## Local review checkpoint
+
+Documentation and CI candidates are committed and independently reviewed at their dispatch baselines. The final trail audit and companion receipts are recorded. Concrete source integration approval is next. Rebase checks must preserve later Neovim runtime discovery, doctor tests, acceptance notes and help-index ignore. Actual hosted workflow and Microsoft desktop qualification follow approved main pushes. Work item595 remains open.

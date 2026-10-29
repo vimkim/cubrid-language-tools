@@ -177,5 +177,17 @@
     "Real user profile a872ae2 and original lazyvim.json dirt are outside remaining integration scope",
     "Old72379ba docs are ancestor of64e9115, allowing safe cleanup after integration",
     "Later Neovim adabf20 verification record and6714657 generated help index ignore;8 unpublished commits at07:03Z"
-  ]
+  ],
+  "trailAudit": {
+    "report": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/trail-audit.md",
+    "requestedReviewerModel": "gpt-6-astra",
+    "reportedReviewerIdentity": "GPT-6 (Codex; deployment slug unavailable)",
+    "independence": "Fresh context; GPT models only; no different-family or cross-provider claim",
+    "result": "Original12 rows supported; supplemented narrow evidence pointers and explicit core status-correction; latest8-commit handoff saved",
+    "remaining": [
+      "Approval-gated preservation/rebase and integration checks against newer Neovim main",
+      "Hosted workflows and Microsoft desktop1.109.0/stable unrun",
+      "Original Neo negatives were postimplementation; only deadline correction has RED/GREEN"
+    ]
+  }
 }
