@@ -4,3 +4,4 @@ __pycache__/
 /src/*.egg-info/
 /build/
 /dist/
+/native/parser-worker/build

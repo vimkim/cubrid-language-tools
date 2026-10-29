@@ -22,3 +22,7 @@ Exact dispatch commits and acceptance evidence live in [execution state](../orch
 
 Dependency refinement after ticket 05: script classification uses the stable Validator seam independently of ticket 07.
 Ticket 09 retains its direct ticket 07 qualification gate, confirmed passed by the coordinator on 2026-10-29.
+
+## Language authoring follow-up
+
+- [SHOW and optimizer-hint authoring](show-hint-authoring.md) implements the [selected design](show-hint-design.md).
