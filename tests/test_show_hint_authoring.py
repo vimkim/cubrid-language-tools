@@ -43,6 +43,8 @@ class AuthoringCoverageTests(unittest.TestCase):
         cases = (
             ('SELECT /*+ USE_NL([ord|er]) */ * FROM t [order];', '[order]',
              'SELECT /*+ USE_NL([order]) */ * FROM t [order];'),
+            ('SELECT /*+ USE_NL("ord|er") */ * FROM t [order];', '"order"',
+             'SELECT /*+ USE_NL("order") */ * FROM t [order];'),
             ('SELECT /*+ USE_NL(가|나) */ * FROM t 가나;', '가나',
              'SELECT /*+ USE_NL(가나) */ * FROM t 가나;'),
             ('SELECT /*+ USE_NL(a|) */ * FROM dba.account a;', 'a',

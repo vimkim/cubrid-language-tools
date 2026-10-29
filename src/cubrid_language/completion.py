@@ -194,7 +194,7 @@ def table_position(tokens: list[Token]) -> bool:
   return False
 
 
-def referenced_relations(tokens: list[Token], schema: Schema) -> list[tuple[str, Relation]]:
+def relation_names(tokens: list[Token]) -> list[tuple[str, str, str]]:
   found = []
   for index, token in enumerate(tokens):
     if not table_position(tokens[:index + 1]):
@@ -204,18 +204,25 @@ def referenced_relations(tokens: list[Token], schema: Schema) -> list[tuple[str,
       continue
     owner, name = "", tokens[index].name
     index += 1
-    if index + 1 < len(tokens) and tokens[index].text == '.':
+    if (index + 1 < len(tokens) and tokens[index].text == '.' and
+        tokens[index + 1].kind in ("word", "identifier")):
       owner, name = name, tokens[index + 1].name
       index += 2
-    matches = matching_relations(schema, (owner, name) if owner else (name,))
-    if len(matches) != 1:
-      continue
     alias = name
     if index < len(tokens) and tokens[index].keyword == "AS":
       index += 1
     if index < len(tokens) and tokens[index].kind in ("word", "identifier") and tokens[index].keyword not in RESERVED:
       alias = tokens[index].name
-    found.append((alias, matches[0]))
+    found.append((owner, name, alias))
+  return found
+
+
+def referenced_relations(tokens: list[Token], schema: Schema) -> list[tuple[str, Relation]]:
+  found = []
+  for owner, name, alias in relation_names(tokens):
+    matches = matching_relations(schema, (owner, name) if owner else (name,))
+    if len(matches) == 1:
+      found.append((alias, matches[0]))
   return found
 
 
@@ -367,17 +374,18 @@ def hint_suggestions(text: str, cursor: int, schema: Schema, tokens: list[Token]
   if inside:
     if inside.group(1).upper() not in ('LEADING', 'USE_NL', 'USE_IDX', 'USE_MERGE', 'USE_HASH', 'NO_USE_HASH'):
       return _Suggestions(start, end, ())
+    argument_tokens = tokenize(text[body_start:current.end])
+    argument_cursor = cursor - body_start
+    argument = next((t for t in argument_tokens if t.kind in ('word', 'identifier')
+                     and t.start < argument_cursor <= t.end), None)
+    start, end = ((body_start + argument.start, body_start + argument.end)
+                  if argument else (cursor, cursor))
+    quote = text[start:start + 1] if argument and argument.kind == 'identifier' else ''
+    prefix = unquote(text[start:cursor], bool(argument and argument.closed and cursor == end)).casefold()
     scoped = statement_scope(tokens, cursor)
-    names = {alias for alias, _ in referenced_relations(scoped, schema)}
-    for index, token in enumerate(scoped):
-      if table_position(scoped[:index]) and token.kind in ('word', 'identifier'):
-        names.add(token.name)
-        following = scoped[index + 1:index + 3]
-        if following and following[0].keyword == 'AS':
-          following = following[1:]
-        if following and following[0].kind in ('word', 'identifier') and following[0].keyword not in RESERVED:
-          names.add(following[0].name)
-    return ordered_suggestions(start, end, [CompletionItem(identifier(name), 'table') for name in names if name.casefold().startswith(prefix)])
+    names = {value for _, name, alias in relation_names(scoped) for value in (name, alias)}
+    names.update(alias for alias, _ in referenced_relations(scoped, schema))
+    return ordered_suggestions(start, end, [CompletionItem(identifier(name, quote), 'table') for name in names if name.casefold().startswith(prefix)])
   return ordered_suggestions(start, end, [CompletionItem(name, 'hint') for name in HINTS if name.casefold().startswith(prefix)])
 
 

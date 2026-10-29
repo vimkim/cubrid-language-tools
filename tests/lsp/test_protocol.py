@@ -258,6 +258,14 @@ class HintAuthoringProtocolTests(unittest.TestCase):
                     edit = item['textEdit']['newText']
                     line = text.split('\r\n')[1]
                     self.assertEqual(line[:start] + edit + line[end:], marked.replace('|', ''))
+            marked = "SELECT '😀', /*+ USE_NL(가|나) */ * FROM t 가나;"
+            cursor = marked.index('|')
+            line = marked.replace('|', '')
+            uri = client.open('-- 😀\r\n' + line, uri='untitled:hint-utf16')
+            character = len(line[:cursor].encode('utf-16-le')) // 2
+            item = next(i for i in client.completion(uri, 1, character)['result']['items'] if i['label'] == '가나')
+            self.assertEqual(item['textEdit']['range'], {'start': {'line': 1, 'character': 24},
+                                                        'end': {'line': 1, 'character': 26}})
             text = r'SELECT /*+ USE_NL("a\\"(b)") */ 1;'
             uri = client.open(text, uri='untitled:hint-escape')
             self.assertEqual([d['code'] for d in client.diagnostics(uri, 1)['diagnostics']], ['CUBRID-T1001'])

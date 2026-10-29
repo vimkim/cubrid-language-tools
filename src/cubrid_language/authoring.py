@@ -1,4 +1,3 @@
-"""Conservative authoring findings for the pinned CUBRID profile."""
 import re
 
 from .scripts import classify
@@ -102,7 +101,7 @@ def authoring_diagnostics(text, profile, script_mode='sql'):
                             while cursor < len(body) and depth:
                                 char = body[cursor]
                                 if quote:
-                                    if char == '\\' and cursor + 1 < len(body):
+                                    if char == '\\' and cursor + 1 < len(body) and body[cursor + 1] == quote:
                                         cursor += 1
                                     elif char == quote:
                                         quote = ''

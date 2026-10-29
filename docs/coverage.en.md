@@ -13,7 +13,7 @@ The Python wheel contains no native worker, CUBRID library, or runtime assets.
 `complete` supplies ordered candidates and a replacement span for unfinished SQL and supported session commands.
 Optional offline snapshots supply names, owners, columns, indexes, users, and database identity.
 Completion preserves the [11.4 manual vocabulary provenance](completion-provenance.md) inherited from csql-future.
-Its explicit profile argument does not select a separate version vocabulary.
+Its explicit profile argument does not select a separate version of the inherited non-hint vocabulary.
 Suggestions do not establish strict 11.5 syntax support or server semantics.
 Completion works without a native runtime and performs no I/O.
 

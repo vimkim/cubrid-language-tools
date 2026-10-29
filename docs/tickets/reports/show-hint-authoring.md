@@ -38,3 +38,23 @@ The core suite passed 118 tests. The framed LSP suite passed 33 tests. A focused
 ## Limits
 
 Warnings do not change native status or establish syntax validity. Unknown SHOW first words and fixed second words are checked, not every trailing SHOW argument. The enabled argument check reports nested unquoted parentheses and unterminated arguments in closed hint comments. Placement checks cover hints after a SELECT modifier. Other malformed forms may receive no authoring warning. Incomplete hints and unknown profiles receive no guessed warnings. A trigger body and the rest of its classified SQL slice are suppressed conservatively. Source audit does not replace native coverage qualification. VS Code, CSQL session changes, and formatting remain outside this ticket.
+
+## Reviewed identifier and scanner repair
+
+Regression commit `aae6f14` exercises applied public completion edits, owner-qualified aliases, the pinned scanner counterexample, and framed LSP. Before the repair, `.venv/bin/python -m unittest discover -s tests -p test_show_hint_authoring.py -v` reported four failures. Accepting the quoted alias produced `[[order]]`, the Unicode alias produced `가가나나`, the qualified relation omitted alias `a`, and the valid two-backslash counterexample produced `CUBRID-A1002`. The framed protocol regression also reported all four failures. The logs are `/tmp/hint-repair-red-api.log` and `/tmp/hint-repair-red-lsp.log`. The explicit expected LSP offsets were corrected before the regression commit.
+
+The repair uses the SQL identifier tokenizer for argument replacement and retains the separate ASCII hint-name span. It shares relation parsing between schema-backed and document-only alias discovery. The argument scanner now skips a backslash only before the active quote delimiter, matching the pinned `read_hint_args` implementation. The review's compiled scanner probe establishes the narrow lexical counterexample, not native parse or optimizer acceptance. The existing malformed and incomplete-comment controls remain in the tests.
+
+The repair also removes two narrating module docstrings and corrects inherited non-hint vocabulary provenance. A framed LSP test covers a supplementary Unicode character before the edited identifier and CRLF document lines. Quote-style preservation is covered by applied public edits.
+
+Repair verification ran against the prepared environment and the existing qualified artifacts:
+
+```sh
+.venv/bin/python -m unittest discover -s tests -v
+.venv/bin/python -m unittest discover -s tests/lsp -v
+PYTHONPATH=src .venv/bin/python -m unittest discover -s tests/native_parser -v
+.venv/bin/python -m unittest discover -s tests/lsp_native -v
+.venv/bin/python tools/check_show_hint_inventory.py /home/vimkim/gh/cubrid-rust/reference-cubrid-cc947788/src/parser/csql_grammar.y
+```
+
+The core suite passed 120 tests, framed LSP passed 34, native parser passed 46, and actual-native LSP passed seven. The inventory matched 50 hint names and 25 SHOW first words. Logs are `/tmp/hint-repair-core.log`, `/tmp/hint-repair-lsp.log`, `/tmp/hint-repair-native.log`, `/tmp/hint-repair-lsp-native.log`, and `/tmp/hint-repair-inventory.log`. These checks preserve the existing qualification limits above. Installed editor acceptance belongs to the coordinator.

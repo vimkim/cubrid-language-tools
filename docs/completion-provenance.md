@@ -23,7 +23,7 @@ Its introductory description now states that completion rules do not validate sy
 The strict parser's first target is `cubrid-11.5.0.2704-cc94778`, bound to CUBRID source
 `cc947788d3b7dc402f46192d0f3299ddcc8563ba`.
 Completion does not qualify that profile or claim that its 11.4 vocabulary matches every 11.5 feature.
-The current `profile` argument records explicit caller context without selecting a different vocabulary.
+The `profile` argument does not select a different inherited non-hint vocabulary.
 An unavailable parser does not disable completion.
 Strict validation and its supported coverage remain separate delivery gates.
 

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-"""Compare the packaged inventory to the pinned parser grammar."""
 import argparse
 import pprint
 from pathlib import Path
