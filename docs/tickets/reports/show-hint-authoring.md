@@ -58,3 +58,9 @@ PYTHONPATH=src .venv/bin/python -m unittest discover -s tests/native_parser -v
 ```
 
 The core suite passed 120 tests, framed LSP passed 34, native parser passed 46, and actual-native LSP passed seven. The inventory matched 50 hint names and 25 SHOW first words. Logs are `/tmp/hint-repair-core.log`, `/tmp/hint-repair-lsp.log`, `/tmp/hint-repair-native.log`, `/tmp/hint-repair-lsp-native.log`, and `/tmp/hint-repair-inventory.log`. These checks preserve the existing qualification limits above. Installed editor acceptance belongs to the coordinator.
+
+## Token-start boundary correction
+
+A second independent review found that a hint argument token beginning exactly at the cursor was excluded from the replacement span. Accepting `a` at `USE_NL(|a)` duplicated the token. The same boundary affected quoted and Unicode identifiers. Commit `1f58e68` added API and framed-protocol regressions before the fix. The focused API run failed three edit-application assertions.
+
+Including the token's left boundary corrects the replacement without changing native status or diagnostics. The complete core suite passed 120 tests. The three focused framed hint tests passed, including the new ASCII, quoted and Unicode start-of-token cases and the previous UTF-16 and escaping cases. Logs are recorded under the coordinator's `evidence/boundary-*.log` artifacts. Native worker code and coverage are unchanged.

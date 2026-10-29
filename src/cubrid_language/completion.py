@@ -377,7 +377,7 @@ def hint_suggestions(text: str, cursor: int, schema: Schema, tokens: list[Token]
     argument_tokens = tokenize(text[body_start:current.end])
     argument_cursor = cursor - body_start
     argument = next((t for t in argument_tokens if t.kind in ('word', 'identifier')
-                     and t.start < argument_cursor <= t.end), None)
+                     and t.start <= argument_cursor <= t.end), None)
     start, end = ((body_start + argument.start, body_start + argument.end)
                   if argument else (cursor, cursor))
     quote = text[start:start + 1] if argument and argument.kind == 'identifier' else ''
