@@ -92,5 +92,14 @@
     "vscode": "Root reviewed both installation guides and machine/trust scope",
     "neovim": "Root reviewed current extension-selection docs and independently reran headless lazy startup check",
     "rootNeovimReceipt": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/neovim-docs-refresh/root-check-oww8k9gq"
+  },
+  "neovimCI": {
+    "candidate": "bf368ad",
+    "implementation": "50ce7b851af00c91ba245418a031017ea1cff221",
+    "report": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/evidence/neovim-ci/report.md",
+    "checks": "Official0.12.5 extracted16 portable exactcore2a Python3.10.6; localqualified fullnative passes; archive28files verified",
+    "hosted": "not yet run",
+    "limitation": "Negative boundaries ran after implementation; no red-before-green TDD evidence",
+    "commentReview": "5 redundant comments removed; no MUST KILL or REVIEW keeps"
   }
 }
