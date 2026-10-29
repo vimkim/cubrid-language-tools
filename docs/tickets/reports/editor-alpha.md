@@ -2,15 +2,15 @@
 
 ## Result
 
-Two separate local editor consumers are implemented, packaged, and independently verified against the shared engine candidate. The original engine needed one protocol-boundary fix before real editor clients could initialize. All task changes are committed on isolated branches. Integration and publication are not yet authorized.
+Two separate local editor consumers are implemented, packaged, independently verified, and integrated into their local `main` branches. The original engine needed one protocol-boundary fix before real editor clients could initialize. That fix is integrated into the core's `main`. The user approved local integration, the existing core `origin/main` push and scoped task cleanup. Consumer publication remains a separate decision.
 
-| Component | Candidate | Evidence |
+| Component | Integrated source | Evidence |
 | --- | --- | --- |
-| Shared LSP compatibility | `fix/lsp-wire-enums`, `3efe03b49a037041fe6e667acb990fc8403c3ab0`; source fix `d5a571eb03d543af1438b85933fcad3aed60f9f0` | 109 core tests, 30 LSP tests, captured real editor initialization, root framed repro, unchanged 143-state cancellation model |
-| VS Code consumer | `fix/startup-retirement`, `c6b2aeaaf837f15d26298f925ca0ee23e1e2f2a2` | Installed VSIX, independent recovery and alpha runs, wire checks, native-worker cleanup, source/package correspondence |
-| Neovim consumer | `fix/menu-ownership`, `4b4c4d9e486f0b02c146d21cb8452b3c45bad754` | Extracted artifact, real Ctrl-Y menu acceptance, independent foreign/mixed/owned menu checks, full editor suite, source/package correspondence |
+| Shared LSP compatibility | `main` includes `3efe03b49a037041fe6e667acb990fc8403c3ab0`; source fix `d5a571eb03d543af1438b85933fcad3aed60f9f0` | 109 core tests, 30 LSP tests, captured real editor initialization, root framed repro, unchanged 143-state cancellation model |
+| VS Code consumer | `main`, `c6b2aeaaf837f15d26298f925ca0ee23e1e2f2a2` | Installed VSIX, independent recovery and alpha runs, wire checks, native-worker cleanup, source/package correspondence |
+| Neovim consumer | `main`, `4b4c4d9e486f0b02c146d21cb8452b3c45bad754` | Extracted artifact, real Ctrl-Y menu acceptance, independent foreign/mixed/owned menu checks, full editor suite, source/package correspondence |
 
-The existing core `main` remains clean at `3bb70e492efe7bcb7de58a801281f7a088a9c39e`. The consumer `main` branches still contain only their empty local bootstrap commits. Neither consumer has a remote.
+The core's pre-integration baseline was `3bb70e492efe7bcb7de58a801281f7a088a9c39e`. Both consumer mains preserve the entire independently reviewed source trees. Neither consumer has a remote.
 
 ## User workflow
 
@@ -27,14 +27,14 @@ Both preserve schema availability and stale metadata reporting, complete setting
 | VSIX | `/home/vimkim/temp/cubrid-editor-alpha-aiYISe/vscode-retirement/cubrid-language-0.1.0.vsix` | `621a757ddce1c33b7e9c624d312e66e4faddf21cbca11969720154f358b5f39b` |
 | Neovim runtime archive | `/home/vimkim/temp/cubrid-editor-alpha-aiYISe/neovim-ownership/artifact/cubrid.nvim-final.tar.gz` | `94ea53e891e261693f1c1472cb8929cb8dbb3190fbb3c18ee55f110ef140f824` |
 
-The actual server used for candidate acceptance is `/home/vimkim/temp/cubrid-lsp-enums-venv/bin/cubrid-language-server`, with the fixed source in `/home/vimkim/gh/cubrid-language-tools-lsp-enums`. The qualified native executable is `/home/vimkim/gh/cubrid-language-tools/native/parser-worker/build/parser-worker`; its runtime prefix is `/home/vimkim/.cub/install/develop/debug`.
+Initial candidate acceptance used `/home/vimkim/temp/cubrid-lsp-enums-venv/bin/cubrid-language-server`. Integration checks use the stable `/home/vimkim/gh/cubrid-language-tools/.venv/bin/cubrid-language-server`, reading the integrated main checkout. The old candidate environment now also points to that stable source, so retained harnesses do not depend on a removed worktree. The qualified native executable is `/home/vimkim/gh/cubrid-language-tools/native/parser-worker/build/parser-worker`; its runtime prefix is `/home/vimkim/.cub/install/develop/debug`.
 
-The fixed server must be integrated before users install the engine from `main`. The original core baseline rejects standard client enum fields. After integration, the stable main-checkout environment can supply the server instead of the temporary candidate environment.
+The original core baseline rejects standard client enum fields. The fix is now integrated, and the stable main-checkout server passed real editor initialization and completion.
 
 Local installation instructions are in the consumers' Korean and English READMEs:
 
-- `/home/vimkim/gh/cubrid-vscode-retirement/README.md` and `README.en.md`.
-- `/home/vimkim/gh/cubrid.nvim-cancel/README.md` and `README.en.md`.
+- `/home/vimkim/gh/cubrid-vscode/README.md` and `README.en.md`.
+- `/home/vimkim/gh/cubrid.nvim/README.md` and `README.en.md`.
 
 These artifacts contain editor integration only. The separately installed Python server and qualified native runtime remain prerequisites. Keyword completion continues when the native runtime is unavailable, with a visible diagnostic.
 
@@ -57,6 +57,8 @@ The final Neovim independent review used the exact extracted archive and Neovim 
 
 Comment/suppression reviews found no deletion candidates or open flags in the reviewed source. No native source, generated headers, library/runtime inputs, database, daemon, consumer remote or user editor profile was changed.
 
+After approval, rebases preserved all three reviewed source trees. Before merging, 109 core tests, 30 LSP tests, four VS Code unit tests and the full Neovim suite passed again. The coordinator's approved documentation diff was byte-identical after its rebase onto the core fix. A further installed VSIX full-host run and the unchanged original Neovim menu probe passed using the stable main-checkout server. The main-host wire check observed three shutdown/exit pairs and seven close events. Both recorded main-host process IDs were absent afterward. Receipts are in `/home/vimkim/temp/cubrid-editor-alpha-integration-9y5pl_7z`.
+
 ## Scope and remaining limits
 
 - The tested VS Code-compatible host is OpenVSCode Server 1.109.5. Microsoft VS Code desktop and the declared 1.109.0 minimum were not exercised.
@@ -67,13 +69,13 @@ Comment/suppression reviews found no deletion candidates or open flags in the re
 - The original core also accepts an empty capabilities array and permissive values in an enum-or-integer union. These pre-existing boundary-validation cases remain a separate follow-up. Unknown numeric values in open integer unions need protocol interpretation before any stricter policy.
 - Both consumer repositories and all artifacts are local. No marketplace, package-index, GitHub repository creation, consumer push or deployment occurred.
 
-## Review and proposed integration
+## Approved integration
 
-The coordinator branch is `editor/alpha` in `/home/vimkim/gh/cubrid-language-tools-editor-alpha`. It owns planning, contracts, decision trail, state, this report and user-facing delivery status documentation.
+The coordinator work was prepared on `editor/alpha`. It owns planning, contracts, decision trail, state, this report and user-facing delivery status documentation. These records belong to the central repository.
 
-The proposed order under one explicit integration approval is the core compatibility branch, the coordinator branch rebased onto that core tip, and each final consumer branch into its own clean local `main`. The user's main policy then pushes the existing core `origin/main`. Consumer publication is a separate decision because those repositories have no configured remotes.
+The user approved the concrete integration proposal with "nice. yes". Each destination was checked clean and on `main`; the core fix and both final consumer branches were merged with `--ff-only`. The coordinator was rebased onto the integrated core fix without changing its approved documentation patch. The approval includes the existing core `origin/main` push. Consumer publication is separate because those repositories have no configured remotes.
 
-Only verified merged task worktrees/branches will be removed without force. Final artifacts, raw receipts and source correspondence remain in `/home/vimkim/temp/cubrid-editor-alpha-aiYISe`. Valuable native inputs and original csql-future checkpoints remain untouched.
+Only verified merged task worktrees/branches are eligible for removal without force. Final artifacts, raw receipts and source correspondence remain in `/home/vimkim/temp/cubrid-editor-alpha-aiYISe`. Integration receipts and preserved task reports are in `/home/vimkim/temp/cubrid-editor-alpha-integration-9y5pl_7z`. The final remote SHA and cleanup outcome are recorded in work item 582. Valuable native inputs and original csql-future checkpoints remain untouched.
 
 ## Evidence index
 

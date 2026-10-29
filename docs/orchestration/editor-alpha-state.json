@@ -1,6 +1,6 @@
 {
   "workItem": 582,
-  "status": "verified-awaiting-integration-approval",
+  "status": "integrated-verifying-publication-and-cleanup",
   "coreBaseline": "3bb70e492efe7bcb7de58a801281f7a088a9c39e",
   "coordinatorBranch": "editor/alpha",
   "coordinatorCheckout": "/home/vimkim/gh/cubrid-language-tools-editor-alpha",
@@ -14,7 +14,7 @@
       "branch": "alpha/editor",
       "emptyBaseline": "14c23950ee9e0f372916e1409788a4e4e19fe4b5",
       "remote": null,
-      "status": "verified-local-candidate",
+      "status": "integrated-local-main",
       "dispatchCommit": "6c7c6edefe66d1cc9f03af838b5e7f738abfc451",
       "owner": "/root/vscode_alpha_owner",
       "commit": "fcf74ec38c62be865876b6e9c8fa9febffda1abb",
@@ -32,7 +32,9 @@
       "finalCommit": "c6b2aeaaf837f15d26298f925ca0ee23e1e2f2a2",
       "artifactSHA256": "621a757ddce1c33b7e9c624d312e66e4faddf21cbca11969720154f358b5f39b",
       "finalReview": "/home/vimkim/temp/cubrid-editor-alpha-aiYISe/vscode-retirement-independent/report.md",
-      "independentChecks": "15 standard installed-host runs and 3 additional public-provider adversarial runs, wire checks, source/archive correspondence, all recorded PIDs absent"
+      "independentChecks": "15 standard installed-host runs and 3 additional public-provider adversarial runs, wire checks, source/archive correspondence, all recorded PIDs absent",
+      "integratedBranch": "main",
+      "integratedCommit": "c6b2aeaaf837f15d26298f925ca0ee23e1e2f2a2"
     },
     "neovim": {
       "checkout": "/home/vimkim/gh/cubrid.nvim",
@@ -40,7 +42,7 @@
       "branch": "alpha/editor",
       "emptyBaseline": "14c23950ee9e0f372916e1409788a4e4e19fe4b5",
       "remote": null,
-      "status": "verified-local-candidate",
+      "status": "integrated-local-main",
       "dispatchCommit": "3b341bf57e7ebc90b65bbcdfe20e889b30d8b79a",
       "owner": "/root/neovim_alpha_owner",
       "commit": "453c091e102b3d7c6649d37c55983ace06067bd5",
@@ -56,22 +58,24 @@
       "finalBranch": "fix/menu-ownership",
       "finalCommit": "4b4c4d9e486f0b02c146d21cb8452b3c45bad754",
       "finalReview": "/home/vimkim/temp/cubrid-editor-alpha-aiYISe/neovim-final-independent/report.md",
-      "independentChecks": "Original foreign and Ctrl-Y probes, old-owned and mixed cases, complete extracted suite and 24-file source correspondence pass"
+      "independentChecks": "Original foreign and Ctrl-Y probes, old-owned and mixed cases, complete extracted suite and 24-file source correspondence pass",
+      "integratedBranch": "main",
+      "integratedCommit": "4b4c4d9e486f0b02c146d21cb8452b3c45bad754"
     }
   },
   "ownership": "Coordinator writes central docs/tracker/decision log. Each implementer owns only its consumer worktree and evidence directory.",
-  "authorization": "Local commits authorized. Integration requires review and approval. Consumer remote creation, pushes, publication and deployment are not authorized.",
-  "nextAction": "Request explicit approval to integrate the core fix and coordinator into core main, and final consumer branches into their local main branches; push the existing core origin/main. Consumer publication remains separate.",
+  "authorization": "User approved local main integration, the existing core origin/main push and scoped merged-task cleanup. Consumer remote creation, pushes, publication and deployment remain unauthorized.",
+  "nextAction": "Complete the approved core main push, preserve evidence, remove only merged task worktrees without force and record the final outcome in work item582.",
   "design": "docs/orchestration/editor-alpha-design.md",
   "designReview": "/home/vimkim/temp/cubrid-editor-alpha-aiYISe/architecture-verdict.md",
   "designLimitation": "One completed runner package containing two structural alternatives; Astra sketch runner dropped out. Independent judge selected the instance session with correspondence corrections.",
   "coreFix": {
-    "status": "independently-verified-local-candidate",
+    "status": "integrated",
     "worktree": "/home/vimkim/gh/cubrid-language-tools-lsp-enums",
     "branch": "fix/lsp-wire-enums",
     "dispatchCommit": "7654d343394e2e8474f47811747ec96dba5b4e07",
     "fixCommit": "d5a571eb03d543af1438b85933fcad3aed60f9f0",
-    "server": "/home/vimkim/temp/cubrid-lsp-enums-venv/bin/cubrid-language-server",
+    "server": "/home/vimkim/gh/cubrid-language-tools/.venv/bin/cubrid-language-server",
     "reason": "Both real editor clients exposed legal LSP str/int enums being rejected by strict_converter",
     "checks": "109 core and 30 LSP tests; actual captured payloads and live Neovim initialize/completion pass",
     "report": "docs/tickets/reports/editor-lsp-wire-enums.md",
@@ -91,6 +95,16 @@
     "openTrailFlags": [],
     "modelLimit": "Independent GPT-agent review; no cross-provider diversity"
   },
-  "mainIntegrationApproved": false,
-  "consumerPublicationApproved": false
+  "mainIntegrationApproved": true,
+  "consumerPublicationApproved": false,
+  "integration": {
+    "approvedBy": "User reply nice. yes to the concrete integration proposal",
+    "evidenceDirectory": "/home/vimkim/temp/cubrid-editor-alpha-integration-9y5pl_7z",
+    "checkout": "/home/vimkim/gh/cubrid-language-tools",
+    "coreSourceCommit": "3efe03b49a037041fe6e667acb990fc8403c3ab0",
+    "sourceTreesUnchanged": true,
+    "coordinatorApprovedPatchUnchanged": true,
+    "stableMainEditorChecks": "VSIX full host and wire checks; unchanged original Neovim Ctrl-Y menu probe pass",
+    "historicalTaskCoordinates": "Original dispatch and review worktree paths above are historical. Use the primary checkout fields after cleanup."
+  }
 }

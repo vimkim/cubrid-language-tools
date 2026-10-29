@@ -19,7 +19,7 @@ Consumer products stay separate and use the same maintained language implementat
 - AI checker: structured `cubrid-lint` integration, stable failure handling, CI examples, and workflow-specific policy.
 - csql-future migration: depend on the central library, convert existing catalog values, preserve terminal menus and metadata acquisition, and remove its duplicate completion implementation after parity checks.
 
-The [editor alpha report](tickets/reports/editor-alpha.md) records exact artifacts, supported editor versions, completion limits, and independent evidence. Local integration and consumer publication await approval.
+The [editor alpha report](tickets/reports/editor-alpha.md) records exact artifacts, supported editor versions, completion limits, and independent evidence. The local alphas are integrated. Consumer publication remains a separate decision.
 Each consumer starts after the relevant central interfaces pass their delivery gates.
 The terminal migration requires completion corpus parity, Unicode edit parity, metadata parity, and the existing terminal/PTY suite.
 Each consumer owns packaging and releases independently.

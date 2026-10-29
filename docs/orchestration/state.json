@@ -602,10 +602,10 @@
   },
   "editorAlpha": {
     "workItem": 582,
-    "status": "verified-awaiting-integration-approval",
+    "status": "integrated-verifying-publication-and-cleanup",
     "state": "docs/orchestration/editor-alpha-state.json",
     "report": "docs/tickets/reports/editor-alpha.md",
-    "mainIntegrationApproved": false,
+    "mainIntegrationApproved": true,
     "consumerPublicationApproved": false
   }
 }
