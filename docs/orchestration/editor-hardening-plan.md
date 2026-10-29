@@ -1,6 +1,6 @@
 # Editor onboarding and CI qualification
 
-The user approved jobs 1 through 3 and excluded csql-future migration. The core README must visibly link both vimkim editor repositories. Work item595 tracks this run.
+The user approved jobs 1 through 3 and excluded csql-future migration. The core README must visibly link both vimkim editor repositories. Work item 595 tracks this run.
 
 ## Done predicates
 
@@ -33,10 +33,10 @@ Ground, Sketch, Agree, Implement and Scrap are the architecture phases. Agree ha
 
 ## Authorization
 
-The explicit user reply approves integration of the already reviewed Neovim configuration commit. New docs and CI changes are authorized to prepare, test and commit on isolated topic branches; their integration requires the normal concrete review approval. CI execution is part of job3, but no existing workflow exists on default branches. Record that dependency rather than claiming an unexecuted workflow passed.
+The first explicit reply approved the reviewed Neovim configuration commit. The later yes at the active transcript line 4485 approved the concrete docs/CI packet, rebases, main merges and pushes, including eight existing local Neovim commits, and hosted execution. Those approved source integrations and hosted checks are complete. Final coordination-record publication uses the same approval.
 
 The user did not request csql-future migration, Marketplace publisher registration, Marketplace publication, deployment of new editor builds into the real user profile, or a new GitHub alpha release.
 
 ## Local review checkpoint
 
-Documentation and CI candidates are committed and independently reviewed at their dispatch baselines. The final trail audit and companion receipts are recorded. Concrete source integration approval is next. Rebase checks must preserve later Neovim runtime discovery, doctor tests, acceptance notes and help-index ignore. Actual hosted workflow and Microsoft desktop qualification follow approved main pushes. Work item595 remains open.
+Core documentation is published. The Neovim rebase preserved later runtime discovery, doctor tests, acceptance notes and the help-index ignore. Its hosted 17 portable and local four native cases passed. Microsoft desktop 1.109.0 and freshly resolved stable 1.144.0 passed all four mandatory cases each at the final published VSCode documentation tip. Actual archives and receipts were inspected. Final audit and coordination-record publication close work item 595.

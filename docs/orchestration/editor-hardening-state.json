@@ -85,7 +85,8 @@
     "latestReviewedMain": "6714657a0ea4ff19e2f54d61f6994aff1b7ec358",
     "laterChange": "Native installation discovery and CubridDoctor added after CI/docs dispatch; preserve and verify during approved rebase",
     "unpublishedMainCommitsAtReview": 8,
-    "handoffSnapshot": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/review-state-cubrid.nvim-handoff.json"
+    "handoffSnapshot": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/review-state-cubrid.nvim-handoff.json",
+    "recordScope": "Historical preparation baseline snapshots; preserved published result is in neovimIntegration"
   },
   "coreConcurrentChange": {
     "main": "1829fb6730663d427aaa5c4fad0574838e392349",
@@ -108,7 +109,8 @@
     "independentReview": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/neovim-independent-verification.md",
     "deadlineFix": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/neovim-deadline-fix/report.md",
     "rootDeadlineReceipt": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/neovim-deadline-fix/root-check.txt",
-    "reviewResult": "Only proven finding was TERM-only timeout; corrected with kill-after5s and RED/GREEN control; root recheck passes"
+    "reviewResult": "Only proven finding was TERM-only timeout; corrected with kill-after5s and RED/GREEN control; root recheck passes",
+    "recordScope": "Original reviewed preparation candidate; current rebased17portable/4native result is in neovimIntegration"
   },
   "vscodeCI": {
     "candidate": "620f0696ebbf4425a7b41c704222ab859323a392",
@@ -120,7 +122,8 @@
     "rootCheck": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/evidence/vscode-ci/root-check-9aduj49h",
     "productionPreserved": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/evidence/vscode-ci/root-production-preserved.json",
     "checks": "11 localtests; productionaudit0; Node/Python syntax; actionlint+shellcheck;323-file VSIX provenance; localdesktopguard rejected",
-    "hosted": "not run; min1.109.0 and freshly resolvedstable pending approved workflow main integration/push"
+    "hosted": "not run; min1.109.0 and freshly resolvedstable pending approved workflow main integration/push",
+    "recordScope": "Original reviewed preparation candidate; current hosted result is in vscodeIntegration"
   },
   "remoteReview": {
     "cubrid-language-tools": {
@@ -188,7 +191,8 @@
       "Approval-gated preservation/rebase and integration checks against newer Neovim main",
       "Hosted workflows and Microsoft desktop1.109.0/stable unrun",
       "Original Neo negatives were postimplementation; only deadline correction has RED/GREEN"
-    ]
+    ],
+    "recordScope": "Historical preparation handoff audit; remaining flags here describe that earlier checkpoint and are superseded by integration records/final audit"
   },
   "approval": {
     "userMessage": "yes",
@@ -232,7 +236,7 @@
     "testEnvCommit": "eb4cc3266a801b431be9bd21f417cd4e2fec2c1b",
     "repairEvidence": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/vscode-hosted-boundary-fix/report.md",
     "testEnvEvidence": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/vscode-ci-test-env-fix/report.md",
-    "checks": "12 local tests pass including fake-hosted environment tripwire; saved real artifacts replay GREEN; second hosted package job passed; desktop jobs running",
+    "checks": "Finalrun40837432286: package12tests plus4desktopcases at1.109.0 and1.144.0;323source-matchedruntimefiles; actual savedUnicodeCRLFbytes/configuration/lifecycle/process-exit proof replayed",
     "qualifiedSourceCommit": "afd459b7eb9a9a42164f0aa9ed191967c56a6e95",
     "qualifiedVersions": [
       "1.109.0",
