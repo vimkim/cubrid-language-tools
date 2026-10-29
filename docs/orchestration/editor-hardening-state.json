@@ -46,7 +46,7 @@
   "documentationCandidates": {
     "core": "7c2e723856320f2d57d6b95f2445178c90dd2115",
     "vscode": "5f905c7876fc5fb1736e94c32f57e2254dccd9fb",
-    "neovim": "superseded: refresh72379ba installation docs onto current9a8b068 preserving SQL-default behavior"
+    "neovim": "64e911595fa6484242fd0b7c57ef1635909c4acf"
   },
   "ciDesign": {
     "base": "design-astra",
@@ -86,5 +86,11 @@
   "coreConcurrentChange": {
     "main": "1829fb6730663d427aaa5c4fad0574838e392349",
     "rule": "Preserve separately integrated uv tool PATH recipes and installation documentation"
+  },
+  "documentationReview": {
+    "core": "Root reviewed status/link diff; independent review corrections included; local-link checker passes",
+    "vscode": "Root reviewed both installation guides and machine/trust scope",
+    "neovim": "Root reviewed current extension-selection docs and independently reran headless lazy startup check",
+    "rootNeovimReceipt": "/home/vimkim/temp/cubrid-editor-hardening-c57_w98j/neovim-docs-refresh/root-check-oww8k9gq"
   }
 }
