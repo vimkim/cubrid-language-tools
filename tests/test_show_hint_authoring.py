@@ -41,6 +41,12 @@ class AuthoringCoverageTests(unittest.TestCase):
 
     def test_hint_argument_completion_applies_whole_identifier(self):
         cases = (
+            ('SELECT /*+ USE_NL(|a) */ * FROM account a;', 'a',
+             'SELECT /*+ USE_NL(a) */ * FROM account a;'),
+            ('SELECT /*+ USE_NL(|[order]) */ * FROM t [order];', '[order]',
+             'SELECT /*+ USE_NL([order]) */ * FROM t [order];'),
+            ('SELECT /*+ USE_NL(|가나) */ * FROM t 가나;', '가나',
+             'SELECT /*+ USE_NL(가나) */ * FROM t 가나;'),
             ('SELECT /*+ USE_NL([ord|er]) */ * FROM t [order];', '[order]',
              'SELECT /*+ USE_NL([order]) */ * FROM t [order];'),
             ('SELECT /*+ USE_NL("ord|er") */ * FROM t [order];', '"order"',

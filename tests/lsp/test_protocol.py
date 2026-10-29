@@ -239,6 +239,9 @@ class HintAuthoringProtocolTests(unittest.TestCase):
 
     def test_hint_argument_edits_and_escape_over_framed_lsp(self):
         cases = (
+            ('SELECT /*+ USE_NL(|a) */ * FROM account a;', 'a', 18, 19),
+            ('SELECT /*+ USE_NL(|[order]) */ * FROM t [order];', '[order]', 18, 25),
+            ('SELECT /*+ USE_NL(|가나) */ * FROM t 가나;', '가나', 18, 20),
             ('SELECT /*+ USE_NL([ord|er]) */ * FROM t [order];', '[order]', 18, 25),
             ('SELECT /*+ USE_NL(가|나) */ * FROM t 가나;', '가나', 18, 20),
             ('SELECT /*+ USE_NL(a|) */ * FROM dba.account a;', 'a', 18, 19),
