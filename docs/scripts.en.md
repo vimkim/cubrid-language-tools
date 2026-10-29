@@ -10,25 +10,31 @@ Other paths, stdin, and untitled documents select SQL mode unless settings overr
 
 ## Qualified commands
 
-Only these complete command lines qualify initially:
+Only these complete command lines qualify:
 
 ```text
 ;help
 ;exit
 ;autocommit on
 ;autocommit off
+;commit
+;rollback
+;time on
+;time off
+;line-output on
+;line-output off
 ```
 
-Command names and arguments are case-insensitive for these four forms.
+Command names and arguments are case-insensitive for these forms.
 Each command must start in column one, outside a string, comment, or quoted identifier.
 LF, CRLF, and the final EOF can terminate a command line.
-One or more ASCII spaces or tabs must separate autocommit from its argument.
+One or more ASCII spaces or tabs must separate autocommit, time, or line-output from its argument.
 Trailing ASCII spaces or tabs are also permitted.
 Indentation, abbreviations, extra arguments, non-ASCII suffix whitespace, and additional semicolons remain unsupported.
-The interpreter accepts more spellings, but this initial subset deliberately excludes them.
+The interpreter accepts more spellings, but this subset deliberately excludes them, including no-argument time and line-output queries. Invalid arguments remain unsupported, not syntax errors.
 
 The checker inspects the whole document.
-It continues after an accepted exit command and does not change autocommit settings.
+It continues after an accepted exit command and does not change session or transaction state. Accepting commit or rollback checks the text shape only.
 Commands, empty documents, and unsupported-only documents still require a qualified profile and available worker.
 Unknown profiles produce `CUBRID-U1001`.
 Missing workers or runtime assets produce tool errors.
@@ -121,7 +127,7 @@ The Korean manual and pinned batch dispatch agree that lexical blocks protect em
 The manual allows leading blanks, but the pinned raw batch dispatcher checks the first character.
 The checker therefore retains its narrower, unindented subset.
 The pinned command parser trims argument whitespace.
-This audit also qualifies ASCII spaces and tabs before the autocommit argument and after the full supported forms.
+This audit also qualifies ASCII spaces and tabs before required arguments and after the full supported forms. The [command ticket](tickets/followup-csql-commands.md) records the pinned source and manual evidence for the additional forms.
 
 Run the default tests, mandatory native/CLI tests, framed LSP tests, and mandatory native LSP tests separately:
 

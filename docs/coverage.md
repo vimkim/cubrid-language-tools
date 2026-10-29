@@ -65,9 +65,9 @@ Python wheel에는 네이티브 워커·CUBRID 라이브러리·런타임 파일
 
 ## CSQL batch 문서
 
-CSQL 모드는 첫 컬럼의 전체 명령 `;help`, `;exit`, `;autocommit on/off`도 대소문자 구분 없이 허용합니다.
-autocommit과 인자 사이나 명령 뒤에는 ASCII 공백·탭을 허용합니다.
-검사기는 `;exit` 뒤도 검사하며 autocommit을 변경하지 않습니다.
+CSQL 모드는 첫 컬럼의 전체 명령 `;help`, `;exit`, `;commit`, `;rollback`, `;autocommit on/off`, `;time on/off`, `;line-output on/off`도 대소문자 구분 없이 허용합니다.
+명령과 필수 인자 사이나 명령 뒤에는 ASCII 공백·탭을 허용합니다.
+검사기는 `;exit` 뒤도 검사하며 세션이나 트랜잭션 상태를 변경하지 않습니다. commit·rollback은 텍스트 형식만 검사합니다.
 들여쓰기·축약·include·셸 명령·버퍼 제어·프로시저 본문은 미지원입니다.
 명령으로 중단된 미완성 SQL과 절차 영역은 EOF까지 미지원으로 유지합니다.
 [batch 참조](scripts.md)에 lexical 보호와 원문 범위가 정의되어 있습니다.

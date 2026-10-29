@@ -54,7 +54,8 @@ class ScriptValidationTests(unittest.TestCase):
     def test_commands_empty_and_unsupported_only_require_profile_and_worker_availability(self):
         with tempfile.TemporaryDirectory() as directory:
             config = self.config(Path(directory))
-            for text in ('', ';help\n;exit\n;autocommit on\n;autocommit off', ';read absent.sql'):
+            for text in ('', ';help\n;exit\n;autocommit on\n;autocommit off',
+                         ';commit\n;rollback\n;time on\n;line-output off', ';read absent.sql'):
                 with self.subTest(text=text), Validator(config) as validator:
                     known = validator.validate(text, PROFILE, 'csql')
                     self.assertEqual(known.status, 'unsupported' if text.startswith(';read') else 'valid')
@@ -66,6 +67,15 @@ class ScriptValidationTests(unittest.TestCase):
                     unavailable = validator.validate(text, PROFILE, 'csql')
                 self.assertEqual((unavailable.status, unavailable.coverage), ('tool-error', 'none'))
                 self.assertIn('CUBRID-T1001', [d.code for d in unavailable.diagnostics])
+
+    def test_invalid_new_commands_after_exit_remain_unsupported(self):
+        text = ";exit\r\n;commit yes\r\n;time maybe\r\n;line-output\r\n;rollback"
+        with tempfile.TemporaryDirectory() as directory:
+            with Validator(self.config(Path(directory))) as validator:
+                result = validator.validate(text, PROFILE, 'csql')
+        self.assertEqual((result.status, result.coverage), ('unsupported', 'partial'))
+        self.assertEqual([(d.code, d.span.start, d.span.end) for d in result.diagnostics], [
+            ('CUBRID-U1002', 7, 20), ('CUBRID-U1002', 20, 33), ('CUBRID-U1002', 33, 47)])
 
     def test_document_diagnostic_limit_is_not_reset_at_command_boundaries(self):
         with tempfile.TemporaryDirectory() as directory:

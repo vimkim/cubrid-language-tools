@@ -44,6 +44,28 @@ class NativeScriptProtocolTests(unittest.TestCase):
             client.change(uri, ";help \t\r\nSELECT '가😀;';\r\n;exit\t\r\n;autocommit\t on \t\r\nSELECT 2", 2)
             self.assertEqual(client.diagnostics(uri, 2)['diagnostics'], [])
 
+    def test_added_commands_and_invalid_arguments_in_framed_lsp(self):
+        text = ";commit\r\nSELECT '가😀';\r\n;exit\r\n;rollback\r\n;time ON\r\n;line-output off"
+        with tempfile.TemporaryDirectory() as directory, Client() as client:
+            client.initialize(self.settings)
+            uri = client.open(text, uri=(Path(directory) / 'script.csql').as_uri())
+            self.assertEqual(client.diagnostics(uri, 1)['diagnostics'], [])
+            client.change(uri, ";exit\r\nSELECT '가😀';\r\n;time maybe\r\n;rollback extra\r\n;commit\r\n;time 😀", 2)
+            diagnostics = client.diagnostics(uri, 2)['diagnostics']
+            self.assertEqual([d['code'] for d in diagnostics], ['CUBRID-U1002', 'CUBRID-U1002', 'CUBRID-U1002'])
+            self.assertEqual([d['range'] for d in diagnostics], [
+                {'start': {'line': 2, 'character': 0}, 'end': {'line': 3, 'character': 0}},
+                {'start': {'line': 3, 'character': 0}, 'end': {'line': 4, 'character': 0}},
+                {'start': {'line': 5, 'character': 0}, 'end': {'line': 5, 'character': 8}}])
+            client.send('workspace/didChangeConfiguration', {'settings': {'cubrid': {
+                **self.settings['cubrid'], 'profile': 'unknown-profile'}}})
+            client.change(uri, ';time on', 3)
+            self.assertEqual([d['code'] for d in client.diagnostics(uri, 3)['diagnostics']], ['CUBRID-U1001'])
+            client.send('workspace/didChangeConfiguration', {'settings': {'cubrid': {
+                'parserWorker': '/nonexistent/script-worker', 'runtimePrefix': str(self.config.runtime_prefix)}}})
+            client.change(uri, ';rollback', 4)
+            self.assertEqual([d['code'] for d in client.diagnostics(uri, 4)['diagnostics']], ['CUBRID-T1001'])
+
     def test_pending_sql_procedures_and_unterminated_tokens_keep_shared_classification(self):
         with tempfile.TemporaryDirectory() as directory, Client() as client:
             client.initialize(self.settings)

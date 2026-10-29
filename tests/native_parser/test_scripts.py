@@ -47,6 +47,31 @@ class NativeScriptTests(unittest.TestCase):
                              ('valid', 'complete', ('PT_SELECT', 'PT_SELECT')))
             self.assertEqual(validator.validate(';help', PROFILE, 'sql').status, 'unsupported')
 
+    def test_added_commands_through_real_cli_and_qualified_worker(self):
+        text = ";commit\r\nSELECT '가😀';\r\n;exit\r\n;rollback\r\n;time ON\r\n;line-output off"
+        with Validator(self.config) as validator:
+            result = validator.validate(text, PROFILE, 'csql')
+        self.assertEqual((result.status, result.coverage, result.statement_kinds),
+                         ('valid', 'complete', ('PT_SELECT',)))
+        accepted = self.run_cli('--script-mode', 'csql', '--format', 'json', '-', data=text.encode())
+        self.assertEqual(accepted.returncode, 0, accepted.stdout)
+        self.assertEqual(json.loads(accepted.stdout)['documents'][0]['diagnostics'], [])
+        invalid = ";exit\r\nSELECT '가😀';\r\n;time maybe\r\n;rollback extra\r\n;line-output on extra\r\n;commit"
+        rejected = self.run_cli('--script-mode', 'csql', '--format', 'json', '-', data=invalid.encode())
+        self.assertEqual(rejected.returncode, 2, rejected.stdout)
+        diagnostics = json.loads(rejected.stdout)['documents'][0]['diagnostics']
+        self.assertEqual([d['code'] for d in diagnostics], ['CUBRID-U1002'] * 3)
+        self.assertEqual([invalid[d['span']['start']:d['span']['end']] for d in diagnostics],
+                         [';time maybe\r\n', ';rollback extra\r\n', ';line-output on extra\r\n'])
+        unknown = self.run_cli('--profile', 'unknown-profile', '--script-mode', 'csql',
+                               '--format', 'json', '-', data=text.encode())
+        self.assertEqual(json.loads(unknown.stdout)['documents'][0]['diagnostics'][0]['code'], 'CUBRID-U1001')
+        missing = subprocess.run([sys.executable, '-m', 'cubrid_language.cli', '--parser-worker',
+                                  '/nonexistent/script-worker', '--runtime-prefix', str(self.config.runtime_prefix),
+                                  '--script-mode', 'csql', '--format', 'json', '-'],
+                                 input=text.encode(), capture_output=True, timeout=15)
+        self.assertEqual(json.loads(missing.stdout)['documents'][0]['diagnostics'][0]['code'], 'CUBRID-T1001')
+
     def test_translated_native_syntax_and_unsupported_spans_keep_original_unicode_crlf(self):
         text = ";help\r\nSELECT '가😀';\r\n;read other.sql\r\nCREATE SERIAL s START WITH ;\r\n;exit"
         with Validator(self.config) as validator:

@@ -15,6 +15,31 @@ class ScriptTests(unittest.TestCase):
             ('command', Span(22, 39)), ('command', Span(39, 44))])
         self.assertEqual(''.join(text[p.span.start:p.span.end] for p in parts), text)
 
+    def test_added_commands_keep_original_spans_and_require_exact_arguments(self):
+        text = "SELECT '가😀';\r\n;COMMIT \t\r\n;rollback\n;TiMe\tOn\r\n;line-output OFF\n;exit\n;time off"
+        parts = classify(text)
+        slices = [text[p.span.start:p.span.end] for p in parts]
+        self.assertEqual([p.kind for p in parts], ['sql'] + ['command'] * 6)
+        self.assertEqual(slices, ["SELECT '가😀';\r\n", ';COMMIT \t\r\n', ';rollback\n',
+                                  ';TiMe\tOn\r\n', ';line-output OFF\n', ';exit\n', ';time off'])
+        self.assertEqual([(p.span.start, p.span.end) for p in parts],
+                         [(0, 14), (14, 25), (25, 35), (35, 45), (45, 62), (62, 68), (68, 77)])
+        self.assertEqual(classify(';line-output on')[0].kind, 'command')
+        invalid = (';commit on', ';rollback extra', ';time', ';time maybe', ';time on extra',
+                   ';line-output', ';line-output yes', ';line-output off;', ';timing on',
+                   ';COMMIT\u00a0', ';tİme on', ' ;commit', ';comm', ';time\u00a0on')
+        for line in invalid:
+            with self.subTest(line=line):
+                self.assertEqual([p.kind for p in classify(line)], ['unsupported'])
+
+    def test_new_commands_obey_pending_sql_and_lexical_boundaries(self):
+        for command in (';commit', ';rollback', ';time on', ';line-output off'):
+            with self.subTest(command=command):
+                self.assertEqual([p.kind for p in classify('SELECT\n' + command + '\n1;')], ['unsupported'])
+                self.assertEqual([p.kind for p in classify("SELECT 'x\n" + command + "\ny';\n" + command)],
+                                 ['sql', 'command'])
+                self.assertEqual([p.kind for p in classify('BEGIN\n' + command)], ['unsupported'])
+
     def test_commands_inside_multiline_lexical_blocks_remain_sql(self):
         for block in ("'a;\n;exit\n''b\\'c'", '"a;\n;exit\n"',
                       '`a;\n;exit\n`', '[a;\n;exit\n]', '/* a;\n;exit\n*/'):

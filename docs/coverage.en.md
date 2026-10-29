@@ -65,9 +65,10 @@ A separately qualified parser-only backend remains [future work](roadmap.md#lang
 
 ## CSQL batch documents
 
-CSQL mode also admits full, column-one `;help`, `;exit`, and `;autocommit on/off` lines, ignoring case.
-ASCII spaces and tabs may separate autocommit from its argument or follow these commands.
-The checker inspects text after `;exit` and never applies autocommit.
+CSQL mode admits full, column-one `;help`, `;exit`, `;commit`, and `;rollback` lines, ignoring case.
+It also admits `;autocommit on/off`, `;time on/off`, and `;line-output on/off`.
+ASCII spaces and tabs may separate a command from its required argument or follow these commands.
+The checker inspects text after `;exit` and never changes session or transaction state. Commit and rollback acceptance checks text shape only.
 Indentation, abbreviations, includes, shell commands, buffer controls, and procedure bodies remain unsupported.
 Pending SQL interrupted by commands and procedural regions stay unsupported through EOF.
 The [batch reference](scripts.en.md) defines lexical protection and source ranges.

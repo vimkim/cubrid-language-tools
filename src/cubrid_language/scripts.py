@@ -15,7 +15,15 @@ class ScriptPart:
     lexical_error: bool = False
 
 
-_COMMAND = re.compile(r';(?:help|exit|autocommit[ \t]+(?:on|off))[ \t]*', re.IGNORECASE | re.ASCII)
+_COMMAND_RULES = (
+    ('help', ()), ('exit', ()), ('commit', ()), ('rollback', ()),
+    ('autocommit', ('on', 'off')), ('time', ('on', 'off')), ('line-output', ('on', 'off')),
+)
+_COMMAND = re.compile(
+    r';(?:' + '|'.join(name + (r'[ \t]+(?:' + '|'.join(arguments) + ')' if arguments else '')
+                       for name, arguments in _COMMAND_RULES) + r')[ \t]*',
+    re.IGNORECASE | re.ASCII,
+)
 
 
 def classify(text: str) -> tuple[ScriptPart, ...]:
