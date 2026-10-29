@@ -602,7 +602,7 @@
   },
   "editorAlpha": {
     "workItem": 582,
-    "status": "integrated-verifying-publication-and-cleanup",
+    "status": "integrated",
     "state": "docs/orchestration/editor-alpha-state.json",
     "report": "docs/tickets/reports/editor-alpha.md",
     "mainIntegrationApproved": true,

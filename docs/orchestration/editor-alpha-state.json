@@ -1,9 +1,9 @@
 {
   "workItem": 582,
-  "status": "integrated-verifying-publication-and-cleanup",
+  "status": "integrated",
   "coreBaseline": "3bb70e492efe7bcb7de58a801281f7a088a9c39e",
-  "coordinatorBranch": "editor/alpha",
-  "coordinatorCheckout": "/home/vimkim/gh/cubrid-language-tools-editor-alpha",
+  "coordinatorBranch": "main",
+  "coordinatorCheckout": "/home/vimkim/gh/cubrid-language-tools",
   "evidenceDirectory": "/home/vimkim/temp/cubrid-editor-alpha-aiYISe",
   "nativeBaseline": "valid, syntax-error and unsupported statuses observed through the qualified V3 worker",
   "headlessVSCodeHost": "verified OpenVSCode Server 1.109.5 / Node v22.21.1; headless-host/result.json",
@@ -65,7 +65,7 @@
   },
   "ownership": "Coordinator writes central docs/tracker/decision log. Each implementer owns only its consumer worktree and evidence directory.",
   "authorization": "User approved local main integration, the existing core origin/main push and scoped merged-task cleanup. Consumer remote creation, pushes, publication and deployment remain unauthorized.",
-  "nextAction": "Complete the approved core main push, preserve evidence, remove only merged task worktrees without force and record the final outcome in work item582.",
+  "nextAction": "The local editor alpha is integrated. Consumer publication requires a separate decision. Final remote SHA and scoped cleanup outcome are recorded in work item582 and the integration final receipt.",
   "design": "docs/orchestration/editor-alpha-design.md",
   "designReview": "/home/vimkim/temp/cubrid-editor-alpha-aiYISe/architecture-verdict.md",
   "designLimitation": "One completed runner package containing two structural alternatives; Astra sketch runner dropped out. Independent judge selected the instance session with correspondence corrections.",
@@ -105,6 +105,16 @@
     "sourceTreesUnchanged": true,
     "coordinatorApprovedPatchUnchanged": true,
     "stableMainEditorChecks": "VSIX full host and wire checks; unchanged original Neovim Ctrl-Y menu probe pass",
-    "historicalTaskCoordinates": "Original dispatch and review worktree paths above are historical. Use the primary checkout fields after cleanup."
+    "historicalTaskCoordinates": "Original dispatch and review worktree paths above are historical. Use the primary checkout fields after cleanup.",
+    "initialPublishedCoreCommit": "8f75acd66e3691d635a14c8b5c7ca918917d0d74",
+    "publishedRemote": "origin https://github.com/vimkim/cubrid-language-tools.git",
+    "cleanupReceipt": "/home/vimkim/temp/cubrid-editor-alpha-integration-9y5pl_7z/cleanup-seven.json",
+    "finalReceipt": "/home/vimkim/temp/cubrid-editor-alpha-integration-9y5pl_7z/final.json",
+    "remainingCoordinatorCleanup": "Performed after the final audit record is merged and pushed; final receipt records the outcome."
+  },
+  "coordinatorTask": {
+    "branch": "editor/alpha",
+    "checkout": "/home/vimkim/gh/cubrid-language-tools-editor-alpha",
+    "approvedCommit": "dc7d7ea87f6f727159df1b3b79b07d3ee7fcf4f3"
   }
 }
