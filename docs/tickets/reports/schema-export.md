@@ -55,7 +55,11 @@ The Python 3.14 interpreter is `/tmp/cubrid-schema-implementation-EMmkLi/venv/bi
 
 The stdout correction is production commit `6be5d558efce6e5045d8f7122d4532e4e975192f`, following the failing tests at `77a48e4`. After the correction, the Python 3.14 default suite passed 149 tests and the exporter suite passed 22 tests. The Python 3.10 core-only installed wheel passed all 22 exporter tests with `-I`. The installed `cubrid-schema` command returned valid JSON with 5,000 relations, then exited 124 on a stalled merged pipe and 130 on SIGTERM with that pipe stalled. Its environment contained only `cubrid-language-tools`. Logs are `stdout-core-green.log`, `stdout-focused-green.log`, and `stdout-wheel-focused.log` under `/tmp/cubrid-schema-implementation-EMmkLi`.
 
-The corrected wheel and source archive were rebuilt in `stdout-dist` and checked with `tools/check_artifacts.py`. The artifact check compares included source and documentation bytes with this checkout and validates entry points, license files, and optional-only dependencies.
+At `0805d47`, the corrected wheel and source archive were rebuilt in `stdout-dist` and checked with `tools/check_artifacts.py`. The artifact check compared included source and documentation bytes at that commit and validated entry points, license files, and optional-only dependencies.
+
+Independent correction review passed at `0805d47f96671fe8567c8b5243de5b67b5a3c84c`. Actual subprocess probes observed exit 124 for stalled output and late draining, exit 130 for SIGTERM before the deadline, exit 124 with a full merged stdout/stderr pipe, exit 3 for closed stdout, and exit 0 for ordinary drained output. The coordinator separately reran the original failing probes. `review-export/root-blocked-before.log`, `root-blocked-after.log`, and `root-output-after.log` preserve those observations.
+
+The downstream source-matched Neovim archive passed all 25 portable cases and four schema flows against corrected production commit `6be5d558efce6e5045d8f7122d4532e4e975192f`. Its final receipt is `final-plugin/checks/result.txt`. Runtime commit `f5018d73ede2ac279cdab3bb7c6fa11c8477eb15` received an independent editor review and obsolete-reload-callback probe. The plugin CI dependency pin follows the corrected exporter. Publication must integrate the core before the consumer workflow can fetch it.
 
 ## Real CSQL evidence
 
@@ -66,6 +70,8 @@ The DBA result contains `schema_people`, `schema_people_view`, and `[고객 정�
 Root also tested a password-protected `SCHEMA_PASSWORD` user through the stdin request. The correct separate password produced a visible schema. A wrong password exited 3 with empty stdout, and neither password sentinel appeared in stdout or stderr. `native/password-acceptance.json` records those assertions without credential values.
 
 Root retained `native/export-acceptance.json`, `native/export-dba.json`, and `native/export-schema_reader.json`. The committed `tests/fixtures/schema-csql-11.5.json` preserves selected literal lines, including native framing, from `native/exact-query.stdout`. Its `sourceSha256` identifies the complete captured stdout. Selection details are embedded in the fixture.
+
+The full actual Neovim-to-CSQL chain then passed with native command/password prompts. DBA table/view and alias-column completion, restricted-user switching, disconnect clearing, old-snapshot removal, and private file/directory modes are recorded in `native-editor-verify/native-flow-run-v20_1igu/result.json`. `native-editor-verify/README.md` gives rerun instructions. Its first custom coordinator driver read asynchronous status before notification delivery; a prompt control and corrected status wait isolated that harness error. No product change was required. The disposable editor environment had no configured native parser worker; the result establishes schema completion, not syntax qualification.
 
 ## Limitations and choices
 
