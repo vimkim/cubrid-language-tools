@@ -1,5 +1,3 @@
-"""Explicit, bounded CSQL catalog acquisition outside the offline language core."""
-
 from dataclasses import dataclass, field
 import json
 import math
