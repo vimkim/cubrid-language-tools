@@ -24,6 +24,7 @@ lsp = [
 
 [project.scripts]
 cubrid-lint = "cubrid_language.cli:main"
+cubrid-schema = "cubrid_language.schema_cli:main"
 cubrid-language-server = "cubrid_language.lsp:main"
 
 [tool.setuptools.packages.find]
