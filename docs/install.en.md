@@ -118,7 +118,7 @@ An older v3 installation can have the same CUBRID profile and package version. I
 Installing the Python package with `just sync` does not rebuild or replace native assets.
 
 1. Select the core checkout you intend to install and record its commit with `git rev-parse HEAD`.
-2. Build and qualify a new worker and manifest from that checkout with the four exact native inputs above.
+2. From that checkout, run `python3 native/parser-worker/build.py` with the four exact native inputs above and `--output /absolute/new-worker-build`. Use a new, separate directory so the configured worker remains unchanged while the old server uses it. Qualify that same build with `python3 native/parser-worker/qualify.py --build /absolute/new-worker-build --output /absolute/new-qualification-evidence`. Choose a fresh directory for the qualification evidence too.
 3. Install the core package from the same checkout or its wheel. Keep the new worker, manifest, build evidence, and notices together.
 4. Point trusted CLI or editor settings at the new worker and matching runtime. Restart the language server and check a supported example.
 
@@ -138,7 +138,8 @@ These checks do not establish new v4 acceptance in Microsoft desktop VS Code or 
 
 ## Qualify a local release
 
-Install uv and make Python 3.10 and 3.14 available. Build the matching v4 worker from the exact native inputs first.
+Install uv and make Python 3.10 and 3.14 available. Run this procedure in a fresh checkout to preserve any older configured worker directory.
+The native test recipes use that checkout's default `native/parser-worker/build` directory. First build the matching v4 worker there with the exact native inputs above.
 Use a new output directory to preserve commands, logs, environments, and artifacts:
 
 ```sh

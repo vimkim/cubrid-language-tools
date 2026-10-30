@@ -117,7 +117,7 @@ TCP 수신 포트·DB 접속·SQL 실행·공유 daemon은 필요하지 않습�
 `just sync`로 Python 패키지를 설치해도 네이티브 산출물을 다시 빌드하거나 교체하지 않습니다.
 
 1. 설치할 코어 checkout을 선택하고 `git rev-parse HEAD`로 커밋을 기록합니다.
-2. 위의 정확한 네 가지 네이티브 입력으로 해당 checkout에서 새 워커·manifest를 빌드·검증합니다.
+2. 해당 checkout에서 위의 정확한 네 가지 네이티브 입력과 `--output /absolute/new-worker-build`를 지정해 `python3 native/parser-worker/build.py`를 실행합니다. 기존 서버가 사용하는 워커를 덮어쓰지 않도록 별도의 새 디렉터리를 사용합니다. `python3 native/parser-worker/qualify.py --build /absolute/new-worker-build --output /absolute/new-qualification-evidence`로 같은 빌드를 검증합니다. 검증 근거도 새 디렉터리에 저장합니다.
 3. 같은 checkout 또는 그 wheel에서 코어 패키지를 설치합니다. 새 워커·manifest·빌드 근거·notice를 함께 보관합니다.
 4. 신뢰하는 CLI·편집기 설정에 새 워커와 일치하는 런타임을 지정합니다. 언어 서버를 다시 시작하고 지원 예시를 검사합니다.
 
@@ -137,7 +137,8 @@ v4 조합에서는 `SELECT /*+ ORDERED */ 1;`이 `valid`이며 `SELECT /*+ ORDER
 
 ## 로컬 릴리스 검증
 
-uv와 Python 3.10·3.14를 준비합니다. 먼저 정확한 네이티브 입력으로 일치하는 v4 워커를 빌드합니다.
+uv와 Python 3.10·3.14를 준비합니다. 기존에 설정한 워커 디렉터리를 보존하도록 새 checkout에서 이 절차를 실행합니다.
+네이티브 테스트 recipe는 해당 checkout의 기본 `native/parser-worker/build` 디렉터리를 사용합니다. 먼저 위의 정확한 네이티브 입력으로 일치하는 v4 워커를 그 디렉터리에 빌드합니다.
 명령·로그·환경·산출물을 보존할 새 출력 디렉터리를 사용합니다.
 
 ```sh
