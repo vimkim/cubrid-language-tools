@@ -15,6 +15,7 @@ to Rust while preserving interfaces and observable behavior. The diagram shows t
 | Completion core | Context, ordered candidates, identifier quoting, aliases, and replacement spans for unfinished SQL/CSQL |
 | Syntax validator | Profile selection, coverage classification, worker lifecycle, diagnostics, and failures |
 | Shared values/contracts | Source ranges, schema snapshots, diagnostic codes/severity, and version identity |
+| Schema acquisition adapter | Explicit fixed catalog queries, validated connections, bounded owned CSQL processes, and snapshot JSON |
 | CLI adapter | Files/stdin, human/JSON results, and exit status |
 | LSP adapter | Document versions, cancellation, position conversion, and completion/diagnostic transport |
 | Native parser worker | Parsing and error collection for an exact CUBRID build in a separate process |
@@ -45,7 +46,8 @@ completion implementation remains until migration. History belongs to the termin
 
 LSP uses standard input/output. The design requires no shared daemon, localhost
 socket, TCP listener, or hosted service. “Shared” means one maintained
-implementation and contract. Completion performs no I/O. It takes text, a cursor,
+implementation and contract. Explicit [schema export](schema-export.en.md) can connect through CSQL and produces an offline snapshot.
+Consumers own connection selection, prompts, and refresh scheduling. Completion performs no I/O. It takes text, a cursor,
 a profile, and optional schema values to produce candidates.
 
 ## Completion and strict parsing stay separate

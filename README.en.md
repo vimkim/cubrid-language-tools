@@ -5,8 +5,8 @@
 **One engine for CUBRID SQL completion and syntax checks across tools.**
 
 `cubrid-language-tools` is an independent engine for CUBRID syntax, command, and
-schema knowledge. It provides a completion library, an offline lint CLI, and
-an LSP adapter for separate csql-future, VS Code, Neovim, and AI products.
+schema knowledge. It provides a completion library, an offline lint CLI, an explicit
+schema exporter, and an LSP adapter for separate csql-future, VS Code, Neovim, and AI products.
 
 **Validate a Python PoC first, then migrate gradually to Rust.**
 Current source provides completion, CLI, optional LSP, and bounded v4 offline syntax checks.
@@ -15,9 +15,9 @@ The [VS Code extension](https://github.com/vimkim/cubrid-vscode) and [Neovim plu
 See their repositories for editor installation and configuration. Install the shared Python server separately.
 
 [Install and qualify](docs/install.en.md) · [Coverage](docs/coverage.en.md) · [Architecture](docs/architecture.en.md) · [Development and product roadmap](docs/product-roadmap.en.md) ·
-[CLI and validation API](docs/lint-cli.en.md) · [Stdio LSP](docs/lsp.en.md) · [Documentation](docs/README.en.md)
+[CLI and validation API](docs/lint-cli.en.md) · [Schema export](docs/schema-export.en.md) · [Stdio LSP](docs/lsp.en.md) · [Documentation](docs/README.en.md)
 
-## One engine, three interfaces
+## Shared language interfaces
 
 ![Target architecture: csql-future calls the library, VS Code and Neovim use LSP, and AI and CI use the CLI. A Python PoC precedes gradual Rust migration. Strict checks use a native CUBRID worker.](assets/readme/architecture.en.svg)
 
@@ -25,11 +25,13 @@ See their repositories for editor installation and configuration. Install the sh
 | --- | --- |
 | **Library** | Direct requests for completion candidates and replacement spans in unfinished SQL |
 | **Lint CLI** | Files/stdin, human/JSON diagnostics, and exit status |
+| **Schema exporter** | Explicit CSQL catalog acquisition into metadata-only JSON snapshots |
 | **LSP** | Shared completion and syntax diagnostics across editors |
 
 The core owns context, identifiers, aliases, schema values, source positions,
 and diagnostic contracts. Adapters own transport and lifecycle. Consumers own
-their interfaces and metadata acquisition. Editors do not reimplement language knowledge.
+their interfaces, connection selection, and refresh scheduling. The shared optional acquisition
+adapter owns fixed catalog SQL and bounded CSQL execution. Editors do not reimplement language knowledge.
 
 ## Local execution
 
@@ -53,7 +55,7 @@ the relevant stage. This plan does not replace the native CUBRID parser with a n
 
 ## Engine and consumer boundaries
 
-- **This repository:** shared completion, syntax diagnostics, profiles, schema/source-range contracts, native worker, CLI, and LSP.
+- **This repository:** shared completion, syntax diagnostics, profiles, schema/source-range contracts, native worker, CLI, LSP, and explicit schema acquisition.
 - **csql-future:** history, Ctrl+R, keys, completion menus, connections, and catalog acquisition.
 - **VS Code / Neovim:** file associations, highlighting, indentation, and extension packaging.
 - **AI / CI:** workflows and shared diagnostic result policies.

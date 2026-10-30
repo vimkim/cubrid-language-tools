@@ -12,6 +12,7 @@ Code, commands, and protocol identifiers remain consistent across languages.
 | [Qualified coverage](coverage.en.md) | Check the exact v4 profile, examples, exclusions, and results |
 | [CLI and validation API](lint-cli.en.md) | Install, lint files, configure metadata, and own a validator |
 | [CSQL batch scripts](scripts.en.md) | Check command boundaries, original spans, and conservative recovery limits |
+| [Schema export](schema-export.en.md) | Export visible CSQL metadata explicitly or import the acquisition adapter |
 | [Stdio LSP](lsp.en.md) | Install the optional server, configure editors, and use snapshots, completion, and diagnostics |
 | [Architecture](architecture.en.md) | Understand the library, CLI, LSP, native parser, and separate consumers |
 | [Development and product roadmap](product-roadmap.en.md) | Follow Python PoC, gradual Rust migration, and consumer status |

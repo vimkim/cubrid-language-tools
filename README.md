@@ -5,7 +5,7 @@
 **CUBRID SQL 자동 완성과 문법 검사를, 여러 도구에서 같은 엔진으로.**
 
 `cubrid-language-tools`는 CUBRID 문법·명령·스키마 정보를 관리하는 독립 공통 언어 엔진입니다.
-완성 라이브러리, 오프라인 문법 검사 CLI, LSP 어댑터를 제공하고,
+완성 라이브러리, 오프라인 문법 검사 CLI, 명시적 스키마 exporter, LSP 어댑터를 제공하고,
 별도 제품인 `csql-future`·VS Code·Neovim·AI 도구가 이를 사용하도록 만듭니다.
 
 **Python으로 PoC를 검증한 뒤, 모듈별로 Rust로 전환합니다.**
@@ -15,9 +15,9 @@
 편집기 설치와 설정은 각 저장소를 확인합니다. 공통 Python 서버는 별도로 설치합니다.
 
 [설치·릴리스 검증](docs/install.md) · [지원 범위](docs/coverage.md) · [아키텍처](docs/architecture.md) · [개발·제품 로드맵](docs/product-roadmap.md) ·
-[CLI·검증 API](docs/lint-cli.md) · [stdio LSP](docs/lsp.md) · [문서 목차](docs/README.md)
+[CLI·검증 API](docs/lint-cli.md) · [스키마 내보내기](docs/schema-export.md) · [stdio LSP](docs/lsp.md) · [문서 목차](docs/README.md)
 
-## 한 엔진, 세 가지 인터페이스
+## 공통 언어 인터페이스
 
 ![목표 구조: csql-future는 라이브러리, VS Code·Neovim은 LSP, AI·CI는 CLI로 공통 엔진을 호출합니다. Python PoC 이후 Rust로 점진 전환하며 문법 검사는 네이티브 CUBRID 워커가 담당합니다.](assets/readme/architecture.svg)
 
@@ -25,10 +25,12 @@
 | --- | --- |
 | **라이브러리** | 미완성 SQL의 완성 후보·대체 범위를 직접 요청 |
 | **린트 CLI** | 파일·표준 입력을 검사하고 사람용·JSON 진단과 종료 상태 반환 |
+| **스키마 exporter** | 명시적으로 CSQL 카탈로그를 수집하여 메타데이터 JSON 스냅샷 출력 |
 | **LSP** | 여러 편집기에 같은 완성·문법 진단 제공 |
 
 코어는 문맥·식별자·별칭·스키마·원문 위치와 진단 계약을 소유합니다.
-어댑터는 전송·수명 관리, 소비 제품은 사용자 화면·메타데이터 수집을 담당합니다.
+어댑터는 전송·수명 관리, 소비 제품은 사용자 화면·접속 선택·새로고침 일정을 담당합니다.
+선택적 공통 수집 어댑터는 고정 카탈로그 SQL과 제한된 CSQL 실행을 소유합니다.
 언어 지식을 편집기별로 다시 구현하지 않는 구조입니다.
 
 ## 로컬에서 동작합니다
@@ -53,7 +55,7 @@ Python 소비자는 라이브러리를 직접 import합니다.
 
 ## 공통 엔진과 별도 제품의 경계
 
-- **이 저장소:** 공통 완성·문법 진단·프로파일·스키마·소스 범위 계약, 네이티브 워커, CLI·LSP.
+- **이 저장소:** 공통 완성·문법 진단·프로파일·스키마·소스 범위 계약, 네이티브 워커, CLI·LSP, 명시적 스키마 수집.
 - **csql-future:** 히스토리·Ctrl+R·키 입력·완성 메뉴·접속·카탈로그 조회.
 - **VS Code·Neovim:** 파일 연결·구문 강조·들여쓰기·확장 패키징.
 - **AI·CI:** 작업 흐름·공통 진단 결과 처리 정책.

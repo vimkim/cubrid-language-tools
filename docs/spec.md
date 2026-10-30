@@ -20,7 +20,7 @@ The central repository owns:
 - Immutable text ranges, completion values, schema values, diagnostics, and profile identities.
 - Pure completion for incomplete SQL and supported session commands.
 - Qualified native syntax checking without database connections or submitted-text execution.
-- JSON schema snapshots, shared project configuration, a batch CLI, and an optional stdio LSP adapter.
+- JSON schema snapshots, explicit shared CSQL acquisition, shared project configuration, a batch CLI, and an optional stdio LSP adapter.
 - Coverage manifests, fixtures, notices, and release qualification.
 
 Separate projects own VS Code and Neovim integration, AI workflows, and the csql-future terminal interface.
@@ -80,8 +80,10 @@ The pinned source determines the valid spellings and safe parse paths.
 `complete(text, cursor, profile, schema=None)` is deterministic and performs no I/O.
 Strict validation uses a configured owned worker process through a shared validation interface.
 The CLI and LSP convert those same results into their own transport formats.
-Schema acquisition stays with the caller. Editors use offline snapshots initially.
-The terminal can supply its existing catalog values after migration.
+An optional shared acquisition adapter and `cubrid-schema export` obtain metadata through fixed CSQL catalog queries.
+Consumers own connection selection, credentials, prompts, caching, and refresh scheduling.
+The language core, validator, and LSP consume offline schema values and never acquire metadata implicitly.
+The terminal can supply its existing catalog values after migration. See [schema export](schema-export.en.md).
 
 Use Python 3.10+ and zero mandatory Python runtime dependencies for core and CLI.
 Use optional pygls dependencies for LSP and pin the implementation's tested versions.

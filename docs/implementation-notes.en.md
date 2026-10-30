@@ -58,7 +58,9 @@ Each consumer owns the processes it starts. The hosted design in the comparison 
 The core accepts document text, a cursor, an explicit parser profile, and optional schema metadata.
 It owns language decisions and canonical source ranges.
 Adapters own transport, editor lifecycle, or output formatting.
-Consumers own their user interfaces and catalog acquisition.
+Consumers own their user interfaces, connection selection, and refresh scheduling.
+The optional shared acquisition adapter owns fixed catalog queries and bounded CSQL execution.
+See [schema export](schema-export.en.md).
 No consumer should implement another CUBRID completion or syntax engine.
 
 The existing csql-future terminal engine remains in place until its separate migration passes parity checks.

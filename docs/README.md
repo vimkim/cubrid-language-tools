@@ -12,6 +12,7 @@
 | [지원 범위](coverage.md) | 정확한 v4 프로파일·예시·제외 구문·결과를 확인할 때 |
 | [CLI·검증 API](lint-cli.md) | 설치·파일 검사·프로젝트 설정·검증 API를 사용할 때 |
 | [CSQL 배치 스크립트](scripts.md) | 명령 경계·원문 범위·보수적인 복구 제한을 확인할 때 |
+| [스키마 내보내기](schema-export.md) | CSQL 메타데이터를 명시적으로 내보내거나 수집 어댑터를 import할 때 |
 | [stdio LSP](lsp.md) | 선택 서버 설치·편집기 설정·스냅샷·완성·진단을 사용할 때 |
 | [아키텍처](architecture.md) | 라이브러리·CLI·LSP·네이티브 파서와 별도 제품의 역할을 확인할 때 |
 | [개발·제품 로드맵](product-roadmap.md) | Python PoC에서 Rust로 전환하는 단계와 소비 제품 현황을 볼 때 |

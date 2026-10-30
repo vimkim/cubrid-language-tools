@@ -34,3 +34,7 @@ Ticket 09 retains its direct ticket 07 qualification gate, confirmed passed by t
 
 These follow-ups are present at core commit `057e41b0c02d85d09905301f6bfccbb7ed0b8965` on public main.
 Current source, native, LSP, installed-wheel, and OpenVSCode checks are summarized in [installation evidence](../install.en.md#qualification-evidence).
+
+## Pending integration
+
+- [S636 schema export](schema-export.md) adds explicit shared CSQL acquisition and the additive `schemaConfigured` reload result. Its [report](reports/schema-export.md) records source, installed-package, and real CSQL evidence. Local integration requires approval.

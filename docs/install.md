@@ -14,6 +14,7 @@ uv와 just를 준비한 뒤 checkout에서 실행합니다.
 ```sh
 just sync
 cubrid-lint --help
+cubrid-schema --help
 cubrid-language-server --version
 ```
 
@@ -42,7 +43,9 @@ uv pip install --python .venv/bin/python .
 
 코어·CLI의 필수 Python 런타임 의존성은 0개입니다.
 완성은 바로 사용할 수 있으며 엄격한 린트에는 아래의 신뢰된 네이티브 입력도 필요합니다.
-두 console 명령을 모두 설치합니다. `cubrid-language-server --version`은 선택 의존성이나 네이티브 런타임 없이 설치된 배포본의 버전을 출력합니다.
+`cubrid-lint`, `cubrid-schema`, `cubrid-language-server`를 설치합니다.
+[스키마 exporter](schema-export.md)는 신뢰하는 CSQL 클라이언트로 명시적으로 실행하는 선택적 DB 수집 단계입니다.
+`cubrid-language-server --version`은 선택 의존성이나 네이티브 런타임 없이 설치된 배포본의 버전을 출력합니다.
 현재 값 `0.1.0.dev0`으로는 Git 커밋이나 네이티브 범위 리비전을 알 수 없습니다.
 선택 의존성이 없으면 인자 없이 서버를 시작할 때 stderr에 안내를 출력하고 상태 3으로 종료합니다.
 설치된 배포 메타데이터가 없는 소스 실행에서는 버전을 확인할 수 없습니다. 먼저 패키지를 설치합니다.
@@ -151,7 +154,7 @@ just qualify-release native/parser-worker/build /absolute/new/release-evidence
 
 recipe는 두 Python 버전의 격리 wheel·소스 빌드에 setuptools 77.0.3을 강제합니다.
 코어·선택 의존성 산출물을 checkout 밖의 독립 환경 8개에 설치합니다.
-archive 검사는 소스·notice 바이트, 두 console 진입점, 선택 의존성 6개, 네이티브 컴파일 결과물 제외를 확인합니다.
+archive 검사는 소스·notice 바이트, 세 console 진입점, 선택 의존성 6개, 네이티브 컴파일 결과물 제외를 확인합니다.
 이식 가능한 fixture로 설치된 라이브러리·CLI의 상태·검사 범위·코드·원문 범위를 비교합니다.
 선택 의존성 설치에서는 완성 후보 순서·편집 범위와 한글·이모지·CRLF의 명시적 UTF-16 진단 기대값도 비교합니다.
 LSP는 상태·검사 범위의 진단 결과를 전달하며 별도 상태·범위 프로토콜 필드를 추가하지 않습니다.

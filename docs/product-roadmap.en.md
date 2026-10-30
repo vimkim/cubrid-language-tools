@@ -61,8 +61,9 @@ Consumers can use qualified Python interfaces before the entire Rust migration f
 | AI / CI tools | Integrate structured lint results and failure states into workflows |
 
 Terminal migration requires candidate, Unicode edit, and metadata parity plus
-the existing PTY checks. Initial editor schema completion uses offline snapshots.
-Automatic live editor connections are later work.
+the existing PTY checks. Editor schema completion consumes offline snapshots. The shared [schema exporter](schema-export.en.md) can acquire them explicitly through CSQL.
+Consumers retain connection selection and refresh scheduling.
+Editors decide whether to offer a connection prompt. The core never starts one.
 
 ## 5. Broaden language support
 

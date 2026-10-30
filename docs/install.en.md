@@ -14,6 +14,7 @@ With uv and just available, run from the checkout:
 ```sh
 just sync
 cubrid-lint --help
+cubrid-schema --help
 cubrid-language-server --version
 ```
 
@@ -44,7 +45,9 @@ uv pip install --python .venv/bin/python .
 
 Core and CLI have zero mandatory Python runtime dependencies.
 Completion works immediately. Strict linting also needs the trusted native inputs described below.
-The package installs both console commands. `cubrid-language-server --version` prints the installed distribution version without the optional extra or native runtime.
+The package installs `cubrid-lint`, `cubrid-schema`, and `cubrid-language-server`.
+The [schema exporter](schema-export.en.md) is an explicit, optional database acquisition step and requires a trusted CSQL client.
+`cubrid-language-server --version` prints the installed distribution version without the optional extra or native runtime.
 The current value `0.1.0.dev0` identifies neither a Git commit nor the native coverage revision.
 Without the optional extra, starting the server with no arguments prints guidance to stderr and exits 3.
 A source-only invocation without installed distribution metadata cannot report a version. Install the package first.
@@ -152,7 +155,7 @@ just qualify-release native/parser-worker/build /absolute/new/release-evidence
 
 The release recipe forces setuptools 77.0.3 for isolated wheel and source builds on both Python versions.
 It installs core and optional artifacts in eight separate environments outside the checkout.
-Archive checks compare source and notice bytes, both console entry points, six optional-only requirements, and absence of compiled native outputs.
+Archive checks compare source and notice bytes, all three console entry points, six optional-only requirements, and absence of compiled native outputs.
 Portable fixtures compare installed library and CLI status, coverage, codes, and original spans.
 Optional installs also compare ordered completion edits and framed UTF-16 diagnostics with literal Unicode/CRLF expectations.
 LSP transports diagnostic consequences of status and coverage. It does not add status or coverage protocol fields.
