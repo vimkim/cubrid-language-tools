@@ -3,6 +3,7 @@
 import json
 import os
 from pathlib import Path
+import select
 import signal
 import subprocess
 import sys
@@ -273,6 +274,58 @@ class SchemaExportTest(unittest.TestCase):
             out, err = process.communicate()
             self.assert_failure(subprocess.CompletedProcess([], process.returncode, out, err), 130 if cancel else 124)
             self.assertFalse((self.root / 'launch.json').exists())
+
+    def start_large_export(self, timeout, *, merged=False):
+        rows = ''.join(f'relation\tDBA\tDBA\ttable_{i:05d}\ttable_{i:05d}\tCLASS\n'
+                       for i in range(5000))
+        (self.root / 'catalog').write_text(HEADER + IDENTITY + rows)
+        process = subprocess.Popen([*self.console, '--timeout', str(timeout), '--',
+                                    '-psecret-password', 'demodb'], stdout=subprocess.PIPE,
+                                   stderr=subprocess.STDOUT if merged else subprocess.PIPE,
+                                   env=self.environment)
+        def cleanup():
+            if process.poll() is None:
+                process.kill()
+            process.communicate(timeout=3)
+        self.addCleanup(cleanup)
+        self.assertTrue(select.select([process.stdout], [], [], 3)[0], 'no output started')
+        return process
+
+    def test_stalled_stdout_respects_timeout_and_cancellation_with_merged_stderr(self):
+        for merged in (False, True):
+            for cancel in (False, True):
+                with self.subTest(merged=merged, cancel=cancel):
+                    process = self.start_large_export(5 if cancel else .6, merged=merged)
+                    if cancel:
+                        process.send_signal(signal.SIGTERM)
+                    self.assertEqual(130 if cancel else 124, process.wait(timeout=2))
+                    out, err = process.communicate(timeout=2)
+                    self.assertTrue(out)
+                    self.assertNotIn(b'secret-password', out + (err or b''))
+
+    def test_late_reader_cannot_turn_timeout_or_cancellation_into_success(self):
+        for cancel in (False, True):
+            with self.subTest(cancel=cancel):
+                process = self.start_large_export(5 if cancel else .6)
+                if cancel:
+                    process.send_signal(signal.SIGTERM)
+                time.sleep(.8 if not cancel else .2)
+                out, err = process.communicate(timeout=3)
+                self.assertEqual(130 if cancel else 124, process.returncode, err)
+                self.assertTrue(out)
+                self.assertNotIn(b'secret-password', out + err)
+
+    def test_closed_stdout_fails_cleanly(self):
+        process = subprocess.Popen([*self.console, '--', '-psecret-password', 'demodb'],
+                                   stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=self.environment)
+        process.stdout.close()
+        code = process.wait(timeout=3)
+        err = process.stderr.read()
+        process.stderr.close()
+        self.assertEqual(3, code, err)
+        self.assertLess(len(err), 200)
+        self.assertNotIn(b'Traceback', err)
+        self.assertNotIn(b'secret-password', err)
 
     def test_public_api_immutable_connection_and_cancellation(self):
         from dataclasses import FrozenInstanceError
