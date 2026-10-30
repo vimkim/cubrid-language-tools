@@ -11,10 +11,10 @@ Explore the [interactive architecture](architecture.html), [specification](spec.
 
 ## Current state
 
-Pure completion, offline snapshots, and the exact V3 native worker are implemented and verified.
+Pure completion, offline snapshots, and the exact v4 native worker are implemented and verified.
 The lint CLI and shared document validator are implemented. See the [CLI and validation API guide](lint-cli.en.md).
 The optional stdio LSP and bounded query, DML, schema, engineer, and CSQL coverage are implemented.
-See [installation](install.en.md), [qualified coverage](coverage.en.md), and the [qualification report](tickets/reports/09.md).
+See [installation and current evidence](install.en.md), [qualified coverage](coverage.en.md), and the [historical v3 distribution report](tickets/reports/09.md).
 SHOW COLUMNS, DESCRIBE, DESC, and class-description EXPLAIN remain unsupported under the accepted first-profile scope.
 The first parser target is the exact CUBRID 11.5 development build `11.5.0.2704-cc94778` on Linux x86-64.
 Other builds and platforms require separate qualification.
@@ -26,7 +26,7 @@ The Python import package is `cubrid_language`. Core and CLI require Python 3.10
 Strict checking also requires a separately qualified native runtime.
 The language server uses pinned optional LSP dependencies.
 The configured origin is https://github.com/vimkim/cubrid-language-tools.git.
-The qualification report records the reviewed revision, checks, and remaining limits.
+The historical report records its reviewed v3 revision, checks, and remaining limits. It does not establish a full v4 distribution matrix.
 
 ## Completion library
 

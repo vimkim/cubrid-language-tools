@@ -32,7 +32,7 @@ The completion edit replaces the entire selected token span, including the suffi
 An empty span inserts at the cursor.
 
 Native error coordinates are private adapter input.
-Central ticket 02 must measure their units against the selected build.
+Central ticket 02 measured their units against the selected build. See [native position evidence](../native/parser-worker/README.md#failure-and-resource-behavior).
 If native data cannot identify a reliable token, use a statement span with `rangePrecision: statement`.
 For EOF errors, a zero-length EOF span is allowed.
 Do not present an estimated token range as exact.
@@ -168,9 +168,11 @@ The future terminal adapter retains catalog acquisition and live refresh ownersh
 
 ## CLI contract
 
-Install the future commands `cubrid-lint` and `cubrid-language-server` with the Python package.
-The server command requires the optional `lsp` dependencies.
-If they are absent, it prints installation guidance to stderr and exits with a tool failure.
+The Python package installs `cubrid-lint` and `cubrid-language-server`.
+Starting the server requires the optional `lsp` dependencies.
+If they are absent, startup prints installation guidance to stderr and exits with a tool failure.
+The server's standalone `--version`, `--help`, and `-h` options need neither the optional dependencies nor the native runtime.
+The package version does not identify a Git commit or native coverage revision. See [installation](install.en.md).
 
 `cubrid-lint [--profile ID] [--script-mode sql|csql] [--format human|json] PATH...` checks explicit paths.
 Support `--config PATH`, `--parser-worker PATH`, and `--runtime-prefix PATH` as explicit configuration overrides.

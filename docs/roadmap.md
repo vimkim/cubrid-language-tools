@@ -1,21 +1,21 @@
 # Long-term work
 
-The current implementation goal is the Python central engine and its library, CLI, and LSP adapters.
+The Python central engine and its library, CLI, and LSP adapters are implemented and integrated into public main.
 The accepted [public product roadmap](product-roadmap.en.md) adds gradual Rust migration after Python behavior and contracts are verified.
-The [ticket graph](tickets/README.md) tracks that work.
+The [ticket index](tickets/README.md) records the completed Python delivery and integrated follow-up work.
 Consumer products stay separate and use the same maintained language implementation.
 
-## Qualify the central development release
+## Current implementation and qualification
 
 - Implemented: pure completion, offline snapshots, shared configuration, lint CLI, optional stdio LSP, and CSQL batch classification.
-- Qualified grammar: exact Linux x86-64 V3 profile with bounded query, DML, schema, and engineer subsets. See [coverage](coverage.en.md).
-- Delivery: [isolated installation, archive, notice, and parity checks](install.en.md) precede final standards/spec review and integration.
-- [Qualification evidence](tickets/reports/09.md) records the checked development release. Remote publication is a separate decision.
+- Qualified grammar: exact Linux x86-64 v4 profile with bounded query, DML, schema, and engineer subsets. See [coverage](coverage.en.md).
+- Delivery evidence: the [original distribution report](tickets/reports/09.md) records the full v3 matrix.
+- Current v4 source, native, LSP, installed-wheel, and OpenVSCode checks are distinct from that historical matrix. See [installation and qualification evidence](install.en.md#qualification-evidence). A full v4 distribution matrix remains to be run.
 
 ## Separate consumer projects
 
-- VS Code local alpha implemented and verified: dedicated `cubrid` language identity, `.csql` association, opt-in `.sql` mapping, lexical highlighting, indentation, server configuration, and extension-host tests.
-- Neovim local alpha implemented and verified: file detection, highlighting, indentation, built-in LSP setup, snapshot reload, and headless editor tests.
+- VS Code public alpha implemented and verified: dedicated `cubrid` language identity, `.csql` association, opt-in `.sql` mapping, lexical highlighting, indentation, server configuration, and extension-host tests.
+- Neovim public alpha implemented and verified: file detection, highlighting, indentation, built-in LSP setup, snapshot reload, and headless editor tests.
 - AI checker: structured `cubrid-lint` integration, stable failure handling, CI examples, and workflow-specific policy.
 - csql-future migration: depend on the central library, convert existing catalog values, preserve terminal menus and metadata acquisition, and remove its duplicate completion implementation after parity checks.
 

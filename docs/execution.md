@@ -1,5 +1,10 @@
 # Central implementation execution
 
+This page preserves the original central-engine delivery procedure and its 2026-10-28 authorization context.
+That delivery and later follow-ups are integrated into public main. The [ticket index](tickets/README.md) records current status.
+Use [current coverage](coverage.en.md) and [installation](install.en.md) for supported behavior and upgrade instructions.
+The historical approvals below do not authorize new work.
+
 The user accepted architecture A and authorized implementation and local task commits.
 The revised central graph supersedes the old eleven-ticket csql-future graph.
 Work item 572 tracks the independent engine. Consumer projects remain in the roadmap.

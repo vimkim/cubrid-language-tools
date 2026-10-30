@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
 <title id="title">Target architecture for the shared CUBRID language engine</title>
-<desc id="desc">Separate consumers call a shared engine through library, LSP, and CLI interfaces. Validate a Python PoC, then migrate gradually to Rust. Only strict checks use the native CUBRID parser worker. Consumer integrations are planned.</desc>
+<desc id="desc">Separate consumers call a shared engine through library, LSP, and CLI interfaces. Validate a Python PoC, then migrate gradually to Rust. Only strict checks use the native CUBRID parser worker. VS Code and Neovim alphas use LSP. TUI and AI integrations remain planned.</desc>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#087f8c"/></marker></defs>
 <rect width="1200" height="900" fill="#f7f9fc"/>
 <g font-family="Noto Sans CJK KR, Noto Sans KR, DejaVu Sans, sans-serif" fill="#17283e">
-<text x="56" y="43" font-size="27" font-weight="600" fill="#52617a" text-anchor="start">TARGET DESIGN · CONSUMER INTEGRATIONS PLANNED</text>
+<text x="56" y="43" font-size="27" font-weight="600" fill="#52617a" text-anchor="start">EDITOR ALPHAS USE LSP · TUI AND AI INTEGRATIONS PLANNED</text>
 <rect x="32" y="294" width="1136" height="494" rx="10" fill="#ddeef0" stroke="#087f8c" stroke-width="2"/>
 <rect x="56" y="75" width="352" height="92" rx="10" fill="#ffffff" stroke="#8ea3b7" stroke-width="2" stroke-dasharray="8 5"/>
 <text x="232" y="132" font-size="32" font-weight="600" fill="#17283e" text-anchor="middle">csql-future</text>

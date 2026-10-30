@@ -154,9 +154,14 @@ assert settings.schema_snapshot is None
 ## 현재 검증 범위
 
 현재 Python 단계는 위에서 지정한 Linux x86-64 CUBRID 11.5 프로파일만 검증합니다.
-워커의 현재 SQL 검증 범위는 [네이티브 안내서](../native/parser-worker/README.md)에 정의합니다.
+현재 SQL·CSQL 제한은 [지원 범위](coverage.md)에 정의합니다.
 SQL 모드는 원본 SQL 문서를 검사합니다.
-CSQL 모드는 정확한 help·exit·autocommit on/off 명령 줄도 실행 없이 분류합니다.
+CSQL 모드는 [검증한 명령 줄](scripts.md#검증한-명령)도 실행 없이 분류합니다.
 [배치 스크립트 안내서](scripts.md)는 원문 오프셋·명령 표기·미완료 SQL과 프로시저 영역의 보수적인 복구 제한을 설명합니다.
 검증하지 않은 프로시저·include·셸 구문은 명시적인 미지원 결과를 반환합니다.
 문법 통과는 객체 존재·권한·서버 의미 검증을 뜻하지 않습니다.
+
+검증된 프로파일에서는 SHOW·옵티마이저 힌트의 작성 중 경고를 네이티브 진단과 함께 반환합니다.
+분류는 `authoring`이며 네이티브 상태·종료 코드를 바꾸지 않습니다.
+합친 진단이 개수 제한을 넘으면 도구 오류와 잘림 안내를 반환합니다.
+검사 범위는 [작성 중 경고](coverage.md#작성-중-경고)를 확인합니다.

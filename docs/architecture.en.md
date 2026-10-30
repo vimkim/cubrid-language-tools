@@ -38,7 +38,7 @@ completion implementation remains until migration. History belongs to the termin
 
 | Consumer | Path |
 | --- | --- |
-| Python terminal | Direct library call → completion core |
+| Python terminal after migration | Direct library call → completion core |
 | VS Code / Neovim | An editor-owned LSP child process → core/validator |
 | AI / CI / shell | Lint CLI process → validator |
 | Validator | Owned native worker using UTF-8 JSON lines over pipes |
@@ -64,7 +64,8 @@ and CRLF fixtures must retain the same edits and diagnostic locations.
 
 The first target profile is `cubrid-11.5.0.2704-cc94778`. Qualify matching libraries,
 headers, runtime assets, and settings against source
-`cc947788d3b7dc402f46192d0f3299ddcc8563ba`. V3 supports bounded queries, DML, schema, engineer forms, and CSQL batches.
+`cc947788d3b7dc402f46192d0f3299ddcc8563ba`. v4 adds one argument-free ORDERED hint on a top-level literal SELECT to the bounded query, DML, schema, and engineer coverage.
+CSQL command classification runs in the shared validator.
 SHOW COLUMNS, DESCRIBE, DESC, and class-description EXPLAIN remain excluded.
 See [qualified coverage](coverage.en.md) for examples, limits, and the separate 11.4 completion vocabulary provenance.
 

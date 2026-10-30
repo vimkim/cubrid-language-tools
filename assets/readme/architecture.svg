@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
 <title id="title">CUBRID 공통 언어 엔진의 목표 아키텍처</title>
-<desc id="desc">별도 소비 제품은 라이브러리, LSP, CLI로 공통 엔진을 호출합니다. Python PoC를 검증한 뒤 Rust로 점진 전환합니다. 문법 검사만 네이티브 CUBRID 파서 워커를 사용합니다. 소비 제품 연동은 예정입니다.</desc>
+<desc id="desc">별도 소비 제품은 라이브러리, LSP, CLI로 공통 엔진을 호출합니다. Python PoC를 검증한 뒤 Rust로 점진 전환합니다. 문법 검사만 네이티브 CUBRID 파서 워커를 사용합니다. VS Code·Neovim 알파는 LSP를 사용하며 TUI·AI 연동은 예정입니다.</desc>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#087f8c"/></marker></defs>
 <rect width="1200" height="900" fill="#f7f9fc"/>
 <g font-family="Noto Sans CJK KR, Noto Sans KR, DejaVu Sans, sans-serif" fill="#17283e">
-<text x="56" y="43" font-size="27" font-weight="600" fill="#52617a" text-anchor="start">목표 구조 · 별도 소비 제품의 연동은 예정</text>
+<text x="56" y="43" font-size="27" font-weight="600" fill="#52617a" text-anchor="start">편집기 알파는 LSP 사용 · TUI·AI 연동 예정</text>
 <rect x="32" y="294" width="1136" height="494" rx="10" fill="#ddeef0" stroke="#087f8c" stroke-width="2"/>
 <rect x="56" y="75" width="352" height="92" rx="10" fill="#ffffff" stroke="#8ea3b7" stroke-width="2" stroke-dasharray="8 5"/>
 <text x="232" y="132" font-size="32" font-weight="600" fill="#17283e" text-anchor="middle">csql-future</text>

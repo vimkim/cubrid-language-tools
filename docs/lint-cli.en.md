@@ -169,11 +169,12 @@ Worker configuration remains a separate trusted input.
 ## Current qualification boundary
 
 This Python stage uses the exact Linux x86-64 CUBRID 11.5 profile identified above.
-The [native guide](../native/parser-worker/README.md) defines the worker's current qualified SQL coverage.
+The [coverage reference](coverage.en.md) defines current SQL and CSQL limits.
 SQL mode checks the original SQL document.
-CSQL mode also classifies the exact help, exit, and autocommit on/off command lines without execution.
+CSQL mode also classifies the [qualified command lines](scripts.en.md#qualified-commands) without execution.
 The [batch script guide](scripts.en.md) describes original offsets, command spellings, and conservative recovery for pending SQL and procedural regions.
 Unaudited procedures, includes, and shell constructs remain explicit unsupported results.
 A syntax pass does not establish object existence, privileges, or server semantics.
 
 For the qualified profile, SHOW and optimizer-hint authoring warnings appear beside native diagnostics. Their category is `authoring`. They do not change the native status or exit code. If the combined diagnostic limit is exceeded, the result is a tool error and includes a truncation message.
+See [authoring warning limits](coverage.en.md#authoring-warnings).

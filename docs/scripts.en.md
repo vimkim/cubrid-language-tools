@@ -119,7 +119,7 @@ Exceeding that limit returns a tool error with an explicit truncation message.
 
 Script classification adds no native grammar family.
 The matching native worker and manifest still determine SQL coverage for the exact 11.5 profile.
-See the [native guide](../native/parser-worker/README.md) for its current coverage revision and build inputs.
+See [current coverage](coverage.en.md) for the revision and [installation](install.en.md) for matched core and worker setup.
 No database, CSQL interpreter, or daemon participates in script qualification.
 
 The [boundary preflight](orchestration/script-boundaries-preflight.md) records the pinned manual and source evidence.

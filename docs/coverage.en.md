@@ -7,6 +7,8 @@ The exact native profile is `cubrid-11.5.0.2704-cc94778` on Linux x86-64.
 Its source commit is `cc947788d3b7dc402f46192d0f3299ddcc8563ba` and coverage revision is `bounded-query-dml-schema-engineer-ordered-v4`.
 Other builds, including other 11.5 builds, need separate qualification.
 The Python wheel contains no native worker, CUBRID library, or runtime assets.
+Use a core package and worker with the same coverage revision. Package version `0.1.0.dev0` alone does not identify that revision.
+See [paired upgrades and qualification evidence](install.en.md#upgrade-the-core-and-worker-together).
 
 ## Completion
 
@@ -16,6 +18,9 @@ Completion preserves the [11.4 manual vocabulary provenance](completion-provenan
 Its explicit profile argument does not select a separate version of the inherited non-hint vocabulary.
 Suggestions do not establish strict 11.5 syntax support or server semantics.
 Completion works without a native runtime and performs no I/O.
+SHOW completion and optimizer-hint names and selected table arguments cover more forms than native validation.
+For example, a `SHOW TABLES` suggestion does not make `SHOW TABLES;` valid under this offline profile.
+Native SHOW coverage is only `SHOW TRACE;`. Native hint coverage is only the literal SELECT case below.
 
 ## Strict SQL syntax
 
@@ -71,6 +76,7 @@ A separately qualified parser-only backend remains [future work](roadmap.md#lang
 
 CSQL mode admits full, column-one `;help`, `;exit`, `;commit`, and `;rollback` lines, ignoring case.
 It also admits `;autocommit on/off`, `;time on/off`, and `;line-output on/off`.
+The `on/off` notation means one required argument, either `on` or `off`. Bare `;time` and `;line-output` remain unsupported.
 ASCII spaces and tabs may separate a command from its required argument or follow these commands.
 The checker inspects text after `;exit` and never changes session or transaction state. Commit and rollback acceptance checks text shape only.
 Indentation, abbreviations, includes, shell commands, buffer controls, and procedure bodies remain unsupported.

@@ -5,6 +5,7 @@
 Use Python 3.10 or later. This local development release is `0.1.0.dev0`.
 The commands below install a local checkout or built artifact. They do not assume publication to a package index.
 See [qualified coverage](coverage.en.md) before interpreting a syntax pass.
+If your existing installation uses native diagnostics, follow the [paired upgrade steps](#upgrade-the-core-and-worker-together) before reinstalling the package.
 
 ## Install commands on PATH
 
@@ -44,6 +45,7 @@ uv pip install --python .venv/bin/python .
 Core and CLI have zero mandatory Python runtime dependencies.
 Completion works immediately. Strict linting also needs the trusted native inputs described below.
 The package installs both console commands. `cubrid-language-server --version` prints the installed distribution version without the optional extra or native runtime.
+The current value `0.1.0.dev0` identifies neither a Git commit nor the native coverage revision.
 Without the optional extra, starting the server with no arguments prints guidance to stderr and exits 3.
 A source-only invocation without installed distribution metadata cannot report a version. Install the package first.
 
@@ -104,14 +106,39 @@ Worker/runtime paths come from explicit CLI flags or trusted user/editor setting
 Project `.cubrid-language.json` can contain only profile, script mode, and snapshot metadata.
 
 Editors and the CLI spawn owned children and use pipes. Language operations require no TCP listener, database connection, SQL execution, or shared daemon.
-The native manifest binds source, headers, library/runtime hashes, settings, platform, and V3 coverage revision.
+The native manifest binds source, headers, library/runtime hashes, settings, platform, and the exact coverage revision.
 Missing or mismatched inputs produce explicit unsuccessful results, including for empty documents.
 Default bounds are a 5-second request deadline, 8 MiB input, 16 MiB reply, and 256 diagnostics.
 Abrupt termination can leave the worker's private temporary directory. Normal close removes its own directory.
 
+## Upgrade the core and worker together
+
+Current source requires `bounded-query-dml-schema-engineer-ordered-v4`.
+An older v3 installation can have the same CUBRID profile and package version. Its worker still fails the v4 core's identity checks.
+Installing the Python package with `just sync` does not rebuild or replace native assets.
+
+1. Select the core checkout you intend to install and record its commit with `git rev-parse HEAD`.
+2. Build and qualify a new worker and manifest from that checkout with the four exact native inputs above.
+3. Install the core package from the same checkout or its wheel. Keep the new worker, manifest, build evidence, and notices together.
+4. Point trusted CLI or editor settings at the new worker and matching runtime. Restart the language server and check a supported example.
+
+Keep the old package and worker together until you switch both. Do not edit a v3 manifest to claim v4.
+For the v4 pair, `SELECT /*+ ORDERED */ 1;` returns `valid`, while `SELECT /*+ ORDERED */ 1 FROM absent;` remains `unsupported`.
+See [qualified coverage](coverage.en.md) for the complete boundary.
+
+## Qualification evidence
+
+The [original distribution report](tickets/reports/09.md) records the full eight-environment v3 matrix.
+That matrix has not been rerun for v4. Its historical v3 results do not qualify a v4 distribution release.
+The v4 implementation at core commit `057e41b` passed the core, native, framed LSP, and native LSP suites.
+It also has a source-matched installed wheel check and real OpenVSCode 1.109.5 acceptance with the matching v4 worker.
+The [ORDERED report](tickets/reports/native-ordered.md) records the native boundary and corpus.
+The [ticket index](tickets/README.md) distinguishes integrated work from each report's original review state.
+These checks do not establish new v4 acceptance in Microsoft desktop VS Code or Neovim, or a complete v4 distribution matrix.
+
 ## Qualify a local release
 
-Install uv and make Python 3.10 and 3.14 available. Build the V3 worker from the exact native inputs first.
+Install uv and make Python 3.10 and 3.14 available. Build the matching v4 worker from the exact native inputs first.
 Use a new output directory to preserve commands, logs, environments, and artifacts:
 
 ```sh

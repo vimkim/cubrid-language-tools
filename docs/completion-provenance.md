@@ -69,7 +69,8 @@ The immutable result reserves its optional `availability` field for future use a
 
 The repository retains its Apache-2.0 license.
 This port changes no existing source notices.
-Native runtime notices and final release qualification belong to later tickets.
+The later [distribution report](tickets/reports/09.md) records native notices and historical v3 release qualification.
+See [current coverage](coverage.en.md) for subsequent additions and [installation evidence](install.en.md#qualification-evidence) for their verification scope.
 
 ## Intentional delivery corrections
 

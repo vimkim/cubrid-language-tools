@@ -3,7 +3,9 @@
 Architecture A was accepted on 2026-10-28: one independent project contains the shared library, LSP adapter, and lint CLI.
 This specification supersedes the earlier csql-future monorepo implementation plan.
 The accepted [product roadmap](product-roadmap.en.md) calls for a verified Python PoC followed by gradual Rust replacements.
-The current nine-ticket graph delivers the Python implementation and qualification. Rust migration and formatting remain later work.
+The original nine-ticket graph delivered the Python implementation and v3 distribution qualification.
+Current main includes later authoring, v4 native, and CSQL work. See [coverage](coverage.en.md) and [qualification evidence](install.en.md#qualification-evidence).
+Rust migration and formatting remain later work.
 The [contracts](contracts.md) define observable behavior. The [tickets](tickets/README.md) define delivery gates.
 
 ## Product and ownership
@@ -21,7 +23,8 @@ The central repository owns:
 - JSON schema snapshots, shared project configuration, a batch CLI, and an optional stdio LSP adapter.
 - Coverage manifests, fixtures, notices, and release qualification.
 
-Separate future projects own VS Code and Neovim integration, AI workflows, and the csql-future terminal interface.
+Separate projects own VS Code and Neovim integration, AI workflows, and the csql-future terminal interface.
+The editor alphas are public. AI integration and csql-future migration remain future work.
 The central build does not modify these consumers.
 The [roadmap](roadmap.md) retains their work and the later migration gate.
 
@@ -45,7 +48,7 @@ There is no nearest-version fallback.
 Completion vocabulary inherited from csql-future includes 11.4 manual provenance.
 Retain that provenance and report the difference from strict 11.5 parser qualification.
 
-Initial parser coverage is literal SELECT and CREATE SERIAL.
+Initial ticket 02 parser coverage was literal SELECT and CREATE SERIAL. The [current coverage reference](coverage.en.md) records later qualified subsets.
 A conservative predicate must admit a form before native parsing.
 Auditing one statement kind does not qualify every construct within that kind.
 Native parsing, error collection, tree checks, and internal-error checks must all succeed before a form passes.

@@ -9,7 +9,8 @@ schema knowledge. It provides a completion library, an offline lint CLI, and
 an LSP adapter for separate csql-future, VS Code, Neovim, and AI products.
 
 **Validate a Python PoC first, then migrate gradually to Rust.**
-The development release provides completion, CLI, optional LSP, and bounded V3 offline syntax checks.
+Current source provides completion, CLI, optional LSP, and bounded v4 offline syntax checks.
+The [installation guide](docs/install.en.md) explains matched core and worker upgrades and separates current checks from the historical v3 release matrix.
 The [VS Code extension](https://github.com/vimkim/cubrid-vscode) and [Neovim plugin](https://github.com/vimkim/cubrid.nvim) are public alphas.
 See their repositories for editor installation and configuration. Install the shared Python server separately.
 

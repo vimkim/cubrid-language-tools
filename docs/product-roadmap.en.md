@@ -13,9 +13,9 @@ diagnostics. Keep unfinished SQL eligible for completion. Use a separate native
 CUBRID worker for strict parsing. Expose the same results through a file/stdin CLI and a stdio LSP adapter.
 
 The first parser profile is `cubrid-11.5.0.2704-cc94778` on Linux x86-64.
-V3 implements qualified bounded queries, DML, schema, engineer statements, and mixed CSQL scripts.
+Current source implements bounded v4 syntax checks, SHOW and hint authoring, and expanded CSQL command text checks.
 Missing parsers and unsupported forms cannot become syntax passes. See [installation](install.en.md) and [coverage](coverage.en.md).
-Final review, integration, and remote publication remain separate steps.
+The implementation is integrated into public main. The installation guide distinguishes current v4 checks from the historical v3 distribution matrix.
 
 Core and CLI require Python 3.10+ with zero mandatory Python runtime dependencies.
 LSP dependencies are optional. Native runtimes require separate qualification.
@@ -55,7 +55,7 @@ Consumers can use qualified Python interfaces before the entire Rust migration f
 
 | Product | Current features or planned integration |
 | --- | --- |
-| csql-future | Use the shared completion library. Keep history, menus, connections, and catalogs in the terminal |
+| csql-future | Planned migration to the shared completion library. It still uses its own completion and owns history, menus, connections, and catalogs |
 | [VS Code extension](https://github.com/vimkim/cubrid-vscode) alpha | Dedicated `cubrid` identity, LSP completion/diagnostics, highlighting, indentation, opt-in `.sql` association |
 | [Neovim plugin](https://github.com/vimkim/cubrid.nvim) alpha | Filetype, built-in LSP, completion/diagnostics, highlighting, indentation, snapshot reload |
 | AI / CI tools | Integrate structured lint results and failure states into workflows |

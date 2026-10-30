@@ -9,7 +9,8 @@
 별도 제품인 `csql-future`·VS Code·Neovim·AI 도구가 이를 사용하도록 만듭니다.
 
 **Python으로 PoC를 검증한 뒤, 모듈별로 Rust로 전환합니다.**
-개발 버전은 완성 라이브러리·CLI·선택적 LSP와 제한된 V3 오프라인 문법 검사를 제공합니다.
+현재 소스는 완성 라이브러리·CLI·선택적 LSP와 제한된 v4 오프라인 문법 검사를 제공합니다.
+[설치 안내](docs/install.md)는 코어·워커 동시 업그레이드와 현재 검사·과거 v3 릴리스 검증의 차이를 설명합니다.
 [VS Code 확장](https://github.com/vimkim/cubrid-vscode)과 [Neovim 플러그인](https://github.com/vimkim/cubrid.nvim)은 공개 알파입니다.
 편집기 설치와 설정은 각 저장소를 확인합니다. 공통 Python 서버는 별도로 설치합니다.
 

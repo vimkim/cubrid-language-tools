@@ -22,8 +22,8 @@
 <h1>One language engine.<br>Independent tools.</h1>
 <p>Maintain CUBRID completion, syntax checking, and lint diagnostics in a central project. Let editor, agent, and terminal projects consume a versioned interface.</p>
 <div class="note"><strong>Selected:</strong> an independent <code>cubrid-language-tools</code> project containing the core, LSP adapter, and lint CLI. Its Python library gives <code>csql-future</code> a small migration path.</div>
-<p><strong>Local processes, no network required.</strong> Editors spawn the language server and use stdin/stdout. The server or CLI spawns the parser worker and uses pipes. The TUI imports the completion library. No localhost socket or shared daemon is required. Central means one maintained codebase.</p>
-<p class="muted" style="font-size:.875rem">Accepted 2026-10-28: Option A, shared library plus LSP and CLI adapters. The Python development release implements the library, CLI, optional stdio LSP, and bounded V3 offline syntax checks. The editor alphas are public. AI integration and csql-future migration remain separate future work.</p>
+<p><strong>Local processes, no network required.</strong> Editors spawn the language server and use stdin/stdout. The server or CLI spawns the parser worker and uses pipes. The TUI will import the completion library after migration. No localhost socket or shared daemon is required. Central means one maintained codebase.</p>
+<p class="muted" style="font-size:.875rem">Accepted 2026-10-28: Option A, shared library plus LSP and CLI adapters. The Python development release implements the library, CLI, optional stdio LSP, and bounded v4 offline syntax checks. The editor alphas are public. AI integration and csql-future migration remain separate future work.</p>
 </header>
 <section id="design">
 <div class="section-intro"><div><h2>Compare the request paths</h2><p>Each diagram shows where language decisions live and which interface each consumer uses. The shaded area is the central project.</p></div><span class="pill">A is selected</span></div>
@@ -250,16 +250,16 @@
 <h2>Build the central project first</h2>
 <ol class="sequence">
 <li><strong>Set ownership and the public interfaces.</strong><p>Completed: Option A accepted and local cubrid-language-tools initialized. The central ticket graph replaces the old monorepo plan.</p></li>
-<li><strong>Move reusable logic into the central engine.</strong><p>Implemented: independent completion, offline snapshots, configuration, and the exact-profile V3 native worker. Preserve the original checkpoint evidence.</p></li>
+<li><strong>Move reusable logic into the central engine.</strong><p>Implemented: independent completion, offline snapshots, configuration, and the exact-profile v4 native worker. Preserve the original checkpoint evidence.</p></li>
 <li><strong>Prove the engine through its lint CLI.</strong><p>Implemented and checked: valid, invalid, incomplete, Unicode, and unsupported input with deterministic JSON/exits and no submitted-SQL execution.</p></li>
 <li><strong>Add the shared LSP adapter.</strong><p>Implemented and checked: shared completion and diagnostics with document versions, cancellation, Full synchronization, and UTF-16 positions.</p></li>
 <li><strong>Build independent consumers and migrate the TUI.</strong><p>The editor alphas are public. Connect agent workflows and migrate csql-future under its regression suite.</p></li>
 </ol>
-<div class="note"><strong>Preserved work:</strong> the original completion and incomplete native checkpoints remain historical evidence. Central tickets 01 through 08 are integrated. Ticket 09 owns distribution qualification. Its committed source passed independent standards and spec review. SHOW COLUMNS, DESCRIBE, DESC, and class-description EXPLAIN remain excluded under the accepted 2026-10-29 first-profile scope. See <a href="coverage.en.md">qualified coverage</a> and <a href="install.en.md">installation</a>.</div>
+<div class="note"><strong>Preserved work:</strong> the original completion and incomplete native checkpoints remain historical evidence. Central tickets 01 through 09 and the authoring, ORDERED, and CSQL follow-ups are integrated into public main. Ticket 09 records historical v3 distribution qualification and independent standards and spec review. The full eight-environment matrix has not been rerun for v4. SHOW COLUMNS, DESCRIBE, DESC, and class-description EXPLAIN remain excluded under the accepted 2026-10-29 first-profile scope. See <a href="coverage.en.md">qualified coverage</a> and <a href="install.en.md">installation</a>.</div>
 </section>
 <footer>
 <div>Selected central architecture. Editor alphas are public. AI integration and csql-future migration remain future work.</div>
-<div>Public roadmap: <a href="product-roadmap.en.md">Python PoC and gradual Rust migration</a> · Evidence: <a href="research/parser-research.md">parser research</a> · <a href="research/feasibility.md">native feasibility</a> · <a href="orchestration/state.json">current execution state</a></div>
+<div>Public roadmap: <a href="product-roadmap.en.md">Python PoC and gradual Rust migration</a> · Evidence: <a href="research/parser-research.md">parser research</a> · <a href="research/feasibility.md">native feasibility</a> · <a href="orchestration/state.json">original execution state</a></div>
 <div>Protocol background: <a href="https://microsoft.github.io/language-server-protocol/">LSP</a> · <a href="https://code.visualstudio.com/api/language-extensions/language-server-extension-guide">VS Code language-server guide</a></div>
 </footer>
 </main></div>

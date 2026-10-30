@@ -16,7 +16,7 @@ uv pip install --python .venv/bin/python '.[lsp]'
 ```
 
 Run these commands from the local checkout. For a wheel, replace `.[lsp]` with its wheel path and append `[lsp]`.
-See [installation and release qualification](install.en.md) and [V3 coverage](coverage.en.md).
+See [installation and release qualification](install.en.md) and [v4 coverage](coverage.en.md).
 Configure the editor to execute `cubrid-language-server` with an empty argument list and stdio transport.
 Use the exact language ID `cubrid` when the editor opens a document.
 Generic `sql` documents do not activate completion or diagnostics.
@@ -29,6 +29,7 @@ Python 3.10 also uses exceptiongroup 1.3.1.
 Without the extra, starting the installed server with no arguments prints installation guidance to stderr and exits with status 3.
 
 To check the installed distribution version without starting the server, run `cubrid-language-server --version`.
+The value `0.1.0.dev0` does not identify the Git commit or native coverage revision. See [paired upgrades](install.en.md#upgrade-the-core-and-worker-together).
 Use `cubrid-language-server --help` or `-h` for usage. Each option must stand alone.
 These options require neither the optional LSP dependencies nor the native runtime.
 A source-only invocation without installed distribution metadata cannot report a version. Install the package first.
@@ -93,6 +94,9 @@ The server rejects ranged changes and preserves the document.
 Completion rejects invalid lines, surrogate interiors, and positions inside CRLF terminators with error `-32602`.
 Each completion item has an explicit text edit that replaces the complete token, including its suffix after the cursor.
 
+Optimizer hint comments offer names and selected table arguments. The server advertises `+` as a completion trigger.
+SHOW and hint completion cover more forms than native validation. See [completion and native coverage](coverage.en.md).
+
 The optional snapshot uses the [version 1 schema contract](contracts.md#schema-snapshot).
 Absent snapshots allow keyword completion.
 A configured load failure produces a visible `window/logMessage` notification.
@@ -117,6 +121,9 @@ Completion continues while native initialization or parsing is slow, absent, or 
 Missing runtime configuration produces `CUBRID-T1001` diagnostics.
 Native results retain core codes, severity, category, and range precision.
 Each diagnostic publication includes the document version.
+For the qualified profile, conservative SHOW and hint warnings use the `authoring` category.
+These warnings can accompany unsupported or unavailable native validation and do not certify syntax.
+See [authoring warning limits](coverage.en.md#authoring-warnings).
 
 New versions cancel old checks. Superseded results cannot replace current diagnostics.
 Closing a CUBRID document publishes an empty list and cancels its owned work.
@@ -141,7 +148,6 @@ just build
 `test-lsp` exercises framed stdio with explicit trusted child fixtures and requires the optional extra.
 `test-lsp-native` requires this checkout's matching built worker and manifest.
 Missing prerequisites fail these mandatory checks. Default tests require neither pygls nor native artifacts.
-Both optional and native LSP suites pass on Python 3.10 and 3.14.
-Native grammar limits remain those of the [V3 coverage matrix](coverage.en.md).
-
-Optimizer hint comments offer names and selected table arguments. The server advertises `+` as a completion trigger. For the qualified profile, conservative SHOW and hint warnings use the `authoring` category. These warnings can accompany unsupported or unavailable native validation and do not certify syntax.
+The historical v3 distribution checks exercised optional and native LSP on Python 3.10 and 3.14.
+See [current qualification evidence](install.en.md#qualification-evidence) for the narrower v4 evidence.
+Native grammar limits remain those of the [current coverage reference](coverage.en.md).
