@@ -61,6 +61,45 @@ def _read_request(deadline, cancelled):
     return parse_connection(request['command'], password=request.get('password'))
 
 
+def _publish(output, deadline, cancelled):
+    data = output.encode('utf-8')
+    offset = 0
+    fd = sys.stdout.fileno()
+    blocking = os.get_blocking(fd)
+    try:
+        os.set_blocking(fd, False)
+        with selectors.SelectSelector() as selector:
+            selector.register(fd, selectors.EVENT_WRITE)
+            while True:
+                if cancelled.is_set():
+                    raise AcquisitionError('cancelled')
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
+                    raise AcquisitionError('timeout')
+                if offset == len(data):
+                    return
+                if selector.select(min(.02, remaining)):
+                    try:
+                        offset += os.write(fd, memoryview(data)[offset:offset + 65536])
+                    except BlockingIOError:
+                        pass
+    finally:
+        os.set_blocking(fd, blocking)
+
+
+def _report_error(message):
+    try:
+        fd = sys.stderr.fileno()
+        blocking = os.get_blocking(fd)
+        try:
+            os.set_blocking(fd, False)
+            os.write(fd, f'cubrid-schema: {message}\n'.encode('utf-8'))
+        finally:
+            os.set_blocking(fd, blocking)
+    except (OSError, ValueError):
+        pass
+
+
 def main(argv=None):
     cancelled = Event()
     handlers = {}
@@ -97,17 +136,13 @@ def main(argv=None):
         if remaining <= 0:
             raise AcquisitionError('timeout')
         output = snapshot_json(schema, source=connection, timeout=remaining, cancelled=cancelled)
-        if cancelled.is_set():
-            raise AcquisitionError('cancelled')
-        if time.monotonic() >= deadline:
-            raise AcquisitionError('timeout')
-        sys.stdout.write(output)
+        _publish(output, deadline, cancelled)
         return 0
     except AcquisitionError as error:
-        sys.stderr.write(f'cubrid-schema: {error}\n')
+        _report_error(str(error))
         return {'invalid-request': 2, 'timeout': 124, 'cancelled': 130}.get(error.code, 3)
     except (OSError, ValueError, RecursionError):
-        sys.stderr.write('cubrid-schema: Schema export failed.\n')
+        _report_error('Schema export failed.')
         return 3
     finally:
         for sig, previous in handlers.items():
