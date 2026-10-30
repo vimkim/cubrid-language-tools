@@ -15,7 +15,9 @@ Select a trusted CSQL executable and a client/server database endpoint:
 cubrid-schema export --csql /trusted/cubrid/bin/csql --timeout 5 -- -udba demodb@localhost -C > schema.json
 ```
 
-Exit 0 means stdout contains one complete snapshot. No partial snapshot is emitted on acquisition failure.
+Accept a snapshot only when the command exits 0 and stdout contains complete valid JSON.
+Request, acquisition, parsing, and serialization failures leave stdout empty.
+If the output pipe closes, times out, or is cancelled after writing begins, stdout can contain partial JSON and the command exits nonzero.
 Use the file as the existing `schemaSnapshot` setting. Export into a new temporary file before replacing a last-good snapshot.
 Connection selection, credential prompts, caching, and refresh scheduling belong to the caller or editor.
 `cubrid.reloadSchema` rereads a file. It does not connect to CSQL or fetch new metadata.
@@ -39,7 +41,7 @@ The exporter does not invent a password environment variable or send passwords a
 | Input | Meaning |
 | --- | --- |
 | `--csql PATH` | Trusted executable, default `csql` on PATH. A program token inside the request never selects it. |
-| `--timeout SECONDS` | Positive finite deadline, default 5, maximum 300. Includes stdin acquisition and result encoding. |
+| `--timeout SECONDS` | Positive finite deadline, default 5, maximum 300. Includes stdin acquisition, result encoding, and stdout publication. |
 | `--request-stdin` | Read the JSON envelope. Cannot be combined with connection arguments after `--`. |
 | `requestVersion` | Required integer 1. |
 | `command` | Required nonempty string, tokenized with `shlex` quoting without expansion. |
@@ -72,7 +74,8 @@ An identity-only result is a valid empty visible catalog. A permission or query 
 | 124 | Deadline exceeded. |
 | 130 | Cancellation through SIGTERM, SIGINT, or the importable API. |
 
-Failures produce a fixed, redacted stderr message. Child stderr, exception arguments, commands, and passwords are never relayed.
+Failures attempt to write a fixed, redacted stderr message. A full or closed stderr can prevent the message from being written.
+Child stderr, exception arguments, commands, and passwords are never relayed.
 The exporter starts CSQL in a private temporary working directory to contain `cub.err` and removes it on normal cleanup.
 It kills the owned process group and reaps the direct child on success, failure, timeout, and handled cancellation, including after the leader exits.
 SIGKILL cannot run cleanup handlers. Process groups do not contain a descendant that deliberately creates another session.
