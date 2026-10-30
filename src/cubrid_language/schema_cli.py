@@ -93,7 +93,10 @@ def main(argv=None):
         if remaining <= 0:
             raise AcquisitionError('timeout')
         schema = acquire_schema(connection, executable=options.csql, timeout=remaining, cancelled=cancelled)
-        output = snapshot_json(schema, source=connection)
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            raise AcquisitionError('timeout')
+        output = snapshot_json(schema, source=connection, timeout=remaining, cancelled=cancelled)
         if cancelled.is_set():
             raise AcquisitionError('cancelled')
         if time.monotonic() >= deadline:

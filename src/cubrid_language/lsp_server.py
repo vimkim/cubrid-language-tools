@@ -188,6 +188,7 @@ class Adapter:
     def state(self, uri, document):
         return {'uri': uri, 'profile': document.config.profile if document.config else None,
                 'scriptMode': document.config.script_mode if document.config else None,
+                'schemaConfigured': document.config is not None and document.config.schema_snapshot is not None,
                 'schemaAvailable': document.snapshot.schema is not None,
                 'stale': document.snapshot.stale, 'availability': document.error or document.snapshot.availability}
 

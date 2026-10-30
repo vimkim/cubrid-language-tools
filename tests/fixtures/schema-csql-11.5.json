@@ -1,0 +1,6 @@
+{
+  "source": "CUBRID 11.5.0.2635 debug_gcc, root-owned isolated testdb, fixed acquisition query",
+  "sourceSha256": "ce0de6188d1d5e25527bf05713b8ee704a3435acba6d94176c40dda3f0bb462b",
+  "selection": "header, identity, owned fixture relations and members, DBA/PUBLIC users, original final blank line",
+  "stdout": "kind\tlogin_name\towner_name\tclass_name\titem_name\titem_type\nidentity\tDBA\tDBA\ttestdb\ttestdb\tDATABASE\nrelation\tDBA\tDBA\tschema_people\tschema_people\tCLASS\nrelation\tDBA\tDBA\tschema_people_view\tschema_people_view\tVCLASS\nrelation\tDBA\tDBA\t고객 정보\t고객 정보\tCLASS\ncolumn\tDBA\tDBA\tschema_people\tid\tINSTANCE\ncolumn\tDBA\tDBA\tschema_people\tperson_name\tINSTANCE\ncolumn\tDBA\tDBA\tschema_people_view\tid\tINSTANCE\ncolumn\tDBA\tDBA\tschema_people_view\tperson_name\tINSTANCE\ncolumn\tDBA\tDBA\t고객 정보\t고객 번호\tINSTANCE\ncolumn\tDBA\tDBA\t고객 정보\t이름\tINSTANCE\nindex\tDBA\tDBA\tschema_people\tidx_schema_person\tINDEX\nuser\tDBA\tDBA\tDBA\tDBA\tUSER\nuser\tDBA\tDBA\tPUBLIC\tPUBLIC\tUSER\n\n"
+}

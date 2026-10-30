@@ -157,7 +157,7 @@ def parse_connection(command: str | Sequence[str], *, password: str | None = Non
 def validate_timeout(timeout: float) -> float:
     """Validate the shared CLI and importable acquisition deadline bound."""
     if (isinstance(timeout, bool) or not isinstance(timeout, (int, float))
-            or not math.isfinite(timeout) or not 0 < timeout <= MAX_TIMEOUT):
+            or not 0 < timeout <= MAX_TIMEOUT or not math.isfinite(timeout)):
         raise AcquisitionError('invalid-request')
     return float(timeout)
 
@@ -230,7 +230,7 @@ def acquire_schema(connection: Connection, *, executable: str = 'csql', timeout:
                 _check_deadline(deadline, cancelled)
                 if process.returncode != 0 or has_stderr:
                     raise AcquisitionError('failed')
-                schema = _parse_catalog(bytes(output), connection.endpoint.split('@', 1)[0])
+                schema = _parse_catalog(bytes(output), connection.endpoint.split('@', 1)[0], deadline, cancelled)
                 _check_deadline(deadline, cancelled)
                 return schema
             finally:
@@ -242,11 +242,17 @@ def acquire_schema(connection: Connection, *, executable: str = 'csql', timeout:
         raise AcquisitionError('unavailable') from None
 
 
-def _unescape(value: str) -> str:
+def _unescape(value: str, deadline: float, cancelled: Event | None) -> str:
+    if '\\' not in value:
+        return value
     result = []
     index = 0
+    next_check = 0
     escapes = {'n': '\n', 't': '\t', '\\': '\\'}
     while index < len(value):
+        if index >= next_check:
+            _check_deadline(deadline, cancelled)
+            next_check = index + 65536
         character = value[index]
         if character == '\\':
             index += 1
@@ -258,17 +264,16 @@ def _unescape(value: str) -> str:
     return ''.join(result)
 
 
-def _parse_catalog(output: bytes, database: str) -> Schema:
+def _parse_catalog(output: bytes, database: str, deadline: float, cancelled: Event | None) -> Schema:
     try:
         text = output.decode('utf-8')
     except UnicodeError:
         raise AcquisitionError('catalog') from None
     if '\0' in text or not text.endswith('\n'):
         raise AcquisitionError('catalog')
-    lines = text.split('\n')
+    lines = text.rstrip('\n').split('\n')
     if lines.pop(0) != _HEADER:
         raise AcquisitionError('catalog')
-    lines.pop()
     identity = None
     logins = set()
     relations = {}
@@ -276,7 +281,8 @@ def _parse_catalog(output: bytes, database: str) -> Schema:
     indexes: dict[tuple[str, str], set[str]] = {}
     users = set()
     for line in lines:
-        fields = [_unescape(field) for field in line.split('\t')]
+        _check_deadline(deadline, cancelled)
+        fields = [_unescape(field, deadline, cancelled) for field in line.split('\t')]
         if len(fields) != 6 or any(not field for field in fields):
             raise AcquisitionError('catalog')
         tag, login, owner, name, item, kind = fields
@@ -309,8 +315,11 @@ def _parse_catalog(output: bytes, database: str) -> Schema:
     ), tuple(sorted(users, key=order)), database)
 
 
-def snapshot_json(schema: Schema, *, source: Connection | None = None) -> str:
+def snapshot_json(schema: Schema, *, source: Connection | None = None, timeout: float = 5,
+                  cancelled: Event | None = None) -> str:
     """Encode metadata as a size-bounded version 1 snapshot with an optional endpoint."""
+    deadline = time.monotonic() + validate_timeout(timeout)
+    _check_deadline(deadline, cancelled)
     data = {
         'schemaVersion': 1, 'user': schema.user, 'database': schema.database,
         'relations': [dict(owner=r.owner, name=r.name, kind=r.kind, columns=r.columns,
@@ -322,6 +331,7 @@ def snapshot_json(schema: Schema, *, source: Connection | None = None) -> str:
     encoded = []
     size = 1
     for chunk in json.JSONEncoder(ensure_ascii=False, separators=(',', ':')).iterencode(data):
+        _check_deadline(deadline, cancelled)
         size += len(chunk.encode('utf-8'))
         if size > MAX_CATALOG_BYTES:
             raise AcquisitionError('limit')

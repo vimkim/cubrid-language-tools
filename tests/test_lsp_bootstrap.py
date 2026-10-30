@@ -71,7 +71,8 @@ class BootstrapTests(unittest.TestCase):
         environment = dict(os.environ)
         environment['PYTHONPATH'] = str(Path(__file__).resolve().parents[1] / 'src')
         result = subprocess.run([sys.executable, '-S', '-c',
-            'import cubrid_language, cubrid_language.cli, cubrid_language.lsp; import sys; '
+            'import cubrid_language, cubrid_language.cli, cubrid_language.lsp; '
+            'import cubrid_language.acquisition, cubrid_language.schema_cli; import sys; '
             'assert not any(m in sys.modules for m in ("pygls", "lsprotocol", "cattrs", "attrs"))'],
             capture_output=True, env=environment, timeout=5)
         self.assertEqual(result.returncode, 0, result.stderr)

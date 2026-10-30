@@ -108,10 +108,14 @@ SHOW·힌트 완성 범위는 네이티브 검증보다 넓습니다. [완성과
 {"command":"cubrid.reloadSchema"}
 ```
 
-결과는 열린 문서별 `uri`, `profile`, `scriptMode`, `schemaAvailable`, `stale`, `availability` 목록입니다.
+결과는 열린 문서별 `uri`, `profile`, `scriptMode`, `schemaConfigured`, `schemaAvailable`, `stale`, `availability` 목록입니다.
 새로 고침이 실패하면 마지막 정상 메타데이터를 유지하고 결과와 로그에 stale 상태를 표시합니다.
 성공하면 stale 상태를 해제합니다. 명시적인 `null`은 메타데이터를 즉시 제거합니다.
+`schemaConfigured`는 해석된 설정에 스냅샷 경로가 있으면 파일이 없거나 잘못되어도 true입니다.
+경로 부재·명시적 null·설정 오류에서는 false입니다. 클라이언트는 안내 문구를 파싱하지 않고 이 불리언을 사용할 수 있습니다.
 파일 감시와 DB 카탈로그 수집은 하지 않습니다.
+편집기는 별도 [스키마 exporter](schema-export.md)를 명시적으로 호출한 뒤 `schemaSnapshot`으로 결과를 전달할 수 있습니다.
+접속 입력과 새로고침 일정은 편집기가 소유합니다.
 
 ## 진단과 수명 관리
 

@@ -19,6 +19,7 @@ def check(root, wheel, sdist):
         assert len(requirements) == 6 and all('extra == "lsp"' in value for value in requirements), requirements
         entry_points = archive.read(info + '/entry_points.txt').decode()
         assert 'cubrid-lint = cubrid_language.cli:main' in entry_points
+        assert 'cubrid-schema = cubrid_language.schema_cli:main' in entry_points
         assert 'cubrid-language-server = cubrid_language.lsp:main' in entry_points
         modules = list((root / 'src/cubrid_language').rglob('*.py'))
         for path in modules:
@@ -40,7 +41,7 @@ def check(root, wheel, sdist):
             assert name in members, name
             assert archive.extractfile(name).read() == path.read_bytes(), name
         assert not any('/native/parser-worker/build/' in name or name.endswith(('.so', '.o', '.a', '/parser-worker')) for name, member in members.items() if member.isfile())
-    print('Checked', len(modules), 'package modules,', len(notices), 'license files,', len(sources), 'source files, both commands and six optional-only requirements')
+    print('Checked', len(modules), 'package modules,', len(notices), 'license files,', len(sources), 'source files, all three commands and six optional-only requirements')
     for path in (wheel, sdist):
         print(path.name, hashlib.sha256(path.read_bytes()).hexdigest())
 

@@ -108,10 +108,14 @@ Send `workspace/executeCommand` to refresh configuration and snapshots explicitl
 {"command":"cubrid.reloadSchema"}
 ```
 
-The result lists each open document's `uri`, `profile`, `scriptMode`, `schemaAvailable`, `stale`, and `availability`.
+The result lists each open document's `uri`, `profile`, `scriptMode`, `schemaConfigured`, `schemaAvailable`, `stale`, and `availability`.
+`schemaConfigured` is true when the resolved configuration selects a snapshot path, even if that file is missing or invalid.
+It is false for an absent path, explicit null, or invalid configuration. Clients can use this boolean without parsing availability messages.
 A failed refresh retains the last valid metadata and reports its stale state through the result and protocol log.
 A successful refresh clears the stale state. Explicit `null` removes metadata immediately.
 The server does not watch files or obtain catalog data from a database.
+An editor can explicitly call the separate [schema exporter](schema-export.en.md), then publish its result through `schemaSnapshot`.
+Connection prompts and refresh scheduling remain editor-owned.
 
 ## Diagnostics and lifecycle
 

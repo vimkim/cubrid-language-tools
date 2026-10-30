@@ -1,4 +1,4 @@
-# Central language contracts, revision 2
+# Central language contracts, revision 3
 
 These are implementation requirements.
 These interfaces are delivery requirements until the corresponding central ticket passes.
@@ -56,7 +56,9 @@ Unknown schema data limits suggestions without inventing names.
 
 The existing terminal `suggest` entry point remains in csql-future until the separate migration.
 This package has no runtime dependency on csql-future.
-Terminal menu state and catalog acquisition remain with consumers.
+Terminal menu state, connection selection, credentials, and refresh scheduling remain with consumers.
+The optional shared acquisition adapter owns CSQL connection parsing and fixed catalog queries.
+Completion never invokes that adapter.
 All completion and validation spans use the same `cubrid_language.models.Span` value.
 
 ## Validation interface
@@ -164,11 +166,15 @@ A failed refresh retains the last valid snapshot with an explicit stale message.
 Initial load failure yields no schema and a visible availability message.
 Reload on an explicit command or configuration change.
 File watching is optional and must not cause an implicit database connection.
-The future terminal adapter retains catalog acquisition and live refresh ownership.
+Consumers retain connection selection and live refresh ownership. The shared acquisition adapter performs only explicit one-shot catalog reads.
+An exported snapshot can carry a metadata-only `source: {"endpoint": "demodb@host"}` object, which existing readers ignore.
+Its top-level `user` is authenticated and its `database` omits the host.
 
 ## CLI contract
 
-The Python package installs `cubrid-lint` and `cubrid-language-server`.
+The Python package installs `cubrid-lint`, `cubrid-schema`, and `cubrid-language-server`.
+The [schema export contract](schema-export.en.md) defines direct argv and version 1 JSON stdin requests, fixed catalog acquisition, strict redaction, and exits 0/2/3/124/130.
+`cubrid-schema` has zero mandatory runtime dependencies and requires POSIX process containment. It is never invoked by linting or the language server.
 Starting the server requires the optional `lsp` dependencies.
 If they are absent, startup prints installation guidance to stderr and exits with a tool failure.
 The server's standalone `--version`, `--help`, and `-h` options need neither the optional dependencies nor the native runtime.
@@ -224,6 +230,9 @@ Advertise only implemented features.
 Initial document synchronization is full-text (`TextDocumentSyncKind.Full`).
 Support initialize/initialized, didOpen/didChange/didClose, completion, shutdown/exit, and cancellation.
 Add didChangeConfiguration with editor settings and the snapshot reload command.
+Each `cubrid.reloadSchema` document result includes boolean `schemaConfigured`.
+It is true exactly when a valid resolved configuration selects a non-null snapshot path, independent of load success.
+This additive field lets consumers distinguish configured but unavailable metadata from an absent selection.
 
 Completion returns explicit `textEdit` ranges converted from core spans.
 Diagnostics preserve core codes, severity, and document-version identity.

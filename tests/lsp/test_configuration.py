@@ -90,6 +90,24 @@ class ConfigurationTests(unittest.TestCase):
             self.assertIn('unavailable', state['availability'])
             client.receive(lambda m: m.get('method') == 'window/logMessage' and 'unavailable' in m['params']['message'])
 
+    def test_reload_reports_configured_schema_even_when_the_file_is_missing(self):
+        with tempfile.TemporaryDirectory() as directory, Client(cwd=directory) as client:
+            root = Path(directory)
+            client.initialize()
+            client.open('SEL', (root / 'file.sql').as_uri())
+            state = reload(client)['result'][0]
+            self.assertIs(False, state['schemaConfigured'])
+            self.assertIs(False, state['schemaAvailable'])
+            config = root / '.cubrid-language.json'
+            config.write_text('{"schemaSnapshot":"missing.json"}')
+            state = reload(client)['result'][0]
+            self.assertIs(True, state['schemaConfigured'])
+            self.assertIs(False, state['schemaAvailable'])
+            client.send('workspace/didChangeConfiguration', {'settings': {'cubrid': {'schemaSnapshot': None}}})
+            self.assertIs(False, reload(client)['result'][0]['schemaConfigured'])
+            client.send('workspace/didChangeConfiguration', {'settings': {'cubrid': {'schemaSnapshot': 'also-missing.json'}}})
+            self.assertIs(True, reload(client)['result'][0]['schemaConfigured'])
+
     def test_invalid_trusted_worker_paths_and_setting_types_are_configuration_failures(self):
         invalid = ({'parserWorker': '/bad\0path', 'runtimePrefix': '/runtime'},
                    {'parserWorker': '/bad\ud800path', 'runtimePrefix': '/runtime'},

@@ -9,6 +9,7 @@ import sys
 import tempfile
 import time
 import unittest
+from unittest.mock import patch
 
 from cubrid_language import complete
 from cubrid_language.schema import load_snapshot
@@ -186,6 +187,17 @@ class SchemaExportTest(unittest.TestCase):
                 (self.root / 'catalog').write_bytes(output)
                 self.assert_failure(self.run_cli(), 3)
 
+    def test_real_csql_catalog_framing(self):
+        fixture = json.loads((Path(__file__).parent / 'fixtures/schema-csql-11.5.json').read_text())
+        (self.root / 'catalog').write_text(fixture['stdout'], encoding='utf-8')
+        result = self.run_cli('csql -udba testdb -C')
+        self.assertEqual(0, result.returncode, result.stderr)
+        snapshot = json.loads(result.stdout)
+        people = next(r for r in snapshot['relations'] if r['name'] == 'schema_people')
+        self.assertEqual(['id', 'person_name'], people['columns'])
+        self.assertEqual(['idx_schema_person'], people['indexes'])
+        self.assertEqual('testdb', snapshot['database'])
+
     def test_child_errors_are_redacted_even_with_exit_zero(self):
         for mode in ('stderr', 'exit'):
             (self.root / 'mode').write_text(mode)
@@ -282,6 +294,49 @@ class SchemaExportTest(unittest.TestCase):
             parse_connection('csql -psecret-password "private-command')
         self.assertNotIn('private-command', str(caught.exception))
         self.assertNotIn('secret-password', str(caught.exception))
+
+    def test_importable_acquisition_and_midflight_cancellation(self):
+        from threading import Event, Timer
+        from cubrid_language.acquisition import AcquisitionError, acquire_schema, parse_connection, snapshot_json
+        connection = parse_connection(['-udba', 'demodb'])
+        with patch.dict(os.environ, self.environment):
+            schema = acquire_schema(connection, executable=str(self.csql))
+            self.assertEqual('DBA', schema.user)
+            self.assertEqual('demodb', json.loads(snapshot_json(schema))['database'])
+            (self.root / 'mode').write_text('fork')
+            cancelled = Event()
+            timer = Timer(.2, cancelled.set)
+            timer.start()
+            try:
+                with self.assertRaises(AcquisitionError) as caught:
+                    acquire_schema(connection, executable=str(self.csql), cancelled=cancelled)
+                self.assertEqual('cancelled', caught.exception.code)
+            finally:
+                timer.cancel()
+                timer.join()
+        self.assert_not_running(self.launched()['pid'])
+        self.assert_not_running(int((self.root / 'descendant').read_text()))
+
+    def test_public_api_invalid_values_and_serialized_output_limit(self):
+        from cubrid_language import Relation, Schema
+        from cubrid_language.acquisition import AcquisitionError, Connection, acquire_schema, snapshot_json
+        for values in (dict(endpoint='private-command;secret-password'), dict(endpoint='demodb', user=''),
+                       dict(endpoint='demodb', password='\x00'), dict(endpoint='demodb', user='\ud800')):
+            with self.subTest(values=values), self.assertRaises(AcquisitionError):
+                Connection(**values)
+        for timeout in (True, None, float('nan'), float('inf'), -1, 0, 301, 10 ** 10000):
+            with self.assertRaises(AcquisitionError) as caught:
+                acquire_schema(Connection('demodb'), executable=str(self.csql), timeout=timeout)
+            self.assertEqual('invalid-request', caught.exception.code)
+        self.assertFalse((self.root / 'launch.json').exists())
+        with self.assertRaises(AcquisitionError) as caught:
+            snapshot_json(Schema('DBA', (Relation('DBA', '\x01' * (3 * 1024 * 1024), 'CLASS'),)))
+        self.assertEqual('limit', caught.exception.code)
+
+    def test_missing_executable_uses_fixed_failure(self):
+        self.console = [*self.console[:-1], str(self.root / 'private-command-secret-password')]
+        self.assert_failure(self.run_cli(), 3)
+        self.assertFalse((self.root / 'launch.json').exists())
 
     def test_console_entry_point_is_registered(self):
         from importlib.metadata import distribution
