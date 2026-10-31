@@ -31,6 +31,8 @@ STUB = '''#!/usr/bin/env python3
 import json, os, pathlib, signal, sys, time
 root = pathlib.Path(os.environ['SCHEMA_TEST_ROOT'])
 (root / 'launch.json').write_text(json.dumps({'argv': sys.argv[1:], 'cwd': os.getcwd(), 'pid': os.getpid()}))
+with (root / 'launches.jsonl').open('a') as launches:
+    launches.write(json.dumps(sys.argv[1:]) + '\\n')
 mode = (root / 'mode').read_text()
 if mode in ('fork', 'fork_exit'):
     child = os.fork()
@@ -133,9 +135,100 @@ class SchemaExportTest(unittest.TestCase):
                     self.assertNotIn(expected.encode(), result.stderr)
                     self.assertNotIn(expected.encode(), result.stdout)
 
+    def assert_standalone_snapshot(self, result):
+        self.assertEqual(0, result.returncode, result.stderr)
+        self.assertEqual(b'', result.stderr)
+        snapshot = json.loads(result.stdout)
+        self.assertEqual(1, snapshot['schemaVersion'])
+        self.assertEqual({'endpoint': 'demodb'}, snapshot['source'])
+        path = self.root / 'standalone.json'
+        path.write_bytes(result.stdout)
+        schema = load_snapshot(path).schema
+        self.assertIsNotNone(schema)
+        text = 'SELECT * FROM 고'
+        self.assertIn('고객', [item.text for item in complete(
+            text, len(text), 'cubrid-11.5.0.2704-cc94778', schema).items])
+        self.assertEqual(['-S'], [arg for arg in self.launched()['argv'] if arg in ('-C', '-S')])
+
+    def test_standalone_stdin_request_exports_usable_snapshot(self):
+        for mode in ('-S', '--SA-mode'):
+            with self.subTest(mode=mode):
+                self.assert_standalone_snapshot(self.run_cli(f'csql -udba demodb {mode}'))
+
+    def test_standalone_direct_arguments_export_usable_snapshot(self):
+        for mode in ('-S', '--SA-mode'):
+            with self.subTest(mode=mode):
+                result = subprocess.run([*self.console, '--', '-udba', 'demodb', mode],
+                                        capture_output=True, env=self.environment, cwd=self.root, timeout=5)
+                self.assert_standalone_snapshot(result)
+
+    def test_standalone_importable_api_selects_mode(self):
+        from dataclasses import FrozenInstanceError
+        from cubrid_language.acquisition import Connection, acquire_schema, parse_connection, snapshot_json
+        connection = Connection('demodb', 'dba', 'secret-password', mode='SA')
+        self.assertEqual(connection, parse_connection('csql -udba demodb -S', password='secret-password'))
+        self.assertEqual('SA', connection.mode)
+        self.assertEqual('Connection()', repr(connection))
+        with self.assertRaises(FrozenInstanceError):
+            connection.mode = 'CS'
+        with patch.dict(os.environ, self.environment):
+            schema = acquire_schema(connection, executable=str(self.csql))
+        result = subprocess.CompletedProcess([], 0, snapshot_json(schema, source=connection).encode(), b'')
+        self.assert_standalone_snapshot(result)
+        argv = self.launched()['argv']
+        self.assertEqual('dba', argv[argv.index('-u') + 1])
+        self.assertEqual('secret-password', argv[argv.index('-p') + 1])
+        self.assertNotIn(b'secret-password', result.stdout)
+
+    def test_connection_modes_default_and_repeated_aliases(self):
+        from cubrid_language.acquisition import parse_connection
+        for arguments, mode, flag in (
+            ([], 'CS', '-C'), (['-C'], 'CS', '-C'), (['--CS-mode'], 'CS', '-C'),
+            (['-C', '--CS-mode', '-C'], 'CS', '-C'),
+            (['-S', '--SA-mode', '-S'], 'SA', '-S'),
+            (['--SA-mode', '--SA-mode'], 'SA', '-S'),
+        ):
+            with self.subTest(arguments=arguments):
+                self.assertEqual(mode, parse_connection(['-udba', 'demodb', *arguments]).mode)
+                result = self.run_cli(' '.join(['csql', '-udba', 'demodb', *arguments]))
+                self.assertEqual(0, result.returncode, result.stderr)
+                self.assertEqual([flag], [arg for arg in self.launched()['argv'] if arg in ('-C', '-S')])
+
+    def test_conflicting_modes_and_remote_standalone_reject_before_launch(self):
+        from cubrid_language.acquisition import AcquisitionError, Connection, parse_connection
+        for first in ('-C', '--CS-mode'):
+            for second in ('-S', '--SA-mode'):
+                for arguments in ((first, second), (second, first)):
+                    with self.subTest(arguments=arguments):
+                        self.assert_failure(self.run_cli(' '.join(['csql', 'demodb', *arguments])), 2)
+                        with self.assertRaises(AcquisitionError) as caught:
+                            parse_connection(['demodb', *arguments])
+                        self.assertEqual('invalid-request', caught.exception.code)
+        for endpoint in ('demodb@localhost', 'demodb@host:33000', 'demodb@[::1]', 'demodb@[::1]:33000'):
+            with self.subTest(endpoint=endpoint):
+                self.assert_failure(self.run_cli(f'csql -S {endpoint}'), 2)
+                with self.assertRaises(AcquisitionError) as caught:
+                    Connection(endpoint, mode='SA')
+                self.assertEqual('invalid-request', caught.exception.code)
+        self.assertFalse((self.root / 'launch.json').exists())
+
+    def test_standalone_child_failure_is_redacted_without_mode_retry(self):
+        for mode in ('stderr', 'exit'):
+            with self.subTest(mode=mode):
+                (self.root / 'mode').write_text(mode)
+                (self.root / 'launches.jsonl').unlink(missing_ok=True)
+                result = self.run_cli('csql -udba -psecret-password demodb -S')
+                self.assert_failure(result, 3)
+                self.assertEqual(b'cubrid-schema: CSQL schema acquisition failed.\n', result.stderr)
+                launches = [json.loads(line) for line in (self.root / 'launches.jsonl').read_text().splitlines()]
+                self.assertEqual(1, len(launches))
+                self.assertEqual(['-S'], [arg for arg in launches[0] if arg in ('-C', '-S')])
+                self.assert_not_running(self.launched()['pid'])
+                self.assertFalse(Path(self.launched()['cwd']).exists())
+
     def test_unsafe_or_ambiguous_commands_reject_before_launch(self):
         for command in (
-            '', 'csql', 'csql -S demodb', 'csql --SA-mode demodb',
+            '', 'csql', 'csql -S -C demodb', 'csql --SA-mode --CS-mode demodb',
             'csql --sysadm demodb', 'csql --sysadm-rebuild-catalog demodb',
             'csql -c "drop table private-command" demodb', 'csql -i private-command demodb',
             'csql -o private-command demodb', 'csql --unknown demodb',
@@ -242,6 +335,15 @@ class SchemaExportTest(unittest.TestCase):
         self.assert_failure(self.run_cli(extra=('--timeout', '.2')), 124)
         self.assert_not_running(self.launched()['pid'])
         self.assert_not_running(int((self.root / 'descendant').read_text()))
+
+    def test_standalone_deadline_kills_owned_group_without_mode_retry(self):
+        (self.root / 'mode').write_text('fork')
+        self.assert_failure(self.run_cli('csql -udba demodb -S', extra=('--timeout', '.2')), 124)
+        self.assertEqual(['-S'], [arg for arg in self.launched()['argv'] if arg in ('-C', '-S')])
+        self.assertEqual(1, len((self.root / 'launches.jsonl').read_text().splitlines()))
+        self.assert_not_running(self.launched()['pid'])
+        self.assert_not_running(int((self.root / 'descendant').read_text()))
+        self.assertFalse(Path(self.launched()['cwd']).exists())
 
     def test_successful_leader_exit_cleans_up_pipe_holding_descendant(self):
         (self.root / 'mode').write_text('fork_exit')
@@ -374,6 +476,7 @@ class SchemaExportTest(unittest.TestCase):
         from cubrid_language import Relation, Schema
         from cubrid_language.acquisition import AcquisitionError, Connection, acquire_schema, snapshot_json
         for values in (dict(endpoint='private-command;secret-password'), dict(endpoint='demodb', user=''),
+                       dict(endpoint='demodb', mode='invalid'), dict(endpoint='demodb', mode=None),
                        dict(endpoint='demodb', password='\x00'), dict(endpoint='demodb', user='\ud800')):
             with self.subTest(values=values), self.assertRaises(AcquisitionError):
                 Connection(**values)
