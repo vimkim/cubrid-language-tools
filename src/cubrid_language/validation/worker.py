@@ -28,6 +28,27 @@ DIAGNOSTIC_KINDS = {
 }
 
 
+_MISSING = object()
+
+
+def _identity_differences(expected, actual, path=""):
+    def render(value):
+        if value is _MISSING:
+            return "<missing>"
+        encoded = json.dumps(value, sort_keys=True)
+        if len(encoded) > 1024:
+            return f"<truncated JSON value, first 1024 characters: {encoded[:1024]}>"
+        return encoded
+
+    for key in sorted(expected.keys() | actual.keys()):
+        field = f"{path}[{json.dumps(key)}]" if path else key
+        wanted, observed = expected.get(key, _MISSING), actual.get(key, _MISSING)
+        if isinstance(wanted, dict) and isinstance(observed, dict):
+            yield from _identity_differences(wanted, observed, field)
+        elif wanted is _MISSING or observed is _MISSING or json.dumps(wanted, sort_keys=True) != json.dumps(observed, sort_keys=True):
+            yield f"{field}: expected {render(wanted)}, actual {render(observed)}"
+
+
 def _trivia_only(text):
     """Unreported gaps may contain only separators and ordinary closed comments."""
     index = 0
@@ -249,7 +270,18 @@ class NativeWorker:
                     raise WorkerFailure("CUBRID-T1002", "malformed native worker identity")
                 if any(json.dumps(identity[key], sort_keys=True) != json.dumps(value, sort_keys=True)
                        for key, value in expected.items()):
-                    raise WorkerFailure("CUBRID-U1001", "worker identity differs from qualified profile")
+                    details = []
+                    for difference in _identity_differences(expected, {key: identity[key] for key in expected}):
+                        if len(details) == 32:
+                            details.append("additional mismatched fields omitted")
+                            break
+                        details.append(difference)
+                    raise WorkerFailure("CUBRID-U1001", "worker identity differs from qualified profile: "
+                        + "; ".join(details)
+                        + f"; worker={json.dumps(str(self.config.executable))}"
+                        + f"; manifest={json.dumps(str(self.config.manifest))}. "
+                        "Rebuild and qualify the worker from the same core checkout, then select its matching "
+                        "worker, manifest, and runtime in trusted configuration. Restart the editor or language server.")
                 try:
                     manifest_digest = hashlib.sha256(self.config.manifest.read_bytes()).hexdigest()
                 except OSError as error:

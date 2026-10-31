@@ -120,6 +120,10 @@ Current source requires `bounded-query-dml-schema-engineer-ordered-v4`.
 An older v3 installation can have the same CUBRID profile and package version. Its worker still fails the v4 core's identity checks.
 Installing the Python package with `just sync` does not rebuild or replace native assets.
 
+For a worker identity mismatch, `CUBRID-U1001` names the differing fields and their expected and actual values.
+The warning includes the trusted `worker` and `manifest` paths, so you can identify the configured installation.
+A `coverageRevision` mismatch requires a matching core and qualified native build, even when the profile and package version agree.
+
 1. Select the core checkout you intend to install and record its commit with `git rev-parse HEAD`.
 2. From that checkout, run `python3 native/parser-worker/build.py` with the four exact native inputs above and `--output /absolute/new-worker-build`. Use a new, separate directory so the configured worker remains unchanged while the old server uses it. Qualify that same build with `python3 native/parser-worker/qualify.py --build /absolute/new-worker-build --output /absolute/new-qualification-evidence`. Choose a fresh directory for the qualification evidence too.
 3. Install the core package from the same checkout or its wheel. Keep the new worker, manifest, build evidence, and notices together.
