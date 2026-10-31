@@ -59,10 +59,58 @@ Existing cancellation and output publication regressions remain in the focused s
 
 The passing logs are `/home/vimkim/temp/cubrid-schema-standalone-645/export-green.log` and `core-green.log` in the same directory.
 
+## Independent installed and native verification
+
+Root verified production commit `2e314b1` using a core-only wheel installed into Python 3.10.6.
+The installed acquisition module matches the task source byte for byte; `wheel-identity.json` records its SHA-256.
+The installed wheel passed all 29 exporter tests with isolated Python imports:
+
+```sh
+/home/vimkim/temp/cubrid-schema-standalone-645/wheel-310/bin/python -I -m unittest discover \
+  -s /home/vimkim/gh/cubrid-language-tools-standalone-export/tests -p test_schema_export.py -v
+```
+
+The wheel and source archive built at `2e314b1` passed `tools/check_artifacts.py`.
+The check verified 21 package modules, 19 license files, 204 source files, all three entry points, and six optional-only requirements.
+The archives and build log are under `/home/vimkim/temp/cubrid-schema-standalone-645/production-dist` and `build.log`.
+
+Native checks used a separate registered `schema645` database and work environment under `/home/vimkim/temp/cubrid-schema-standalone-645/native`.
+The existing dedicated CUBRID `11.5.0.2635` debug installation was reused without changing its binaries.
+The ordinary develop database, work environment, Neovim configuration, and installed language tools were preserved.
+
+| Native check | Result |
+| --- | --- |
+| Original installed exporter with `-S` | Exit 2 and empty stdout, reproducing the missing support. |
+| New installed exporter with `-S` as DBA | Exit 0; 76 relations, including `schema_people`, its columns and index, and `schema_people_view`. |
+| `--SA-mode` as `SCHEMA_READER` | Exit 0; 47 visible relations, granted table and columns present, ungranted view absent. |
+| `-C` and `--CS-mode` while the dedicated server runs | Both succeed with the same fixture metadata. |
+| `-S` while that server owns the database | Exit 3, empty stdout, fixed redacted error; a subsequent client/server export still succeeds. |
+| `-S` after server and master shutdown with process exit confirmed | Succeeds; fixture is intact, and no owned native process remains. |
+| Unchanged Neovim plugin `8160c40` and existing LSP with the new installed exporter | Table/view and alias-column completion, refresh, restricted-user switch, disconnect, private snapshots, and LSP process cleanup pass. |
+
+The headless editor opens `hello.sql` and initially puts `DROP TABLE schema_people;` only in the buffer.
+Later catalog checks confirm the fixture remains present. Acquisition does not execute that buffer.
+The final editor receipt is `editor-gqmljysh/result.json` under the evidence directory.
+Native receipts are `native/standalone-dba.json`, `native/standalone-reader.json`, and `native/service-acceptance.json`.
+
+Rerun the native and editor probes against the preserved fixture with:
+
+```sh
+source /home/vimkim/temp/cubrid-schema-standalone-645/native/source/.cub-workenv/env.sh
+python3 /home/vimkim/temp/cubrid-schema-standalone-645/native-service-probe.py
+python3 /home/vimkim/temp/cubrid-schema-standalone-645/native-editor.py \
+  --exporter /home/vimkim/temp/cubrid-schema-standalone-645/wheel-310/bin/cubrid-schema \
+  --server /home/vimkim/.local/share/uv/tools/cubrid-language-tools/bin/cubrid-language-server
+```
+
+The service probe starts and stops only its dedicated environment and preserves its database.
+One immediate post-shutdown attempt reached the five-second acquisition deadline.
+The same request later succeeded, and a complete repeat passed after explicitly checking native process exit before reopening the database.
+These checks do not guarantee native startup or recovery completes within five seconds; the existing configurable deadline still applies.
+
 ## Limitations and ownership
 
-The implementer ran controlled subprocess checks, not real standalone CSQL or Neovim.
-Root records separate native and unchanged-editor acceptance after independent verification.
+Native/editor evidence covers the dedicated CUBRID 11.5 installation on Linux and Neovim 0.12.5.
 This ticket does not rerun the historical native parser or distribution qualification matrix.
 The release guard change does not claim a complete installed native release run.
 
