@@ -12,7 +12,7 @@ import subprocess
 import tempfile
 from threading import Event
 import time
-from typing import Sequence
+from typing import Literal, Sequence
 
 from .models import Relation, Schema
 
@@ -78,10 +78,13 @@ class Connection:
     endpoint: str = field(repr=False)
     user: str | None = field(default=None, repr=False)
     password: str = field(default='', repr=False, compare=False)
+    mode: Literal['CS', 'SA'] = field(default='CS', repr=False)
 
     def __post_init__(self):
         if (not _valid_text(self.endpoint) or not _ENDPOINT.fullmatch(self.endpoint)
                 or self.endpoint.startswith('-')
+                or self.mode not in ('CS', 'SA')
+                or (self.mode == 'SA' and '@' in self.endpoint)
                 or (self.user is not None and (not _valid_text(self.user)
                                                or self.user.startswith('-')
                                                or any(ord(c) < 32 for c in self.user)))
@@ -118,11 +121,16 @@ def parse_connection(command: str | Sequence[str], *, password: str | None = Non
         tokens.pop(0)
     values: dict[str, str] = {}
     endpoint = None
+    mode: Literal['CS', 'SA'] | None = None
     index = 0
     while index < len(tokens):
         token = tokens[index]
         index += 1
-        if token in ('-C', '--CS-mode'):
+        if token in ('-C', '--CS-mode', '-S', '--SA-mode'):
+            selected: Literal['CS', 'SA'] = 'CS' if token in ('-C', '--CS-mode') else 'SA'
+            if mode is not None and mode != selected:
+                raise AcquisitionError('invalid-request')
+            mode = selected
             continue
         field_name = None
         value = None
@@ -149,7 +157,8 @@ def parse_connection(command: str | Sequence[str], *, password: str | None = Non
             values[field_name] = value
     if endpoint is None:
         raise AcquisitionError('invalid-request')
-    return Connection(endpoint, values.get('user'), password if password is not None else values.get('password', ''))
+    return Connection(endpoint, values.get('user'),
+                      password if password is not None else values.get('password', ''), mode=mode or 'CS')
 
 
 def validate_timeout(timeout: float) -> float:
@@ -193,7 +202,8 @@ def acquire_schema(connection: Connection, *, executable: str = 'csql', timeout:
         if program is None:
             raise AcquisitionError('unavailable')
         program = str(Path(program).resolve())
-        arguments = [program, '-C', '-p', connection.password, '-r', '-t', '-c', CATALOG_QUERY]
+        arguments = [program, '-S' if connection.mode == 'SA' else '-C',
+                     '-p', connection.password, '-r', '-t', '-c', CATALOG_QUERY]
         if connection.user is not None:
             arguments.extend(('-u', connection.user))
         arguments.append(connection.endpoint)

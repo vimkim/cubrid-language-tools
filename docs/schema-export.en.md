@@ -15,6 +15,15 @@ Select a trusted CSQL executable and a client/server database endpoint:
 cubrid-schema export --csql /trusted/cubrid/bin/csql --timeout 5 -- -udba demodb@localhost -C > schema.json
 ```
 
+For standalone mode, select `-S` and a local database name without a host suffix:
+
+```sh
+cubrid-schema export --csql /trusted/cubrid/bin/csql --timeout 5 -- -udba demodb -S > schema.json
+```
+
+The exporter uses the selected mode once. It does not retry in another mode or start or stop database services.
+If CSQL rejects a standalone connection, including a database already in use, the exporter exits 3 with empty stdout and a fixed, redacted error.
+
 Accept a snapshot only when the command exits 0 and stdout contains complete valid JSON.
 Request, acquisition, parsing, and serialization failures leave stdout empty.
 If the output pipe closes, times out, or is cancelled after writing begins, stdout can contain partial JSON and the command exits nonzero.
@@ -52,12 +61,16 @@ An optional leading `csql` or path ending in `csql` is descriptive only.
 The parser accepts `-uNAME`, `-u NAME`, `--user=NAME`, and `--user NAME`, plus the equivalent `-p` and `--password` forms.
 Identical duplicate values are accepted. Conflicting duplicates are rejected.
 `-C` and `--CS-mode` select client/server mode, which is also the default.
+`-S` and `--SA-mode` select standalone mode. Repeated aliases for the same mode are accepted.
+Combining client/server and standalone modes in either order is rejected before child launch.
 When no user is supplied, CSQL selects its default user.
 Use attached or equals syntax for a password that starts with `-`.
 
 Exactly one database endpoint is required. Accepted database and hostname characters are Unicode word characters, dots, and hyphens.
-An endpoint can include `@host`, a numeric port, or a bracketed IPv6 host. It cannot start with `-` or contain whitespace or shell operators.
-Standalone mode, admin modes, arbitrary SQL, input/output files, unknown flags, and extra operands are rejected before child launch.
+In client/server mode, an endpoint can include `@host`, a numeric port, or a bracketed IPv6 host.
+Standalone mode requires a local database name without any `@host` suffix.
+An endpoint cannot start with `-` or contain whitespace or shell operators.
+Admin modes, arbitrary SQL, input/output files, unknown flags, and extra operands are rejected before child launch.
 No shell is invoked. Project configuration cannot select CSQL executables or contain connection credentials.
 
 Requests are limited to 64 KiB. Unknown or duplicate JSON keys, wrong types, invalid UTF-8, invalid quoting, NUL, and trailing JSON data are rejected.
@@ -103,11 +116,13 @@ encoded = snapshot_json(schema, source=connection)
 ```
 
 `Connection` is immutable, validates its fields, and omits connection details from repr.
+Its `mode` is `"CS"` by default or `"SA"` for standalone, including when constructing `Connection` directly.
 `parse_connection` accepts a command string or a list/tuple of already-tokenized arguments.
 `acquire_schema` returns the existing immutable `Schema`. It raises `AcquisitionError` with a fixed `code` and redacted message.
 Setting the optional `threading.Event` cancels acquisition and cleans up the owned group.
 `snapshot_json` also accepts a positive bounded `timeout` and optional cancellation event.
 The language core never imports this adapter or acquires metadata implicitly.
 
-The [acceptance report](tickets/reports/schema-export.md) records controlled subprocess tests and the separate CUBRID 11.5 catalog smoke.
+The [original acceptance report](tickets/reports/schema-export.md) records controlled subprocess tests and the separate CUBRID 11.5 catalog smoke.
+The [standalone acceptance report](tickets/reports/schema-standalone-export.md) records the later mode extension and its verification.
 This acquisition evidence does not change the exact native parser profile or its qualification.

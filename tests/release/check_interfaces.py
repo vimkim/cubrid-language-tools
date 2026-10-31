@@ -20,7 +20,7 @@ def check(worker, runtime, with_lsp):
     assert exporter.is_file(), exporter
     help_result = subprocess.run([str(exporter), '--help'], capture_output=True, timeout=5)
     assert help_result.returncode == 0 and b'--request-stdin' in help_result.stdout, help_result.stderr
-    invalid = subprocess.run([str(exporter), 'export', '--', '-S', 'demodb'], capture_output=True, timeout=5)
+    invalid = subprocess.run([str(exporter), 'export', '--', '-S', '-C', 'demodb'], capture_output=True, timeout=5)
     assert invalid.returncode == 2 and not invalid.stdout, invalid.stderr
     assert 'site-packages' in str(Path(__import__('cubrid_language').__file__)), 'requires an installed package'
     requirements = metadata.requires('cubrid-language-tools') or []

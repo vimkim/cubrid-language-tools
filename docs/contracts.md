@@ -174,6 +174,8 @@ Its top-level `user` is authenticated and its `database` omits the host.
 
 The Python package installs `cubrid-lint`, `cubrid-schema`, and `cubrid-language-server`.
 The [schema export contract](schema-export.en.md) defines direct argv and version 1 JSON stdin requests, fixed catalog acquisition, strict redaction, and exits 0/2/3/124/130.
+Its immutable `Connection` selects client/server mode by default or explicit standalone mode for a local database name.
+Conflicting modes and standalone endpoints with a host suffix fail before child launch. Acquisition never retries in another mode.
 `cubrid-schema` has zero mandatory runtime dependencies and requires POSIX process containment. It is never invoked by linting or the language server.
 Starting the server requires the optional `lsp` dependencies.
 If they are absent, startup prints installation guidance to stderr and exits with a tool failure.
