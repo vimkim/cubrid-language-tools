@@ -5,7 +5,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 import re
 
-from .authoring import HINTS, HINT_START, sql_parts
+from .authoring import HINTS, HINT_START
+from ._source import Token, authoring_parts, tokenize, unquote
 from .validation.models import PROFILE
 from .completion_data import PARAMETERS
 from .models import CompletionItem, CompletionResult, Relation, Schema, Span
@@ -68,88 +69,12 @@ class _Suggestions:
   allowed: bool = True
 
 
-@dataclass(frozen=True)
-class Token:
-  text: str
-  start: int
-  end: int
-  kind: str
-  depth: int
-  closed: bool = True
-
-  @property
-  def name(self) -> str:
-    return unquote(self.text, self.closed)
-
-  @property
-  def keyword(self) -> str:
-    return self.text.upper() if self.kind == "word" else ""
-
-
-def unquote(value: str, closed: bool = True) -> str:
-  if value and value[0] in '["`':
-    closer = ']' if value[0] == '[' else value[0]
-    return value[1:-1 if closed else None].replace(closer * 2, closer)
-  return value
-
-
 def identifier(value: str, quote: str = "") -> str:
   if not quote and re.fullmatch(r"[^\W\d]\w*", value, re.UNICODE) and value.upper() not in RESERVED:
     return value
   quote = quote or '['
   closer = ']' if quote == '[' else quote
   return quote + value.replace(closer, closer * 2) + closer
-
-
-def tokenize(text: str) -> list[Token]:
-  """Keep source spans and tolerate incomplete comments, strings, and names."""
-  tokens = []
-  index, depth = 0, 0
-  while index < len(text):
-    start = index
-    character = text[index]
-    if character.isspace():
-      index += 1
-      continue
-    kind, closed = "symbol", True
-    if text.startswith(('--', '//'), index):
-      end = text.find('\n', index)
-      index = len(text) if end < 0 else end
-      kind, closed = "comment", end >= 0
-    elif text.startswith('/*', index):
-      end = text.find('*/', index + 2)
-      index = len(text) if end < 0 else end + 2
-      kind, closed = "comment", end >= 0
-    elif character in "'\"`[":
-      closer = ']' if character == '[' else character
-      kind = "string" if character == "'" else "identifier"
-      index += 1
-      closed = False
-      while index < len(text):
-        if character == "'" and text[index] == '\\':
-          index = min(len(text), index + 2)
-          continue
-        if text[index] == closer:
-          index += 1
-          if index < len(text) and text[index] == closer:
-            index += 1
-            continue
-          closed = True
-          break
-        index += 1
-    elif character.isalnum() or character in '_$':
-      index += 1
-      while index < len(text) and (text[index].isalnum() or text[index] in '_$'):
-        index += 1
-      kind = "word"
-    else:
-      index += 1
-    if character == ')' and kind == "symbol":
-      depth = max(0, depth - 1)
-    tokens.append(Token(text[start:index], start, index, kind, depth, closed))
-    if character == '(' and kind == "symbol":
-      depth += 1
-  return tokens
 
 
 def statement_scope(tokens: list[Token], cursor: int) -> list[Token]:
@@ -355,7 +280,7 @@ def _suggest(text: str, cursor: int, schema: Schema, profile: str) -> _Suggestio
 
 
 def profile_hint_allowed(text: str, current: Token, cursor: int) -> bool:
-  return cursor >= current.start + 3 and any(span.start <= current.start < span.end for span in sql_parts(text))
+  return cursor >= current.start + 3 and any(part.span.start <= current.start < part.span.end for part in authoring_parts(text))
 
 
 def hint_suggestions(text: str, cursor: int, schema: Schema, tokens: list[Token], current: Token) -> _Suggestions:

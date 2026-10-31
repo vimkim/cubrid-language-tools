@@ -1,6 +1,6 @@
 import re
 
-from .scripts import classify
+from ._source import authoring_parts
 from .show_hint_inventory import HINTS as HINT_PAIRS, SHOW_FIRST as SHOW_WORDS, SHOW_PRODUCTIONS
 from .validation.models import Diagnostic, PROFILE, Span
 
@@ -33,30 +33,6 @@ def show_second_words():
 SHOW_SECOND = show_second_words()
 
 
-def sql_parts(text):
-    from .completion import tokenize
-
-    spans = []
-    for part in classify(text):
-        if part.kind != 'sql':
-            continue
-        tokens = [token for token in tokenize(text[part.span.start:part.span.end]) if token.kind != 'comment']
-        statement_start = 0
-        for index, token in enumerate(tokens):
-            if index == statement_start:
-                header = [item.keyword for item in tokens[index:index + 4]]
-                if header[:2] == ['CREATE', 'TRIGGER'] or header[:4] == ['CREATE', 'OR', 'REPLACE', 'TRIGGER']:
-                    end = part.span.start + token.start
-                    if part.span.start < end:
-                        spans.append(Span(part.span.start, end))
-                    break
-            if token.text == ';':
-                statement_start = index + 1
-        else:
-            spans.append(part.span)
-    return tuple(spans)
-
-
 def authoring_diagnostics(text, profile, script_mode='sql'):
     """Return exact, warning-only findings without starting a native worker."""
     if not isinstance(text, str) or not isinstance(profile, str) or script_mode not in ('sql', 'csql'):
@@ -70,10 +46,10 @@ def authoring_diagnostics(text, profile, script_mode='sql'):
         raise ValueError('invalid profile or document')
     if profile != PROFILE:
         return ()
-    from .completion import tokenize
     findings = []
-    for span in sql_parts(text):
-        tokens = tokenize(text[span.start:span.end])
+    for part in authoring_parts(text):
+        span = part.span
+        tokens = part.tokens
         statement = []
         for token in tokens:
             start, end = span.start + token.start, span.start + token.end
