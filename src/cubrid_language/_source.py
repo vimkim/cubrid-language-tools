@@ -1,5 +1,3 @@
-"""Shared tolerant tokenization and authoring eligibility."""
-
 from dataclasses import dataclass
 
 from .models import Span
@@ -32,7 +30,6 @@ def unquote(value: str, closed: bool = True) -> str:
 
 
 def tokenize(text: str) -> list[Token]:
-  """Keep source spans and tolerate incomplete comments, strings, and names."""
   tokens = []
   index, depth = 0, 0
   while index < len(text):
@@ -84,8 +81,6 @@ def tokenize(text: str) -> list[Token]:
 
 @dataclass(frozen=True)
 class AuthoringPart:
-  """Eligible document span and tokens relative to its start."""
-
   span: Span
   tokens: tuple[Token, ...]
 
